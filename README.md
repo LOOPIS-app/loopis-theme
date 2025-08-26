@@ -1,6 +1,6 @@
-# 🌈 LOOPIS
+# 🌈 LOOPIS Theme
 
-"LOOPIS Theme" (loopis-theme) is a WordPress Theme that provides design and functionality for the web application LOOPIS.app<br>
+"LOOPIS Theme" (loopis-theme) is a WordPress theme that provides design and functionality for the web application LOOPIS.app<br>
 
 ## 💡 Status
 Original developer joxyzan is currently working on migrating "ungitable" stuff from the WordPress installation that serves as our prototype. When finished all code will be available on GitHub for collaborative development.<br>
@@ -24,7 +24,7 @@ First version of the theme live on loopis.app!<br>
 Previously added functions moved from plugin to theme<br>
 Development now assisted by GitHub Copilot instead of Poe<br>
 
-## 🎡 Installation/Update of "LOOPIS Theme"
+## 💾 Installation/Update of "LOOPIS Theme"
 
 1. Download and zip the folder "loopis-theme".
 2. Upload the zip using **WordPress admin dashboard > Appearance > Themes > Add New Theme**.
