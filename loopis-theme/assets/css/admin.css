@@ -1,0 +1,10 @@
+/*  Admin bar */
+body.admin-bar #header { margin-top: 32px; }
+
+/*  Admin content */
+.admin-content { }
+
+/*  Admin emojis */
+.admin-content .emoji { filter: grayscale(40%); }
+.admin-block .emoji { filter: grayscale(40%); }
+.admin-footer .emoji { filter: grayscale(40%); }

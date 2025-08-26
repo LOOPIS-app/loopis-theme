@@ -1,0 +1,39 @@
+@media only screen and (max-width: 783px) {
+
+/* footer menu */
+.footer-button .emoji { font-size: 30px; }
+.footer-button .text { font-size: 13px; }
+
+/* hide admin bar */
+#wpadminbar { display: none; }
+html { margin-top: 0px !important; }
+
+/* layout */
+#wrapper { min-width: 320px; }
+#header { margin-top: 0px !important; }
+.container { border: none; }
+.page-padding { padding: 15px 12px; }
+#footer { padding-bottom: 20px; } 
+
+/* page */
+.page-title { font-size: 18px; margin-bottom: 0; }
+
+/* post */
+.entry-header .entry-title { font-size: 30px;}
+.entry-header .entry-meta { font-size: 15px; }
+.entry-media { margin-bottom: 5px; }
+
+/* text */
+h1 { font-size: 32px; }
+h2 { font-size: 26px; }
+h3 { font-size: 24px; }
+
+h1 .symbol { height: 27px !important; width: auto; }  /* used for coins  */
+h1 .symbol .emoji { font-size: 90%; }  /* used for clovers and stars */
+
+/* special */
+.wrapped { display: block; margin: 0 0 15px 0;}  /* unwraps the wrap */
+#feedback { max-width: 100%; display: block; margin: 20px 0; }  /* unwraps the wrap */
+
+/* spans */
+span.recipe { font-size: 13px; }

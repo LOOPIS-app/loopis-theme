@@ -1,0 +1,507 @@
+/*
+ Theme Name: LOOPIS Theme
+ Version: 0.6
+ Author: joxyzan
+ Author URI: https://loopis.org
+ Description: Theme for making LOOPIS.app work and shine
+ Text Domain: loopis-theme
+*/
+
+/* Reset - http://meyerweb.com/eric/tools/css/reset/ v2.0 */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, 
+pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, 
+samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, 
+fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, 
+canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, 
+section, summary, time, mark, audio, video { margin: 0; padding: 0; border: 0; font-size: 100%; font-family: 'Roboto Condensed', sans-serif; vertical-align: baseline; }
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {	display: block; }
+ol, ul { list-style: none; }
+blockquote, q { quotes: none; }
+blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; }
+table { border-collapse: collapse; border-spacing: 0; }
+
+/* BASE STYLE */
+body { background:#fff; font-size:16px; line-height:1.5em; color:#333; font-weight:300; }
+::selection { background:#333; color:#fff; }
+::-moz-selection { background:#333; color:#fff; }
+img { max-width:100%; height:auto; }
+address,cite,em { font-style: italic; }
+strong { font-weight:400; }
+ol, ul { box-sizing:content-box; }
+.left,.alignleft { float:left; }
+.right,.alignright { float:right; }
+.aligncenter { margin-left:auto; margin-right:auto; }
+
+/* Emojis */
+img.wp-smiley, img.emoji { margin: 0 1px 0 0 !important; vertical-align: -0.1em !important; }
+
+/*  CLEAR */
+.clear { clear:both; display:block; overflow:hidden; width:0; height:0; }  /* removed {visibility: hidden} pga F.U.S.  */
+.group:before, .group:after { content: ""; display: table; }
+.group:after { clear:both; }
+.group { zoom:1; }
+
+/*  BASE LAYOUT */
+#wrapper { max-width:900px; height:100%; margin: 0 auto; background: #fefefe; margin-bottom: 25px;}
+.container { width:100%; margin-top: 70px; background: #fff; border: 1px solid #f5f5f5; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
+.content { }
+.page-padding { padding:20px 15px; }
+
+/*  Header */
+#header { position: fixed; top: 0px; left: 0px; z-index: 1; padding-top:10px; height: 60px; width: 100%; font-size: 19px; color: #999; background: #fff; border-bottom: 1px solid #e5e5e5; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
+#header-img { width: 195px; height: 50px; display: block; margin: 0 auto; }
+.header-back { display: none; }
+.header-back { display: block; width: 20px; height: 20px; position: absolute; left: 3px; top: 10px; padding: 15px; z-index: 9; cursor: pointer;}
+.header-faq { display: block; width: 20px; height: 20px; position: absolute; right: 10px; top: 10px; padding: 15px; z-index: 9; cursor: pointer; }
+.header-back:hover { color: #333; }
+.header-faq:hover { color: #333; }
+
+/*  Footer */
+#footer { height: 60px; width: 100%; padding: 10px 0; } 
+
+/* Scroll to top */
+.top { text-align: center; margin: 20px 0;}
+
+/* footer menu */
+.footer-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  border-top: 1px solid #e5e5e5;
+  padding-right: 25px;
+  text-align: center;
+}
+
+.footer-menu nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.footer-button {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px 5px;
+}
+
+.footer-button:hover {
+  background-color: #e5e5e5;
+}
+
+.footer-button .emoji {
+  font-size: 32px;
+  margin-bottom: 7px;
+}
+
+.bw { filter: grayscale(100%); }
+
+.footer-button .text {
+  font-size: 14px;
+  line-height: 1;
+  text-decoration: none;
+  color: #333 !important;
+}
+
+/* Font Awesome square size */
+.fa, .fab, .fal, .far, .fas { width:1em; text-align:center; }
+.fas.fa-hashtag { font-weight: 300; }
+i { margin-right: 3px; }
+
+/* Links */
+a { color:#1e73be; text-decoration:none;}
+a:hover { color:#333; }
+.post-meta a { color:#999; }
+.post-meta a:hover { color:#333; }
+
+/* Paragraph */
+p { margin:0 0 10px 0; }
+hr { width:100%; padding:0px; margin:0 0 9px 0; background-color:#000; height:1px; border:0; }
+.hidden { visiblity: hidden }
+
+/* Special fonts */
+.small { font-size: 13px; line-height: 1.5em; margin:2px 0 10px 0; }
+.small span { font-size: 13px; padding:2px; font-style:normal; }
+.info { font-size: 13px; line-height: 1.5em; font-style:italic; margin:2px 0 10px 0; }
+.info span { font-size: 13px; padding:2px; font-style:normal; }
+.wp-element-caption { font-size: 14px; line-height: 1.2; text-align: center; } /* bildtexter */
+
+/* Special divs */
+.wrapped { display: inline-block; vertical-align: top; background-color: #f5f5f5; padding: 5px 10px; margin: 0 15px 15px 0; }
+.wrapped p { margin: 0; }
+.wrapped hr { margin-bottom: 5px; }
+.link:hover { background: #ebebeb; cursor: pointer; } /* Used when making divs clickable */
+.homescreen { }				/* Inline at the moment */
+.interaction { }				/* No style? */
+
+/* Collapsed divs (not in use yet) */
+.collapsed { display: none; overflow: hidden; transition: max-height 0.2s ease-out; }
+.collapser { cursor: pointer; user-select: none; }
+
+/* Economy layout */
+.economy { margin-top: 0px; min-width: 200px;}
+.economy p { margin: 0; font-size: 14px; color: #999; line-height: 1.7; text-decoration: none; } 
+.economy hr { margin: 1px 0; background-color: #999; }
+.economy b { font-weight: 700; }
+.economy span.right { padding-right: 5px }
+
+/* Spans */
+span { white-space: nowrap; }
+span.label { font-size: 14px; padding:5px; background: #f5f5f5; }
+span.small-label { font-size: 13px; padding:3px; background: #f5f5f5; }
+span.big-label { font-size: 16px; padding:5px; background: #f5f5f5; }
+span.mega-label { font-size: 18px; padding:7px; line-height: 35px; background: #f5f5f5; }
+span.link { font-size: 14px; padding:5px; background: #f5f5f5; }
+span.small-link { font-size: 13px; padding:3px; background: #f5f5f5; }
+span.big-link { font-size: 16px; padding:5px; background: #f5f5f5; }
+span.mega-link { font-size: 18px; padding:7px; line-height: 35px; background: #f5f5f5; }
+span.link:hover { background: #ebebeb; }
+span.small-link:hover { background: #ebebeb; }
+span.big-link:hover { background: #ebebeb; }
+span.mega-link:hover { background: #ebebeb; cursor: pointer; }
+span.rounded { font-size: 16px; padding:4px 10px; border-radius: 20px; background: #fff; }
+span.grey { color: #999 !important; }
+span.grey a { color: #999 !important; text-decoration: none; }
+span.code { font-family: 'Courier New', monospace; font-weight: bold; }
+span.unclickable { color: #333; pointer-events: none; color: inherit; text-decoration: none; }
+span.plus { font-weight: 700; color: #73c23d !important; }
+span.minus { font-weight: 700; color: #FF969D !important; }
+span.right { float: right; }
+
+/* Heading  */
+h1, h2, h3, h4, h5, h6, h7 { font-weight: 300; letter-spacing: -0.3px; line-height: 1.3em; white-space: nowrap; }
+
+h1 { font-size: 40px; margin-top: 0px; letter-spacing: -1px; }  /* used only for page- and post-titles */
+h2 { font-size: 34px; margin-top: 25px; }		/* used by WPUM (settings) */
+h3 { font-size: 28px; margin-top: 25px; }		/* used for subheadings on FAQ etc */
+h4 { font-size: 22px; margin-top: 15px;}		/* used on my profile on front page */
+h5 { font-size: 24px; margin-top: 0px; }		/* used in wrapped divs and puff */
+h6 { font-size: 16px; margin-top: 25px; }		/* used for custom comment */
+h7 { font-size: 28px; padding-top: 10px; }		/* added for admin-page + WPUM tabs */
+
+/* Special heading  */
+h1 .symbol { height: 30px !important; width: auto; padding-right: 5px; }  /* used for coins  */
+h1 .symbol .emoji { font-size: 80%; }  /* used for clovers and stars */
+h1.wrap { white-space: normal; }
+
+/* Post layout */
+.post-wrapper { background:#f5f5f5; }
+.post-wrapper-form { background:#f5f5f5; padding:15px; border-radius: 10px; }
+.post-padding { padding: 10px 20px; }
+.post-images { position: relative; }
+.post-image { margin: 0; padding: 0; }
+.post-image img { width: 100%; height: auto; }
+.extra-image { position: absolute; right: 15px; bottom: -25px; }
+.extra-image img { height: 100px !important; width: 100px !important; object-fit: cover; overflow: hidden; border: 3px solid white; border-radius: 50%; }
+.post-meta { font-size: 15px; color: #999; margin-bottom: 15px; }
+.post-meta span { font-size: 15px; background: none; padding:0; margin-right: 7px; }
+.post-meta span.rounded { font-size: 16px; padding:4px 10px; border-radius: 20px; color: #333; background: #fff;}
+.post-meta a { color: #999; }
+.post-meta a:hover { color: #000; background: none; }
+.post-content { font-size: 18px; }
+.post-content span { font-size: 16px; padding:5px; background: #fff !important; }
+.post-content .label { font-size: 14px; color: #999; margin-bottom: 0; }
+.post-content .wrapped { background-color: #fff; padding: 8px 10px 5px 10px; margin: 0 15px 15px 0; }
+.post-content .wrapped p { margin: 5px 0; }
+
+/* Video embedded in post */
+.wp-block-embed__wrapper { display: flex; justify-content: center; }
+.wp-block-embed__wrapper iframe { width: 240px !important; height: auto !important; }
+
+/* Logg layout */
+.logg { font-size:13px; color:#999; line-height:1.5; text-decoration:none; padding: 0 20px; } 
+.logg p { margin:0; } 
+.logg a { color: #999; }
+.logg a:hover { color:#333; }
+.logg span { float: right; font-size:13px; background:none !important; padding:0; }
+
+/*  Admin block */
+.admin-block { background: #fff7f7; border: 2px dotted #ff969d; padding: 10px 10px 1px 10px; margin: 10px 0;  }
+.admin-block .logg { padding: 0 0 10px 0; } 
+
+/* Post-list */
+.post-list { margin-bottom: 20px; }
+.post-list-post { height: 60px; background: #f5f5f5; box-shadow: 2px 2px 5px #eee; margin-bottom: 13px; }
+.post-list-post-big { height: 120px; background: #f5f5f5; box-shadow: 2px 2px 5px #eee; margin-bottom:15px; }
+.post-list > .link:hover { background: #ebebeb; box-shadow: 1px 1px 3px #eee; cursor: pointer; }
+.post-list-post-thumbnail { float: left; width: 60px; height: 60px; margin-right: 8px; }
+.post-list-post-thumbnail-big { float: left; width: 120px; height: 120px; margin-right: 10px; }
+.post-list-post-title { font-size: 22px; color: #333; padding: 4px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.post-list-post-title-big { font-size: 24px; color: #333; letter-spacing: -0.3px; padding: 7px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.post-list-post-excerpt { font-size: 15px; overflow: hidden; text-overflow: ellipsis; }
+.post-list-post-excerpt br { display: none; }
+.post-list-post-excerpt .read-more { font-weight: 400; color: #1e73be; }
+.post-list-post-comment { font-size: 16px; font-style: italic; padding-top: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #333; }
+.post-list-post-comment p { padding: 0; margin: 0; background: none !important; display: inline-block; }
+.post-list-post-comment span { padding: 4px; background: #fff; }
+.post-list-post-comment a { }
+.post-list-post-comment br { display: none; } 
+.post-list-post-meta { font-size: 15px; color: #999; }
+.post-list-post-meta span { padding: 0; margin-right: 7px; }
+.post-list-post-meta i { margin: 0 3px 0 1px; }
+.post-list-post-meta p { margin: 0; }
+.post-list-post-meta a { color: #999; }
+.post-list-post-meta a:hover { color: #333; }
+.post-list .right { font-size: 13px; text-align: right; padding-right: 5px; }
+
+/* Forum-list */
+.post-list-forum { display: flex; align-items: stretch; overflow: hidden; min-height: 60px; background: #f5f5f5; box-shadow: 2px 2px 5px #eee; margin-bottom: 13px; cursor: pointer; }
+.post-list-forum-content { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 5px 8px; }
+.post-list-forum-title { font-size: 22px; color: #333; padding: 3px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.post-list-forum-excerpt .read-more { font-weight: 400; color: #1e73be; }
+.post-list-forum-thumbnail { flex: 0 0 60px; margin-left: auto; }
+.post-list-forum-thumbnail img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Thumbnail-list (not used) */
+.thumb-list { display: flex; flex-wrap: nowrap; overflow-x: auto; }
+.thumb-list-thumb { flex-shrink: 0; margin-right: 10px; width: calc(100% / 5 - 8px); }
+.thumb-list-thumb:last-child { margin-right: 0; }
+
+/* Notification stuff */
+.notif { background: #FFF1E4 !important; color: #000; }
+.notif:hover { background: #FFE4CB !important; }
+.notif-button { position:absolute; top:13px; right:10px; } 	
+.notif-meta { position:absolute; top: 30px; left: 67px; }
+
+/* Columns */
+.wp-block-columns { margin-bottom:0px; }
+.wp-block-column p { padding-bottom:5px; }
+.columns { display: flex; }
+.column1 { display: flex; flex: 1 0 50%; line-height: 1.2em; }
+.column2 { display: flex; flex: 1 0 50%; line-height: 1.2em; justify-content: flex-end; margin-bottom: 2px; white-space: nowrap; }
+.columns50 {display: flex; flex-wrap: wrap;}	 /* Where and why is this used...? */
+.columns50 > div { flex: 1 0 50%; line-height: 1.2em; }
+.columns_cat { display: flex; line-height: 1.6em; }			 /* Used on /kategorier... */
+.columns_cat > div { flex: 1 0 50%; }
+@media (max-width: 720px) { .columns50 > div { flex-basis: 100%;  } } /* Poe: Set flex basis to 100% for mobile devices */
+.top { align-items: flex-start !important; }
+.bottom { align-items: flex-end; }
+
+/* Padding & margin */
+.margin0 { margin: 0px !important; }
+.padding0 { padding: 0px !important; }
+.padgin0 { padding: 0px !important; margin: 0px !important; }
+.center { text-align: center;  }
+
+/* Denna styling av gap funkar ej :(  */
+body .wp-block-columns .wp-block-column {gap: 0em !important; }
+
+/* Pagination (WPUM style) */
+#post-pagination { display: flex; justify-content: center; background: #f5f5f5; flex-wrap: wrap; margin-top: 20px; font-size: 24px; }
+#post-pagination a { padding: 10px 15px;  }
+#post-pagination span { padding: 10px 15px; }
+
+/* image position */
+img.size-auto,
+img.size-large,
+img.size-medium,
+attachment img { max-width: 100%; height: auto; }
+img.alignleft { margin: 18px 20px 18px 0; }
+img.alignright { margin: 18px 0 18px 20px; }
+img.aligncenter { margin: 18px auto; clear: both; display: block; }
+img .size-full { width: 100%!important; }
+
+/* table */
+.entry table { font-size: 14px; width: 100%; text-align: left; vertical-align: middle;}
+.entry table td { padding-bottom: 10px; }
+
+/*  FORMS & BUTTONS */
+/* Poe: Font styles */
+input, textarea, button, select, label { font-family: inherit !important; }
+input, select, textarea, button, label { font-size: 22px; font-weight: 300;} 
+
+/* Poe: Reset styles */
+input::-moz-focus-inner, button::-moz-focus-inner { border: 0; padding: 0; }
+input[type="search"], input[type="text"], input[type="password"], input[type="email"], input[type="url"], input[type="tel"], input[type="number"], input[type="submit"], select, button, textarea { margin: 0; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; -webkit-border-radius: 0; border-radius: 0; }
+input, select, textarea, button { -moz-appearance: none; -webkit-appearance: none; -moz-transition: all .2s ease; -webkit-transition: all .2s ease; transition: all .2s ease; }
+select { -moz-appearance: menulist; -webkit-appearance: menulist; }
+input[type="checkbox"] { -moz-appearance: checkbox; -webkit-appearance: checkbox; background: none; }
+input[type="radio"] { -moz-appearance: radio; -webkit-appearance: radio; }
+
+/* Poe: Form elements */
+label { color: #333; }
+label .required { color: #333; }
+input[type="search"], input[type="text"], input[type="password"], input[type="email"], input[type="url"], input[type="tel"], input[type="number"], select, textarea { background: #fff; border: 2px solid #e5e5e5; color: #777; display: block; max-width: 100%; outline: none; padding: 7px 8px; }
+input[type="search"]:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="tel"]:focus, input[type="number"]:focus, select:focus, textarea:focus { border-color: #ddd; color: #333; -webkit-box-shadow: 0 0 3px rgba(0,0,0,0.1); box-shadow: 0 0 3px rgba(0,0,0,0.1); }
+
+/* Poe: Buttons */
+input[type="button"], input[type="reset"], input[type="submit"], button[type="button"], button[type="reset"], button[type="submit"] {
+  background: #78b159;
+  color: #FFF;
+  padding: 8px 14px;
+  display: inline-block;
+  border: none !important;
+  cursor: pointer;
+  -webkit-border-radius: 10px;
+  border-radius: 10px; }
+input[type="button"]:hover, input[type="reset"]:hover, input[type="submit"]:hover, button[type="button"]:hover, button[type="reset"]:hover, button[type="submit"]:hover {
+  background: #666 !important;
+  color: #FFF !important; }
+input[disabled] { background: #e3ebdd; color: #333; padding: 8px 14px; display: inline-block; border: none; cursor: pointer; -webkit-border-radius: 10px; border-radius: 10px; }
+
+/* Poe: Swish-link */
+button[type="submit"] a { text-decoration: none; color: #FFF; }
+
+/* Auto-respond-buttons */
+.arb { margin-top:15px; } 	
+button.small { font-size: 15px; padding: 5px 10px; margin: 0; }
+button.green { background: #77b255; }
+button.red { background: #FF969D; }
+button.blue { background: #69A8D6; }
+button.purple { background: #E0AADC; }
+button.orange { background: #FFBC82; }
+button.yellow { background: #FFE18C; color: #333 !important; }
+button.grey { background: #ddd; color: #000 !important; }
+button.waiting { background: #333 !important; } /* Used when submitting forms */
+button.black { background: #333; }
+button.admin-style { border: 2px dotted #FF969D !important; }
+.admin-style { border: 2px dotted #FF969D !important; }
+
+/* Post bottom stuff */
+.value { font-size: 14px; background: none; color: #999; padding: 5px 0; margin: 0 }
+#copy_url { display: inline; font-size: 14px; background: none; color: #999 !important; padding: 5px 10px 0 0; }
+#copy_url:hover { color: #333 !important; background: none !important; }
+a[href$="/edit"] { font-size: 14px; background: none; color: #999; padding: 5px 10px 0 0; }
+a[href$="/edit"]::before { content:"🔧 " }
+a[href$="/edit"]:hover { color: #333; }
+button.option { display: inline; float: left; font-size: 14px; background: none; color: #999 !important; padding: 5px 10px 0 0; }
+button.option:hover { background: none !important; color: #333 !important; }
+
+/* Comment list */
+#commentlist-container { }
+.commentlist { margin-bottom: 10px;}
+.commentlist li { padding-left: 50px; font-size: 13px; line-height: 22px; }
+.commentlist .comment-body { margin-top: 10px; clear: both; position: relative; }
+.commentlist .comment-author { display: block; float: left; }
+.commentlist .comment-meta { display: block; float: right; }
+.commentlist .fn { color: #333; font-style: normal; font-weight: 600; }
+.commentlist .fn a { color: #333 !important; }  /* author url */
+.commentlist .says { display: none; }
+.commentlist .avatar { position: absolute; left: -50px; top: 0px; width: 45px; height: 45px;}
+.commentlist .comment-meta a, .pinglist .ping-meta { color: #aaa; }
+.commentlist .reply { font-size: 13px; line-height: 16px; }
+.commentlist .reply a { color: #999; }
+.commentlist .reply a:hover { color: #333; }
+
+/* Comment reply */
+#respond { }
+.commentlist ul.children .comment-body { margin: 0 0 10px 0; }
+.commentlist ul.children .comment-body p { font-size: 14px; line-height: 18px; padding: 6px 8px; }
+.commentlist li ul {  }
+.commentlist li li { padding-left: 35px; }
+.commentlist li li .avatar { width: 30px; height: 30px; left: -36px; top: 2px; }
+#cancel-comment-reply-link { display: block; position: absolute; bottom: 14px; left: 70px; font-size: 13px; color: #999; }
+#cancel-comment-reply-link:hover { color: #333; }
+
+/* Comment text */
+.commentlist .comment-body p { margin: 0; padding: 8px 10px; font-size: 16px; background: #f5f5f5; border-radius: 10px; clear: both; }
+.commentlist .comment-body p a.comment-mention { text-decoration: none; cursor: default; pointer-events: none; color: inherit; font-size: 15px; padding:3px; background: #fff; white-space: nowrap; }  /* disable + style mentioned user */
+.commentlist .comment-body strong { font-weight: bold; }
+.commentlist .comment-body em { font-style: italic; }
+.commentlist .comment-body ol li { list-style: decimal; margin-left: 2em; padding: 0; }
+.commentlist .comment-body ul li { list-style: square; margin-left: 2em; padding: 0; }
+.commentlist .comment-body p span {font-size: 15px; padding:4px; background: #fff; }
+
+/* Comment background */
+.orange_light, .participate { background: #FFF1E4 !important; }
+.yellow_light, .unparticipate, .queue, .reminder { background: #FFFAEE !important; }
+.red_light, .lotten, .book, .remove .warning { background: #FFEEEE !important; }
+.green_light, .locker, .confirm, .unremove { background: #EFF6EC !important; }
+.blue_light, .fetched, .returned, .unqueue, .regret, .cancel { background: #E4F4FF !important; }
+.purple_light, .forward, .retrieved { background: #FAF2FA !important; }
+
+/* Comment form */
+.logged-in-as,
+.comment-notes, 
+.form-allowed-tags { display: none; }
+#respond { position: relative; }
+#reply-title { font-size: 16px; margin: 5px 0; }
+li #reply-title { font-size: 0; margin: 0!important; padding: 0; height: 0; border-top: 0; }
+
+#commentform { margin-bottom: 10px; border-radius: 10px; }
+#commentform input[type="text"], 
+#commentform textarea { height: 55px; font-size: 16px; width: 100%; }
+#commentform p.comment-form-comment { margin-top: 10px; }
+#commentform p.comment-form-comment label { display: none; }
+#commentform .comment-form-cookies-consent { padding: 10px 0; }
+#commentform .comment-form-cookies-consent label { display: inline; }
+
+/* Comments navigation */
+.comments-nav { margin-bottom: 20px; }
+.comments-nav a { font-weight: 600; }
+.comments-nav .nav-previous { float: left; }
+.comments-nav .nav-next { float: right;  }
+
+/* PLUGIN STYLES */
+
+/* WPUM profile*/
+.wpum-form fieldset label { font-size:14px }
+#header-profile-details { border:0px }
+.profile-navbar { padding-top:20px; border-top: 0px; border-bottom: 5px solid #f5f5f5; }
+.profile-navbar>a.active:first-child, 
+.profile-navbar>a:hover:first-child, 
+.profile-navbar>button.active:first-child, 
+.profile-navbar>button:hover:first-child { border-top-left-radius: 10px }
+.profile-navbar > a { padding: 8px 16px; margin-right: 5px; border-radius: 10px 10px 0 0; background: #e8e8e8; }
+.profile-navbar>a:hover { background: }
+.profile-navbar>a.active { background: #f5f5f5 }
+#profile-posts .wpum-post-thumbnail { float: left; width: 50px; margin-right: 10px; }
+.wpum-post-thumbnail img { width: 50px; height: 50px; object-fit: cover; }
+#profile-posts .wpum-post { border-bottom:0px; padding:0px; margin:0px; background: #f5f5f5; }
+.wpum-account-page { padding-top:20px; }
+.profile-tab-content { padding: 10px 0; margin-bottom: 10px; }
+
+/* WPUM admin tabs */
+.tabcontent { display: none; clear: both; }
+  
+/* WPUM forms */
+.wpum-form fieldset.fieldset-privacy { line-height: 1em; }
+.wpum-form fieldset.fieldset-location { line-height: 1.6em; padding-bottom:5px;}
+.wpum-form fieldset div.field label { font-size: 22px; } /* radio buttons */
+.wpum-form fieldset label[for="custom_location"] { display:none } /* annan adress */
+.wpum-form fieldset #custom_location { font-size:14px } /* annan adress */
+.wpum-form fieldset small.description { font-size: 13px; font-style:italic; margin-top: 5px; opacity: 1; color: #999; white-space: normal; }
+.wpum-form fieldset select { width: 100%; }
+.select2-selection { height: 38px; }
+.select2-selection--multiple { border: 2px solid #e5e5e5 !important; border-radius: 0px !important; }
+.select2-selection__rendered { font-size: 22px; padding: 0 !important; }
+.select2-search__field { padding-left: 10px !important; }
+.select2-dropdown--below { margin-top: 32px; } /* flyttar ner alternativen */
+.select2-selection__choice { font-size: 16px; height: 30px; margin-top: 2px !important; margin-left: 10px; padding-right: 10px !important; background: #f5f5f5; border-radius: 0 !important; border: none !important; }
+.select2-selection__choice__remove {padding:0 7px; }
+.wpum-form fieldset .required-field { background: none }
+.wpum-form wpum-required { background: none }
+.wpum-form span.field { background: none }
+input:is([type="hidden"], [type="image"], [type="file"]) { padding-top: 3px; display: flex; flex-direction: column; align-items: flex-start; } /* snyggar till "ingen fil vald"/filnamn */
+.wpum-form input[name="submit_registration"].waiting { background: #999; } /* publicera-knappen */
+
+/* WPUM forms: support */
+#booking .fieldset-post_title { display: none; }
+#support .fieldset-post_title { display: none; }
+#support label[for="post_content"] { display: none; }
+#support input[type="submit"] { font-size: 15px; }
+.feedback { max-width: 300px; margin: 50px auto; padding: 1px; background-color: #f5f5f5; text-align: center; }
+
+/* WPUM message */
+.wpum-message { border: 0; border-radius: 10px; text-shadow: none; padding: 7px 7px 1px 7px; font-size: 16px; font-style: normal; }
+.wpum-message p { padding:0; margin:0 0 6px 0; }
+.wpum-message.information { background-color: #D9EDf7; color: #000; }
+.wpum-message.warning { background-color: #FFE5E7; color: #000; }
+.wpum-message.notification { background-color: #FFF1E4; color: #000; }
+
+/* WPUM addon Registration forms (tillagd här för att den gömmer button på edit post) */
+input[name="submit_registration"].button { display: inline-block !important; }
+
+/* Searchandfilter  */
+.searchandfilter { margin: 10px 0 20px 0; }
+.searchandfilter input[type="text"] { font-size: 15px; width: 145px; height: 35px; }
+.searchandfilter select { font-size: 15px; padding: 6px; height: 35px;}
+.searchandfilter input[type="submit"] { font-size: 15px; }
