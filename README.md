@@ -1,6 +1,6 @@
 # 🌈 LOOPIS Theme
 
-"LOOPIS Theme" (loopis-theme) is a WordPress theme that provides design and functionality for the web application LOOPIS.app<br>
+"LOOPIS Theme" is a WordPress theme that provides the design and functionality for LOOPIS.app<br>
 
 ## 💡 Status
 Original developer joxyzan is currently working on migrating "ungitable" stuff from the WordPress installation that serves as our prototype. When finished all code will be available on GitHub for collaborative development.<br>
