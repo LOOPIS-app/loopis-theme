@@ -18,7 +18,7 @@ function loopis_theme_assets() {
     
     // Enqueue jQuery (default Wordpress version) + theme scripts
     wp_enqueue_script('jquery');
-    wp_enqueue_script('loopis-theme-scripts', LOOPIS_THEME_URI . '/assets/js/scripts.js', array('jquery'), filemtime(LOOPIS_THEME_DIR . '/assets/js/general.js'), true);
+    wp_enqueue_script('loopis-theme-scripts', LOOPIS_THEME_URI . '/assets/js/general.js', array('jquery'), filemtime(LOOPIS_THEME_DIR . '/assets/js/general.js'), true);
 
     // Enqueue CSS styles and JS for admin
     if (current_user_can('administrator') || current_user_can('manager') || current_user_can('board_member')) {
