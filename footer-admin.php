@@ -10,19 +10,19 @@
         <span class="text">Översikt</span>
         </a>
 
-        <a href="/admin/support" class="footer-button">
-        <span class="emoji">🛟</span>
-        <span class="text">Support</span>
-        </a>
-
-    	<a href="/admin/bookings" class="footer-button">
-        <span class="emoji">🗓</span>
-        <span class="text">Lån</span>
+    	<a href="/admin/reminders" class="footer-button">
+        <span class="emoji">⏰</span>
+        <span class="text">Påminnelser</span>
 	    </a>
 	    
 	    <a href="/admin/stats" class="footer-button">
         <span class="emoji">📊</span>
         <span class="text">Statistik</span>
+        </a>
+
+        <a href="/admin/support" class="footer-button">
+        <span class="emoji">🛟</span>
+        <span class="text">Support</span>
         </a>
 	    
         <a href="/admin/storage" class="footer-button">

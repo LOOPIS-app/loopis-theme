@@ -74,7 +74,6 @@ $count_support = count_user_support($user_id);
 <p><b><?php echo $stars; ?></b> stjärnor <span class="plus right">+<?php echo $star_coins; ?></span></p-->
 <p><b><?php echo $count_given; ?></b> saker lämnade <span class="plus right">+<?php echo $count_given; ?></span></p>
 <p><b><?php echo $count_booked; ?></b> saker hämtade/paxade <span class="minus right">–<?php echo $count_booked; ?></span></p>
-<p><b><?php echo $count_borrowed; ?></b> saker lånade <span class="minus right">–<?php echo $count_borrowed; ?></span></p>
 <hr>
 <p>&nbsp;<span class="right">Totalt: <b><?php echo $coins - $clover_coins - $star_coins; ?></b></span></p>
 </div>
@@ -84,7 +83,6 @@ $count_support = count_user_support($user_id);
 <hr>
 <p><b><?php echo $count_submitted; ?></b> annonser skapade <span class="plus right">+<?php echo $count_submitted; ?></span></p>
 <p><b><?php echo $count_booked; ?></b> saker hämtade <span class="plus right">+<?php echo $count_booked; ?></span></p>
-<p><b><?php echo $count_borrowed; ?></b> saker lånade <span class="plus right">+<?php echo $count_borrowed; ?></span></p>
 <hr>
 <p>&nbsp;<span class="right">Totalt: <b><?php echo $clovers; ?></b></span></p>
 

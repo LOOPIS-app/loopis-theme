@@ -279,7 +279,7 @@ h1.wrap { white-space: normal; }
 .column2 { display: flex; flex: 1 0 50%; line-height: 1.2em; justify-content: flex-end; margin-bottom: 2px; white-space: nowrap; }
 .columns50 {display: flex; flex-wrap: wrap;}	 /* Where and why is this used...? */
 .columns50 > div { flex: 1 0 50%; line-height: 1.2em; }
-.columns_cat { display: flex; line-height: 1.6em; }			 /* Used on /kategorier... */
+.columns_cat { display: flex; line-height: 1.6em; }			 /* Used on /categories? */
 .columns_cat > div { flex: 1 0 50%; }
 @media (max-width: 720px) { .columns50 > div { flex-basis: 100%;  } } /* Poe: Set flex basis to 100% for mobile devices */
 .top { align-items: flex-start !important; }
@@ -466,8 +466,8 @@ li #reply-title { font-size: 0; margin: 0!important; padding: 0; height: 0; bord
 .wpum-form fieldset.fieldset-privacy { line-height: 1em; }
 .wpum-form fieldset.fieldset-location { line-height: 1.6em; padding-bottom:5px;}
 .wpum-form fieldset div.field label { font-size: 22px; } /* radio buttons */
-.wpum-form fieldset label[for="custom_location"] { display:none } /* annan adress */
-.wpum-form fieldset #custom_location { font-size:14px } /* annan adress */
+.wpum-form fieldset label[for="custom_location"] { display:none }
+.wpum-form fieldset #custom_location { font-size:14px }
 .wpum-form fieldset small.description { font-size: 13px; font-style:italic; margin-top: 5px; opacity: 1; color: #999; white-space: normal; }
 .wpum-form fieldset select { width: 100%; }
 .select2-selection { height: 38px; }
@@ -481,7 +481,7 @@ li #reply-title { font-size: 0; margin: 0!important; padding: 0; height: 0; bord
 .wpum-form wpum-required { background: none }
 .wpum-form span.field { background: none }
 input:is([type="hidden"], [type="image"], [type="file"]) { padding-top: 3px; display: flex; flex-direction: column; align-items: flex-start; } /* snyggar till "ingen fil vald"/filnamn */
-.wpum-form input[name="submit_registration"].waiting { background: #999; } /* publicera-knappen */
+.wpum-form input[name="submit_registration"].waiting { background: #999; } /* publish button */
 
 /* WPUM forms: support */
 #booking .fieldset-post_title { display: none; }
@@ -497,7 +497,7 @@ input:is([type="hidden"], [type="image"], [type="file"]) { padding-top: 3px; dis
 .wpum-message.warning { background-color: #FFE5E7; color: #000; }
 .wpum-message.notification { background-color: #FFF1E4; color: #000; }
 
-/* WPUM addon Registration forms (tillagd här för att den gömmer button på edit post) */
+/* WPUM addon Registration forms (added here because it hides the button on edit post) */
 input[name="submit_registration"].button { display: inline-block !important; }
 
 /* Searchandfilter  */

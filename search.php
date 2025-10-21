@@ -3,14 +3,14 @@
 <div class="content">
 <div class="page-padding">
 				
-	<?php get_template_part('assets/page-title'); ?>
+	<h1>🔍 Sök</h1>
+    <hr>
+    <p class="small">💡 Sök bland alla aktuella annonser.</p>
 
 <!--Search-->
 <div>
 <?php echo do_shortcode( '[searchandfilter fields="search,post_tag" show_count=1 search_placeholder="🔍 Skriv sökord" submit_label="Sök"  all_items_labels=",Kategori"]' ); ?>
 </div>
-
-<p>Visar både <span class="label">🎁Saker att få</span> och <span class="label">🗓Saker att låna</span></p>
 
 <!--Post count-->
 <?php $hits=$wp_query->found_posts; ?>
@@ -37,7 +37,7 @@
 	<div class="post-list-post-thumbnail-big"><?php the_post_thumbnail('thumbnail'); ?></div>
 	<div class="post-list-post-title-big"><?php the_title(); ?></div>
 	<div class="post-list-post-meta">
-		<p><?php the_category(' '); if (in_category( 'new' )) { echo raffle_time(); } if (in_category( 'borrow' )) { include LOOPIS_THEME_DIR . '/assets/output/post/borrow/borrow-days.php'; } ?></p>
+		<p><?php the_category(' '); if (in_category( 'new' )) { echo raffle_time(); } ?></p>
 		<p><i class="fas fa-walking"></i><?php echo get_field('location'); ?></p>
 		<p><i class="fas fa-hashtag"></i><?php the_tags(''); ?></p>		
 	</div>

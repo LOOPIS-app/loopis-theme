@@ -85,19 +85,6 @@ add_action('after_setup_theme', 'loopis_theme_setup');
 // Add our own Twemoji implementation
 function loopis_add_twemoji() {
     ?>
-    <style>
-    /* Twemoji styles */
-    img.emoji {
-        height: 1em;
-        width: 1em;
-        margin: 0 .05em 0 .1em;
-        vertical-align: -0.1em;
-        border: none !important;
-        box-shadow: none !important;
-        background: none !important;
-        padding: 0 !important;
-    }
-    </style>
     <script type="text/javascript">
     !function(window, document) {
         // Immediate emoji replacement based on wp-emoji-loader.min.js

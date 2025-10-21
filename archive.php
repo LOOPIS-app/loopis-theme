@@ -3,17 +3,18 @@
 <div class="content">
 <div class="page-padding">
 						
-	<?php get_template_part('assets/page-title'); ?>
+    <?php if (is_category()) : ?>
+        <h1><?php single_cat_title(); ?></h1>
+    <?php elseif (is_tag()) : ?>
+        <h1><i class="fas fa-hashtag"></i><?php single_tag_title(); ?></h1>
+    <?php else : ?>
+        <h1>Arkiv</h1>
+    <?php endif; ?>
 
 <!--Search-->
 <div>
 <?php echo do_shortcode( '[searchandfilter fields="search,post_tag" show_count=1 search_placeholder="🔍 Skriv sökord" submit_label="Sök"  all_items_labels=",Kategori"]' ); ?>
 </div>
-
-<!--Category / tag-->
-<?php if (is_tag() && !is_category()) : ?>
-<p>Visar både <span class="label">🎁Saker att få</span> och <span class="label">🗓Saker att låna</span></p>
-<?php endif; ?>
 
 <!--Post count-->
 	<?php $count = $GLOBALS['wp_query']->found_posts; ?>
@@ -23,11 +24,9 @@
 ↓ <?php echo $count ?> aktuella annonser
 </div>
 <div class="column2">
-<?php if ( is_category('stuff')) :  ?><a href="../../faq/hur-far-jag-saker/">📌 Hur får jag saker?</a><?php endif;?>	
-<?php if ( is_category('borrow')) :  ?><a href="../../faq/hur-lanar-jag-saker/">📌 Hur lånar jag saker?</a><?php endif;?>	
+<a href="../../faq/hur-far-jag-saker/">📌 Hur får jag saker?</a>
 </div></div>
 <hr>
-
 
 <!--POSTS-->
 <div class="post-list">
