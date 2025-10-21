@@ -300,7 +300,7 @@ $queue = get_post_meta($post_id, 'queue', true);
 
 
 <!-- SKRIV KOMMENTAR -->
-<h6>Skriv kommentar</h6>
+<h6><i class="far fa-comment"></i></i> Skriv kommentar</h6>
 <hr style="margin:0">
 <p class="small"><?php if ( $current != $author ) { ?><span class="small-link"><a href="#" id="tag-author">🔔 Pinga givaren</a> (<?php echo $authorname; ?>)</span><br> <?php } ?>💡 Pinga användare för att de ska se din kommentar.</p>
 
@@ -309,70 +309,9 @@ $queue = get_post_meta($post_id, 'queue', true);
     'submit_button' => '<button name="submit" type="submit" id="submit" class="grey small">Skicka</button>')); ?>
 
 
-<!-- Pinga kommentar -->
+<!-- Scripts for pings -->
 <script>
-    // Wait for the DOM to load
-    document.addEventListener('DOMContentLoaded', function() {
-        // Get all the existing comments on the page
-        var comments = document.querySelectorAll('.comment');
-
-        // Iterate through each comment
-        comments.forEach(function(comment) {
-            // Get the <cite class="fn">Username</cite> element
-            var usernameElement = comment.querySelector('.comment-author .fn');
-
-            // Get the username
-            var username = usernameElement.textContent.trim();
-
-            // Create a "Pinga" link element
-            var pingLink = document.createElement('a');
-            pingLink.className = 'comment-ping';
-            pingLink.href = '#comment';
-            pingLink.innerHTML = ' – <span class="small-link">🔔 Pinga</span>';
-
-            // Insert the "ping" link after the username element
-            usernameElement.parentNode.insertBefore(pingLink, usernameElement.nextSibling);
-
-            // Add a click event listener
-            pingLink.addEventListener('click', function(event) {
-                event.preventDefault();
-
-                // Get the comment field
-                var commentField = document.getElementById('comment');
-
-                // Get the current value of the comment field
-                var currentValue = commentField.value.trim();
-
-                // Add "@username " to the comment field if it's not already present
-                if (!currentValue.includes('@' + username)) {
-                    var newValue = currentValue + ' @' + username + ' ';
-                    commentField.value = newValue;
-                }
-            });
-        });
-    });
+    // Pass PHP variable $authorname to JavaScript
+    window.authorUsername = '@<?php echo $authorname; ?>';
 </script>
-
-<!-- Pinga givaren -->
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var insertUsernameLink = document.getElementById('tag-author');
-        var commentTextArea = document.getElementById('comment');
-
-        insertUsernameLink.addEventListener('click', function(event) {
-            event.preventDefault();
-            var authorUsername = '@<?php echo $authorname; ?>';
-            commentTextArea.value += authorUsername;
-        });
-    });
-</script>
-
-<!-- Ersätt @ i kommentarer -->
-<script>
-	var paragraphs = document.querySelectorAll('.commentlist .comment-body p');
-	paragraphs.forEach(function (paragraph) {
-	var text = paragraph.innerHTML;
-	var modifiedText = text.replace(/@/g, '🔔');
-	paragraph.innerHTML = modifiedText;
-	});
-</script>
+<script src="<?php echo LOOPIS_THEME_URI; ?>/assets/js/comments.js"></script>

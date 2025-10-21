@@ -6,10 +6,12 @@
 Original developer joxyzan is currently working on migrating "ungitable" stuff from the WordPress installation that serves as our prototype. When finished all code will be available on GitHub for collaborative development.<br>
 
 ## 📋 Changelog
+**0.5 (2025-10-21)**<br>
+Removed all borrow and booking functionality<br>
 
 **0.4 (2025-08-26)**<br>
 Renamed "inc" folder to "assets"<br>
-Theme: All admin dashboard snippet functions moved to output.<br>
+All admin dashboard snippet functions moved to output<br>
 
 **0.3 (2025-06-30)**<br>
 More content moved from snipptes<br>
@@ -25,6 +27,4 @@ Previously added functions moved from plugin to theme<br>
 Development now assisted by GitHub Copilot instead of Poe<br>
 
 ## 💾 Installation/Update of "LOOPIS Theme"
-
-1. Download and zip the folder "loopis-theme".
-2. Upload the zip using **WordPress admin dashboard > Appearance > Themes > Add New Theme**.
+Upload the zipped folder "loopis-theme.zip" using **WordPress admin dashboard > Appearance > Themes > Add New Theme**.

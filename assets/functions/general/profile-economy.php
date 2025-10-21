@@ -34,10 +34,7 @@ function get_economy($user_ID) {
     
     // Count things booked
     $count_booked = count_booked($user_ID);
-    
-    // Count things borrowed
-    $count_borrowed = count_borrowed($user_ID);
-    
+
     // Count things submitted
     $count_submitted = count_submitted($user_ID);
         
@@ -49,12 +46,12 @@ function get_economy($user_ID) {
     $star_coins = $stars;
         
     // Calculate clovers and clover-coins
-    $clovers = $count_submitted + $count_booked + $count_borrowed;
+    $clovers = $count_submitted + $count_booked;
     $clover_coins = floor($clovers / 10);
         settype($clover_coins, 'integer');
     
     // Calculate coins
-    $coins = $membership_coins + $bought_coins + $clover_coins + $star_coins + $count_given - $count_booked - $count_borrowed;
+    $coins = $membership_coins + $bought_coins + $clover_coins + $star_coins + $count_given - $count_booked;
     
     return array(
             'payments_membership' => $payments_membership,
@@ -64,7 +61,6 @@ function get_economy($user_ID) {
             'joined_date' => $joined_date,
             'count_given' => $count_given,
             'count_booked' => $count_booked,
-            'count_borrowed' => $count_borrowed,
             'count_submitted' => $count_submitted,
             'count_deleted' => $count_deleted,
             'stars' => $stars,
@@ -172,16 +168,6 @@ function count_booked($user_ID) {
     );
     $the_query = new WP_Query($args);
     $count = $the_query->post_count;
-    wp_reset_postdata();
-    return $count;
-}
-
-/**
- * Count things borrowed.
- */
-function count_borrowed($user_ID) {
-    $the_query = wpum_get_posts_for_profile($user_ID, array('post_type' => 'booking'));
-    $count = $the_query->found_posts;
     wp_reset_postdata();
     return $count;
 }
