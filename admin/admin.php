@@ -1,11 +1,7 @@
 <?php
 if (!defined('ABSPATH')) {
-    exit;
-}
-
-// Extra functions?
-include_once LOOPIS_THEME_DIR . '/assets/functions/admin-extra/dashboard.php';
-?>
+    exit; // Exit if accessed directly
+} ?>
 
 <!--HEADER-->
 <div class="columns"><div class="column1"><h1>🐙 Admin</h1></div>
@@ -52,7 +48,7 @@ include_once LOOPIS_THEME_DIR . '/assets/functions/admin-extra/dashboard.php';
 
 <!-- App traffic -->
 <div class="wrapped">
-<h5>🎡 Trafik i app</h5>
+<h5>📲 Trafik i app</h5>
 <hr>
 <p class="small">
 <?php include LOOPIS_THEME_DIR . '/assets/output/admin/dashboard/app-traffic.php'; ?>
@@ -99,23 +95,15 @@ include_once LOOPIS_THEME_DIR . '/assets/functions/admin-extra/dashboard.php';
 </div>
 <?php } ?>
 
-<!-- Active bookings count -->
-<?php if (current_user_can('manager') || current_user_can('administrator')) { ?>
-<div class="wrapped link" onclick="location.href='/admin/bookings'">
-<h5>🗓 Bokningar</h5>
-<hr>
-<p class="small">
-<?php include LOOPIS_THEME_DIR . '/assets/output/admin/dashboard/bookings-active.php'; ?>
-</p>
-</div>
-<?php } ?>
-
-<!-- Communication -->
-<h3>📡 Kommunikation</h3>
+<!-- Economy -->
+<?php if (current_user_can('loopis_economy')) { ?>
+<h3>💰 Ekonomi</h3>
 <hr>
 <div>
-	<span class="big-link"><a href="/admin/collage">🖼 Kollage</a></span>&nbsp;
+	<span class="big-link"><a href="/admin/payments">📒 Alla köp</a></span>&nbsp;
+	<span class="big-link"><a href="/admin/coins">🪙 Köp av mynt</a></span>&nbsp;
 </div>
+<?php } ?>
 
 <!-- Member info -->
 <?php if (current_user_can('board_member') || current_user_can('administrator')) { ?>
@@ -129,16 +117,12 @@ include_once LOOPIS_THEME_DIR . '/assets/functions/admin-extra/dashboard.php';
 </div>
 <?php } ?>
 
-<!-- Economy -->
-<?php if (current_user_can('loopis_economy')) { ?>
-<h3>🤓 Kassör</h3>
+<!-- Communication -->
+<h3>📡 Kommunikation</h3>
 <hr>
 <div>
-	<span class="big-link"><a href="/admin/payments">📒 Alla köp</a></span>&nbsp;
-	<span class="big-link"><a href="/admin/coins">🪙 Köp av mynt</a></span>&nbsp;
-	<!--p class="small"><a href="/admin/memberships">👤 Köp av medlemskap</a></p-->	
+	<span class="big-link"><a href="/admin/collage">🖼 Kollage</a></span>&nbsp;
 </div>
-<?php } ?>
 
 <!-- Super-admin -->
 <?php if (current_user_can('administrator')) { ?>

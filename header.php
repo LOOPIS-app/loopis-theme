@@ -9,15 +9,15 @@
 	if (is_home() || is_front_page()) {
 		$title = get_bloginfo('name') . '.app';
 		$description = 'Ge & få saker av dina grannar – för en gladare och mer hållbar framtid.';
-		$meta_image = LOOPIS_THEME_URI . '/img/LOOPIS_app.png';
-		$og_image = LOOPIS_THEME_URI . '/img/LOOPIS_og.png';
+		$meta_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_app.png';
+		$og_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_og.png';
 		$og_type = 'website';
 		$og_url = home_url('/');
 	} elseif (is_single() || is_page()) {
 		$title = get_the_title() . ' - ' . get_bloginfo('name');
 		$description = get_the_excerpt();
-		$meta_image = LOOPIS_THEME_URI . '/img/LOOPIS_app.png';
-		$og_image = LOOPIS_THEME_URI . '/img/LOOPIS_og.png';
+		$meta_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_app.png';
+		$og_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_og.png';
 		if (has_post_thumbnail()) {
 			$thumbnail = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'large');
 			if ($thumbnail) $og_image = $thumbnail[0];
@@ -28,29 +28,29 @@
 		$author = get_queried_object();
 		$title = esc_html($author->display_name) . ' - ' . get_bloginfo('name');
 		$description = esc_html($author->description);
-		$meta_image = LOOPIS_THEME_URI . '/img/LOOPIS_app.png';
-		$og_image = LOOPIS_THEME_URI . '/img/LOOPIS_og.png';
+		$meta_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_app.png';
+		$og_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_og.png';
 		$og_type = 'profile';
 		$og_url = get_author_posts_url($author->ID);
 	} elseif (is_tag()) {
 		$title = '#' . single_tag_title('', false) . ' - ' . get_bloginfo('name');
 		$description = 'Kategorier på LOOPIS.app';
-		$meta_image = LOOPIS_THEME_URI . '/img/LOOPIS_app.png';
-		$og_image = LOOPIS_THEME_URI . '/img/LOOPIS_og.png';
+		$meta_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_app.png';
+		$og_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_og.png';
 		$og_type = 'website';
 		$og_url = get_tag_link(get_queried_object_id());
 	} elseif (is_archive()) {
 		$title = get_bloginfo('name');
 		$description = 'För en gladare och mer hållbar framtid.';
-		$meta_image = LOOPIS_THEME_URI . '/img/LOOPIS_app.png';
-		$og_image = LOOPIS_THEME_URI . '/img/LOOPIS_og.png';
+		$meta_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_app.png';
+		$og_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_og.png';
 		$og_type = 'website';
 		$og_url = home_url('/');
 	} else {
 		$title = get_bloginfo('name');
 		$description = 'För en gladare och mer hållbar framtid.';
-		$meta_image = LOOPIS_THEME_URI . '/img/LOOPIS_app.png';
-		$og_image = LOOPIS_THEME_URI . '/img/LOOPIS_og.png';
+		$meta_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_app.png';
+		$og_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_og.png';
 		$og_type = 'website';
 		$og_url = home_url('/');
 	}
@@ -102,7 +102,7 @@
 		<div class="group">
 			<div class="header-back" onclick="history.back()"><i class="fas fa-chevron-left"></i></div>
 			<a href="/"><img src="<?php echo LOOPIS_THEME_URI; ?>/assets/img/LOOPIS_logo.png" alt="LOOPIS-logo" id="header-img"></a>
-			<?php if ( is_front_page() && current_user_can('loopis_admin') ) : ?>
+			<?php if ( is_front_page() && current_user_can('loopis_admin') && !current_user_can('administrator') ) : ?>
 				<div class="header-faq" onclick="location.href='/admin'">🐙</div>
 			<?php else: ?>
 				<div class="header-faq" onclick="location.href='/faq'">💡</div>

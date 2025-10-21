@@ -27,7 +27,6 @@ $membership_coins = $profile_economy['membership_coins'];
 $bought_coins = $profile_economy['bought_coins'];
 $count_given = $profile_economy['count_given'];
 $count_booked = $profile_economy['count_booked'];
-$count_borrowed = $profile_economy['count_borrowed'];
 $count_submitted = $profile_economy['count_submitted'];
 $count_deleted = $profile_economy['count_deleted'];
 $stars = $profile_economy['stars'];
@@ -43,11 +42,10 @@ if ($count_submitted !== 0) { $given_percentage = round(($count_given / $count_s
 <p>Blev loopare <span class="label">🎉 <?php echo $joined_date; ?></span></p>
 <div class="wrapped">
 <h1><img src="<?php echo LOOPIS_THEME_URI; ?>/assets/img/coin.png" alt="Mynt:" class="symbol"><?php echo $coins; ?></h1>
-<p class="small"><?php echo $first_name; ?> kan just nu hämta/låna <?php echo $coins; ?> saker.</p>
+<p class="small"><?php echo $first_name; ?> kan just nu hämta <?php echo $coins; ?> saker.</p>
 <hr>
 <p><span class="label">💚 <?php echo $count_given; ?> saker lämnade</span></p>
 <p><span class="label">❤ <?php echo $count_booked; ?> saker hämtade</span></p>
-<p><span class="label">♾ <?php echo $count_borrowed; ?> saker lånade</span></p>
 <p><span class="label">🍀 <?php echo $clovers; ?> fyrklöver</span></p>
 <p><span class="label">🌟 <?php echo $stars; ?> guldstjärnor</span></p>
 </div><!-- wrapped -->

@@ -3,7 +3,6 @@
  * Links to common questions.
  *
  * Included in single.php
- * Included in single-borrow.php
  */
 
 if (!defined('ABSPATH')) {
