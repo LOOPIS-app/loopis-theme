@@ -3,9 +3,12 @@
 * This file is used to add and modify features of a WordPress theme
 */	
 
+// Define theme version
+define('LOOPIS_THEME_VERSION', '0.7');
+
 // Define theme folder path constants
-define('LOOPIS_THEME_DIR', get_template_directory()); // Theme directory absolute path, for server-side operations
-define('LOOPIS_THEME_URI', get_template_directory_uri()); // Theme directory URI, for client-side operations
+define('LOOPIS_THEME_DIR', get_template_directory());       // Server-side path to /wp-content/themes/loopis-theme/
+define('LOOPIS_THEME_URI', get_template_directory_uri());   // Client-side path to https://loopis.app/wp-content/themes/loopis-theme/
 
 /** 
 * Enqueue theme CSS and JavaScript
@@ -13,7 +16,7 @@ define('LOOPIS_THEME_URI', get_template_directory_uri()); // Theme directory URI
 
 function loopis_theme_assets() {
     // Enqueue CSS theme styles
-    wp_enqueue_style('loopis-theme-style', get_stylesheet_uri(), array(), filemtime(LOOPIS_THEME_DIR . '/style.css'));
+    wp_enqueue_style('loopis-theme-style', get_stylesheet_uri(), array(), LOOPIS_THEME_VERSION);
     wp_enqueue_style('loopis-theme-responsive', LOOPIS_THEME_URI . '/assets/css/responsive.css', array(), filemtime(LOOPIS_THEME_DIR . '/assets/css/responsive.css'));
     
     // Enqueue jQuery (default Wordpress version) + theme scripts
@@ -34,7 +37,7 @@ add_action('wp_enqueue_scripts', 'loopis_theme_assets');
 
  // Utility function to include all PHP files in a folder
 function loopis_theme_include_folder($folder_name) {
-    $absolute_path = LOOPIS_THEME_DIR . '/assets/functions/' . $folder_name;
+    $absolute_path = LOOPIS_THEME_DIR . '/functions/' . $folder_name;
     if (is_dir($absolute_path)) {
         foreach (glob($absolute_path . '/*.php') as $file) {
             include_once $file;
@@ -46,7 +49,7 @@ function loopis_theme_include_folder($folder_name) {
 // Define folders to load
 function loopis_theme_load_files() {
     // Load general functions
-    loopis_theme_include_folder('general');
+    loopis_theme_include_folder('everyone');
 
     // Load user functions
     if (is_user_logged_in()) { 
@@ -82,7 +85,7 @@ add_action('after_setup_theme', 'loopis_theme_setup');
  */
 
 
-// Add our own Twemoji implementation
+// Force use of Twemoji
 function loopis_add_twemoji() {
     ?>
     <script type="text/javascript">
@@ -137,3 +140,13 @@ function loopis_add_twemoji() {
 // Add Twemoji to both frontend and admin
 add_action('wp_head', 'loopis_add_twemoji');
 add_action('admin_head', 'loopis_add_twemoji');
+
+/**
+ * Load search functions on search pages
+ */
+function loopis_load_search_functions() {
+    if (is_search() || (isset($_GET['s']) && !empty($_GET['s']))) {
+        require_once get_template_directory() . '/functions/search/enhanced.php';
+    }
+}
+add_action('init', 'loopis_load_search_functions');

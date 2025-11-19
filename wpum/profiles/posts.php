@@ -1,6 +1,8 @@
 <?php
 /**
- * Template for displaying my profile POSTS tab content.
+ * The Template for displaying the profile posts tab content.
+ * 
+ * Modified by LOOPIS.
  */
 
 // Exit if accessed directly

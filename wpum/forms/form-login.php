@@ -1,4 +1,10 @@
 <?php
+/**
+ * WPUM template for displaying the login form.
+ *
+ * Modified by LOOPIS.
+ */
+
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
