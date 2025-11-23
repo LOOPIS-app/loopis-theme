@@ -141,7 +141,7 @@ $queue = get_post_meta($post_id, 'queue', true);
 		<?php include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-deliver.php'; ?>
 		<p><i class="fas fa-walking"></i>Dags att lämna i <span class="label">🌈 <?php echo $location; ?></span></p>
 		<p><?php include LOOPIS_THEME_DIR . '/templates/post/timer-locker.php';?></p>
-		<p>🔓 Kod till skåpet: <span class="code"><?php echo do_shortcode('[code_snippet id=93]');?></span></p>
+		<p>🔓 Kod till skåpet: <span class="code"><?php echo get_locker_code(LOCKER_ID);?></span></p>
 		<?php if(isset($_POST['locker'])){ action_locker($post_id); } ?>
 		<form method="post" class="arb" action=""><button name="locker" type="submit" class="green" onclick="return confirm('Har du lämnat i skåpet?')">Lämnat!</button></form>
 		<p class="info">Har du lämnat i skåpet? Tryck på knappen för att meddela mottagaren.</p>
@@ -226,7 +226,7 @@ $queue = get_post_meta($post_id, 'queue', true);
 
 		<p><i class="fas fa-walking"></i>Dags att hämta i <span class="label">🌈 <?php echo $location; ?></span></p>
 		<p><?php include LOOPIS_THEME_DIR . '/templates/post/timer-fetch.php';?></p>
-		<p>🔓 Kod till skåpet: <span class="code"><?php echo do_shortcode('[code_snippet id=93]');?></span></p>
+		<p>🔓 Kod till skåpet: <span class="code"><?php echo get_locker_code(LOCKER_ID);?></span></p>
 		<?php if(isset($_POST['fetched'])) { action_fetched ($post_id); } ?>
 		<form method="post" class="arb" action=""><button name="fetched" type="submit" class="blue" onclick="return confirm('Har du hämtat?')">Hämtat!</button></form>
 		<p class="info">Har du hämtat i skåpet? Tryck på knappen.</p>

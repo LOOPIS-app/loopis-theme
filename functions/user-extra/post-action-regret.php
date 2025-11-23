@@ -18,7 +18,7 @@ function action_regret(int $post_id) {
 	// Get variables
 	$fetcher = get_post_meta($post_id, 'fetcher', true);
 	$fetcher_name = get_userdata($fetcher)->display_name; 
-	$code_001 = do_shortcode('[code_snippet id=93]');
+	$locker_code = get_locker_code(LOCKER_ID);
 	
 	// Count queue
 	$queue = get_post_meta($post_id, 'queue', true);
@@ -66,7 +66,7 @@ function action_regret(int $post_id) {
 	send_admin_notification('💔 Mottagaren har ångrat sig och... <br>❤ Du stod först i kön @' . $fetcher_name . ' ! <br>⌛ Du får ett meddelanden när du kan hämta i skåpet.', $post_id, 1); 
 	
 	// Send notification from LOOPIS to author	
-	send_admin_notification('💔 Mottagaren har ångrat sig men... <br>❤ ' . $fetcher_name . ' stod i kö och har nu paxat! <br>⌛ Lämna gärna i skåpet inom 24 timmar @' . get_the_author() . '.<br>🔓 Kod till skåpet: <b>' . $code_001 . '</b>', $post_id, 1);
+	send_admin_notification('💔 Mottagaren har ångrat sig men... <br>❤ ' . $fetcher_name . ' stod i kö och har nu paxat! <br>⌛ Lämna gärna i skåpet inom 24 timmar @' . get_the_author() . '.<br>🔓 Kod till skåpet: <b>' . $locker_code . '</b>', $post_id, 1);
 	
 	// Leave comment by LOOPIS
 	add_admin_comment ('<p class="book">❤ Paxad av <span>🔔' . $fetcher_name . '</span> som stod först i kön. <br>⌛ Du får ett meddelanden när du kan hämta i skåpet.</p>', $post_id, 1); 
@@ -97,7 +97,7 @@ function action_regret(int $post_id) {
 	update_field('locker_date', current_time('Y-m-d H:i:s'));
 	
 	// Send notification from LOOPIS to fetcher
-	send_admin_notification('💔 Mottagaren har ångrat sig och... <br>❤ Du stod först i kön @' . $fetcher_name . ' ! <br>⌛ Du  bör hämta i skåpet inom 24 timmar. <br>🔓 Kod till skåpet: <b>' . $code_001 . '</b>', $post_id, 1); 
+	send_admin_notification('💔 Mottagaren har ångrat sig och... <br>❤ Du stod först i kön @' . $fetcher_name . ' ! <br>⌛ Du  bör hämta i skåpet inom 24 timmar. <br>🔓 Kod till skåpet: <b>' . $locker_code . '</b>', $post_id, 1); 
 	
 	// Leave comment by LOOPIS
 	add_admin_comment('💔 Mottagaren har ångrat sig men... <br>❤ ' . $fetcher_name . ' stod i kö och har nu paxat! ', $post_id, 1); 

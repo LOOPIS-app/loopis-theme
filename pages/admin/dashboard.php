@@ -26,7 +26,7 @@ if (!defined('ABSPATH')) {
     <h5>📊 Statistik</h5>
     <hr>
     <p class="small">
-        <?php include LOOPIS_THEME_DIR . '/templates/admin/dashboard/gift-stats.php'; ?>
+        <?php include __DIR__ . '/dashboard-blocks/gift-stats.php'; ?>
     </p>
 </div>
 
@@ -35,25 +35,25 @@ if (!defined('ABSPATH')) {
     <h5>🎲 Lottning</h5>
     <hr>
     <p class="small">
-        <?php include LOOPIS_THEME_DIR . '/templates/admin/dashboard/raffle-results.php'; ?>
+        <?php include __DIR__ . '/dashboard-blocks/raffle-results.php'; ?>
     </p>
 </div>
 
 <!-- Reminders -->
-<div class="wrapped link" onclick="location.href='/admin/?view=reminders'">
-    <h5>⏰ Påminnelser</h5>
+<div class="wrapped link" onclick="location.href='/admin/?view=traffic-gifts'">
+    <h5>🎁 Saker på väg</h5>
     <hr>
     <p class="small">
-        <?php include LOOPIS_THEME_DIR . '/templates/admin/dashboard/gift-traffic.php'; ?>
+        <?php include __DIR__ . '/dashboard-blocks/traffic-gifts.php'; ?>
     </p>
 </div>
 
 <!-- Locker traffic -->
-<div class="wrapped link" onclick="location.href='/admin/?view=locker-traffic'">
+<div class="wrapped link" onclick="location.href='/admin/?view=traffic-locker'">
     <h5>🔐 Trafik i skåp</h5>
     <hr>
     <p class="small">
-        <?php include LOOPIS_THEME_DIR . '/templates/admin/dashboard/locker-traffic.php'; ?>
+        <?php include __DIR__ . '/dashboard-blocks/traffic-locker.php'; ?>
     </p>
 </div>
 
@@ -62,7 +62,7 @@ if (!defined('ABSPATH')) {
     <h5>📲 Trafik i app</h5>
     <hr>
     <p class="small">
-        <?php include LOOPIS_THEME_DIR . '/templates/admin/dashboard/app-traffic.php'; ?>
+        <?php include __DIR__ . '/dashboard-blocks/traffic-app.php'; ?>
     </p>
 </div>
 
@@ -71,7 +71,7 @@ if (!defined('ABSPATH')) {
     <h5>🕸 Arkivet</h5>
     <hr>
     <p class="small">
-        <?php include LOOPIS_THEME_DIR . '/templates/admin/dashboard/gift-archive-stats.php'; ?>
+        <?php include __DIR__ . '/dashboard-blocks/gift-archive-stats.php'; ?>
     </p>
 </div>
 
@@ -80,7 +80,7 @@ if (!defined('ABSPATH')) {
     <h5>🗨 Kommentarer</h5>
     <hr>
     <p class="small">
-        <?php include LOOPIS_THEME_DIR . '/templates/admin/dashboard/comment-stats.php'; ?>
+        <?php include __DIR__ . '/dashboard-blocks/comment-stats.php'; ?>
     </p>
 </div>
 
@@ -90,7 +90,7 @@ if (!defined('ABSPATH')) {
         <h5>⚡ Nya konton</h5>
         <hr>
         <p class="small">
-            <?php include LOOPIS_THEME_DIR . '/templates/admin/dashboard/members-pending.php'; ?>
+            <?php include __DIR__ . '/dashboard-blocks/members-pending.php'; ?>
         </p>
     </div>
 <?php endif; ?>
@@ -101,7 +101,7 @@ if (!defined('ABSPATH')) {
         <h5>🛟 Support</h5>
         <hr>
         <p class="small">
-            <?php include LOOPIS_THEME_DIR . '/templates/admin/dashboard/support-active.php'; ?>
+            <?php include __DIR__ . '/dashboard-blocks/support-active.php'; ?>
         </p>
     </div>
 <?php endif; ?>
@@ -153,52 +153,6 @@ if (!defined('ABSPATH')) {
     <p>&nbsp;</p>
     <div class="wrapped">
         <h5>🚧 Vilka har tillgång?</h5>
-        <hr>
-        
-        <p class="small">Administrator (webmaster):
-            <?php
-            $users = get_users(array('role' => 'administrator'));
-            foreach ($users as $user) {
-                $user_first_name = get_user_meta($user->ID, 'first_name', true);
-                $author_link = get_author_posts_url($user->ID);
-                echo '<a href="' . esc_url($author_link) . '">👽' . esc_html($user_first_name) . '</a> &nbsp;';
-            }
-            ?>
-        </p>
-
-        <p class="small">Develooper (webmaster):
-            <?php
-            $users = get_users(array('role' => 'develooper'));
-            foreach ($users as $user) {
-                $user_first_name = get_user_meta($user->ID, 'first_name', true);
-                $author_link = get_author_posts_url($user->ID);
-                echo '<a href="' . esc_url($author_link) . '">👽' . esc_html($user_first_name) . '</a> &nbsp;';
-            }
-            ?>
-        </p>
-        
-        <p class="small">Managers:
-            <?php
-            $users = get_users(array('role' => 'manager'));
-            foreach ($users as $user) {
-                $user_first_name = get_user_meta($user->ID, 'first_name', true);
-                $user_last_name = get_user_meta($user->ID, 'last_name', true);
-                $author_link = get_author_posts_url($user->ID);
-                echo '<a href="' . esc_url($author_link) . '">👤' . esc_html($user_first_name . ' ' . $user_last_name) . '</a> &nbsp;';
-            }
-            ?>
-        </p>
-        
-        <p class="small">Styrelsen:
-            <?php
-            $users = get_users(array('role' => 'board_member'));
-            foreach ($users as $user) {
-                $user_first_name = get_user_meta($user->ID, 'first_name', true);
-                $user_last_name = get_user_meta($user->ID, 'last_name', true);
-                $author_link = get_author_posts_url($user->ID);
-                echo '<a href="' . esc_url($author_link) . '">👤' . esc_html($user_first_name . ' ' . $user_last_name) . '</a> &nbsp;';
-            }
-            ?>
-        </p>
+        <?php include __DIR__ . '/dashboard-blocks/access.php'; ?>
     </div>
 <?php endif; ?>

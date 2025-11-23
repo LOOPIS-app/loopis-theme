@@ -16,7 +16,7 @@ if (current_user_can('loopis_admin')) : ?>
             $content_dir = get_template_directory() . '/pages/admin/';
 
             // Get 'view' parameter from URL (default to 'start')
-            $content_name = isset($_GET['view']) ? sanitize_text_field($_GET['view']) : 'start';
+            $content_name = isset($_GET['view']) ? sanitize_text_field($_GET['view']) : 'dashboard';
             
             // Additional sanitization - only allow alphanumeric, dash, underscore, and forward slash
             $content_name = preg_replace('/[^a-zA-Z0-9_\/-]/', '', $content_name);
@@ -29,7 +29,7 @@ if (current_user_can('loopis_admin')) : ?>
             
             // Prevent empty string after sanitization
             if (empty($content_name)) {
-                $content_name = 'start';
+                $content_name = 'dashboard';
             }
             
             // Define the full path to the PHP file

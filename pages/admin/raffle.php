@@ -36,7 +36,7 @@ $today_end = $today->format('Y-m-d 23:59:59');
 $complete_args = array(
     'post_type'      => 'post',
     'posts_per_page' => -1,
-    'cat'            => '1',
+    'cat'            => loopis_cat('new'),
     'date_query'     => array(
         array(
             'after'     => $yesterday_start,

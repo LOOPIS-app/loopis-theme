@@ -21,10 +21,13 @@ if (!defined('ABSPATH')) {
     // Get search term
     $search_term = isset($_GET['storage_search']) ? sanitize_text_field($_GET['storage_search']) : '';
 
+    // Get category IDs
+    $storage_categories = loopis_cats(['storage', 'tips']);  // Add or remove 'tips' as needed
+
     // Query arguments
     $args = array(
         'post_type'      => 'post',
-        'cat'            => '157',  // storage 157 + tips 155
+        'cat'            => $storage_categories,
         'posts_per_page' => -1,
         'post_status'    => array('publish', 'draft')
     );
@@ -100,5 +103,5 @@ if (!defined('ABSPATH')) {
 
 <?php else : ?>
     <!-- No Access Message -->
-    <?php echo do_shortcode('[code_snippet id=124 php]'); ?>
+    <?php include_once LOOPIS_THEME_DIR . '/templates/access/no-access.php'; ?>
 <?php endif; ?>

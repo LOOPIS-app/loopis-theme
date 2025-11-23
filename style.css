@@ -185,7 +185,7 @@ h3 { font-size: 28px; margin-top: 25px; }		/* used for subheadings on FAQ etc */
 h4 { font-size: 22px; margin-top: 15px;}		/* used on my profile on front page */
 h5 { font-size: 24px; margin-top: 0px; }		/* used in wrapped divs and puff */
 h6 { font-size: 16px; margin-top: 25px; }		/* used for custom comment */
-h7 { font-size: 28px; padding-top: 10px; }		/* added for admin-page + WPUM tabs */
+h7 { font-size: 28px; padding-top: 10px; }		/* added for WPUM tabs */
 
 /* Special heading  */
 h1 .symbol { height: 30px !important; width: auto; padding-right: 5px; }  /* used for coins  */

@@ -9,10 +9,9 @@ if (!defined('ABSPATH')) {
 
 // Get random posts from categories 1 or 37
 $args = array(
-    'post_type'      => 'post',
     'posts_per_page' => 3,
     'orderby'        => 'rand',
-    'category__in'   => array(1, 37),
+    'category__in'   => loopis_cats(['new', 'old']),
 );
 $the_query = new WP_Query($args);
 ?>

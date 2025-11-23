@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) {
 <p class="small">💡 Listor över alla kategorier.</p>
 
 <?php
-$categories = array(1, 37, 42, 57, 147);
+$categories = loopis_cats(['new', 'old', 'booked', 'booked_custom']); // Get category IDs for availbale posts by slugs
 $tags = get_tags();
 
 // Create an array to store the post counts for each tag
@@ -29,7 +29,6 @@ foreach ($tags as $tag) {
 
     foreach ($categories as $category_id) {
         $args = array(
-            'post_type'      => array('post', 'borrow'),
             'tag__in'        => $tag->term_id,
             'category__in'   => $category_id,
             'posts_per_page' => -1,

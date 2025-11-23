@@ -30,7 +30,7 @@ $current_time = (new DateTime(current_time('mysql')))->getTimestamp();
 // args
 $args = array( 
 	'post_type' => 'post',
-	'cat' => '104',
+	'cat' => loopis_cat('locker'),
 );
 
 // query
@@ -100,7 +100,7 @@ $count = $the_query->found_posts;
 // args
 $args = array( 
 	'post_type' => 'post',
-     'cat' => '57',
+     'cat' => loopis_cat('booked'),
 );
 
 // query
@@ -167,7 +167,7 @@ $count = $the_query->found_posts;
 // args
 $args = array( 
 	'post_type' => 'post',
-	'cat' => '147',
+	'cat' => loopis_cat('booked_custom'),
 );
 
 // query

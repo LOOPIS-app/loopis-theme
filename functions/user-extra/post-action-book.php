@@ -28,7 +28,7 @@ function action_book_locker(int $post_id) {
     $author = get_post_field('post_author');
     $author_name = get_userdata($author)->display_name;
     $fetcher_name = get_userdata($fetcher)->display_name;
-    $code_001 = do_shortcode('[code_snippet id=93]');
+    $locker_code = get_locker_code(LOCKER_ID);
 
     // Set post meta
     wp_set_object_terms($post_id, null, 'category');
@@ -40,7 +40,7 @@ function action_book_locker(int $post_id) {
     send_admin_notification('
     ❤ ' . $fetcher_name . ' har paxat! <br>
     ⌛ Lämna gärna i skåpet inom 24 timmar. <br>
-    🔓 Kod till skåpet: <b>' . $code_001 . '</b> <br>
+    🔓 Kod till skåpet: <b>' . $locker_code . '</b> <br>
     🙏 Tack för att du loopar! @' . $author_name, $post_id, 1);
 
     // Leave comment by fetcher

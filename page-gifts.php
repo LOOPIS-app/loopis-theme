@@ -14,11 +14,14 @@ get_header(); ?>
         // Check pagination
         $paged = get_query_var('paged') ?: 1;
 
+        // Get available posts categories
+        $available_posts = loopis_cats(['new', 'old', 'booked', 'booked_custom']);
+        
         // Fetch and count available posts
         $args = array(
             'post_type'      => 'post',
             'posts_per_page' => 50,
-            'cat'            => '1,37,57,147',
+            'category__in'   => $available_posts,
             'paged'          => $paged,
         );
 

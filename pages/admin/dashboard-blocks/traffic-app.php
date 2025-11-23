@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
 // Get statistics from plugin WP Statistics
 // Ensure WP Statistics is active before using its functions
 if (!function_exists('wp_statistics')) {
-    echo '<p>💢 WP Statistics plugin is not active.</p>';
+    echo '💢 WP Statistics plugin is not active.';
     return; // Exit if not available
 }
 $users_online = do_shortcode('[wpstatistics stat=usersonline]');

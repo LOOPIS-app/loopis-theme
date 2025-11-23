@@ -13,50 +13,50 @@ if (!defined('ABSPATH')) {
 $user_id = get_current_user_id();
 
 // Initialize counts
-$ttlitl = 0;
-$ttfitl = 0;
-$ttgav = 0;
-$ttmav = 0;
+$leave = 0;
+$fetch = 0;
+$get_visit = 0;
+$make_visit = 0;
 $paused = 0;
 $archived = 0;
 
 // Query 1: Time to leave in the locker
-$ttlitl = count(get_posts(array(
-    'cat' => 57,
+$leave = count(get_posts(array(
+    'cat' => loopis_cat('booked'),
     'author' => $user_id,
     'fields' => 'ids',
     'posts_per_page' => -1,
 )));
 
 // Query 2: Time to fetch in the locker
-$ttfitl = count(get_posts(array(
+$fetch = count(get_posts(array(
     'meta_key' => 'fetcher',
     'meta_value' => $user_id,
-    'cat' => 104,
+    'cat' => loopis_cat('locker'),
     'fields' => 'ids',
     'posts_per_page' => -1,
 )));
 
 // Query 3: Time to get a visit
-$ttgav = count(get_posts(array(
-    'cat' => 147,
+$get_visit = count(get_posts(array(
+    'cat' => loopis_cat('booked_custom'),
     'author' => $user_id,
     'fields' => 'ids',
     'posts_per_page' => -1,
 )));
 
 // Query 4: Time to make a visit
-$ttmav = count(get_posts(array(
+$make_visit = count(get_posts(array(
     'meta_key' => 'fetcher',
     'meta_value' => $user_id,
-    'cat' => 147,
+    'cat' => loopis_cat('booked_custom'),
     'fields' => 'ids',
     'posts_per_page' => -1,
 )));
 
 // Query 5: Paused posts
 $paused = count(get_posts(array(
-    'cat' => 159,
+    'cat' => loopis_cat('paused'),
     'author' => $user_id,
     'fields' => 'ids',
     'posts_per_page' => -1,
@@ -64,63 +64,57 @@ $paused = count(get_posts(array(
 
 // Query 6: Archived posts
 $archived = count(get_posts(array(
-    'cat' => 167,
+    'cat' => loopis_cat('archived'),
     'author' => $user_id,
     'fields' => 'ids',
     'posts_per_page' => -1,
 )));
 
 // Summarize
-$notifications = $ttlitl + $ttfitl + $ttgav + $ttmav + $paused + $archived;
+$notifications = $leave + $fetch + $get_visit + $make_visit + $paused + $archived;
 
-// Output alerts?
+// OUTPUT ALERTS?
 if ($notifications > 0) {
     echo '<h5>🔔 Du har saker att göra...</h5>';
     echo '<hr>';
 }
 
 // Time to leave in the locker?
-if ($ttlitl > 0) {
-    echo '<p><span class="mega-link notif" onclick="window.location.href=\'/activity/\'"><i class="fas fa-walking"></i>Du ska lämna ' . $ttlitl . ' sak' . ($ttlitl > 1 ? 'er' : '') . ' i skåpet →</span></p>';
+if ($leave > 0) {
+    echo '<p><span class="mega-link notif" onclick="window.location.href=\'/activity/\'"><i class="fas fa-walking"></i>Du ska lämna ' . $leave . ' sak' . ($leave > 1 ? 'er' : '') . ' i skåpet →</span></p>';
     
     // Show leave warning if enabled
-    $locker_id = "12845-1"; // Hardcoded locker ID
-    if (function_exists('loopis_get_locker') && function_exists('loopis_get_setting')) {
-        $leave_warning_enabled = loopis_get_locker($locker_id, 'leave_warning', 0);
-        if ($leave_warning_enabled) {
+    $leave_warning_enabled = get_locker_data(LOCKER_ID, 'leave_warning', 0);
+    if ($leave_warning_enabled) {
             $leave_warning = loopis_get_setting('locker_leave_warning', '');
             if (!empty($leave_warning)) {
                 echo '<div class="wpum-message information"><p>' . wp_kses_post($leave_warning) . '</p></div>';
             }
         }
     }
-}
 
 // Time to fetch in the locker?
-if ($ttfitl > 0) {
-    echo '<p><span class="mega-link notif" onclick="window.location.href=\'/activity/\'"><i class="fas fa-walking"></i>Du ska hämta ' . $ttfitl . ' sak' . ($ttfitl > 1 ? 'er' : '') . ' i skåpet →</span></p>';
+if ($fetch > 0) {
+    echo '<p><span class="mega-link notif" onclick="window.location.href=\'/activity/\'"><i class="fas fa-walking"></i>Du ska hämta ' . $fetch . ' sak' . ($fetch > 1 ? 'er' : '') . ' i skåpet →</span></p>';
     
     // Show fetch warning if enabled
-    $locker_id = "12845-1"; // Hardcoded locker ID
-    if (function_exists('loopis_get_locker') && function_exists('loopis_get_setting')) {
-        $fetch_warning_enabled = loopis_get_locker($locker_id, 'fetch_warning', 0);
-        if ($fetch_warning_enabled) {
+    $fetch_warning_enabled = get_locker_data(LOCKER_ID, 'fetch_warning', 0);
+    if ($fetch_warning_enabled) {
             $fetch_warning = loopis_get_setting('locker_fetch_warning', '');
             if (!empty($fetch_warning)) {
                 echo '<div class="wpum-message warning"><p>' . wp_kses_post($fetch_warning) . '</p></div>';
             }
         }
     }
-}
 
 // Time to get a visit?
-if ($ttgav > 0) {
-    echo '<p><span class="mega-link notif" onclick="window.location.href=\'/activity/\'">🚪 Någon ska hämta ' . $ttgav . ' sak' . ($ttgav > 1 ? 'er' : '') . ' hos dig →</span></p>';
+if ($get_visit > 0) {
+    echo '<p><span class="mega-link notif" onclick="window.location.href=\'/activity/\'">🚪 Någon ska hämta ' . $get_visit . ' sak' . ($get_visit > 1 ? 'er' : '') . ' hos dig →</span></p>';
 }
 
 // Time to make a visit?
-if ($ttmav > 0) {
-    echo '<p><span class="mega-link notif" onclick="window.location.href=\'/activity/\'">📱 Du ska hämta ' . $ttmav . ' sak' . ($ttmav > 1 ? 'er' : '') . ' hos någon →</span></p>';
+if ($make_visit > 0) {
+    echo '<p><span class="mega-link notif" onclick="window.location.href=\'/activity/\'">📱 Du ska hämta ' . $make_visit . ' sak' . ($make_visit > 1 ? 'er' : '') . ' hos någon →</span></p>';
 }
 
 // Archived posts?
@@ -133,7 +127,7 @@ if ($paused > 0) {
     echo '<p><span class="mega-link notif" onclick="window.location.href=\'/pages/profile/posts/?status=paused\'">😎 Du har ' . $paused . ($paused === 1 ? ' pausad annons' : '') . ($paused > 1 ? ' pausade annonser' : '') . ' →</span></p>';
 }
 
-// Add a spacer if there are notifications
+// Insert spacer.
 if ($notifications > 0) {
-    echo '<div style="height:20px" aria-hidden="true" class="wp-block-spacer"></div>';
+    insert_spacer(20);
 }

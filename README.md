@@ -3,10 +3,13 @@
 "LOOPIS Theme" is a WordPress theme that provides the design and functionality for LOOPIS.app<br>
 
 ## 💡 Status
-⚠️ **STAGING VERSION** - Not ready for production deployment!  
-This is a staging version – not yet compatible with the live instance of LOOPIS. Before deployment original developer joxyzan will make neccesary changes in the live version while together with "The Develoopers" making improvements in the staging version.<br>
+⚠️ **STAGING VERSION** - Not ready for production deployment! Before deployment changes has to be made on the live version.<br>
 
 ## 📋 Changelog
+**0.61 (2025-11-23)**<br>
+Dynamic fetching of post categories<br>
+Structural changes<br>
+
 **0.6 (2025-11-19)**<br>
 Major structural changes<br>
 All content moved from snippets to php files<br>
@@ -33,3 +36,6 @@ Development now assisted by GitHub Copilot instead of Poe<br>
 
 ## 💾 Installation/Update of "LOOPIS Theme"
 Upload the zipped folder "loopis-theme.zip" using **WordPress admin dashboard > Appearance > Themes > Add New Theme**.
+
+## 👤 Contributors
+Johan Hagvil, Poe & CoPilot 😊<br>

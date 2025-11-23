@@ -23,7 +23,7 @@ get_header(); ?>
         $count_new_args = array(
             'post_type'      => 'post',
             'posts_per_page' => -1,
-            'cat'            => 1,
+            'cat'            => loopis_cat('new'),
         );
         $count_new_query = new WP_Query($count_new_args);
         $count_new = $count_new_query->found_posts;
@@ -33,13 +33,17 @@ get_header(); ?>
         // Check pagination
         $paged = get_query_var('paged') ?: 1;
 
+        // Get available posts categories
+        $available_posts = loopis_cats(['new', 'old', 'booked', 'booked_custom']);
+        
         // Fetch and count available posts
         $args = array(
             'post_type'      => 'post',
             'posts_per_page' => 50,
-            'cat'            => '1,37,57,147',
+            'category__in'   => $available_posts,
             'paged'          => $paged,
         );
+
         $the_query = new WP_Query($args);
         $count_total = $the_query->found_posts;
         $count_old = $count_total - $count_new;

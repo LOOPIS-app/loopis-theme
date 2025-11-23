@@ -22,7 +22,6 @@ $end_date = $end_date->format('Y-m-d 23:59:59');
 
 // Count new posts
 $total_args = array(
-    'post_type'      => 'post',
     'posts_per_page' => -1,
     'author__not_in' => $board_ids,
     'date_query'     => array(
@@ -39,9 +38,10 @@ $total_count = $total_query->found_posts;
 $total_average = round($total_count / 7, 2);
 
 // Count booked posts
+$booked_categories = loopis_cats(['booked', 'booked_custom', 'locker', 'fetched']);
+
 $booked_args = array(
-    'post_type'      => 'post',
-    'cat'   		 => '41, 57, 104, 147',
+    'cat'   		 => $booked_categories,
     'posts_per_page' => -1,
     'author__not_in' => $board_ids,
     'date_query'     => array(

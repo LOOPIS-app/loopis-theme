@@ -8,14 +8,16 @@ if (!defined('ABSPATH')) {
 }
 ?>
 
-
-
-<div class="columns"><div class="column1"><h3><i class="fas fa-hashtag"></i> Populära kategorier</h3></div>
-<div class="column2 bottom"><a href="/discover/?view=categories">Alla kategorier →</a></div></div>
+<div class="columns">
+    <div class="column1"><h3><i class="fas fa-hashtag"></i> Populära kategorier</h3></div>
+    <div class="column2 bottom"><a href="/discover/?view=categories">Alla kategorier →</a></div>
+</div>
 <hr>
+
 <p style="line-height:2.2em">
 <?php
-$categories = array(1, 37, 42, 57, 147); // Specify the category IDs
+// Get category IDs for available posts by slugs
+$categories = loopis_cats(['new', 'old', 'booked', 'booked_custom', 'borrow']);
 
 // Create an array to store the post counts for each tag
 $tag_post_counts = array();
@@ -23,7 +25,6 @@ $tag_post_counts = array();
 // Loop through the categories and count the posts for each tag
 foreach ($categories as $category_id) {
     $args = array(
-        'post_type'      => array('post', 'borrow'), // Specify the post types
         'category__in'   => $category_id,
         'posts_per_page' => -1,
     );
@@ -44,8 +45,10 @@ foreach ($categories as $category_id) {
             }
         }
     }
+}
 
-    wp_reset_postdata(); } 
+// Reset post data AFTER the loop
+wp_reset_postdata();
 
 // Sort the tag post counts array in descending order
 arsort($tag_post_counts);
@@ -59,9 +62,11 @@ foreach ($top_tags as $tag_id => $post_count) {
     $tag_link = get_tag_link($tag_id);
     ?>
     <span class="big-link">
-            <a href="<?php echo $tag_link; ?>" title="<?php echo $tag->name; ?>" class="<?php echo $tag->slug; ?>">
-                <i class="fas fa-hashtag"></i><?php echo $tag->name; ?>
-            </a>
-        </span>&nbsp;
-    <?php } ?>
+        <a href="<?php echo esc_url($tag_link); ?>" title="<?php echo esc_attr($tag->name); ?>" class="<?php echo esc_attr($tag->slug); ?>">
+            <i class="fas fa-hashtag"></i><?php echo esc_html($tag->name); ?>
+        </a>
+    </span>&nbsp;
+<?php 
+}
+?>
 </p>

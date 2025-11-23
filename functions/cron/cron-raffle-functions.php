@@ -22,7 +22,7 @@ function admin_action_book_locker(int $winner_id, int $post_id) {
 
 	// Get variables
 	$winner_name = get_user_by('ID', $winner_id)->display_name;
-	$code_001 = do_shortcode('[code_snippet id=93]');
+	$locker_code = get_locker_code(LOCKER_ID);
 	
 	// Set post meta
 	wp_set_object_terms( $post_id, null, 'category' ); 
@@ -38,7 +38,7 @@ function admin_action_book_locker(int $winner_id, int $post_id) {
 	// Send notification from LOTTEN to author
 	send_admin_notification ('❤ '.$winner_name.' har vunnit lottningen! <br>
 	⌛ Lämna gärna i skåpet inom 24 timmar @'.get_the_author().'. <br>
-	🔓 Kod till skåpet: <b>'.$code_001.'</b>', $post_id, 11 );
+	🔓 Kod till skåpet: <b>'.$locker_code.'</b>', $post_id, 11 );
 	
 	// Leave comment by LOTTEN
 	add_admin_comment ('<p class="lotten">🎲 Dags för lottning! Men vi har bara en deltagare... <br>
@@ -109,10 +109,10 @@ function admin_action_raffle_locker(array $participants, int $count, int $post_i
 	⏳ Du får ett meddelande när du kan hämta i skåpet.', $post_id, 11);
 	
 	// Send notification from LOTTEN to author
-	$code_001 = do_shortcode('[code_snippet id=93]');
+	$locker_code = get_locker_code(LOCKER_ID);
 	send_admin_notification ('❤ '.$winner_name.' har vunnit lottningen! <br>
 	⌛ Lämna gärna i skåpet inom 24 timmar. <br>
-	🔓 Kod till skåpet: <b>'.$code_001.'</b> <br>
+	🔓 Kod till skåpet: <b>'.$locker_code.'</b> <br>
 	🙏 Tack för att du loopar! @'.get_the_author(), $post_id, 11);
 	
 	// Send notification to losers

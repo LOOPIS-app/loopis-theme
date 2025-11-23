@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
 function reminder_leave(int $reminder_leave, int $post_id) {
     // Get variables
     $number = $reminder_leave + 1;
-	$code_001 = do_shortcode('[code_snippet id=93]');
+	$locker_code = get_locker_code(LOCKER_ID);
 
     // Get user data
     $author = get_post_field('post_author');
@@ -27,7 +27,7 @@ function reminder_leave(int $reminder_leave, int $post_id) {
         send_admin_notification('
 		💡 Påminnelse #1 att lämna i skåpet @' . $author_name . ' <br>
 		✅ Tryck &quot;Lämnat&quot; på LOOPIS.app när du har lämnat. <br>
-		🔓 Kod till skåpet: <b>' . $code_001 . '</b>
+		🔓 Kod till skåpet: <b>' . $locker_code . '</b>
 		', $post_id, 1);
 		
         add_admin_comment('<p class="reminder">
@@ -38,7 +38,7 @@ function reminder_leave(int $reminder_leave, int $post_id) {
         send_admin_notification('
 		💡 Påminnelse #2 att lämna i skåpet @' . $author_name . ' <br>
 		😍 ' . $fetcher_name . ' väntar på att få hämta... <br>
-		🔓 Kod till skåpet: <b>' . $code_001 . '</b>
+		🔓 Kod till skåpet: <b>' . $locker_code . '</b>
 		', $post_id, 1);
 		
         add_admin_comment('<p class="reminder">
@@ -49,7 +49,7 @@ function reminder_leave(int $reminder_leave, int $post_id) {
         send_admin_notification('
 		⚠ Påminnelse #3 att lämna i skåpet @' . $author_name . ' <br>
 		🗨 Skriv gärna i en kommentar om/när du kommer att lämna till ' . $fetcher_name . '. <br>
-		🔓 Kod till skåpet: <b>' . $code_001 . '</b>
+		🔓 Kod till skåpet: <b>' . $locker_code . '</b>
 		', $post_id, 1);
 		
         send_admin_notification('
@@ -76,7 +76,7 @@ function reminder_leave(int $reminder_leave, int $post_id) {
 function reminder_fetch(int $reminder_fetch, int $post_id) {
     // Get variables
     $number = $reminder_fetch + 1;
-    $code_001 = do_shortcode('[code_snippet id=93]');
+    $locker_code = get_locker_code(LOCKER_ID);
 
     // Get user data
     $fetcher = get_field('fetcher');
@@ -87,7 +87,7 @@ function reminder_fetch(int $reminder_fetch, int $post_id) {
         send_admin_notification('
         💡 Påminnelse #1 att hämta i skåpet @' . $fetcher_name . ' <br>
         ☑ Tryck &quot;Hämtat&quot; på LOOPIS.app när du har hämtat. <br>
-        🔓 Kod till skåpet: <b>' . $code_001 . '</b>
+        🔓 Kod till skåpet: <b>' . $locker_code . '</b>
 		', $post_id, 1);
 
         add_admin_comment('<p class="reminder">
@@ -98,7 +98,7 @@ function reminder_fetch(int $reminder_fetch, int $post_id) {
         send_admin_notification('
         💡 Påminnelse #2 att hämta i skåpet @' . $fetcher_name . ' <br>
         ♻ För att skåpet inte ska bli fullt önskar vi att du hämtar. <br>
-        🔓 Kod till skåpet: <b>' . $code_001 . '</b>
+        🔓 Kod till skåpet: <b>' . $locker_code . '</b>
 		', $post_id, 1);
 
         add_admin_comment('<p class="reminder">
@@ -109,7 +109,7 @@ function reminder_fetch(int $reminder_fetch, int $post_id) {
         send_admin_notification('
         ⚠ Påminnelse #3 att hämta i skåpet @' . $fetcher_name . ' <br>
         🗨 Skriv gärna i en kommentar till LOOPIS när du kommer att hämta. <br>
-        🔓 Kod till skåpet: <b>' . $code_001 . '</b>
+        🔓 Kod till skåpet: <b>' . $locker_code . '</b>
 		', $post_id, 1);
 
         add_admin_comment('<p class="reminder">
