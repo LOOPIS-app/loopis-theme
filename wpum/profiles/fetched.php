@@ -1,8 +1,8 @@
 <?php
 /**
- * Template for displaying the profile fetched tab content, homemade by LOOPIS.
- *
- * @version 1.0.0
+ * Template for displaying the profile fetched tab content.
+ * 
+ * Added by LOOPIS (to show among the WPUM profile tabs).
  */
 
 // Exit if accessed directly
