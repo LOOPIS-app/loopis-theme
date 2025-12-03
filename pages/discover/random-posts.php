@@ -16,7 +16,7 @@ if (!defined('ABSPATH')) {
 $args = array(
     'post_type' => 'post',
     'posts_per_page' => 3,
-    'cat'   		 => loopis_cat('old'),
+    'cat'   		 => loopis_cat('first'),
  	'orderby' => 'rand',
 );
 

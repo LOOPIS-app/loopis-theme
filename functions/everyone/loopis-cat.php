@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
 /**
  * Get category ID by slug
  * 
- * @param string $slug Category slug (e.g., 'new', 'booked', 'fetched')
+ * @param string $slug Category slug (e.g., 'new', 'booked_locker', 'fetched')
  * @return int|false Category ID or false if not found
  */
 function loopis_cat($slug) {
@@ -28,7 +28,7 @@ function loopis_cat($slug) {
 /**
  * Get multiple category IDs by slugs
  * 
- * @param array $slugs Array of category slugs (e.g., ['new', 'booked', 'fetched'])
+ * @param array $slugs Array of category slugs (e.g., ['new', 'booked_locker', 'fetched'])
  * @return array Array of category IDs (excludes non-existent categories)
  */
 function loopis_cats($slugs) {

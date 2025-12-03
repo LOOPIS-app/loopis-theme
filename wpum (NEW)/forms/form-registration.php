@@ -20,8 +20,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 <p>Välkommen till LOOPIS - föreningen för oss som vill ha en glad och hållbar framtid! 🙋</p>
 <div class="wpum-message information">
 <p>⚠ OBS! Du kan bara använda LOOPIS om du bor i eller nära Bagarmossen!</p>
-</div>
 <p><span class="link"><a href="/varfor-bagis">📌 Varför måste jag bo i Bagis?</a></span></p>
+</div>
 
 <h3>1⃣ Betala medlemsavgift</h3>
 <hr>

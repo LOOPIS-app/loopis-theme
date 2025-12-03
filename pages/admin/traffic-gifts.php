@@ -81,7 +81,7 @@ $count = $the_query->found_posts;
             <div class="logg">
                 <p><i class="fas fa-heart"></i><a href="<?php echo esc_url($fetcher_link); ?>"><?php echo $fetcher_name; ?></a> – <?php echo human_time_diff($book_time, $current_time); ?> sedan</p>
                 <p><i class="fas fa-check-square"></i><?php echo get_the_author_posts_link(); ?> – <?php echo human_time_diff($locker_time, $current_time); ?> sedan</p>
-                <p><i class="far fa-square"></i><a href="<?php echo esc_url($fetcher_link); ?>"><?php echo $fetcher_name; ?></a>... <?php echo time_to_fetch(); ?> <?php echo reminder_symbols($reminder_fetch); ?></p>
+                <p><i class="far fa-square"></i><a href="<?php echo esc_url($fetcher_link); ?>"><?php echo $fetcher_name; ?></a>... <?php include LOOPIS_THEME_DIR . '/templates/post/timer-fetch.php';?> <?php echo reminder_symbols($reminder_fetch); ?></p>
             </div><!--logg-->
         </div><!--post-list-post-->
 
@@ -100,7 +100,7 @@ $count = $the_query->found_posts;
 // args
 $args = array( 
 	'post_type' => 'post',
-     'cat' => loopis_cat('booked'),
+     'cat' => loopis_cat('booked_locker'),
 );
 
 // query
@@ -149,7 +149,7 @@ $count = $the_query->found_posts;
 <div class="logg">
 	<p><i class="fas fa-arrow-alt-circle-up"></i><?php echo get_the_author_posts_link(); ?> – <?php echo human_time_diff(get_the_time('U'), $current_time);?> sedan</p>		
 	<p><i class="fas fa-heart"></i><a href="<?php echo esc_url($fetcher_link); ?>"><?php echo $fetcher_name; ?></a> – <?php echo human_time_diff($book_time, $current_time);?> sedan</p>
-	<p><i class="far fa-square"></i><?php echo get_the_author_posts_link(); ?>... <?php echo time_to_locker();?> <?php echo reminder_symbols($reminder_leave); ?></p>
+	<p><i class="far fa-square"></i><?php echo get_the_author_posts_link(); ?>... <?php include LOOPIS_THEME_DIR . '/templates/post/timer-locker.php';?> <?php echo reminder_symbols($reminder_leave); ?></p>
 </div><!--logg-->	
 </div><!--post-list-post-->
 
@@ -217,7 +217,7 @@ $count = $the_query->found_posts;
 <div class="logg">
 	<p><i class="fas fa-arrow-alt-circle-up"></i><?php echo get_the_author_posts_link(); ?> – <?php echo human_time_diff(get_the_time('U'), $current_time);?> sedan</p>		
 	<p><i class="fas fa-heart"></i><a href="<?php echo esc_url($fetcher_link); ?>"><?php echo $fetcher_name; ?></a> – <?php echo human_time_diff($book_time, $current_time);?> sedan</p>
-<p><i class="fas fa-mobile-alt"></i><a href="<?php echo esc_url($fetcher_link); ?>"><?php echo $fetcher_name; ?></a> ska hämta... <?php echo time_to_locker();?> <?php echo reminder_symbols($reminder_fetch); ?></p>
+<p><i class="fas fa-mobile-alt"></i><a href="<?php echo esc_url($fetcher_link); ?>"><?php echo $fetcher_name; ?></a> ska hämta... <?php include LOOPIS_THEME_DIR . '/templates/post/timer-locker.php';?> <?php echo reminder_symbols($reminder_fetch); ?></p>
 </div><!--logg-->	
 </div><!--post-list-post-->	
 				
