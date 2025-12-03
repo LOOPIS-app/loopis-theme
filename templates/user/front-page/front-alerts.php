@@ -119,12 +119,12 @@ if ($make_visit > 0) {
 
 // Archived posts?
 if ($archived > 0) {
-    echo '<p><span class="mega-link notif" onclick="window.location.href=\'/pages/profile/posts/?status=archived\'">⭕ Du har ' . $archived . ($archived === 1 ? ' arkiverad annons' : '') . ($archived > 1 ? ' arkiverade annonser' : '') . ' →</span></p>';
+    echo '<p><span class="mega-link notif" onclick="window.location.href=\'/activity/?view=posts&status=archived\'">⭕ Du har ' . $archived . ($archived === 1 ? ' arkiverad annons' : '') . ($archived > 1 ? ' arkiverade annonser' : '') . ' →</span></p>';
 }
 
 // Paused posts?
 if ($paused > 0) {
-    echo '<p><span class="mega-link notif" onclick="window.location.href=\'/pages/profile/posts/?status=paused\'">😎 Du har ' . $paused . ($paused === 1 ? ' pausad annons' : '') . ($paused > 1 ? ' pausade annonser' : '') . ' →</span></p>';
+    echo '<p><span class="mega-link notif" onclick="window.location.href=\'/activity/?view=posts&status=paused\'">😎 Du har ' . $paused . ($paused === 1 ? ' pausad annons' : '') . ($paused > 1 ? ' pausade annonser' : '') . ' →</span></p>';
 }
 
 // Insert spacer.

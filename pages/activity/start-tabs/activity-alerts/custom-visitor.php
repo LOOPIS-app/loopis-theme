@@ -1,5 +1,4 @@
 <?php
-<?php
 /**
  * Activity page alert for member.
  *

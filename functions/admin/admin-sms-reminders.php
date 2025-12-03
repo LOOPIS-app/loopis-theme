@@ -18,8 +18,8 @@ function reminder_leave_sms(int $reminder_leave, int $post_id) {
         $author = get_post_field('post_author');
 		$author_name = get_userdata($author)->display_name;
         $book_time = strtotime(get_field('book_date'));
-        $current_time = (new DateTime(current_time('mysql')))->getTimestamp();
-        $time_difference = $current_time - $book_time;
+        $now_time = (new DateTime(current_time('mysql')))->getTimestamp();
+        $time_difference = $now_time - $book_time;
         $days = floor($time_difference / (24 * 3600));
         $phone = get_the_author_meta('wpum_phone', $author);
         $name = get_userdata($author)->first_name;
@@ -57,8 +57,8 @@ function reminder_fetch_sms(int $reminder_fetch, int $post_id) {
         $fetcher = get_field('fetcher');
 		$fetcher_name = get_userdata($fetcher)->display_name;
         $locker_time = strtotime(get_field('locker_date'));
-		$current_time = (new DateTime(current_time('mysql')))->getTimestamp();
-        $time_difference = $current_time - $locker_time;
+		$now_time = (new DateTime(current_time('mysql')))->getTimestamp();
+        $time_difference = $now_time - $locker_time;
         $days = floor($time_difference / (24 * 3600));
         $phone = get_the_author_meta('wpum_phone', $fetcher);
         $name = get_userdata($fetcher)->first_name;
@@ -96,8 +96,8 @@ function reminder_custom_sms(int $reminder_fetch, int $post_id) {
         $fetcher = get_field('fetcher');
 		$fetcher_name = get_userdata($fetcher)->display_name;
         $book_time = strtotime(get_field('book_date'));
-		$current_time = (new DateTime(current_time('mysql')))->getTimestamp();
-        $time_difference = $current_time - $book_time;
+		$now_time = (new DateTime(current_time('mysql')))->getTimestamp();
+        $time_difference = $now_time - $book_time;
         $days = floor($time_difference / (24 * 3600));
         $phone = get_the_author_meta('wpum_phone', $fetcher);
         $name = get_userdata($fetcher)->first_name;

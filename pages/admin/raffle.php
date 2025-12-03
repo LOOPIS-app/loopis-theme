@@ -19,16 +19,16 @@ if (!defined('ABSPATH')) {
 wp_enqueue_script('loopis-tabs', get_template_directory_uri() . '/assets/js/tabs.js', array(), '1.0.0', true);
 
 // Calculate dates
-$current_time = new DateTime(current_time('mysql'));
+$now_time = new DateTime(current_time('mysql'));
 
 // Yesterday
-$yesterday = clone $current_time;
+$yesterday = clone $now_time;
 $yesterday->modify('-1 day');
 $yesterday_start = $yesterday->format('Y-m-d 00:00:00');
 $yesterday_end = $yesterday->format('Y-m-d 23:59:59');
 
 // Today
-$today = clone $current_time;
+$today = clone $now_time;
 $today_start = $today->format('Y-m-d 00:00:00');
 $today_end = $today->format('Y-m-d 23:59:59');
 
