@@ -13,8 +13,10 @@ if (!defined('ABSPATH')) {
 include_once __DIR__ . '/functions/profile-list-components.php';
 
 // Include post action functions
-include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-list.php';
-include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-single.php';
+include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-forward.php';
+include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-extend.php';
+include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-remove.php';
+include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-pause.php';
 ?>
 
 <div class="content">

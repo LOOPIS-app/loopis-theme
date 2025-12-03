@@ -22,7 +22,7 @@ if (!defined('ABSPATH')) {
 include_once LOOPIS_THEME_DIR . '/functions/admin-extra/reminders/reminder_symbols.php';
 
 // Get current timestamp
-$current_time = (new DateTime(current_time('mysql')))->getTimestamp();
+$now_time = (new DateTime(current_time('mysql')))->getTimestamp();
 ?>
 
 <!-- FETCH IN LOCKER -->
@@ -58,11 +58,11 @@ $count = $the_query->found_posts;
 
         <div class="post-list-post" style="position:relative;" onclick="location.href='<?php the_permalink(); ?>';">
             <div class="post-list-post-thumbnail"><?php the_post_thumbnail('thumbnail'); ?></div>
-
+            
 <?php if (current_user_can('loopis_reminder')) : ?>
             <!-- Send reminder? -->
             <?php if ($reminder_fetch < 3) : ?>
-                <?php if (($current_time - $locker_time) > ($reminder_fetch + 1) * (24 * 3600)) : ?>
+                <?php if (($now_time - $locker_time) > ($reminder_fetch + 1) * (24 * 3600)) : ?>
                     <?php if (isset($_POST['reminder_fetch' . $post_id])) { reminder_fetch($reminder_fetch, $post_id); } ?>
                     <form method="post" class="arb" action=""><button name="reminder_fetch<?php echo $post_id; ?>" type="submit" class="notif-button small grey" onclick="return confirm('Vill du skicka påminnelse manuellt?')">🔔</button></form>
                 <?php endif; ?>
@@ -70,7 +70,7 @@ $count = $the_query->found_posts;
 
             <!-- Send sms? -->
             <?php if ($reminder_fetch >= 3) : ?>
-                <?php if (($current_time - $locker_time) > ($reminder_fetch + 1) * (24 * 3600)) : ?>
+                <?php if (($now_time - $locker_time) > ($reminder_fetch + 1) * (24 * 3600)) : ?>
                     <?php if (isset($_POST['reminder_fetch_sms' . $post_id])) { $sms_url = reminder_fetch_sms($reminder_fetch, $post_id);
 					    if ($sms_url) { echo "<script>setTimeout(function() { window.location.href='" . esc_js($sms_url) . "'; }, 500);</script>"; } } ?>
 					<form method="post" class="arb" action=""><button name="reminder_fetch_sms<?php echo $post_id; ?>" type="submit" class="notif-button small orange">📱</button></form>
@@ -79,8 +79,8 @@ $count = $the_query->found_posts;
 <?php endif; ?>
 
             <div class="logg">
-                <p><i class="fas fa-heart"></i><a href="<?php echo esc_url($fetcher_link); ?>"><?php echo $fetcher_name; ?></a> – <?php echo human_time_diff($book_time, $current_time); ?> sedan</p>
-                <p><i class="fas fa-check-square"></i><?php echo get_the_author_posts_link(); ?> – <?php echo human_time_diff($locker_time, $current_time); ?> sedan</p>
+                <p><i class="fas fa-heart"></i><a href="<?php echo esc_url($fetcher_link); ?>"><?php echo $fetcher_name; ?></a> – <?php echo human_time_diff($book_time, $now_time); ?> sedan</p>
+                <p><i class="fas fa-check-square"></i><?php echo get_the_author_posts_link(); ?> – <?php echo human_time_diff($locker_time, $now_time); ?> sedan</p>
                 <p><i class="far fa-square"></i><a href="<?php echo esc_url($fetcher_link); ?>"><?php echo $fetcher_name; ?></a>... <?php include LOOPIS_THEME_DIR . '/templates/post/timer-fetch.php';?> <?php echo reminder_symbols($reminder_fetch); ?></p>
             </div><!--logg-->
         </div><!--post-list-post-->
@@ -130,7 +130,7 @@ $count = $the_query->found_posts;
 <?php if (current_user_can('loopis_reminder')) : ?>
 <!-- Send reminder? -->
 <?php if ($reminder_leave < 3) : ?>
-	<?php if (($current_time - $book_time) > ($reminder_leave + 1) * (24 * 3600)) : ?>
+	<?php if (($now_time - $book_time) > ($reminder_leave + 1) * (24 * 3600)) : ?>
 	    <?php if (isset($_POST['reminder_leave' . $post_id])) { reminder_leave($reminder_leave, $post_id); } ?>
     	<form method="post" class="arb" action=""><button name="reminder_leave<?php echo $post_id; ?>" type="submit" class="notif-button small grey" onclick="return confirm('Vill du skicka påminnelse manuellt?')">🔔</button></form>
     <?php endif; ?>
@@ -138,7 +138,7 @@ $count = $the_query->found_posts;
 
             <!-- Send sms? -->
             <?php if ($reminder_leave >= 3) : ?>
-                <?php if (($current_time - $book_time) > ($reminder_leave + 1) * (24 * 3600)) : ?>
+                <?php if (($now_time - $book_time) > ($reminder_leave + 1) * (24 * 3600)) : ?>
                     <?php if (isset($_POST['reminder_leave_sms' . $post_id])) { $sms_url = reminder_leave_sms($reminder_leave, $post_id);
 					    if ($sms_url) { echo "<script>setTimeout(function() { window.location.href='" . esc_js($sms_url) . "'; }, 500);</script>"; } } ?>
 					<form method="post" class="arb" action=""><button name="reminder_leave_sms<?php echo $post_id; ?>" type="submit" class="notif-button small orange">📱</button></form>
@@ -147,8 +147,8 @@ $count = $the_query->found_posts;
 <?php endif; ?>	
 
 <div class="logg">
-	<p><i class="fas fa-arrow-alt-circle-up"></i><?php echo get_the_author_posts_link(); ?> – <?php echo human_time_diff(get_the_time('U'), $current_time);?> sedan</p>		
-	<p><i class="fas fa-heart"></i><a href="<?php echo esc_url($fetcher_link); ?>"><?php echo $fetcher_name; ?></a> – <?php echo human_time_diff($book_time, $current_time);?> sedan</p>
+	<p><i class="fas fa-arrow-alt-circle-up"></i><?php echo get_the_author_posts_link(); ?> – <?php echo human_time_diff(get_the_time('U'), $now_time);?> sedan</p>		
+	<p><i class="fas fa-heart"></i><a href="<?php echo esc_url($fetcher_link); ?>"><?php echo $fetcher_name; ?></a> – <?php echo human_time_diff($book_time, $now_time);?> sedan</p>
 	<p><i class="far fa-square"></i><?php echo get_the_author_posts_link(); ?>... <?php include LOOPIS_THEME_DIR . '/templates/post/timer-locker.php';?> <?php echo reminder_symbols($reminder_leave); ?></p>
 </div><!--logg-->	
 </div><!--post-list-post-->
@@ -198,7 +198,7 @@ $count = $the_query->found_posts;
 <?php if (current_user_can('loopis_reminder')) : ?>
 <!-- Send reminder? -->					
 <?php if ($reminder_fetch < 3) : ?>
-	<?php if (($current_time - $book_time) > ($reminder_fetch + 1) * (24 * 3600)) : ?>
+	<?php if (($now_time - $book_time) > ($reminder_fetch + 1) * (24 * 3600)) : ?>
 	    <?php if (isset($_POST['reminder_fetch' . $post_id])) { reminder_custom($reminder_fetch, $post_id); } ?>
 	    <form method="post" class="arb" action=""><button name="reminder_fetch<?php echo $post_id; ?>" type="submit" class="notif-button small grey" onclick="return confirm('Vill du skicka påminnelse manuellt?')">🔔</button></form>
     <?php endif; ?>
@@ -206,7 +206,7 @@ $count = $the_query->found_posts;
 	
             <!-- Send sms? -->
             <?php if ($reminder_fetch >= 3) : ?>
-                <?php if (($current_time - $book_time) > ($reminder_fetch + 1) * (24 * 3600)) : ?>
+                <?php if (($now_time - $book_time) > ($reminder_fetch + 1) * (24 * 3600)) : ?>
                     <?php if (isset($_POST['reminder_custom_sms' . $post_id])) { $sms_url = reminder_custom_sms($reminder_fetch, $post_id);
 					    if ($sms_url) { echo "<script>setTimeout(function() { window.location.href='" . esc_js($sms_url) . "'; }, 500);</script>"; } } ?>
 					<form method="post" class="arb" action=""><button name="reminder_custom_sms<?php echo $post_id; ?>" type="submit" class="notif-button small orange">📱</button></form>
@@ -215,8 +215,8 @@ $count = $the_query->found_posts;
 <?php endif; ?>
 
 <div class="logg">
-	<p><i class="fas fa-arrow-alt-circle-up"></i><?php echo get_the_author_posts_link(); ?> – <?php echo human_time_diff(get_the_time('U'), $current_time);?> sedan</p>		
-	<p><i class="fas fa-heart"></i><a href="<?php echo esc_url($fetcher_link); ?>"><?php echo $fetcher_name; ?></a> – <?php echo human_time_diff($book_time, $current_time);?> sedan</p>
+	<p><i class="fas fa-arrow-alt-circle-up"></i><?php echo get_the_author_posts_link(); ?> – <?php echo human_time_diff(get_the_time('U'), $now_time);?> sedan</p>		
+	<p><i class="fas fa-heart"></i><a href="<?php echo esc_url($fetcher_link); ?>"><?php echo $fetcher_name; ?></a> – <?php echo human_time_diff($book_time, $now_time);?> sedan</p>
 <p><i class="fas fa-mobile-alt"></i><a href="<?php echo esc_url($fetcher_link); ?>"><?php echo $fetcher_name; ?></a> ska hämta... <?php include LOOPIS_THEME_DIR . '/templates/post/timer-locker.php';?> <?php echo reminder_symbols($reminder_fetch); ?></p>
 </div><!--logg-->	
 </div><!--post-list-post-->	

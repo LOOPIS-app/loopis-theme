@@ -14,8 +14,14 @@ if (!defined('ABSPATH')) {
  * User clicks book to fetch in locker
  */
 function action_book_locker(int $post_id) {
-    // Check economy
+    
+    // Get user variables
+    $author = get_post_field('post_author');
+    $author_name = get_userdata($author)->display_name;
     $fetcher = get_current_user_id();
+    $fetcher_name = get_userdata($fetcher)->display_name;
+
+    // Check fetcher economy
     $profile_economy = get_economy($fetcher);
     $coins = $profile_economy['coins'];
     if ($coins < 1) {
@@ -23,11 +29,8 @@ function action_book_locker(int $post_id) {
         echo '<script src="' . LOOPIS_THEME_DIR . '/assets/js/scroll-to-warning.js"></script>';
         return;
     }
-
-    // Get variables
-    $author = get_post_field('post_author');
-    $author_name = get_userdata($author)->display_name;
-    $fetcher_name = get_userdata($fetcher)->display_name;
+    
+    // Get locker code
     $locker_code = get_locker_code(LOCKER_ID);
 
     // Set post meta

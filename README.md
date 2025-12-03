@@ -3,18 +3,18 @@
 "LOOPIS Theme" is a WordPress theme that provides the design and functionality for LOOPIS.app<br>
 
 ## 💡 Status
-⚠️ **STAGING VERSION** - Not ready for production deployment! Before deployment changes has to be made on the live version.<br>
+"The Develoopers" are currently working on making LOOPIS.app work on multiple installations and with fewer third party plugins.<br>
 
 ## 📋 Changelog
-**0.62 (2025-11-XX)**<br>
-Added README.md about plugin WPUM in folder `wpum/`<br>
+**0.7.0 (2025-12-03)**<br>
+Fixed for live deployment!<br>
+Currently using the live app post categories<br>
 
-**0.61 (2025-11-23)**<br>
-Dynamic fetching of post categories<br>
-Structural changes<br>
-
-**0.6 (2025-11-19)**<br>
+**0.6 (2025-12-02)**<br>
+Added README.md about plugin WPUM in folder `wpum`<br>
+Including folder `wpum (NEW)`(work in progress)<br>
 Major structural changes<br>
+Dynamic fetching of post categories<br>
 All content moved from snippets to php files<br>
 GitHub repo made public!<br>
 

@@ -15,15 +15,17 @@ if (!defined('ABSPATH')) {
  */
 function action_regret(int $post_id) {
 	
-	// Get variables
+	// Get user variables
 	$fetcher = get_post_meta($post_id, 'fetcher', true);
 	$fetcher_name = get_userdata($fetcher)->display_name; 
-	$locker_code = get_locker_code(LOCKER_ID);
 	
 	// Count queue
 	$queue = get_post_meta($post_id, 'queue', true);
 	if (!empty($queue)) { $queue_count = count($queue);
 	} else { $queue_count = 0; }
+
+	// Get locker code
+    $locker_code = get_locker_code(LOCKER_ID);
 		
 	// Change post meta
 	update_field('fetcher', null);

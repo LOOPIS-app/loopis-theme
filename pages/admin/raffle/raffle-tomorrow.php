@@ -64,7 +64,7 @@ $count = $the_query->found_posts;
                 <div class="post-list-post-title"><?php the_title(); ?></div>
 
                 <?php if (in_category('new') || in_category('removed')) : ?>
-                    <?php include LOOPIS_THEME_DIR . '/admin/raffle/raffle-actions.php'; ?>
+                    <?php include LOOPIS_THEME_DIR . '/pages/admin/raffle/raffle-actions.php'; ?>
                 <?php else : ?>
                     <div class="notif-meta post-list-post-meta">
                         <p>

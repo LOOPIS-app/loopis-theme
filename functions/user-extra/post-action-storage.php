@@ -51,12 +51,12 @@ if (!function_exists('admin_action_publish_storage')) {
         wp_set_object_terms($post_id, 'new', 'category');
         
         // Update post
-        $current_time = current_time('mysql');
+        $now_time = current_time('mysql');
         $post_data = array(
             'ID' => $post_id,
             'post_status' => 'publish',
-            'post_date' => $current_time,
-            'post_date_gmt' => get_gmt_from_date($current_time),
+            'post_date' => $now_time,
+            'post_date_gmt' => get_gmt_from_date($now_time),
         );
         wp_update_post($post_data);
             

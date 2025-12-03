@@ -10,6 +10,7 @@ get_header(); ?>
     <div class="page-padding">
 
         <h1>🔍 Sök</h1>
+        <hr>
         <p class="small">💡 Sök bland alla aktuella annonser.</p>
 
         <!-- Search Form -->

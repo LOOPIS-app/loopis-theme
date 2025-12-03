@@ -9,17 +9,21 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-// Get more variables
+// Get author variables
 $authorname = get_the_author_meta('display_name', $author);
 $authorlink = get_the_author_posts_link();
 
+// Get participants variables
 $participants = get_post_meta($post_id, 'participants', true);
 	if (!is_array($participants)) { $participants = array(); }
 $queue = get_post_meta($post_id, 'queue', true);
 	if (!is_array($queue)) { $queue = array(); }
 	$queue_total = count($queue);
-	$queue_position = array_search($current, $queue) + 1; ?>
+	$queue_position = array_search($current, $queue) + 1; 
 
+// Get locker code
+$locker_code = get_locker_code(LOCKER_ID);
+?>
 
 <!-- NEW POST -->
 <?php if (in_category( 'new' )) : ?>
@@ -139,9 +143,9 @@ $queue = get_post_meta($post_id, 'queue', true);
 	
 	<?php if ( $current == $author ) : ?>
 		<?php include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-deliver.php'; ?>
-		<p><i class="fas fa-walking"></i>Dags att lämna i <span class="label">🌈 <?php echo $location; ?></span></p>
+		<p>🔔 Dags att lämna i <span class="label"><i class="fas fa-walking"></i><?php echo $location; ?></span></p>
 		<p><?php include LOOPIS_THEME_DIR . '/templates/post/timer-locker.php';?></p>
-		<p>🔓 Kod till skåpet: <span class="code"><?php echo get_locker_code(LOCKER_ID);?></span></p>
+		<p>🔓 Kod till skåpet: <span class="code"><?php echo $locker_code;?></span></p>
 		<?php if(isset($_POST['locker'])){ action_locker($post_id); } ?>
 		<form method="post" class="arb" action=""><button name="locker" type="submit" class="green" onclick="return confirm('Har du lämnat i skåpet?')">Lämnat!</button></form>
 		<p class="info">Har du lämnat i skåpet? Tryck på knappen för att meddela mottagaren.</p>
@@ -224,9 +228,9 @@ $queue = get_post_meta($post_id, 'queue', true);
 		<?php include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-fetch.php'; ?>
 		<?php include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-regret.php'; ?>
 
-		<p><i class="fas fa-walking"></i>Dags att hämta i <span class="label">🌈 <?php echo $location; ?></span></p>
+		<p>🔔 Dags att hämta i <span class="label"><i class="fas fa-walking"></i><?php echo $location; ?></span></p>
 		<p><?php include LOOPIS_THEME_DIR . '/templates/post/timer-fetch.php';?></p>
-		<p>🔓 Kod till skåpet: <span class="code"><?php echo get_locker_code(LOCKER_ID);?></span></p>
+		<p>🔓 Kod till skåpet: <span class="code"><?php echo $locker_code;?></span></p>
 		<?php if(isset($_POST['fetched'])) { action_fetched ($post_id); } ?>
 		<form method="post" class="arb" action=""><button name="fetched" type="submit" class="blue" onclick="return confirm('Har du hämtat?')">Hämtat!</button></form>
 		<p class="info">Har du hämtat i skåpet? Tryck på knappen.</p>
