@@ -11,12 +11,12 @@ if (!defined('ABSPATH')) {
 $board_ids = array(2, 3, 66);
 
 // Calculate the start and end dates for the last 7 complete days
-$current_time = new DateTime(current_time('mysql'));
-$start_date = clone $current_time;
+$now_time = new DateTime(current_time('mysql'));
+$start_date = clone $now_time;
 $start_date->modify('-8 days');
 $start_date = $start_date->format('Y-m-d 00:00:00');
 
-$end_date = clone $current_time;
+$end_date = clone $now_time;
 $end_date->modify('-2 day');
 $end_date = $end_date->format('Y-m-d 23:59:59');
 

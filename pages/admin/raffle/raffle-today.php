@@ -67,7 +67,7 @@ $count = $the_query->found_posts;
                 <div class="post-list-post-title"><?php the_title(); ?></div>
 
                 <?php if (in_category('new')) : ?>
-                    <?php include LOOPIS_THEME_DIR . '/admin/raffle/raffle-actions.php'; ?>
+                    <?php include LOOPIS_THEME_DIR . '/pages/admin/raffle/raffle-actions.php'; ?>
                 <?php elseif (in_category('removed')) : ?>
                     <?php if (isset($_POST['erase' . $post_id])) {
                         admin_action_erase($post_id);

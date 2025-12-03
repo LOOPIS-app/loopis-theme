@@ -32,6 +32,12 @@
 <p class="info">Tryck här för att skapa dolda annonser.</p>
 <?php endif ?>
 
+<!-- View storage -->
+<?php if (current_user_can('loopis_storage_book')) : ?>
+<p style="margin:0px;"><button type="submit" class="small red"><a href="/admin/?view=storage">❤ Visa lager</a></button></p>
+<p class="info">Tryck här för att visa och paxa dolda annonser.</p>
+<?php endif; ?>
+
 </div>
 
 <?php endif; ?>

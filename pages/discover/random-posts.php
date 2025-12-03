@@ -40,7 +40,7 @@ $count = $the_query->found_posts; ?>
 
 <h3>Letar du efter något särskilt?</h3>
 <hr>
-<p>Ta en titt på våra <span class="link"><a href="/kategorier/"><i class="fas fa-hashtag"></i>Kategorier</a></span> eller <span class="link"><a href="/?s=">🔍</i> Sök</a></span></p>
+<p>Ta en titt på våra <span class="link"><a href="/discover/?view=categories"><i class="fas fa-hashtag"></i>Kategorier</a></span> eller <span class="link"><a href="/?s=">🔍</i> Sök</a></span></p>
 
 <?php else : ?>
     <p>💢 Det finns inga aktuella annonser</p>

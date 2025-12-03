@@ -15,10 +15,12 @@ if (!defined('ABSPATH')) {
 */	
 function action_locker(int $post_id) {
 	
-	// Get variables
+	// Get user variables
 	$fetcher = get_post_meta($post_id, 'fetcher', true);
 		if ($fetcher) { $fetcher_name = get_userdata($fetcher)->display_name; } 
-	$locker_code = get_locker_code(LOCKER_ID);
+	
+	// Get locker code
+    $locker_code = get_locker_code(LOCKER_ID);
 	
 	// Set post meta
 	wp_set_object_terms( $post_id, null, 'category' ); 

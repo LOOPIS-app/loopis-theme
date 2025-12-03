@@ -1,6 +1,6 @@
 /*
  Theme Name: LOOPIS Theme
- Version: 0.6
+ Version: 0.7.0
  Author: joxyzan
  Author URI: https://loopis.org
  Description: Theme for making LOOPIS.app work and shine
@@ -45,7 +45,7 @@ img.wp-smiley, img.emoji { margin: 0 1px 0 0 !important; vertical-align: -0.1em 
 #wrapper { max-width:900px; height:100%; margin: 0 auto; background: #fefefe; margin-bottom: 25px;}
 .container { width:100%; margin-top: 70px; background: #fff; border: 1px solid #f5f5f5; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
 .content { }
-.page-padding { padding:20px 15px; }
+.page-padding { padding: 20px 15px; }
 
 /*  Header */
 #header { position: fixed; top: 0px; left: 0px; z-index: 1; padding-top:10px; height: 60px; width: 100%; font-size: 19px; color: #777; background: #fff; border-bottom: 1px solid #e5e5e5; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
@@ -195,7 +195,7 @@ h1.wrap { white-space: normal; }
 /* Post layout */
 .post-wrapper { background:#f5f5f5; }
 .post-wrapper-form { background:#f5f5f5; padding:15px; border-radius: 10px; }
-.post-padding { padding: 10px 20px; }
+.post-padding { padding: 10px 15px; }
 .post-images { position: relative; }
 .post-image { margin: 0; padding: 0; }
 .post-image img { width: 100%; height: auto; }
@@ -217,7 +217,7 @@ h1.wrap { white-space: normal; }
 .wp-block-embed__wrapper iframe { width: 240px !important; height: auto !important; }
 
 /* Logg layout */
-.logg { font-size:13px; color:#777; line-height:1.5; text-decoration:none; padding: 2px; } 
+.logg { font-size:13px; color:#777; line-height:1.5; text-decoration:none; } 
 .logg p { margin:0; } 
 .logg a { color: #777; }
 .logg a:hover { color:#333; }

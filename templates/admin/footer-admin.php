@@ -10,7 +10,7 @@
         <span class="text">Översikt</span>
         </a>
 
-        <a href="/admin/?view=reminders" class="footer-button">
+        <a href="/admin/?view=traffic-gifts" class="footer-button">
         <span class="emoji">⏰</span>
         <span class="text">Påminnelser</span>
         </a>

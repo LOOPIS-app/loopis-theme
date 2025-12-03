@@ -9,10 +9,13 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-// query
+// Get locker code
+$locker_code = get_locker_code(LOCKER_ID);
+
+// Query
 $count = $the_query->post_count; // Change from found_posts to post_count
 
-// output
+// Output
 if( $the_query->have_posts() ): ?>
 <h7><i class="fas fa-walking"></i> Dags att lämna i skåpet!</h7>
 <div class="columns"><div class="column1">
@@ -39,7 +42,7 @@ if( $the_query->have_posts() ): ?>
                 </form>
                 </div>
                 <div class="notif-meta post-list-post-meta">
-                    <p><span><?php include LOOPIS_THEME_DIR . '/templates/post/timer-locker.php';?></span>🔓<span class="code"><?php echo get_option('loopis_locker_code_12845-1', 'kod saknas!');?></span></p>
+                    <p><span><?php include LOOPIS_THEME_DIR . '/templates/post/timer-locker.php';?></span>🔓<span class="code"><?php echo $locker_code;?></span></p>
                 </div>
             </div>			
     <?php endwhile; ?>

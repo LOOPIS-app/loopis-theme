@@ -60,7 +60,6 @@ if (empty($image_2_id)) {
 ?>
 
 <div class="content">
-    <div class="page-padding" style="padding: 0px 15px;"> <!-- Post image at top -->
 
         <!-- THE POST -->
         <div class="post-wrapper">    
@@ -110,9 +109,10 @@ if (empty($image_2_id)) {
             </div><!--post-padding-->				
         </div><!--post-wrapper-->							
 
+        <div class="page-padding" style="padding-top: 5px;"> <!-- Logg close to post -->
+
         <!-- User log -->
         <?php include LOOPIS_THEME_DIR . '/templates/post/post-log.php'; ?>
-
 
             <!-- INTERACTION -->
                 <div class="columns">

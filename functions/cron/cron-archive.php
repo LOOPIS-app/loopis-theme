@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
 /** CRON: ARCHIVE */
 function cron_job_archive() {
     $start_time = new DateTime(current_time('mysql'));
-    $current_time = new DateTime(current_time('mysql'));
+    $now_time = new DateTime(current_time('mysql'));
     $four_weeks_ago = new DateTime(current_time('mysql'));
     $four_weeks_ago->modify('-28 days');
 
@@ -40,7 +40,7 @@ function cron_job_archive() {
                 $extend_date_time = new DateTime($extend_date);
                 $extend_date_time->modify('+28 days');
 
-                if ($extend_date_time <= $current_time) {
+                if ($extend_date_time <= $now_time) {
                     $do_archive = true;
                 }
             } else {
