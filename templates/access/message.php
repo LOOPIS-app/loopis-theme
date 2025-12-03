@@ -41,8 +41,8 @@ if (is_user_logged_in()) {
 
 } else {
     // Not logged in
-    $message = '<p><span class="link"><a href="/logga-in">👤 Logga in</a></span> om du är medlem.</p>
-                <p><span class="link"><a href="/bli-medlem">📋 Bli medlem</a></span> för att kunna logga in.</p>
+    $message = '<p><span class="link"><a href="/log-in">👤 Logga in</a></span> om du är medlem.</p>
+                <p><span class="link"><a href="/register">📋 Bli medlem</a></span> för att kunna logga in.</p>
                 <p><span class="link"><a href="/faq/hur-funkar-loopis/">📌 Nyfiken?</a></span> Läs hur LOOPIS funkar.</p>';
 }
 

@@ -1,8 +1,6 @@
 <?php
 /**
- * Template for displaying the profile removed posts tab content.
- * 
- * Added by LOOPIS (to show among the WPUM profile tabs).
+ * Template for displaying my profile POSTS tab content.
  */
 
 // Exit if accessed directly

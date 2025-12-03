@@ -22,7 +22,7 @@ $archived = 0;
 
 // Query 1: Time to leave in the locker
 $leave = count(get_posts(array(
-    'cat' => loopis_cat('booked'),
+    'cat' => loopis_cat('booked_locker'),
     'author' => $user_id,
     'fields' => 'ids',
     'posts_per_page' => -1,

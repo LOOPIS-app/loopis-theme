@@ -9,16 +9,8 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-// args
-$args = array(
-    'meta_key'      => 'fetcher',
-    'meta_value'    => $user_ID,
-    'cat'   		 => '104',
-);
-
 // query
-$the_query = new WP_Query( $args );
-$count = $the_query->found_posts; 
+$count = $the_query->post_count; 
 
 // output
 if( $the_query->have_posts() ): ?>
@@ -28,11 +20,15 @@ if( $the_query->have_posts() ): ?>
 </div><div class="column2">
 </div></div>
 <hr>
-	<div class="post-list">
+    <div class="post-list">
     <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
         <div class="post-list-post notif" style="position:relative;" onclick="location.href='<?php the_permalink(); ?>';">
             <div class="post-list-post-thumbnail">
-                <?php echo the_post_thumbnail('thumbnail'); ?>
+                <?php 
+                if ( has_post_thumbnail() ) {
+                    the_post_thumbnail('thumbnail');
+                }
+                ?>
             </div>
             <div class="post-list-post-title">
                 <?php the_title(); ?>
@@ -43,12 +39,12 @@ if( $the_query->have_posts() ): ?>
                 </form>
             </div>
             <div class="notif-meta post-list-post-meta">
-				<p><span><?php include LOOPIS_THEME_DIR . '/templates/post/timer-fetch.php';?></span> 🔓<span class="code"><?php echo get_option('loopis_locker_code_12845-1', 'kod saknas!'); ?></span></p>
+                <p><span><?php include LOOPIS_THEME_DIR . '/templates/post/timer-fetch.php';?></span> 🔓<span class="code"><?php echo get_option('loopis_locker_code_12845-1', 'kod saknas!'); ?></span></p>
             </div>
         </div>
 
     <?php endwhile; ?>
-	</div>
+    </div>
 <div style="height:10px" aria-hidden="true" class="wp-block-spacer"></div>
 <?php endif; ?>
 

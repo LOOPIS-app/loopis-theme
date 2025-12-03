@@ -9,16 +9,18 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-// args
-$args = array(
-    'meta_key'      => 'fetcher',
-    'meta_value'    => $user_ID,
-    'cat'   		 => '147',
-);
-
 // query
-$the_query = new WP_Query( $args );
-$count = $the_query->found_posts; 
+$count = $the_query->post_count;
+
+// Only query full posts if we have results
+if ( $count > 0 ) {
+    // Now get the actual posts with thumbnails
+    $args['fields'] = ''; // Get full post objects
+    $args['update_post_meta_cache'] = true; // We need meta for thumbnails
+    $the_query = new WP_Query( $args );
+} else {
+    $the_query = $count_query;
+}
 
 // Output
 if( $the_query->have_posts() ): ?>
@@ -28,11 +30,15 @@ if( $the_query->have_posts() ): ?>
 </div><div class="column2">
 </div></div>
 <hr>
-	<div class="post-list">
+    <div class="post-list">
     <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
         <div class="post-list-post notif" style="position:relative;" onclick="location.href='<?php the_permalink(); ?>';">
             <div class="post-list-post-thumbnail">
-                <?php echo the_post_thumbnail('thumbnail'); ?>
+                <?php 
+                if ( has_post_thumbnail() ) {
+                    the_post_thumbnail('thumbnail');
+                }
+                ?>
             </div>
             <div class="post-list-post-title">
                 <?php the_title(); ?>
@@ -47,7 +53,7 @@ if( $the_query->have_posts() ): ?>
             </div>
         </div>
     <?php endwhile; ?>
-	</div>
+    </div>
 <div style="height:10px" aria-hidden="true" class="wp-block-spacer"></div>
 <?php endif; ?>
 

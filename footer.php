@@ -49,7 +49,7 @@
                     </a>
                 <?php endif; ?>
             <?php else : ?>
-                <a href="/logga-in/" class="footer-button">
+                <a href="/log-in/" class="footer-button">
                     <span class="emoji">👤️</span>
                     <span class="text">Logga in</span>
                 </a>
