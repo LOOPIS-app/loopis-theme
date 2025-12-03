@@ -148,7 +148,7 @@ $cumulative_counts = [
     'posts' => 0,
     'users' => 0,
     'book_date' => 0,
-    'booked' => 0,
+    'booked_locker' => 0,
 	'quickbooked' => 0
 ];
 
@@ -156,7 +156,7 @@ $weekly_counts = [
     'posts' => [],
     'users' => [],
     'book_date' => [],
-    'booked' => [],
+    'booked_locker' => [],
 	'quickbooked' => []
 ];
 
@@ -164,7 +164,7 @@ $cumulative_results = [
     'posts' => [],
     'users' => [],
     'book_date' => [],
-    'booked' => [],
+    'booked_locker' => [],
 	'quickbooked' => []
 ];
 
@@ -193,7 +193,7 @@ while ($start <= strtotime($end_date)) {
     calculate_counts($post_results, $week, $cumulative_counts['posts'], $cumulative_results['posts'], $weekly_counts['posts'], 'post_count');
     calculate_counts($user_results, $week, $cumulative_counts['users'], $cumulative_results['users'], $weekly_counts['users'], 'user_count');
     calculate_counts($book_date_results, $week, $cumulative_counts['book_date'], $cumulative_results['book_date'], $weekly_counts['book_date'], 'book_count');
-    calculate_counts($booked_results, $week, $cumulative_counts['booked'], $cumulative_results['booked'], $weekly_counts['booked'], 'post_count');
+    calculate_counts($booked_results, $week, $cumulative_counts['booked_locker'], $cumulative_results['booked_locker'], $weekly_counts['booked_locker'], 'post_count');
 	calculate_counts($quickbooked_results, $week, $cumulative_counts['quickbooked'], $cumulative_results['quickbooked'], $weekly_counts['quickbooked'], 'post_count');
 
     $start = strtotime('+1 week', $start);
@@ -269,7 +269,7 @@ const weeklyChart = new Chart(ctxWeekly, {
             },
             {
                 label: 'Paxade',
-                data: <?php echo json_encode($weekly_counts['booked']); ?>,
+                data: <?php echo json_encode($weekly_counts['booked_locker']); ?>,
                 borderColor: '#FF969D',
                 backgroundColor: 'rgba(255, 150, 157, 0.2)',
                 borderWidth: 1,
@@ -317,7 +317,7 @@ document.getElementById('download-weeklyChart').addEventListener('click', functi
     const labels = <?php echo json_encode($weeks); ?>;
     const datasets = [
         { label: 'Annonser', data: <?php echo json_encode($weekly_counts['posts']); ?> },
-        { label: 'Paxade', data: <?php echo json_encode($weekly_counts['booked']); ?> },
+        { label: 'Paxade', data: <?php echo json_encode($weekly_counts['booked_locker']); ?> },
         { label: 'Snabbpaxade', data: <?php echo json_encode($weekly_counts['quickbooked']); ?> },
 		{ label: 'Paxningar', data: <?php echo json_encode($weekly_counts['book_date']); ?> },
         { label: 'Medlemmar', data: <?php echo json_encode($weekly_counts['users']); ?> }

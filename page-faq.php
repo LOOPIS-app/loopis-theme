@@ -37,7 +37,7 @@ get_header(); ?>
 <?php if ( current_user_can('member_earlier')) { ?>
 	<p><span class="big-link"><a href="../fornya-medlemskap">📋 Förnya medlemskap</a></span></p>
 <?php } else { ?>
-	<p><span class="big-link"><a href="../bli-medlem">📋 Bli medlem</a></span></p>
+	<p><span class="big-link"><a href="../register">📋 Bli medlem</a></span></p>
 <?php } ?>
 
 <h3>LOOPIS.app</h3>

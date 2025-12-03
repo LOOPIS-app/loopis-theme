@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) {
 $args = array(
     'posts_per_page' => 3,
     'orderby'        => 'rand',
-    'category__in'   => loopis_cats(['new', 'old']),
+    'category__in'   => loopis_cats(['new', 'first']),
 );
 $the_query = new WP_Query($args);
 ?>

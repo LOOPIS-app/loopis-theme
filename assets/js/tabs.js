@@ -1,6 +1,7 @@
 /**
  * Tab navigation handler
  * Handles tab switching for tabbed interface.
+ * Should be improved with AJAX for dynamic loading of tab content.
  * 
  * Created by CoPilot, inspired by WPUM.
  */

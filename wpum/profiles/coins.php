@@ -1,8 +1,6 @@
 <?php
 /**
- * Template for displaying the profile coins tab content.
- * 
- * Added by LOOPIS (to show among the WPUM profile tabs).
+ * Template for displaying my profile COINS tab content.
  */
 
 // Exit if accessed directly
@@ -84,7 +82,7 @@ $coins = $profile_economy['coins'];
 <div class="economy wrapped">
 <p>Guldstjärnor<span class="right">🌟</span></p>
 <hr>
-<?php include_once LOOPIS_THEME_DIR . '/templates/user/profile/user-rewards.php'; ?>
+<?php include_once LOOPIS_THEME_DIR . '/assets/output/user/profile/user-rewards.php'; ?>
 <hr>
 <p>&nbsp;<span class="right">Totalt: <b><?php echo $stars; ?></b></span></p>
 
@@ -111,9 +109,9 @@ $coins = $profile_economy['coins'];
 <h3>📒 Mina kvitton</h3>
 <hr>
 <p>Här är dina registrerade betalningar till föreningen:</p>
-<?php include_once LOOPIS_THEME_DIR . '/templates/user/profile/user-payments.php'; ?>
+<?php include_once LOOPIS_THEME_DIR . '/assets/output/user/profile/user-payments.php'; ?>
 
 <!--BUY COINTS-->
 <h3>💰 Köp mynt</h3>
 <hr>
-<?php include_once LOOPIS_THEME_DIR . '/templates/general/swish-coins.php'; ?>
+<?php echo do_shortcode( '[code_snippet id=111 php]' ); ?>

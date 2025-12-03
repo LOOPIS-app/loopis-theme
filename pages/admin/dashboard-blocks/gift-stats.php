@@ -38,7 +38,7 @@ $total_count = $total_query->found_posts;
 $total_average = round($total_count / 7, 2);
 
 // Count booked posts
-$booked_categories = loopis_cats(['booked', 'booked_custom', 'locker', 'fetched']);
+$booked_categories = loopis_cats(['booked_locker', 'booked_custom', 'locker', 'fetched']);
 
 $booked_args = array(
     'cat'   		 => $booked_categories,

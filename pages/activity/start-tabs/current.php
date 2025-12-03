@@ -16,12 +16,15 @@ include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-remove.php';
 $user_ID = get_current_user_id();
 
 // Get category IDs
-$active_categories = loopis_cats(['new', 'old', 'booked', 'locker', 'booked_custom', 'borrow']);
+$active_categories = loopis_cats(['new', 'first', 'booked_locker', 'locker', 'booked_custom', 'borrow']);
 
 // Arguments
 $args = array( 
     'author'         => $user_ID,
     'category__in'   => $active_categories,
+    'posts_per_page' => -1,
+    'no_found_rows'  => true,
+    'update_post_term_cache' => false,
 );
 
 // Query + count
