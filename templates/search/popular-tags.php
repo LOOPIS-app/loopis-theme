@@ -17,7 +17,7 @@ if (!defined('ABSPATH')) {
 <p style="line-height:2.2em">
 <?php
 // Get category IDs for available posts by slugs
-$categories = loopis_cats(['new', 'old', 'booked', 'booked_custom', 'borrow']);
+$categories = loopis_cats(['new', 'first', 'booked_locker', 'booked_custom', 'borrow']);
 
 // Create an array to store the post counts for each tag
 $tag_post_counts = array();

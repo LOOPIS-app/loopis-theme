@@ -490,7 +490,7 @@ li #reply-title { font-size: 0; margin: 0!important; padding: 0; height: 0; bord
 /* Tabs - styling to prevent flash of all tabs' content */
 .tab-panel { display: none; }
 .tab-panel.active { display: block; }
-  
+
 /* WPUM forms */
 .wpum-form fieldset.fieldset-privacy { line-height: 1em; }
 .wpum-form fieldset.fieldset-location { line-height: 1.6em; padding-bottom:5px;}

@@ -15,7 +15,7 @@ get_header(); ?>
         $paged = get_query_var('paged') ?: 1;
 
         // Get available posts categories
-        $available_posts = loopis_cats(['new', 'old', 'booked', 'booked_custom']);
+        $available_posts = loopis_cats(['new', 'first', 'booked_locker', 'booked_custom']);
         
         // Fetch and count available posts
         $args = array(

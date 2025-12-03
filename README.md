@@ -6,6 +6,9 @@
 ⚠️ **STAGING VERSION** - Not ready for production deployment! Before deployment changes has to be made on the live version.<br>
 
 ## 📋 Changelog
+**0.62 (2025-11-XX)**<br>
+Added README.md about plugin WPUM in folder `wpum/`<br>
+
 **0.61 (2025-11-23)**<br>
 Dynamic fetching of post categories<br>
 Structural changes<br>

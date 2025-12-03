@@ -4,7 +4,7 @@
  */
 
 // Check access
-if (current_user_can('loopis_admin')) : ?>
+if (current_user_can('loopis_admin') || current_user_can('administrator')) : ?>
 
     <?php include LOOPIS_THEME_DIR . '/templates/admin/header-admin.php'; ?>
 

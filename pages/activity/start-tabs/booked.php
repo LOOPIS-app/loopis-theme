@@ -16,13 +16,16 @@ include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-regret.php';
 $user_ID = get_current_user_id();
 
 // Get category IDs
-$booked_categories = loopis_cats(['booked', 'booked_custom', 'locker']);
+$booked_categories = loopis_cats(['booked_locker', 'booked_custom', 'locker']);
 
 // Arguments
 $args = array(
     'meta_key'       => 'fetcher',
     'meta_value'     => $user_ID,
     'category__in'   => $booked_categories,
+    'posts_per_page' => -1,
+    'no_found_rows'  => true,
+    'update_post_term_cache' => false,
 );
 
 // Query + count
