@@ -55,8 +55,8 @@ $booked_percentage = ($total_count == 0) ? 0 : round(($booked_count / $total_cou
 echo '✅ ' . $total_count . ' nya annonser iförrgår → ❤ ' . $booked_count . ' paxade nu = ♻ ' . $booked_percentage . '%<br>';
 
 // RAFFLE TODAY (yesterday's posts)
-$current_time = new DateTime(current_time('mysql'));
-$yesterday = clone $current_time;
+$now_time = new DateTime(current_time('mysql'));
+$yesterday = clone $now_time;
 $yesterday->modify('-1 day');
 $yesterday_start = $yesterday->format('Y-m-d 00:00:00');
 $yesterday_end = $yesterday->format('Y-m-d 23:59:59');

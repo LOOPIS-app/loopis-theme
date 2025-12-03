@@ -11,10 +11,9 @@ if (!defined('ABSPATH')) {
 }
 
 // Get time
-$current_time = new DateTime(current_time('mysql'));
-$current_timestamp = $current_time->getTimestamp(); // Convert DateTime to timestamp
+$now_time = (new DateTime(current_time('mysql')))->getTimestamp();
 $expiration = strtotime(get_field('locker_date')) + 24 * 3600; // Calculate expiration time in seconds
-$remaining = $expiration - $current_timestamp; // Calculate remaining time in seconds
+$remaining = $expiration - $now_time; // Calculate remaining time in seconds
 
 // Output
     if ($remaining > 0) {

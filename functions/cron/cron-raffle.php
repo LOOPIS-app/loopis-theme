@@ -17,8 +17,8 @@ function cron_job_raffle() {
 	$start_time = new DateTime(current_time('mysql'));
 	
 	// Calculate the start and end of yesterday
-	$current_time = new DateTime(current_time('mysql'));
-	$yesterday = clone $current_time;
+	$now_time = new DateTime(current_time('mysql'));
+	$yesterday = clone $now_time;
 	$yesterday->modify('-1 day');
 	$yesterday_start = $yesterday->format('Y-m-d 00:00:00');
 	$yesterday_end = $yesterday->format('Y-m-d 23:59:59');

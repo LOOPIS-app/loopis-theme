@@ -16,7 +16,7 @@ function cron_job_reminders() {
     $start_time = new DateTime(current_time('mysql'));
 
     // Get current timestamp
-    $current_time = $start_time->getTimestamp();
+    $now_time = $start_time->getTimestamp();
 
     // args
     $args = array( 
@@ -49,7 +49,7 @@ function cron_job_reminders() {
                     $reminder_leave = 0;
                 }
                 // Send reminder?
-                if (($current_time - $book_time) > ($reminder_leave + 1) * (24 * 3600)) {
+                if (($now_time - $book_time) > ($reminder_leave + 1) * (24 * 3600)) {
                     $send = reminder_leave($reminder_leave, $post_id);
                     $reminders_leave += $send;
                 }
@@ -64,7 +64,7 @@ function cron_job_reminders() {
                     $reminder_fetch = 0;
                 }
                 // Send reminder?
-                if (($current_time - $locker_time) > ($reminder_fetch + 1) * (24 * 3600)) {
+                if (($now_time - $locker_time) > ($reminder_fetch + 1) * (24 * 3600)) {
                     $send = reminder_fetch($reminder_fetch, $post_id);
                     $reminders_fetch += $send;
                 }
@@ -79,7 +79,7 @@ function cron_job_reminders() {
                     $reminder_fetch = 0;
                 }
                 // Send reminder?
-                if (($current_time - $book_time) > ($reminder_fetch + 1) * (24 * 3600)) {
+                if (($now_time - $book_time) > ($reminder_fetch + 1) * (24 * 3600)) {
                     $send = reminder_custom($reminder_fetch, $post_id);
                     $reminders_custom += $send;
                 }
