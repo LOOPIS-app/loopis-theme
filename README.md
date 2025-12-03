@@ -6,8 +6,10 @@
 ⚠️ **STAGING VERSION** - Not ready for production deployment! Before deployment changes has to be made on the live version.<br>
 
 ## 📋 Changelog
-**0.62 (2025-11-XX)**<br>
+**0.6.2 (2025-12-03)**<br>
 Added README.md about plugin WPUM in folder `wpum/`<br>
+Including folder `wpum (NEW)`that is work in progress<br>
+Currently using the live app categories (first + booked_locker)<br>
 
 **0.61 (2025-11-23)**<br>
 Dynamic fetching of post categories<br>
