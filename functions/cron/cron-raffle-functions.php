@@ -2,7 +2,7 @@
 /**
  * Extra functions for raffle cronjob.
  *
- * Included for everyone in functions.php
+ * Included in /cron + for admin in functions.php
  */
  
 if (!defined('ABSPATH')) {

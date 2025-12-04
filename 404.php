@@ -8,9 +8,11 @@
         <p><span><a href="javascript:history.back()"><i class="fas fa-chevron-left"></i> Gå tillbaka</a></span></p>
         
         <?php if (is_user_logged_in()) : ?>
-            <p>Har du hittat ett fel på LOOPIS.app?</p>
-            <p>Berätta gärna hur du hamnade här i formuläret nedan!</p>
-            <p><span><a href="javascript:history.back()"><i class="fas fa-chevron-left"></i> Gå tillbaka</a></span></p>
+            <div class="wpum-message information">
+                <h5>Har du hittat ett fel i LOOPIS.app?</h5>
+                <hr>
+                <p>⬇ Berätta gärna hur du hamnade här i formuläret nedan!</p>
+            </div>
 
             <div class="clear"></div>
             <?php get_template_part('templates/user/support/support-form'); ?>

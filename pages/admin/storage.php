@@ -22,7 +22,7 @@ if (!defined('ABSPATH')) {
     $search_term = isset($_GET['storage_search']) ? sanitize_text_field($_GET['storage_search']) : '';
 
     // Get category IDs
-    $storage_categories = loopis_cats(['storage', 'tips']);  // Add or remove 'tips' as needed
+    $storage_categories = loopis_cats(['storage']);  // Add or remove 'tips' as needed
 
     // Query arguments
     $args = array(
