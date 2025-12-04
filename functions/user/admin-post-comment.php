@@ -19,6 +19,10 @@ function add_admin_comment(string $comment_content, int $post_id, int $user_id) 
 
     // Avoid undefined-error in cron-job (by Poe)
     $remote_addr = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1';
+    
+    // Remove tabs and extra whitespace (by CoPilot 2025-12-04)
+    $comment_content = preg_replace('/\t+/', '', $comment_content); // Remove all tabs
+    $comment_content = preg_replace('/\n\s+/', "\n", $comment_content); // Remove leading spaces on new lines
 
     // Set up comment data
     $comment_data = array(

@@ -2,17 +2,17 @@
 /**
  * Activity page alert for member.
  *
- * Included in activity-alerts.php
+ * Included in activity.php
  */
  
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-// query
+// Get count from the passed query
 $count = $the_query->post_count; 
 
-// output
+// Output
 if( $the_query->have_posts() ): ?>
 <h7>🚪 Dags att få besök...</h7>
 <div class="columns"><div class="column1">

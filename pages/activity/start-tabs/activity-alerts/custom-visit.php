@@ -2,25 +2,15 @@
 /**
  * Activity page alert for member.
  *
- * Included in activity-alerts.php
+ * Included in activity.php
  */
  
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-// query
+// Get count from the passed query
 $count = $the_query->post_count;
-
-// Only query full posts if we have results
-if ( $count > 0 ) {
-    // Now get the actual posts with thumbnails
-    $args['fields'] = ''; // Get full post objects
-    $args['update_post_meta_cache'] = true; // We need meta for thumbnails
-    $the_query = new WP_Query( $args );
-} else {
-    $the_query = $count_query;
-}
 
 // Output
 if( $the_query->have_posts() ): ?>

@@ -4,7 +4,7 @@
 */	
 
 // Define theme version
-define('LOOPIS_THEME_VERSION', '0.7.0');
+define('LOOPIS_THEME_VERSION', '0.7.2');
 
 // Define theme folder path constants
 define('LOOPIS_THEME_DIR', get_template_directory());       // Server-side path to /wp-content/themes/loopis-theme/
@@ -97,53 +97,3 @@ function loopis_load_search_functions() {
     }
 }
 add_action('init', 'loopis_load_search_functions');
-
-/**
- * DEBUG: Log the 248 user query
- */
-add_filter('query', function($query) {
-    if (strpos($query, 'FROM wpxn_usermeta WHERE user_id IN') !== false) {
-        error_log('==================== LOOPIS DEBUG ====================');
-        error_log('Usermeta query triggered!');
-        error_log('Current page: ' . (isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : 'unknown'));
-        error_log('Backtrace:');
-        foreach(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS) as $i => $trace) {
-            $file = isset($trace['file']) ? $trace['file'] : 'unknown';
-            $line = isset($trace['line']) ? $trace['line'] : 'unknown';
-            $function = isset($trace['function']) ? $trace['function'] : 'unknown';
-            error_log("  #{$i} {$function}() - {$file}:{$line}");
-        }
-        error_log('======================================================');
-    }
-    return $query;
-});
-
-/**
- * Prevent WPUM Custom Fields from loading all users on EVERY page
- * This is a performance fix - WPUM loads 248 users on init for dropdown fields
- */
-add_action('plugins_loaded', function() {
-    // Only allow WPUM Custom Fields to register on admin pages
-    if (!is_admin()) {
-        remove_action('carbon_fields_register_fields', 'wpumcf_register_fields_in_admin');
-        
-        // Return empty array for user field options on frontend
-        add_filter('wpum_user_field_get_options', function($options) {
-            return array();
-        }, 1);
-    }
-}, 1);
-
-
-/**
- * ULTIMATE FIX: Completely disable WPUM Custom Fields on frontend
- */
-add_filter('option_active_plugins', function($plugins) {
-    if (!is_admin()) {
-        // Temporarily remove WPUM Custom Fields from active plugins list on frontend
-        $plugins = array_diff($plugins, array(
-            'wpum-custom-fields/wpum-custom-fields.php'
-        ));
-    }
-    return $plugins;
-}, 1);

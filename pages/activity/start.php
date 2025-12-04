@@ -73,9 +73,3 @@ wp_enqueue_script('loopis-tabs', get_template_directory_uri() . '/assets/js/tabs
   </div>
 
 </div><!--tab-content-->
-
-<?php
-// Re-enable after content loads (for footer/other functionality)
-remove_filter('update_post_author_caches', '__return_false');
-remove_filter('update_user_meta_cache', '__return_false', 999);
-?>

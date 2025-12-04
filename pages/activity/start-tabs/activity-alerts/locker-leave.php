@@ -2,7 +2,7 @@
 /**
  * Activity page alert for member.
  *
- * Included in activity-alerts.php
+ * Included in activity.php
  */
  
 if (!defined('ABSPATH')) {
@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
 $locker_code = get_locker_code(LOCKER_ID);
 
 // Query
-$count = $the_query->post_count; // Change from found_posts to post_count
+$count = $the_query->post_count; 
 
 // Output
 if( $the_query->have_posts() ): ?>
