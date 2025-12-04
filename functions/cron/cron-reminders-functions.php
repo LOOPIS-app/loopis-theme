@@ -2,7 +2,7 @@
 /**
  * Extra functions for reminders cronjob.
  *
- * Included for everyone in functions.php
+ * Included in /cron + for admin in functions.php
  */
  
 if (!defined('ABSPATH')) {
@@ -48,7 +48,7 @@ function reminder_leave(int $reminder_leave, int $post_id) {
     } elseif ($number == 3) {
         send_admin_notification('
 		⚠ Påminnelse #3 att lämna i skåpet @' . $author_name . ' <br>
-		🗨 Skriv gärna i en kommentar om/när du kommer att lämna till ' . $fetcher_name . '. <br>
+		🗨 Skriv gärna i en kommentar till ' . $fetcher_name . ' om/när du kommer att lämna. <br>
 		🔓 Kod till skåpet: <b>' . $locker_code . '</b>
 		', $post_id, 1);
 		
@@ -57,10 +57,14 @@ function reminder_leave(int $reminder_leave, int $post_id) {
 		💚 Beklagar fördröjningen! @' . $fetcher_name . '
 		', $post_id, 1);
 		
-        add_admin_comment('<p class="reminder">
-		⚠ Påminnelse #3 att lämna i skåpet <span>🔔' . $author_name . '</span> <br>
-        🗨 Skriv gärna i en kommentar till om/när du kommer att lämna till <span>🔔' . $fetcher_name . '</span>.
-		</p>', $post_id, 1);
+        add_admin_comment(
+            '<p class="reminder">' .
+            '⚠ Påminnelse #3 att lämna i skåpet <span>🔔' . $author_name . '</span> <br>' .
+            '🗨 Skriv gärna i en kommentar till <span>🔔' . $fetcher_name . '</span> om/när du kommer att lämna.' .
+            '</p>',
+            $post_id,
+            1
+        );
 
     } else {
         return 0;

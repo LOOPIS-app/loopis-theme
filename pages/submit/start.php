@@ -18,7 +18,7 @@
 <p class="info">Tryck här för att skapa en ny annons.</p>
 
 <!-- Forward ad -->
-<p style="margin:0px;"><button type="submit" class="blue"><a href="<?php echo esc_url(home_url() . '/pages/profile/fetched'); ?>">💝 Skicka vidare</a></button></p>
+<p style="margin:0px;"><button type="submit" class="blue"><a href="<?php echo esc_url(home_url() . '/activity/?view=fetched'); ?>">💝 Skicka vidare</a></button></p>
 <p class="info">Tryck här för att skicka vidare något du fått.</p>
 
 <!-- Extra permissions -->

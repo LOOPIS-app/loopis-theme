@@ -14,13 +14,17 @@ if (!defined('ABSPATH')) {
 // Add comment from admin + delete
 function send_admin_notification(string $comment_content, int $post_id, int $user_id) {
 
-	// Get admin user data
-	$user_data = get_userdata($user_id);
+    // Get admin user data
+    $user_data = get_userdata($user_id);
 
     // Avoid undefined-error in cron-job (by Poe)
     $remote_addr = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1';
 
-	// Set up comment data
+    // Remove tabs and extra whitespace (by CoPilot 2025-12-04)
+    $comment_content = preg_replace('/\t+/', '', $comment_content); // Remove all tabs
+    $comment_content = preg_replace('/\n\s+/', "\n", $comment_content); // Remove leading spaces on new lines
+
+    // Set up comment data
     $comment_data = array(
         'comment_post_ID' => $post_id,
         'comment_author' => $user_data->display_name,
@@ -46,7 +50,7 @@ function send_admin_notification(string $comment_content, int $post_id, int $use
     remove_filter('pre_comment_content', function($content) use ($comment_content) {
         return $comment_content;
     }, 999);
-	
+    
     if ($comment_id) {
         // Comment was successfully added
         wp_delete_comment($comment_id, true);
