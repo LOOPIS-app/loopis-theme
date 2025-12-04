@@ -1,5 +1,7 @@
 /*
     General scripts for LOOPIS theme
+    
+    Loaded on all pages from functions.php
 */
 
 (function($) {
@@ -25,7 +27,7 @@
             });
         });
 
-        /* "Trap focus" by ALX = keyboard focus restricted */
+        /* "Trap focus" by ALX (keyboard focus restricted) */
         const focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
         const modal = document.querySelector('.search-trap-focus');
 
