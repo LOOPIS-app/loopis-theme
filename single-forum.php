@@ -1,4 +1,9 @@
-<?php get_header(); ?>
+<?php
+/**
+ * Template for single forum post.
+ */
+
+get_header(); ?>
 
 <!-- VARIABLER -->
 <?php
@@ -53,12 +58,12 @@ if ($terms && !is_wp_error($terms)) {
 
 <!-- POST INTERACTION-->
 <div class="page-padding">
-<?php if (comments_open()) { comments_template('/comments-forum.php', true); } ?>
+<?php if (comments_open()) { comments_template('/comments.php', true); } ?>
 </div><!--page-padding-->
 
 <!-- NO ACCESS MESSAGE -->
 <?php } else { ?>
-			<?php include_once LOOPIS_THEME_DIR . '/assets/output/member-only.php'; ?>
+			<?php include_once LOOPIS_THEME_DIR . '/templates/access/member-only.php'; ?>
 			</div><!--post-content-->				
 		</div><!--post-padding-->		
 <?php } ?>
