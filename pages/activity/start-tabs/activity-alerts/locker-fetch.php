@@ -2,7 +2,7 @@
 /**
  * Activity page alert for member.
  *
- * Included in activity-alerts.php
+ * Included in activity.php
  */
  
 if (!defined('ABSPATH')) {

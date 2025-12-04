@@ -15,6 +15,10 @@ function add_comment(string $comment_content, int $post_id) {
 
 	// Get current user data
 	$current_user = wp_get_current_user();
+    
+    // Remove tabs and extra whitespace (by CoPilot 2025-12-04)
+    $comment_content = preg_replace('/\t+/', '', $comment_content); // Remove all tabs
+    $comment_content = preg_replace('/\n\s+/', "\n", $comment_content); // Remove leading spaces on new lines
 
 	// Set up comment data
 	$comment_data = array(

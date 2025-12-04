@@ -13,8 +13,7 @@ if (!defined('ABSPATH')) {
 include_once __DIR__ . '/functions/profile-list-components.php';
 
 // Include post action functions
-include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-list.php';
-include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-single.php';
+include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-forward.php';
 
 // Get current user ID
 $user_ID = wp_get_current_user()->ID;
