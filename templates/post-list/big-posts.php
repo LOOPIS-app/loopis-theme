@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Get variables
-$location = get_field('location') ?: 'Plats saknas';
+$location = get_post_meta(get_the_ID(), 'location', true) ?: 'Plats saknas';
 ?>
 
 <div class="post-list-post-big" onclick="location.href='<?php the_permalink(); ?>';">
