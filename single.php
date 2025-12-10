@@ -22,10 +22,10 @@ $current = get_current_user_id();
 $author = get_the_author_meta('ID'); 
 $post_id = get_the_ID();
 $post_date = get_the_time('Y-m-d H:i');
-$extend_date = get_field('extend_date');
-$previous_post_id = get_field('previous_post');
-$forward_post_id = get_field('forward_post');
-$fetcher = get_post_meta($post->ID, 'fetcher', true);
+$extend_date = get_post_meta($post_id, 'extend_date', true);
+$previous_post_id = get_post_meta($post_id, 'previous_post', true);
+$forward_post_id = get_post_meta($post_id, 'forward_post', true);
+$fetcher = get_post_meta($post_id, 'fetcher', true);
 if ($fetcher) { 
     $fetchername = get_userdata($fetcher)->display_name; 
     $fetcherlink = get_author_posts_url($fetcher); 
@@ -34,17 +34,17 @@ if ($fetcher) {
 
 <!-- Custom location?  -->
 <?php 
-$location = get_field('location', $post_id);
+$location = get_post_meta($post_id, 'location', true);
 if ($location == 'Annan adress') { 
-    $location = get_field('custom_location', $post_id); 
-    update_field('location', $location, $post_id); 
+    $location = get_post_meta($post_id, 'custom_location', true); 
+    update_post_meta($post_id, 'location', $location); 
 } 
 ?>
 
 <!-- Extra image?  -->
 <?php $thumbnail_id = get_post_thumbnail_id($post_id); ?>
 <?php 
-$image_2_id = get_field('image_2', $post_id);
+$image_2_id = get_post_meta($post_id, 'image_2', true);
 if (empty($image_2_id)) {
     $extra_image_url = get_post_meta($post_id, 'extra_image', true);
     if ($extra_image_url) {
@@ -76,7 +76,7 @@ if (empty($image_2_id)) {
                 <h1 class="wrap"><?php the_title(); ?></h1>
                 <div class="post-meta">
                     <span><?php the_category(' '); if (in_category('new')) { echo raffle_time(); } ?></span>
-                    <span><i class="fas fa-walking"></i><?php if ($location == 'Skåpet') { ?><a href="https://maps.app.goo.gl/bp1v8fSAf7MJqxu88"><?php echo get_field('location'); ?></a><?php } else { ?><a href="https://maps.google.com/maps?q=<?php echo urlencode(get_field('location')); ?>"><?php echo get_field('location') ?></a><?php } ?></span>
+                    <span><i class="fas fa-walking"></i><?php if ($location == 'Skåpet') { ?><a href="https://maps.app.goo.gl/bp1v8fSAf7MJqxu88"><?php echo $location; ?></a><?php } else { ?><a href="https://maps.google.com/maps?q=<?php echo urlencode($location); ?>"><?php echo $location ?></a><?php } ?></span>
                     <?php 
                     $tags = get_the_tags(); 
                     if ($tags) { 
