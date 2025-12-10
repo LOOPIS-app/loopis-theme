@@ -1,11 +1,6 @@
 <?php
 /**
- * Activity page alert for member.
- *
- * Used in:
- * locker-leave.php
- * comments.php
- * gift-admin.php
+ * Output timer for delivery to locker.
  */
  
 if (!defined('ABSPATH')) {
@@ -13,8 +8,8 @@ if (!defined('ABSPATH')) {
 }
 
 // Get time
-$now_time = (new DateTime(current_time('mysql')))->getTimestamp();
-$expiration = strtotime(get_field('book_date')) + 24 * 3600; // Calculate expiration time in seconds
+$now_time = get_now_time();
+$expiration = strtotime(get_post_meta($post_id, 'book_date', true)) + 24 * 3600; // Calculate expiration time in seconds
 $remaining = $expiration - $now_time; // Calculate remaining time in seconds
 
 // Output

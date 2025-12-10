@@ -6,11 +6,10 @@
 "The Develoopers" are currently working on making LOOPIS.app work on multiple installations and with fewer third party plugins.<br>
 
 ## 📋 Changelog
-**0.7.2 (2025-12-04)**<br>
-Fixed for live deployment!<br>
-Currently using the live app post categories<br>
+**0.7.3 (2025-12-10)**<br>
+Minor changes to work with new installations.<br>
 
-**0.6 (2025-12-03)**<br>
+**0.7 (2025-12-03)**<br>
 Added README.md about plugin WPUM in folder `wpum`<br>
 Including folder `wpum (NEW)`(work in progress)<br>
 Major structural changes<br>
