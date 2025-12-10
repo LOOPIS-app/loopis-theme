@@ -44,7 +44,7 @@ get_header(); ?>
                 <?php endwhile; ?>
         </div><!--post-list-->
 
-        <?php get_template_part('templates/post-list/pagination'); ?>
+        <?php include_once get_template_directory() . '/templates/post-list/pagination.php'; ?>
 
         <?php else : ?>
             <p>💢 Det finns inga aktuella annonser</p>

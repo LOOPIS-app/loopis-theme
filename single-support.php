@@ -62,17 +62,18 @@ $status_slug = $status_term->slug;
 <p class="label">Meddelande:</p>
 <?php the_content(); ?>
 
+				<!-- Copy link -->
+                <button type="button" id="copy_url">🔗 Kopiera länk</button>
 			</div><!--post-content-->				
 		</div><!--post-padding-->				
 	</div><!--post-wrapper-->							
+	
+<div class="page-padding" style="padding-top: 5px;"> <!-- Logg close to post -->
 
-<!-- LOGG -->
+<!-- User log -->
 <div class="logg">
 <p>✉ Skickad av <?php echo get_the_author_posts_link(); ?> för <?php echo human_time_diff(get_the_time('U'), current_time('timestamp'))?> sen <span><?php the_time('Y-m-d H:i')?></span></p>
-</div><!--logg-->	
-
-<div class="page-padding">
-
+</div><!--logg-->
 
 <!-- INTERACTION-->
 <?php if (comments_open()) { comments_template('/comments.php', true); } ?>
