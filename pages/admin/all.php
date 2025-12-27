@@ -1,6 +1,6 @@
 <?php
 /**
- * ALL ADMIN CONTENT PAGES
+ * Admin: ALL CONTENT
  * Links to all php-files in the "admin" directory.
  */
 

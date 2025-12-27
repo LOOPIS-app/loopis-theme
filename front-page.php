@@ -1,8 +1,7 @@
 <?php
 /**
  * Front page template
- * Displays all available posts in categories 1, 37, 57, 147
- * Displays messages for users and visitors
+ * Displays current posts + messages for users and visitors.
  */
 
 get_header(); ?>
@@ -13,6 +12,7 @@ get_header(); ?>
         <?php
         // Messages for users and visitors
         if (current_user_can('member') || current_user_can('administrator')) {
+            // include_once LOOPIS_THEME_DIR . '/templates/user/front-page/front-tips.php'; // Temporary Christmas tips
             include_once LOOPIS_THEME_DIR . '/templates/user/front-page/front-alerts.php';
             include_once LOOPIS_THEME_DIR . '/templates/user/front-page/front-forum.php';
         } else {

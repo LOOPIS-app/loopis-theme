@@ -1,6 +1,6 @@
 <?php
 /**
- * Random posts viewer.
+ * Discover: three random posts.
  */
 
 if (!defined('ABSPATH')) {
@@ -34,7 +34,7 @@ $count = $the_query->found_posts; ?>
             <?php endwhile; ?>
 </div><!--post-list-->
 
-<p><a href="/gifts-random"><button type="button">🪄 Visa tre andra!</button></a></p>
+<p><a href="/discover/?view=random-posts"><button type="button">🪄 Visa tre andra!</button></a></p>
 
 <p class="info">Tryck på knappen för att hitta saker du inte visste att du behövde - eller en oväntad present till din vän. Alla sakerna är först till kvarn och kan paxas direkt!</p>
 

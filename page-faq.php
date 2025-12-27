@@ -1,6 +1,8 @@
 <?php
 /**
- * Template for FAQ.
+ * Content for page using url /faq
+ * 
+ * Will soon be listing posts instead of pages!
  */
 
 get_header(); ?>
@@ -12,9 +14,10 @@ get_header(); ?>
 <hr>
 <p class="small">💡 Vanliga frågor och info om hur LOOPIS fungerar.</p>
 
-<p>Här hittar du svar på de vanligaste frågorna om hur LOOPIS fungerar. Vi uppdaterar sidan baserat på vad våra medlemmar undrar över.</p>
+<p>Undrar du något? Här finns svar på det mesta.</p>
 <?php if ( is_user_logged_in() ) : ?>
-<p>Du som är inloggad kan skicka frågor och feedback till admin längst ner! Om du har frågor om en specifik annons finns ett formulär längst ner i annonsen.</p>
+<p class="info">PS. Du som är inloggad kan skicka frågor och feedback till admin längst ner. Men ta en titt här nedanför först!</p>
+<p class="info">Har du frågor om en specifik annons; använd formuläret under annonsen.</p>
 <?php endif; ?>
 
 <h3>Instruktioner</h3>
@@ -53,7 +56,7 @@ get_header(); ?>
 <p><span class="big-link"><a href="hur-funkar-skapet">📌 Hur funkar skåpet?</a></span></p>
 <p><span class="big-link"><a href="saker-som-inte-ryms-i-skapet">📌 Saker som inte ryms i skåpet?</a></span></p>
 
-<h3>Föreningen</h3>
+<h3>Om föreningen</h3>
 <hr>
 <p><span class="big-link"><a href="vad-ar-loopis">📌 Vad är LOOPIS?</a></span></p>
 <p><span class="big-link"><a href="kontakt">📌 Kontakt med föreningen</a></span></p>
@@ -63,12 +66,14 @@ get_header(); ?>
 <p><span class="big-link"><a href="../privacy">🗄 Integritetspolicy</a></span></p>
 
 <?php if ( is_user_logged_in() ) : ?>
+<h3>För medlemmar</h3>
+<hr>
 <p><span class="big-link"><a href="https://drive.google.com/drive/folders/1l1B43flky-zXgQ2wFD24s_32N_pfWHvd?usp=drive_link"><i class="fas fa-share"></i> Föreningens protokoll</a></span></p>
 <p><span class="big-link"><a href="https://www.facebook.com/groups/loopis" target="_blank" rel="noreferrer noopener"><i class="fas fa-share"></i> Facebook-grupp för medlemmar</a></span></p>
 <?php endif; ?>
 
 <?php if ( is_user_logged_in() ) {  ?>
-<h3>Skicka fråga!</h3>
+<h3>Skicka en fråga</h3>
 <hr>
 <p>Skicka en fråga eller feedback till admin:</p>
 <div id="support">

@@ -5,7 +5,7 @@ LOOPIS uses the free open-source WordPress plugin **WP User Manager** for some u
 
 # Whats is WPUM addons?
 
-We currently also use some paid WPUM addons (separate plugins) with a lifetime license for maximum 5 sites. We want to minimize the use of them and if possible in the future skip them.
+We currently use some paid WPUM addons (separate plugins) with a lifetime license for maximum 5 sites. We want to minimize the use of them – and if possible in the future skip them.
 **WP User Manager addons**: https://wpusermanager.com/addons/
 
 # WPUM Template Overrides
