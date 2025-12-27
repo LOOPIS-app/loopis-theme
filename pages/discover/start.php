@@ -1,6 +1,6 @@
 <?php
 /**
- * DISCOVER OVERVIEW (start.php)
+ * Discover: START (page-discover.php)
  * Content overview.
  */
 

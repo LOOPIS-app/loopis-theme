@@ -1,6 +1,6 @@
 <?php
 /**
- * Template for dynamic output of current user profile activity content.
+ * Dynamic content for pages using url /profil/?view=
  * 
  * Not to be confused with WPUM profile content pages located in wpum/profile.php
  */

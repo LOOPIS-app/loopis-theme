@@ -1,7 +1,7 @@
 <?php
 /**
- * ALL ADMIN CONTENT PAGES
- * Links to all php-files in the "admin" directory.
+ * Discover: ALL PAGES
+ * Links to all php-files in the "discover" directory.
  */
 
 if (!defined('ABSPATH')) {

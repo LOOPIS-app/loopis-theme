@@ -1,8 +1,6 @@
 <?php
 /**
  * Sending of sms reminders for admin.
- *
- * Included for admin in functions.php
  */
  
 if (!defined('ABSPATH')) {
