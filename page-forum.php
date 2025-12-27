@@ -1,6 +1,6 @@
 <?php
 /**
- * Template listing forum posts.
+ * Content for page using url /forum
  */
 
 get_header(); ?>

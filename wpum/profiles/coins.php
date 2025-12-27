@@ -114,4 +114,4 @@ $coins = $profile_economy['coins'];
 <!--BUY COINTS-->
 <h3>💰 Köp mynt</h3>
 <hr>
-<?php echo do_shortcode( '[code_snippet id=111 php]' ); ?>
+<?php include_once LOOPIS_THEME_DIR . '/templates/general/swish-coins.php'; ?>

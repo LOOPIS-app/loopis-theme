@@ -1,10 +1,8 @@
 <?php
-// filepath: /Users/mbp/Documents/PROJEKT.../LOOPIS/_APPEN/_GIT/loopis-theme/functions/everyone/twemoji.php
 /**
  * Force Twemoji Override
  * 
  * Loads Twemoji library to replace native emojis with consistent SVG versions.
- * Applied to both frontend and admin areas.
  * 
  * @package LOOPIS_Theme
  * @since 0.7
@@ -70,6 +68,5 @@ function use_twemoji() {
     <?php
 }
 
-// Add Twemoji to both frontend and admin
-add_action('wp_head', 'use_twemoji');
-add_action('admin_head', 'use_twemoji');
+// Add Twemoji to frontend
+add_action('wp_head', 'use_twemoji');   

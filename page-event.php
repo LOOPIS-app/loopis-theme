@@ -1,8 +1,8 @@
 <?php
 /**
- * Template for the event page.
+ * Content for page using url /event
  * 
- * Will somehow be dynamically managed later.
+ * Will be dynamically managed later.
  */
 
 get_header(); ?>

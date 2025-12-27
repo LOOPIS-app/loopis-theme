@@ -1,8 +1,12 @@
 <?php
 /**
- * SUBMIT OVERVIEW (start.php)
+ * SUBMIT START (page-submit.php)
  * Options overview.
  */
+
+if (!defined('ABSPATH')) {
+    exit;
+}
 ?>
 
 <h1>💚 Ge bort</h1>
