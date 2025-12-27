@@ -23,7 +23,6 @@ $args = array(
     'author'         => $user_ID,
     'category__in'   => $active_categories,
     'posts_per_page' => -1,
-    'no_found_rows'  => true,
     'update_post_term_cache' => false,
 );
 

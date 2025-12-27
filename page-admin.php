@@ -1,6 +1,6 @@
 <?php
 /**
- * Template for dynamic output of admin content.
+ * Dynamic content for pages using url /admin/?view=
  */
 
 // Check access
