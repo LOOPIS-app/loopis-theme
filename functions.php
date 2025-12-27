@@ -1,10 +1,11 @@
 <?php
 /** 
-* This file is used to add and modify features of a WordPress theme
+* Theme functions 
+* Loads all frontend assets and functions
 */	
 
 // Define theme version
-define('LOOPIS_THEME_VERSION', '0.7.3');
+define('LOOPIS_THEME_VERSION', '0.7.4');
 
 // Define theme folder path constants
 define('LOOPIS_THEME_DIR', get_template_directory());       // Server-side path to /wp-content/themes/loopis-theme/
@@ -46,7 +47,7 @@ function loopis_theme_include_folder($folder_name) {
             include_once $file;
         }
     } else {
-        error_log("loopis-theme: Failed to include folder from functions.php: {$folder_name}");
+        error_log("Failed to include folder: {$folder_name}");
     }
 }
 // Define folders to load
@@ -70,12 +71,6 @@ add_action('after_setup_theme', 'loopis_theme_load_files');
 /**
 *  Extra WP settings
 */
-
-// Load theme languages
-function loopis_theme_load() {
-    load_theme_textdomain('loopis-theme', LOOPIS_THEME_DIR . '/assets/lang');
-}
-add_action('after_setup_theme', 'loopis_theme_load');
 
 // Enable featured image for custom post type
 function loopis_theme_setup() {

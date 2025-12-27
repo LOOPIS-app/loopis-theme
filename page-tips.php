@@ -8,14 +8,14 @@ get_header(); ?>
 <div class="content">
     <div class="page-padding">
 
-        <h1>🎁 Saker att få</h1>
+        <h1>🧑‍🎄 Tips på julklappar</h1>
 
         <?php
         // Check pagination
         $paged = get_query_var('paged') ?: 1;
 
         // Get available posts categories
-        $available_posts = loopis_cats(['new', 'first', 'booked_locker', 'booked_custom']);
+        $available_posts = loopis_cats(['tips']);
         
         // Fetch and count available posts
         $args = array(
@@ -31,8 +31,8 @@ get_header(); ?>
 
         <!-- List header -->
         <div class="columns">
-            <div class="column1">↓ <?php echo $count; ?> aktuella annonser</div>
-            <div class="column2 small bottom">💡 Senaste överst</div>
+            <div class="column1">↓ <?php echo $count; ?> tips just nu</div>
+            <div class="column2 small bottom"></div>
         </div>
         <hr>
 

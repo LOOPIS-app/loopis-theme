@@ -6,54 +6,65 @@
 	<!--Meta tags-->
 	<?php
 	// Set up variables for meta tags and images based on context
+	$blog_name = get_bloginfo('name');
 	if (is_home() || is_front_page()) {
-		$title = get_bloginfo('name') . '.app';
-		$description = 'Ge & få saker av dina grannar – för en gladare och mer hållbar framtid.';
+		$title = $blog_name . '.app';
+		$description = 'Ge & få saker av dina grannar.';
 		$meta_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_app.png';
 		$og_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_og.png';
 		$og_type = 'website';
 		$og_url = home_url('/');
 	} elseif (is_single() || is_page()) {
-		$title = get_the_title() . ' - ' . get_bloginfo('name');
-		$description = get_the_excerpt();
-		$meta_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_app.png';
-		$og_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_og.png';
-		if (has_post_thumbnail()) {
-			$thumbnail = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'large');
-			if ($thumbnail) $og_image = $thumbnail[0];
-		}
-		$og_type = 'article';
-		$og_url = get_permalink();
+        $title = get_the_title() . ' - ' . $blog_name;
+        $description = get_the_excerpt();
+        $meta_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_app.png';
+        $og_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_og.png';
+        if (has_post_thumbnail()) {
+            $thumbnail = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'large');
+            if ($thumbnail) {
+                $og_image = $thumbnail[0];
+                $meta_image = $thumbnail[0];
+            }
+        }
+        $og_type = 'article';
+        $og_url = get_permalink();
 	} elseif (is_author()) {
 		$author = get_queried_object();
-		$title = esc_html($author->display_name) . ' - ' . get_bloginfo('name');
+		$title = esc_html($author->display_name) . ' - ' . $blog_name;
 		$description = esc_html($author->description);
 		$meta_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_app.png';
 		$og_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_og.png';
 		$og_type = 'profile';
 		$og_url = get_author_posts_url($author->ID);
 	} elseif (is_tag()) {
-		$title = '#' . single_tag_title('', false) . ' - ' . get_bloginfo('name');
+		$title = '#' . single_tag_title('', false) . ' - ' . $blog_name;
 		$description = 'Kategorier på LOOPIS.app';
 		$meta_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_app.png';
 		$og_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_og.png';
 		$og_type = 'website';
 		$og_url = get_tag_link(get_queried_object_id());
 	} elseif (is_archive()) {
-		$title = get_bloginfo('name');
-		$description = 'För en gladare och mer hållbar framtid.';
-		$meta_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_app.png';
-		$og_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_og.png';
-		$og_type = 'website';
-		$og_url = home_url('/');
-	} else {
-		$title = get_bloginfo('name');
-		$description = 'För en gladare och mer hållbar framtid.';
-		$meta_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_app.png';
-		$og_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_og.png';
-		$og_type = 'website';
-		$og_url = home_url('/');
-	}
+        $title = $blog_name;
+        $description = 'För en glad och hållbar framtid.';
+        $meta_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_app.png';
+        $og_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_og.png';
+        $og_type = 'website';
+        $og_url = home_url('/');
+    } elseif (is_404()) {
+        $title = 'Hoppsan! - ' . $blog_name;
+        $description = 'Sidan kunde inte hittas.';
+        $meta_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_app.png';
+        $og_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_og.png';
+        $og_type = 'website';
+        $og_url = home_url('/');
+    } else {
+        $title = $blog_name;
+        $description = 'För en glad och hållbar framtid.';
+        $meta_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_app.png';
+        $og_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_og.png';
+        $og_type = 'website';
+        $og_url = home_url('/');
+    }
 	?>
 	<title><?php echo esc_html($title); ?></title>
 	<meta name="description" content="<?php echo esc_attr($description); ?>">
@@ -107,6 +118,6 @@
 			<?php else: ?>
 				<div class="header-faq" onclick="location.href='/faq'">💡</div>
 			<?php endif; ?>
-			</div><!--/group-->
-		</header><!--/#header-->
+			</div>
+		</header>
 	<div class="container">

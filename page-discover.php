@@ -1,6 +1,6 @@
 <?php
 /**
- * Template for dynamic output of discover content.
+ * Dynamic content for pages using url /discover/?view=
  */
 
 get_header(); ?>

@@ -1,7 +1,7 @@
 <?php
 /**
- * ADMIN OVERVIEW (start.php)
- * Overview for statistics, tools, and quick links
+ * ADMIN DASHBOARD (page-admin.php)
+ * Overview with statistics, tools, and quick links
  */
 
 if (!defined('ABSPATH')) {
@@ -9,7 +9,6 @@ if (!defined('ABSPATH')) {
 }
 ?>
 
-<!-- Header -->
 <div class="columns">
     <div class="column1">
         <h1>🐙 Admin</h1>
@@ -41,7 +40,7 @@ if (!defined('ABSPATH')) {
 
 <!-- Reminders -->
 <div class="wrapped link" onclick="location.href='/admin/?view=traffic-gifts'">
-    <h5>🎁 Saker på väg</h5>
+    <h5>⏰ Påminnelser</h5>
     <hr>
     <p class="small">
         <?php include __DIR__ . '/dashboard-blocks/traffic-gifts.php'; ?>

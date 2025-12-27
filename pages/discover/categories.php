@@ -1,8 +1,6 @@
 <?php
 /**
- * Output of popular tags (called categories in UI)
- * 
- * Included in search.php
+ * Discover: all LOOPIS tags (called categories in UI)
  */
 
 if (!defined('ABSPATH')) {
