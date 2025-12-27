@@ -21,7 +21,7 @@ $selected_date = isset($_GET['locker_date']) ? sanitize_text_field($_GET['locker
 
 <!-- Date Selection Form -->
 <form method="GET" action="/admin/" style="margin-bottom: 20px;">
-    <input type="hidden" name="view" value="locker-traffic">
+    <input type="hidden" name="view" value="traffic-locker">
     <label for="locker_date">Välj dag: </label>
     <select id="locker_date" name="locker_date" onchange="this.form.submit()">
         <?php

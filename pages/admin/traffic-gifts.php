@@ -19,7 +19,8 @@ if (!defined('ABSPATH')) {
 
 <?php
 // Extra functions
-include_once LOOPIS_THEME_DIR . '/functions/admin-extra/reminders/reminder_symbols.php';
+include_once LOOPIS_THEME_DIR . '/functions/admin-extra/reminders/reminder-symbols.php';
+include_once LOOPIS_THEME_DIR . '/functions/admin-extra/reminders/reminder-sms.php';
 
 // Get current timestamp
 $now_time = (new DateTime(current_time('mysql')))->getTimestamp();
