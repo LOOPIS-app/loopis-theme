@@ -46,20 +46,19 @@ $count = count($pending_users);
             }
             ?>
             
-            <p>
+            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 15px;">
                 <span class="big-label">📋 <?php echo esc_html($user->first_name . ' ' . $user->last_name); ?></span>
                 <span class="big-label">📧 <?php echo esc_html($user->user_email); ?></span>
                 <span class="big-link"><a href="<?php echo esc_url(admin_url('user-edit.php?user_id=' . $user_id)); ?>">⚙ Redigera</a></span>
-            </p>
-
-            <form method="post" class="arb" action="">
-                <button name="activate_account<?php echo $user_id; ?>" 
-                        type="submit" 
-                        class="small" 
-                        onclick="return confirm('Aktivera?')">
-                    Aktivera
-                </button>
-            </form>
+                <form method="post" style="display: inline-block; margin: 0;">
+                    <button name="activate_account<?php echo $user_id; ?>" 
+                            type="submit" 
+                            class="small" 
+                            onclick="return confirm('Aktivera konto för <?php echo esc_js($user->first_name . ' ' . $user->last_name); ?>?')">
+                        Aktivera
+                    </button>
+                </form>
+            </div>
         <?php endforeach; ?>
     <?php else : ?>
         <p>✅ Inga nya konton att aktivera.</p>
