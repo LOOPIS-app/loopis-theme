@@ -75,6 +75,8 @@ if ($selected_cat) {
 // Build dropdown for categories, number, and padding
 ?>
 <form id="collage-form" method="get" style="margin-bottom:20px;">
+    <!-- Preserve the view parameter -->
+    <input type="hidden" name="view" value="<?php echo esc_attr(isset($_GET['view']) ? $_GET['view'] : ''); ?>">
     <div class="form-row">
         <label for="cat_id">Kategori:</label>
         <select name="cat_id" id="cat_id">

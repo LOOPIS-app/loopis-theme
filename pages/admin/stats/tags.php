@@ -64,6 +64,8 @@ arsort($tag_post_counts);
 
 <!-- Date Range Selector Form -->
 <form method="GET" action="" style="margin-bottom: 20px;">
+    <!-- Preserve the view parameter -->
+    <input type="hidden" name="view" value="<?php echo esc_attr(isset($_GET['view']) ? $_GET['view'] : ''); ?>">
     <label for="start_date">Startdatum:</label>
     <input type="date" id="start_date" name="start_date" value="<?php echo esc_attr($start_date); ?>">
     <label for="end_date">Slutdatum:</label>

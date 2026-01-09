@@ -243,6 +243,10 @@ $locker_code = get_locker_code(LOCKER_ID);
 		<?php endif;?>
 	<?php endif;?>
 	
+	<?php if (current_user_can('administrator') || current_user_can('manager')) : ?>
+		<?php include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-fetch.php'; ?>
+	<?php endif;?>
+
 <?php endif;?>
 	
 
