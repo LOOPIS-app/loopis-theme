@@ -15,16 +15,63 @@ if (!defined('ABSPATH')) {
 <p class="small">💡 Verktyg för att plocka ut e-postadresser till medlemmar.</p>
 
 <?php
-// Get all users with the role 'member'
-$args = array(
-    'role'    => 'member',
-    'fields'  => array('user_email'), // Only retrieve the email addresses
+// Define available roles
+$available_roles = array(
+    'member' => 'Nuvarande medlemmar',
+    'member_earlier' => 'Tidigare medlemmar',
 );
 
-$users = get_users($args);
+// Get selected roles from GET or default to all
+$selected_roles = isset($_GET['roles']) ? (array) $_GET['roles'] : array_keys($available_roles);
+// Validate selected roles
+$selected_roles = array_intersect($selected_roles, array_keys($available_roles));
+if (empty($selected_roles)) {
+    $selected_roles = array_keys($available_roles);
+}
+?>
+
+<!-- Role Selection Form -->
+<form method="GET" action="" style="margin-bottom: 20px;">
+    <!-- Preserve the view parameter -->
+    <input type="hidden" name="view" value="<?php echo esc_attr(isset($_GET['view']) ? $_GET['view'] : ''); ?>">
+    <label for="roles">Välj roller:</label><br>
+    <?php foreach ($available_roles as $role => $label) : ?>
+        <label style="display: inline-block; margin-right: 15px; margin-bottom: 10px;">
+            <input type="checkbox" name="roles[]" value="<?php echo esc_attr($role); ?>" 
+                <?php checked(in_array($role, $selected_roles)); ?>>
+            <?php echo esc_html($label); ?>
+        </label>
+    <?php endforeach; ?>
+    <br>
+    <button type="submit" class="green small" style="margin-top: 10px;">Hämta epostadresser</button>
+</form>
+
+<?php
+// Fetch users for selected roles
+$all_users = array();
+$role_counts = array();
+
+foreach ($selected_roles as $role) {
+    $args = array(
+        'role'    => $role,
+        'fields'  => array('user_email'),
+    );
+    $users = get_users($args);
+    $all_users = array_merge($all_users, $users);
+    $role_counts[$role] = count($users);
+}
 
 // Extract email addresses into an array
-$emails = wp_list_pluck($users, 'user_email');
+$emails = wp_list_pluck($all_users, 'user_email');
+$total_count = count($emails);
+
+// Display counts
+echo '<p><strong>Antal medlemmar:</strong><br>';
+foreach ($role_counts as $role => $count) {
+    echo '• ' . esc_html($available_roles[$role]) . ': ' . $count . '<br>';
+}
+echo '• Totalt: ' . $total_count . '</p>';
+echo '<hr>';
 
 // Initialize variables
 $output = '';
