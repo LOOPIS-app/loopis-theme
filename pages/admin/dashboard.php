@@ -121,7 +121,7 @@ if (!defined('ABSPATH')) {
     <hr>
     <div>
         <span class="big-link"><a href="/admin/?view=members/registry">🗃 Medlemsregister</a></span>&nbsp;
-        <span class="big-link"><a href="/admin/?view=members/email">✉ Epost-adresser</a></span>&nbsp;
+        <span class="big-link"><a href="/admin/?view=members/email-list">✉ Epost-adresser</a></span>&nbsp;
         <span class="big-link"><a href="/admin/?view=members/reward">🙏 Belöna</a></span>&nbsp;
         <span class="big-link"><a href="/admin/?view=members/rewards">🌟 Belöningar</a></span>&nbsp;
     </div>
