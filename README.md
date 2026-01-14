@@ -1,14 +1,13 @@
 # 🌈 LOOPIS Theme
 
-WordPress theme providing all frontend design and functionality for LOOPIS.app<br>
+Theme providing all frontend design and functionality for LOOPIS.app<br>
 
 ## 💡 Status
-We are currently working on making LOOPIS.app work on multiple installations and with fewer third party plugins.<br>
+We are working on making LOOPIS.app work on multiple installations and with fewer third party plugins.<br>
 
 ## 📋 Changelog
-**0.7.4 (2025-12-27)**<br>
-Minor changes to match live app and development of plugins<br>
-Content of pages for register och log-in moved to php-files<br>
+**0.75 (2026-01-14)**<br>
+Work in progress: Making live app match configuration of new instances<br>
 
 **0.7 (2025-12-03)**<br>
 Major structural changes<br>
@@ -37,8 +36,8 @@ First version of the theme live on loopis.app!<br>
 Functions moved from plugin to theme<br>
 Development now assisted by GitHub Copilot instead of Poe<br>
 
-## 💾 Installation/Update of "LOOPIS Theme"
-Upload the zipped folder "loopis-theme.zip" using **WordPress admin dashboard > Appearance > Themes > Add New Theme**.
+## 💾 Installation / Update
+Managed by plugin "LOOPIS Config".
 
 ## 👤 Contributors
 Johan Hagvil, Poe & CoPilot 😊<br>

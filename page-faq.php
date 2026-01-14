@@ -16,8 +16,8 @@ get_header(); ?>
 
 <p>Undrar du något? Här finns svar på det mesta.</p>
 <?php if ( is_user_logged_in() ) : ?>
-<p class="info">PS. Du som är inloggad kan skicka frågor och feedback till admin längst ner. Men ta en titt här nedanför först!</p>
-<p class="info">Har du frågor om en specifik annons; använd formuläret under annonsen.</p>
+<p>Du som är inloggad kan också skicka frågor och feedback till admin längst ner.</p>
+<p>🛟 För frågor om en specifik annons: använd formuläret under annonsen!</p>
 <?php endif; ?>
 
 <h3>Instruktioner</h3>

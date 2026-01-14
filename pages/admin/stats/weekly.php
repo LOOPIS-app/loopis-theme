@@ -34,42 +34,24 @@ if (isset($_POST['selected_year']) && isset($_POST['selected_week'])) {
 }
 
 // Calculate the number of days passed in the selected week
+// Always set start and end dates for the selected ISO week
+$start_date = new DateTime();
+$start_date->setISODate($selected_year, $selected_week, 1); // Monday of the selected week
+$end_date = clone $start_date;
+$end_date->modify('+6 days'); // Sunday of the selected week
+
 if ($selected_year == $current_year && $selected_week == $current_week) {
-    // Current week
-    $start_date = new DateTime();
-    $start_date->setISODate($selected_year, $selected_week, 1); // Start from Monday of the selected week
+    // Current week: count days up to today
     $current_date = new DateTime();
-    $today = $current_date->format('N'); // Current day of the week (1 - Monday, 7 - Sunday)
+    $today = $current_date->format('N'); // 1 (Mon) - 7 (Sun)
     $days_passed = min($today, 7);
-	$end_date = new DateTime(); // Set $end_date to the current date
-} elseif ($selected_year == $current_year && $selected_week < $current_week) {
-    // Previous week in the current year
-    $start_date = new DateTime();
-    $start_date->setISODate($selected_year, $selected_week, 1); // Start from Monday of the selected week
-    $end_date = clone $start_date;
-    $end_date->modify('+6 days');
-
-    // Check if the week spans across different months
-    if ($start_date->format('n') !== $end_date->format('n')) {
-        $start_month = $start_date->format('n'); // Month of the start date
-        $end_month = $end_date->format('n'); // Month of the end date
-
-        // Calculate the number of days in the start month
-        $start_month_days = (int) $start_date->format('t');
-
-        // Calculate the number of days in the end month
-        $end_month_days = (int) $end_date->format('t');
-
-        // Calculate the number of days passed in the selected week
-        $days_passed = $start_month_days - $start_date->format('j') + 1;
-
-        // Add the days in the end month
-        $days_passed += $end_date->format('j');
-    } else {
-        $days_passed = $end_date->format('d') - $start_date->format('d') + 1;
-    }
+    // For current week, set end date to today
+    $end_date = new DateTime();
+} elseif ($selected_year < $current_year || ($selected_year == $current_year && $selected_week < $current_week)) {
+    // Past week (in current or previous year): full week
+    $days_passed = 7;
 } else {
-    // Future week or a week in a previous year
+    // Future week: no days yet
     $days_passed = 0;
 }
 
@@ -206,15 +188,15 @@ $removed_noboard_count = $removed_noboard_query->found_posts;
 
 
 // Statistics for posts removed
-if ( $removed_noboard_count > 0 ) { $removed_noboard_percentage = round(($removed_noboard_count / $total_noboard_count) * 100); } else { $removed_noboard_percentage = 0; }
-if ( $removed_noboard_count > 0 ) { $removed_per_day_noboard = round($removed_noboard_count / $days_passed, 2); } else { $removed_per_day_noboard = 0; }
+if ($removed_noboard_count > 0 && $total_noboard_count > 0) { $removed_noboard_percentage = round(($removed_noboard_count / $total_noboard_count) * 100); } else { $removed_noboard_percentage = 0; }
+if ($removed_noboard_count > 0 && $days_passed > 0) { $removed_per_day_noboard = round($removed_noboard_count / $days_passed, 2); } else { $removed_per_day_noboard = 0; }
 
 // Statistics for posts created
-if ( $total_noboard_count > 0 ) { $posts_per_day_noboard = round($total_noboard_count / $days_passed, 2); } else { $posts_per_day_noboard = 0; }
+if ($total_noboard_count > 0 && $days_passed > 0) { $posts_per_day_noboard = round($total_noboard_count / $days_passed, 2); } else { $posts_per_day_noboard = 0; }
 
 // Statistics for posts booked
-if ( $booked_noboard_count > 0 ) { $booked_per_day_noboard = round($booked_noboard_count / $days_passed, 2); } else { $booked_per_day_noboard = 0; }
-if ( $booked_noboard_count > 0 ) { $booked_noboard_percentage = round(($booked_noboard_count / $total_noboard_count) * 100); } else { $booked_noboard_percentage = 0; }
+if ($booked_noboard_count > 0 && $days_passed > 0) { $booked_per_day_noboard = round($booked_noboard_count / $days_passed, 2); } else { $booked_per_day_noboard = 0; }
+if ($booked_noboard_count > 0 && $total_noboard_count > 0) { $booked_noboard_percentage = round(($booked_noboard_count / $total_noboard_count) * 100); } else { $booked_noboard_percentage = 0; }
 ?>
 
 <!-- Output the counts -->
