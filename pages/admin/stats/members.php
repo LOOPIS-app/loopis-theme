@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) {
 <p class="small">💡 Statistik för medlemmar.</p>
 
 <?php
-// Set current year
+// Set current year (to avoid undefined variable)
 $current_year = date('Y');
 
 // Render dropdown and get the selected year
