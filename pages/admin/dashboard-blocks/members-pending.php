@@ -16,9 +16,9 @@ $count = count($users);
 
 // Output
 if ($count == 0) {
-    echo '✅ 0 nya medlemmar';
+    echo '💢 0 nya medlemmar';
 } else {
-    echo '⚠ ' . $count . ' ny';
+    echo '🎉 ' . $count . ' ny';
     if ($count != 1) {
         echo 'a';
     }

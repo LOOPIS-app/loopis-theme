@@ -5,7 +5,7 @@
 */	
 
 // Define theme version
-define('LOOPIS_THEME_VERSION', '0.75');
+define('LOOPIS_THEME_VERSION', '0.76');
 
 // Define theme folder path constants
 define('LOOPIS_THEME_DIR', get_template_directory());       // Server-side path to /wp-content/themes/loopis-theme/
@@ -13,6 +13,9 @@ define('LOOPIS_THEME_URI', get_template_directory_uri());   // Client-side path 
 
 // Define locker ID for this installation (temporary solution)
 define('LOCKER_ID', '12845-1');
+
+// Stripe API Configuration
+define('LOOPIS_STRIPE_SECRET_KEY', 'REDACTED');
 
 /** 
 * Enqueue theme CSS and JavaScript
