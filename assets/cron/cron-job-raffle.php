@@ -1,9 +1,14 @@
 <?php
-// Load WordPress
-require_once('/home/intetse/loopis.app/wp-load.php');
+// Build paths relative to this script location.
+$wp_root = dirname(__DIR__, 5);
+$wp_content = $wp_root . '/wp-content';
+$theme_dir = $wp_content . '/themes/loopis-theme';
 
-// Define theme path
-$theme_dir = '/home/intetse/loopis.app/wp-content/themes/loopis-theme';
+// Load WordPress
+require_once $wp_root . '/wp-load.php';
+
+// Set current user to admin (ID 1) to avoid permission issues
+wp_set_current_user( 1 );
 
 // Include the necessary files
 include_once $theme_dir . '/functions/cron/cron-raffle.php';
