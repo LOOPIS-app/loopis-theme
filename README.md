@@ -6,6 +6,10 @@ Theme providing all frontend design and functionality for LOOPIS.app<br>
 We are working on making LOOPIS.app work on multiple installations and with fewer third party plugins.<br>
 
 ## 📋 Changelog
+**0.77 (2026-02-04)**<br>
+Comment Mention Pro plugin removed: cronjobs modified<br>
+Output of user/author/stripe info for admins improved<br>
+
 **0.76 (2026-02-03)**<br>
 Simple version of Stripe payments implemented<br>
 

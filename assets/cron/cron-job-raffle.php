@@ -1,14 +1,10 @@
 <?php
-// Build paths relative to this script location.
+// Build paths relative to this file location
 $wp_root = dirname(__DIR__, 5);
-$wp_content = $wp_root . '/wp-content';
-$theme_dir = $wp_content . '/themes/loopis-theme';
+$theme_dir = $wp_root . '/wp-content/themes/loopis-theme';
 
 // Load WordPress
 require_once $wp_root . '/wp-load.php';
-
-// Set current user to admin (ID 1) to avoid permission issues
-wp_set_current_user( 1 );
 
 // Include the necessary files
 include_once $theme_dir . '/functions/cron/cron-raffle.php';

@@ -2,7 +2,8 @@
 /**
  * Output user gender.
  *
- * Used in author.php
+ * Used in author.php & admin area
+ * $user_id has to be passed from context!
  */
  
 if (!defined('ABSPATH')) {
@@ -25,4 +26,4 @@ $gender_options = array(
 $gender_label = isset($gender_options[$gender_key]) ? $gender_options[$gender_key] : 'Okänd';
 
 // Output
-echo esc_html($gender_label);
+echo esc_html('⚧ ' . $gender_label);

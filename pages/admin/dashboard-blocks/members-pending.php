@@ -16,14 +16,7 @@ $count = count($users);
 
 // Output
 if ($count == 0) {
-    echo '💢 0 nya medlemmar';
+    echo '💢 0 väntande medlemmar';
 } else {
-    echo '🎉 ' . $count . ' ny';
-    if ($count != 1) {
-        echo 'a';
-    }
-    echo ' medlem';
-    if ($count != 1) {
-        echo 'mar!';
-    }
+    echo '⏳ ' . $count . ' som ej har betalat';
 }

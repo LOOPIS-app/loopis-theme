@@ -5,7 +5,7 @@
 */	
 
 // Define theme version
-define('LOOPIS_THEME_VERSION', '0.76');
+define('LOOPIS_THEME_VERSION', '0.77');
 
 // Define theme folder path constants
 define('LOOPIS_THEME_DIR', get_template_directory());       // Server-side path to /wp-content/themes/loopis-theme/
