@@ -5,14 +5,39 @@
 */	
 
 // Define theme version
-define('LOOPIS_THEME_VERSION', '0.75');
+define('LOOPIS_THEME_VERSION', '0.77');
 
 // Define theme folder path constants
 define('LOOPIS_THEME_DIR', get_template_directory());       // Server-side path to /wp-content/themes/loopis-theme/
 define('LOOPIS_THEME_URI', get_template_directory_uri());   // Client-side path to https://loopis.app/wp-content/themes/loopis-theme/
 
+// Load environment variables from theme .env if present
+$loopis_env_path = __DIR__ . '/.env';
+if (is_readable($loopis_env_path)) {
+    $loopis_env_lines = file($loopis_env_path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($loopis_env_lines as $loopis_env_line) {
+        $loopis_env_line = trim($loopis_env_line);
+        if ($loopis_env_line === '' || str_starts_with($loopis_env_line, '#')) {
+            continue;
+        }
+        if (!str_contains($loopis_env_line, '=')) {
+            continue;
+        }
+        [$loopis_env_key, $loopis_env_value] = explode('=', $loopis_env_line, 2);
+        $loopis_env_key = trim($loopis_env_key);
+        $loopis_env_value = trim($loopis_env_value);
+        if ($loopis_env_key !== '' && getenv($loopis_env_key) === false) {
+            putenv("{$loopis_env_key}={$loopis_env_value}");
+            $_ENV[$loopis_env_key] = $loopis_env_value;
+        }
+    }
+}
+
 // Define locker ID for this installation (temporary solution)
 define('LOCKER_ID', '12845-1');
+
+// Stripe API Configuration
+define('LOOPIS_STRIPE_SECRET_KEY', getenv('LOOPIS_STRIPE_SECRET_KEY') ?: '');
 
 /** 
 * Enqueue theme CSS and JavaScript

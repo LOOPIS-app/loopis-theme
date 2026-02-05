@@ -2,7 +2,8 @@
 /**
  * Show user age on profile.
  *
- * Used in author.php
+ * Used in author.php & admin area
+ * $user_id has to be passed from context!
  */
  
 if (!defined('ABSPATH')) {
@@ -17,4 +18,4 @@ $current_year = date('Y');
 $age = $current_year - $birthyear;
 
 // Output
-echo esc_html($birthyear . ' ≈ ' . $age . ' år');
+echo esc_html('🚼 ' . $birthyear . ' ≈ ' . $age . ' år');

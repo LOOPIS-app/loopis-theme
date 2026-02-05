@@ -2,7 +2,7 @@
 /**
  * Main function for reminders cronjob.
  *
- * Runs every day at 00 05 10 15 and 20.00.
+ * Runs every day every fifth hour: 00 05 10 15 20
  */
  
 if (!defined('ABSPATH')) {
@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
 }
 
 /** CRON: REMINDERS */
-// Cronjob initiatied at 00, 05, 10, 15 and 20 every day
+// Cronjob initiatied every fifth hour
 function cron_job_reminders() {
     // Set start time
     $start_time = new DateTime(current_time('mysql'));

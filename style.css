@@ -1,6 +1,6 @@
 /*
  Theme Name: LOOPIS Theme
- Version: 0.75
+ Version: 0.77
  Author: Develoopers
  Author URI: https://loopis.org
  Description: Theme providing all frontend design and functionality for LOOPIS.app
@@ -240,7 +240,7 @@ h1.wrap { white-space: normal; }
 .post-list-post-excerpt br { display: none; }
 .post-list-post-excerpt .read-more { font-weight: 400; color: #1e73be; }
 .post-list-post-comment { font-size: 16px; font-style: italic; padding-top: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #333; }
-.post-list-post-comment p { padding: 0; margin: 0; background: none !important; display: inline-block; }
+.post-list-post-comment p { padding: 0; margin: 0; background: none !important; }
 .post-list-post-comment span { padding: 4px; background: #fff; }
 .post-list-post-comment a { }
 .post-list-post-comment br { display: none; } 
@@ -528,3 +528,10 @@ input:is([type="hidden"], [type="image"], [type="file"]) { padding-top: 3px; dis
 
 /* WPUM addon Registration forms (added here because it hides the button on edit post) */
 input[name="submit_registration"].button { display: inline-block !important; }
+
+/* Admin Tables */
+.admin-table { width: 100%; border-collapse: collapse; }
+.admin-table thead th { text-align: left; padding: 5px 2px 5px 0; border-bottom: 2px solid #ddd; }
+.admin-table thead th.center { text-align: center; }
+.admin-table tbody td { padding: 5px 2px 5px 0; border-bottom: 1px solid #eee; }
+.admin-table tbody td.center { text-align: center; }

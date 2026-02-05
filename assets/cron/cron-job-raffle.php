@@ -1,9 +1,10 @@
 <?php
-// Load WordPress
-require_once('/home/intetse/loopis.app/wp-load.php');
+// Build paths relative to this file location
+$wp_root = dirname(__DIR__, 5);
+$theme_dir = $wp_root . '/wp-content/themes/loopis-theme';
 
-// Define theme path
-$theme_dir = '/home/intetse/loopis.app/wp-content/themes/loopis-theme';
+// Load WordPress
+require_once $wp_root . '/wp-load.php';
 
 // Include the necessary files
 include_once $theme_dir . '/functions/cron/cron-raffle.php';

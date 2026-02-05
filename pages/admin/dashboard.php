@@ -86,7 +86,7 @@ if (!defined('ABSPATH')) {
 <!-- Pending members count -->
 <?php if (current_user_can('manager') || current_user_can('administrator')) : ?>
     <div class="wrapped link" onclick="location.href='/admin/?view=activation'">
-        <h5>⚡ Nya konton</h5>
+        <h5>👥 Nya medlemmar</h5>
         <hr>
         <p class="small">
             <?php include __DIR__ . '/dashboard-blocks/members-pending.php'; ?>

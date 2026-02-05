@@ -1,8 +1,9 @@
 <?php
 /**
- * User summary for admin
- * Shows comprehensive admin information for a user profile
- * Used in author.php - displays member info, payments, activity, and statistics
+ * User summary for admin on author.php
+ * 
+ * Displays member info, payments, activity, and statistics
+ * $user and $user_id is passed from context
  */
 
 if (!defined('ABSPATH')) {
@@ -34,10 +35,11 @@ wp_enqueue_script('loopis-tabs', get_template_directory_uri() . '/assets/js/tabs
             <div class="wrapped">
                 <h5>📋 Medlemsregister</h5>
                 <hr>
-                <p><span class="label">⚧ <?php include_once LOOPIS_THEME_DIR . '/templates/admin/profile/user-gender.php'; ?></span></p>
-                <p><span class="label">👶 <?php include_once LOOPIS_THEME_DIR . '/templates/admin/profile/user-age.php'; ?></span></p>
-                <p><span class="label">✉ <a href="mailto:<?php echo esc_attr($user->user_email); ?>"><?php echo esc_html($user->user_email); ?></a></span></p>
-                <p><span class="label">📱 <a href="sms:<?php echo esc_attr(get_the_author_meta('wpum_phone', $user_id)); ?>"><?php echo esc_html(get_the_author_meta('wpum_phone', $user_id)); ?></a></span></p>
+                <p><span class="label"><?php include_once LOOPIS_THEME_DIR . '/templates/admin/profile/user-id.php'; ?></span></p>
+                <p><span class="label"><?php include_once LOOPIS_THEME_DIR . '/templates/admin/profile/user-age.php'; ?></span></p>
+                <p><span class="label"><?php include_once LOOPIS_THEME_DIR . '/templates/admin/profile/user-gender.php'; ?></span></p>
+                <p><span class="label"><?php include_once LOOPIS_THEME_DIR . '/templates/admin/profile/user-email.php'; ?></span></p>
+                <p><span class="label"><?php include_once LOOPIS_THEME_DIR . '/templates/admin/profile/user-phone.php'; ?></span></p>
             </div><!--wrapped-->
 
             <div class="wrapped">

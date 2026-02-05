@@ -2,8 +2,8 @@
 /**
  * Output user area.
  *
- * Used in author.php
- * Used in wpum/profiles/about.php
+ * Used in author.php & admin area
+ * $user_id has to be passed from context!
  */
 
 if (!defined('ABSPATH')) {
@@ -27,4 +27,4 @@ $area_key = get_user_meta($user_id, 'wpum_area', true);
 $area_label = isset($area_options[$area_key]) ? $area_options[$area_key] : '';
 
 // Output
-echo esc_html($area_label);
+echo esc_html('📍 ' . $area_label);

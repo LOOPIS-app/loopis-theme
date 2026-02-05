@@ -45,6 +45,9 @@ $coins = $profile_economy['coins'];
 <p class="small">💡 Detaljerad lista över din aktivitet finns här nedanför.<br>
 <a href="../../faq/hur-funkar-regnbagsmynt/">📌 Hur funkar regnbågsmynt?</a></p>
 
+<!--BUY COINTS-->
+<p><button type="submit"><a href="/shop/?option=coins">Köp mynt</a></button></p>
+
 <!-- ACTIVITY -->
 <h3>🧮 Min aktivitet</h3>
 <hr>
@@ -110,8 +113,3 @@ $coins = $profile_economy['coins'];
 <hr>
 <p>Här är dina registrerade betalningar till föreningen:</p>
 <?php include_once LOOPIS_THEME_DIR . '/templates/user/profile/user-payments.php'; ?>
-
-<!--BUY COINTS-->
-<h3>💰 Köp mynt</h3>
-<hr>
-<?php include_once LOOPIS_THEME_DIR . '/templates/general/swish-coins.php'; ?>

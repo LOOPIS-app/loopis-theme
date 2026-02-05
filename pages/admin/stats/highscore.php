@@ -23,77 +23,18 @@ include_once LOOPIS_THEME_DIR . '/functions/admin-extra/stats/display_top_users.
 define('LOOPIS_FETCHED_CATEGORY_ID', 41); // Renamed for better clarity
 define('LOOPIS_EARLIEST_YEAR', 2023);
 
-// Set the default year to the current year
+// Set current year (to avoid undefined variable)
 $current_year = date('Y');
-$selected_year = $current_year;
 
-// Check if a year is selected from the dropdown
-if (isset($_POST['selected_year'])) {
-    // Verify the nonce for security
-    if (!isset($_POST['select_year_nonce']) || !wp_verify_nonce($_POST['select_year_nonce'], 'select_year_action')) {
-        die('Security check failed.');
-    }
+// Render dropdown and get the selected year
+include_once LOOPIS_THEME_DIR . '/functions/admin-extra/stats/stats_select_year.php';
+$selected_year = stats_select_year();
 
-    // Validate and sanitize the selected year value
-    $selected_year = $_POST['selected_year'] === 'all' ? 'all' : absint($_POST['selected_year']);
-}
+// Calculate days passed and output message
+include_once LOOPIS_THEME_DIR . '/functions/admin-extra/stats/stats_days_passed.php';
+$days_passed = stats_days_passed($selected_year); 
 
-// Calculate the number of days passed
-if ($selected_year === 'all') {
-    // Calculate total days from the start of 2023 to today
-    $start_date = new DateTime('2023-01-01');
-    $current_date = new DateTime();
-    $interval = $start_date->diff($current_date);
-    $days_passed = $interval->format('%a');
-} elseif ($selected_year == $current_year) {
-    $start_date = new DateTime($selected_year . '-01-01');
-    $current_date = new DateTime();
-    $interval = $start_date->diff($current_date);
-    $days_passed = $interval->format('%a');
-} else {
-    $start_date = new DateTime($selected_year . '-01-01');
-    $end_date = new DateTime(($selected_year + 1) . '-01-01');
-    $interval = $start_date->diff($end_date);
-    $days_passed = $interval->format('%a');
-}
-
-// Prepare correction messages for days passed
-$correction_message = '';
-if ($selected_year == 2024) {
-    $days_passed -= 8;
-    $correction_message = '⚠ Antal dagar för 2024 är anpassat (-8) eftersom LOOPIS öppnade 9 januari.';
-} elseif ($selected_year == 2023) {
-    $days_passed = 30;
-    $correction_message = '⚠ Antal dagar för 2023 är 30 eftersom LOOPIS bara testades 2x15 dagar.';
-} elseif ($selected_year === 'all') {
-    $days_passed = $days_passed - 8 - 335;
-    $correction_message = '⚠ Antal dagar för är anpassat (-327) pga test 2023 och öppning 2024.';
-}
-?>
-
-<!-- Dropdown select year -->
-<form method="post">
-    <?php wp_nonce_field('select_year_action', 'select_year_nonce'); ?>
-    <select name="selected_year" id="year">
-        <option value="all" <?php echo ($selected_year === 'all') ? 'selected' : ''; ?>>Alla år</option>
-        <?php
-        // Generate options for the dropdown
-        for ($year = $current_year; $year >= LOOPIS_EARLIEST_YEAR; $year--) {
-            $selected = ($year == $selected_year) ? 'selected' : '';
-            echo "<option value=\"$year\" $selected>$year</option>";
-        }
-        ?>
-    </select>
-    <button type="submit" class="small">Visa</button>
-</form>
-<div style="clear:both;"></div>
-
-<!-- Display correction message below the dropdown -->
-<?php if (!empty($correction_message)) : ?>
-    <p class="info"><?php echo $correction_message; ?></p>
-<?php endif; ?>
-
-<?php
+// Fetch top users data with caching
 global $wpdb;
 
 // Cache key based on selected year
