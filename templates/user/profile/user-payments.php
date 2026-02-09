@@ -2,8 +2,8 @@
 /**
  * Output user payments.
  *
- * Used in user-summary.php > author.php
- * Used in wpum/profiles/coins.php
+ * Used in author.php & wpum/profiles/coins.php
+ * $user_id has to be passed from context!
  */
 
 if (!defined('ABSPATH')) {

@@ -2,14 +2,14 @@
 /**
  * Comment functions for user.
  *
- * Included for everyone in functions.php
+ * Included for all users in functions.php
  */
  
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-/** USER: ADD COMMENT */
+/** ADD USER COMMENT */
 // Add comment from user
 function add_comment(string $comment_content, int $post_id) {
 

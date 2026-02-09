@@ -16,78 +16,17 @@ if (!defined('ABSPATH')) {
 <p class="small">💡 Statistik för upplagda annonser</p>
 
 <?php
-// Set the default year to the current year
+// Set current year (to avoid undefined variable)
 $current_year = date('Y');
-$selected_year = $current_year;
 
-// Check if a year is selected from the dropdown
-if (isset($_POST['selected_year'])) {
-    // Validate and sanitize the selected year value
-    $selected_year = $_POST['selected_year'] === 'all' ? 'all' : absint($_POST['selected_year']);
-}
+// Render dropdown and get the selected year
+include_once LOOPIS_THEME_DIR . '/functions/admin-extra/stats/stats_select_year.php';
+$selected_year = stats_select_year();
 
-// Calculate the number of days passed
-if ($selected_year === 'all') {
-    // Calculate total days from the start of 2023 to today
-    $start_date = new DateTime('2023-01-01');
-    $current_date = new DateTime();
-    $interval = $start_date->diff($current_date);
-    $days_passed = $interval->format('%a');
-} elseif ($selected_year == $current_year) {
-    $start_date = new DateTime($selected_year . '-01-01');
-    $current_date = new DateTime();
-    $interval = $start_date->diff($current_date);
-    $days_passed = $interval->format('%a');
-} else {
-    $start_date = new DateTime($selected_year . '-01-01');
-    $end_date = new DateTime(($selected_year + 1) . '-01-01');
-    $interval = $start_date->diff($end_date);
-    $days_passed = $interval->format('%a');
-}
+// Calculate days passed and output message
+include_once LOOPIS_THEME_DIR . '/functions/admin-extra/stats/stats_days_passed.php';
+$days_passed = stats_days_passed($selected_year); 
 
-?>
-
-<!-- Dropdown select year -->
-<form method="post">
-    <select name="selected_year" id="year" style="float:left; font-size:16px;">
-        <option value="all" <?php echo ($selected_year === 'all') ? 'selected' : ''; ?>>Alla år</option>
-        <?php
-        // Generate options for the dropdown
-        $earliest_year = 2023;
-        for ($year = $current_year; $year >= $earliest_year; $year--) {
-            $selected = ($year == $selected_year) ? 'selected' : '';
-            echo "<option value=\"$year\" $selected>$year</option>";
-        }
-        ?>
-    </select>
-    <button type="submit" class="small" style="margin:3px 0 0 10px;">Visa</button>
-</form>
-
-<div style="clear:both;">
-<?php
-// Justeringar av antal dagar
-    if ($selected_year == 2024) {
-        $days_passed -= 8;
-        echo '<p class="info">⚠ Antal dagar för 2024 är anpassat (-8) eftersom LOOPIS öppnade 9 januari.</p>';
-    }
-    elseif ($selected_year == 2023) {
-        $days_passed = 30;
-        echo '<p class="info">⚠ Antal dagar för 2023 är 30 eftersom LOOPIS bara testades 2x15 dagar.</p>';
-    }
-	elseif ($selected_year === 'all') {
-        $days_passed = $days_passed - 8 - 335;
-        echo '<p class="info">⚠ Antal dagar för är anpassat (-327) pga test 2023 och öppning 2024.</p>';
-    }
-?>
-</div>
-
-<!--?php
-// Output (for testing)
-echo "Selected Year: $selected_year<br>";
-echo "Days Passed in Selected Year: $days_passed<br>";
-?-->
-
-<?php
 // Exclude the board?
 $board_ids = array(2, 3, 66);
 

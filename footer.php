@@ -1,7 +1,7 @@
 </div><!--container-->
 <?php get_template_part('templates/general/scroll-to-top'); ?>
 
-<?php if (is_single() && (current_user_can('member') || current_user_can('administrator'))) : ?>
+<?php if ((current_user_can('member') || current_user_can('administrator'))) : ?>
     <?php get_template_part('templates/user/support/support-form'); ?>
 <?php endif; ?>
 

@@ -1,7 +1,8 @@
 <?php
 /**
  * SUBMIT START (page-submit.php)
- * Options overview.
+ * 
+ * Overview of options for submitting new posts..
  */
 
 if (!defined('ABSPATH')) {
@@ -57,7 +58,7 @@ if (!defined('ABSPATH')) {
 <!-- No access -->
 <?php } else { 
   include LOOPIS_THEME_DIR . '/templates/access/message.php';
-	include LOOPIS_THEME_DIR . '/templates/visitor/templates/general/faq-single.php';
+	include LOOPIS_THEME_DIR . '/templates/general/faq-single.php';
  } ?>
 
   </div><!--page-padding-->

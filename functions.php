@@ -4,12 +4,19 @@
 * Loads all frontend assets and functions
 */	
 
+/** 
+* Define constants
+*/
+
 // Define theme version
-define('LOOPIS_THEME_VERSION', '0.75');
+define('LOOPIS_THEME_VERSION', '0.78');
 
 // Define theme folder path constants
 define('LOOPIS_THEME_DIR', get_template_directory());       // Server-side path to /wp-content/themes/loopis-theme/
 define('LOOPIS_THEME_URI', get_template_directory_uri());   // Client-side path to https://loopis.app/wp-content/themes/loopis-theme/
+
+// Define secret keys from .env file (if not live)
+require_once __DIR__ . '/environment_loader.php';
 
 // Define locker ID for this installation (temporary solution)
 define('LOCKER_ID', '12845-1');
@@ -52,15 +59,15 @@ function loopis_theme_include_folder($folder_name) {
 }
 // Define folders to load
 function loopis_theme_load_files() {
-    // Load general functions
+    // Load general functions for everyone
     loopis_theme_include_folder('everyone');
 
-    // Load user functions
+    // Load functions for user
     if (is_user_logged_in()) { 
         loopis_theme_include_folder('user');
     }
 
-    // Load admin functions
+    // Load functions for administrator and manager
     if (current_user_can('administrator') || current_user_can('manager')) { 
         loopis_theme_include_folder('admin');
         loopis_theme_include_folder('cron');
@@ -79,7 +86,7 @@ function loopis_theme_setup() {
 add_action('after_setup_theme', 'loopis_theme_setup');
 
 /**
- * Load search functions on search pages (frontend only)
+ * Load search functions on frontend search pages
  */
 function loopis_load_search_functions() {
     // Only load on frontend (not in admin area)

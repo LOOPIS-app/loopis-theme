@@ -2,15 +2,15 @@
 /**
  * Comment functions for admin.
  *
- * Included for admin in functions.php
- * Included for cron in all cron jobs
+ * Included for all users in functions.php
+ * Included for cronjobs when needed
  */
  
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-/** ADMIN: ADD COMMENT */
+/** ADD ADMIN COMMENT */
 // Add comment from admin
 function add_admin_comment(string $comment_content, int $post_id, int $user_id) {
         
