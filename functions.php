@@ -4,40 +4,22 @@
 * Loads all frontend assets and functions
 */	
 
+/** 
+* Define constants
+*/
+
 // Define theme version
-define('LOOPIS_THEME_VERSION', '0.77');
+define('LOOPIS_THEME_VERSION', '0.78');
 
 // Define theme folder path constants
 define('LOOPIS_THEME_DIR', get_template_directory());       // Server-side path to /wp-content/themes/loopis-theme/
 define('LOOPIS_THEME_URI', get_template_directory_uri());   // Client-side path to https://loopis.app/wp-content/themes/loopis-theme/
 
-// Load environment variables from theme .env if present
-$loopis_env_path = __DIR__ . '/.env';
-if (is_readable($loopis_env_path)) {
-    $loopis_env_lines = file($loopis_env_path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-    foreach ($loopis_env_lines as $loopis_env_line) {
-        $loopis_env_line = trim($loopis_env_line);
-        if ($loopis_env_line === '' || str_starts_with($loopis_env_line, '#')) {
-            continue;
-        }
-        if (!str_contains($loopis_env_line, '=')) {
-            continue;
-        }
-        [$loopis_env_key, $loopis_env_value] = explode('=', $loopis_env_line, 2);
-        $loopis_env_key = trim($loopis_env_key);
-        $loopis_env_value = trim($loopis_env_value);
-        if ($loopis_env_key !== '' && getenv($loopis_env_key) === false) {
-            putenv("{$loopis_env_key}={$loopis_env_value}");
-            $_ENV[$loopis_env_key] = $loopis_env_value;
-        }
-    }
-}
+// Define secret keys from .env file (if not live)
+require_once __DIR__ . '/environment_loader.php';
 
 // Define locker ID for this installation (temporary solution)
 define('LOCKER_ID', '12845-1');
-
-// Stripe API Configuration
-define('LOOPIS_STRIPE_SECRET_KEY', getenv('LOOPIS_STRIPE_SECRET_KEY') ?: '');
 
 /** 
 * Enqueue theme CSS and JavaScript
@@ -77,15 +59,15 @@ function loopis_theme_include_folder($folder_name) {
 }
 // Define folders to load
 function loopis_theme_load_files() {
-    // Load general functions
+    // Load general functions for everyone
     loopis_theme_include_folder('everyone');
 
-    // Load user functions
+    // Load functions for user
     if (is_user_logged_in()) { 
         loopis_theme_include_folder('user');
     }
 
-    // Load admin functions
+    // Load functions for administrator and manager
     if (current_user_can('administrator') || current_user_can('manager')) { 
         loopis_theme_include_folder('admin');
         loopis_theme_include_folder('cron');
@@ -104,7 +86,7 @@ function loopis_theme_setup() {
 add_action('after_setup_theme', 'loopis_theme_setup');
 
 /**
- * Load search functions on search pages (frontend only)
+ * Load search functions on frontend search pages
  */
 function loopis_load_search_functions() {
     // Only load on frontend (not in admin area)

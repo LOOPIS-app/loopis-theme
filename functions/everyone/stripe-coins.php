@@ -1,6 +1,6 @@
 <?php
 /**
- * Stripe Coins Purchase Handler
+ * Stripe coins purchase handler
  * 
  * Handles automatic coin addition after successful Stripe payment via webhook.
  * This file must be loaded on all requests because Stripe webhooks
@@ -12,8 +12,10 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// Stripe Webhook Secret for Coins
-define('LOOPIS_STRIPE_WEBHOOK_SECRET_COINS', 'whsec_HHNmCaIHV2BoFD9oMcrMuz3Mhu7nedlF');
+// Define Stripe Webhook Secret (if not defined in wp-config)
+if (!defined('LOOPIS_STRIPE_WEBHOOK_SECRET_COINS')) {
+    define('LOOPIS_STRIPE_WEBHOOK_SECRET_COINS', getenv('LOOPIS_STRIPE_WEBHOOK_SECRET_COINS') ?: '');
+}
 
 /**
  * Register REST API endpoint for Stripe coin purchase webhooks

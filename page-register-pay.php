@@ -28,5 +28,16 @@ get_header(); ?>
 <p>⚠ OBS! Du måste ange samma e-postadress i betalningen som i formuläret.</p>
 </div>
 
-<p><button type="submit"><a href="https://buy.stripe.com/5kQcN54gZ01Fd1h2wm1wY00">💳 Betala 50 kr</a></button></p>
+<?php
+// Stripe Sandbox?
+$test_mode = defined('WP_TEST') && WP_TEST;
+if ($test_mode) {
+    $payment_link = 'https://buy.stripe.com/test_14A14n9Bg7JsaUWatFcV201';
+    echo '<div class="wpum-message info"><p>⚠ Testläge! Använd testkort 4242 4242 4242 4242.</p></div>';
+} else {
+    $payment_link = 'https://buy.stripe.com/5kQcN54gZ01Fd1h2wm1wY00';
+}
+?>
+
+<p><button type="submit"><a href="<?php echo esc_url($payment_link); ?>">💳 Betala 50 kr</a></button></p>
 <p class="info">💡 Problem eller frågor? Maila <a href="mailto:info@loopis.org">info@loopis.org</a></p>

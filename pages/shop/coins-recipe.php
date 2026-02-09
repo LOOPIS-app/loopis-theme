@@ -15,9 +15,8 @@ if (!defined('ABSPATH')) {
 
 <div class="wpum-message success" onclick="location.href='/'">
 <p>✅ 5 regnbågsmynt köpta!</p>
-<p>Nu kan du paxa saker för dina mynt.</p>
 </div>
 
-<p><span class="big-link"><a href="/">🎁 Saker att få</a></span></p>
+<p><span class="link"><a href="/">🎁 Saker att få</a></span></p>
 <p><span class="link"><a href="/shop/?option=coins">🛒 Köp 5 mynt till</a></span></p>
 <p><span class="link"><a href="hur-funkar-regnbagsmynt">📌 Hur funkar regnbågsmynt?</a></span></p>
