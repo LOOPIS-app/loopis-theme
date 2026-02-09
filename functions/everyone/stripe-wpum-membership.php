@@ -1,8 +1,11 @@
 <?php
 /**
- * Stripe Registration & Payment Activation
+ * WPUM Stripe account activation handler
  * 
- * Handles automatic account activation after successful Stripe payment.
+ * This is not used since we changed to Stripe payment links.
+ * Kept here in case we want to revert.
+ * 
+ * Handles account activation after successful WPUM Stripe payment.
  * This file must be loaded on all requests because Stripe webhooks
  * can fire at any time via REST API callbacks.
  */
@@ -11,21 +14,6 @@
 if (!defined('ABSPATH')) {
     exit;
 }
-
-/**
- * DEBUG: Log ALL user meta updates to find the Stripe meta key
- */
-function loopis_debug_all_user_meta($meta_id, $user_id, $meta_key, $meta_value) {
-    // Only log for newly registered users (member_pending role)
-    $user = get_userdata($user_id);
-    if ($user && in_array('member_pending', (array) $user->roles)) {
-        error_log("LOOPIS DEBUG: User meta updated - Key: {$meta_key} for user {$user_id}");
-        if (strpos($meta_key, 'stripe') !== false || strpos($meta_key, 'wpum') !== false) {
-            error_log("LOOPIS DEBUG: Stripe/WPUM related meta value: " . print_r($meta_value, true));
-        }
-    }
-}
-add_action('updated_user_meta', 'loopis_debug_all_user_meta', 5, 4);
 
 /**
  * Activate account after successful Stripe payment

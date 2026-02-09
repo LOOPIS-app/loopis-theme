@@ -1,8 +1,8 @@
 <?php
 /**
- * Stripe Registration & Payment Activation
+ * Stripe account activation handler
  * 
- * Handles automatic account activation after successful Stripe payment via webhook.
+ * Handles account activation after successful Stripe payment via webhook.
  * This file must be loaded on all requests because Stripe webhooks
  * can fire at any time via REST API callbacks.
  */
@@ -12,8 +12,10 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// Stripe Webhook Secret for Membership
-define('LOOPIS_STRIPE_WEBHOOK_SECRET_MEMBERSHIP', 'whsec_CYUIQzRygbqxvabzqkeAdmRYYqTBLlWm');
+// Define Stripe Webhook Secret (if not defined in wp-config)
+if (!defined('LOOPIS_STRIPE_WEBHOOK_SECRET_MEMBERSHIP')) {
+    define('LOOPIS_STRIPE_WEBHOOK_SECRET_MEMBERSHIP', getenv('LOOPIS_STRIPE_WEBHOOK_SECRET_MEMBERSHIP') ?: '');
+}
 
 /**
  * Register REST API endpoint for Stripe membership webhooks

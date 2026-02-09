@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
 <hr>
 
 <p>Vill du hämta saker utan att ge bort något själv?</p>
-<p><strong>Här kan du köpa 5 regnbågsmynt för 50 kr.</strong></p>
+<p>Här kan du köpa 5 regnbågsmynt för 50 kr.</p>
 
 <div class="wpum-message warning">
 <p>⚠ OBS! Du måste ange rätt e-postadress vid betalning: <?php
@@ -24,7 +24,18 @@ if (is_user_logged_in()) {
 ?></p>
 </div>
 
-<p><button type="submit"><a href="https://buy.stripe.com/8x2fZh4gZaGj8L16MC1wY01">💳 Betala 50 kr</a></button></p>
+<?php
+// Stripe Sandbox?
+$test_mode = defined('WP_TEST') && WP_TEST;
+if ($test_mode) {
+    $payment_link = 'https://buy.stripe.com/test_dRm7sL5l05Bk7IKfNZcV200';
+    echo '<div class="wpum-message info"><p>⚠ Testläge! Använd testkort 4242 4242 4242 4242.</p></div>';
+} else {
+    $payment_link = 'https://buy.stripe.com/8x2fZh4gZaGj8L16MC1wY01';
+}
+?>
+
+<p><button type="submit"><a href="<?php echo esc_url($payment_link); ?>">💳 Betala 50 kr</a></button></p>
 <p class="small">💡 Du får dina mynt direkt när betalningen är genomförd.</p>
 
 <p><span class="link"><a href="/faq/hur-funkar-regnbagsmynt">📌 Hur funkar regnbågsmynt?</a></span></p>
