@@ -73,6 +73,18 @@ $archived = count(get_posts(array(
 // Summarize
 $notifications = $leave + $fetch + $get_visit + $make_visit + $paused + $archived;
 
+// Show warning if locker is full and user has things to leave or fetch
+if ($leave > 0 || $fetch > 0) {
+    $warning_enabled = get_locker_data(LOCKER_ID, 'locker_full', 0);
+    if ($warning_enabled) {
+        $full_warning = loopis_get_setting('locker_full_warning', '');
+        if (!empty($full_warning)) {
+            echo '<h5>⚠ Mycket saker i skåpen!</h5><hr>';
+            echo '<div class="wpum-message warning"><p>' . wp_kses_post(nl2br($full_warning)) . '</p></div>';
+        }
+    }
+}
+
 // OUTPUT ALERTS?
 if ($notifications > 0) {
     echo '<h5>🔔 Du har saker att göra...</h5>';
@@ -82,30 +94,12 @@ if ($notifications > 0) {
 // Time to leave in the locker?
 if ($leave > 0) {
     echo '<p><span class="mega-link notif" onclick="window.location.href=\'/activity/\'"><i class="fas fa-walking"></i>Du ska lämna ' . $leave . ' sak' . ($leave > 1 ? 'er' : '') . ' i skåpet →</span></p>';
-    
-    // Show leave warning if enabled
-    $leave_warning_enabled = get_locker_data(LOCKER_ID, 'leave_warning', 0);
-    if ($leave_warning_enabled) {
-            $leave_warning = loopis_get_setting('locker_leave_warning', '');
-            if (!empty($leave_warning)) {
-                echo '<div class="wpum-message information"><p>' . wp_kses_post($leave_warning) . '</p></div>';
-            }
-        }
-    }
+}
 
 // Time to fetch in the locker?
 if ($fetch > 0) {
     echo '<p><span class="mega-link notif" onclick="window.location.href=\'/activity/\'"><i class="fas fa-walking"></i>Du ska hämta ' . $fetch . ' sak' . ($fetch > 1 ? 'er' : '') . ' i skåpet →</span></p>';
-    
-    // Show fetch warning if enabled
-    $fetch_warning_enabled = get_locker_data(LOCKER_ID, 'fetch_warning', 0);
-    if ($fetch_warning_enabled) {
-            $fetch_warning = loopis_get_setting('locker_fetch_warning', '');
-            if (!empty($fetch_warning)) {
-                echo '<div class="wpum-message warning"><p>' . wp_kses_post($fetch_warning) . '</p></div>';
-            }
-        }
-    }
+}
 
 // Time to get a visit?
 if ($get_visit > 0) {

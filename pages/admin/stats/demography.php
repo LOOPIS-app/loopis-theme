@@ -15,28 +15,6 @@ if (!defined('ABSPATH')) {
 <hr>
 <p class="small">💡 Statistik för våra medlemmar</p>
 
-<style>
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-    th, td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: left;
-    }
-    th {
-        background-color: #f4f4f4;
-        font-weight: bold;
-    }
-    tr:nth-child(even) {
-        background-color: #f9f9f9; /* Light grey for even rows */
-    }
-    tr:nth-child(odd) {
-        background-color: #ffffff; /* White for odd rows */
-    }
-</style>
-
 <?php
 global $wpdb;
 
@@ -180,7 +158,7 @@ foreach ($all_users as $user) {
 </div>
 <hr>
 
-<table border="1" cellpadding="5" cellspacing="0" style="border-collapse: collapse; width: 100%; text-align: left;">
+<table class="admin-table">
     <thead>
         <tr>
             <th>Gender</th>
@@ -315,7 +293,7 @@ foreach ($active_members_area as $user_id) {
 </div>
 <hr>
 
-<table border="1" cellpadding="5" cellspacing="0" style="border-collapse: collapse; width: 100%; text-align: left;">
+<table class="admin-table">
     <thead>
         <tr>
             <th>Area</th>

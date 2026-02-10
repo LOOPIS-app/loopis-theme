@@ -1,7 +1,7 @@
 /*
  Theme Name: LOOPIS Theme
- Version: 0.78
- Author: Develoopers
+ Version: 0.79
+ Author: The Develoopers
  Author URI: https://loopis.org
  Description: Theme providing all frontend design and functionality for LOOPIS.app
  Text Domain: loopis-theme
@@ -531,7 +531,8 @@ input[name="submit_registration"].button { display: inline-block !important; }
 
 /* Admin Tables */
 .admin-table { width: 100%; border-collapse: collapse; }
-.admin-table thead th { text-align: left; padding: 5px 2px 5px 0; border-bottom: 2px solid #ddd; }
-.admin-table thead th.center { text-align: center; }
-.admin-table tbody td { padding: 5px 2px 5px 0; border-bottom: 1px solid #eee; }
-.admin-table tbody td.center { text-align: center; }
+.admin-table th,
+.admin-table td { padding: 8px; text-align: left; }
+.admin-table th { background-color: #f4f4f4; font-weight: bold; }
+.admin-table tr:nth-child(even) { background-color: #f5f5f5; }
+.admin-table tr:nth-child(odd) { background-color: #ffffff; }

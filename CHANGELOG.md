@@ -1,5 +1,8 @@
 # 📋 Changelog for "LOOPIS Theme"
 
+## 0.79 (2026-02-10)
+- Added frontend admin toggle for locker full warning
+
 ## 0.78 (2026-02-09)
 - Improved handling of secrets (loading from wp-config or .env)
 - Moved changelog to CHANGELOG.md
