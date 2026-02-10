@@ -97,8 +97,15 @@ function cron_job_reminders() {
         $interval = $start_time->diff($end_time);
         $execution_time = $interval->format('%s');
 
+        $report_enabled = loopis_get_setting('cron_reminders_report', 'off') === 'on';
+        if (!$report_enabled) {
+            return;
+        }
+
         // Prepare email
-        $to = "lotten@loopis.app";
+        $report_emails_raw = loopis_get_setting('cron_reminders_report_email', '');
+        $report_emails = array_filter(array_map('sanitize_email', array_map('trim', explode(',', $report_emails_raw))));
+        $to = implode(',', $report_emails);
         $subject = "⏰ Påminnelser " . $start_time->format('d/m') . " kl. " . $start_time->format('H');
         $message = "
         <b>✉ {$reminders} påminnelser har skickats</b><br>
@@ -111,6 +118,8 @@ function cron_job_reminders() {
         <br>
         🐎 Processen tog {$execution_time} sekunder<br>
         ⏰ " . $start_time->format('H:i:s') . " → " . $end_time->format('H:i:s') . "<br>
+        <br>
+        📨 Rapporten skickades till: {$to}
         ";
         $headers = array(
             'From: info@loopis.app',
@@ -119,6 +128,8 @@ function cron_job_reminders() {
         );
 
         // Send email
-        wp_mail($to, $subject, $message, $headers);
+        if ($to) {
+            wp_mail($to, $subject, $message, $headers);
+        }
     }
 }

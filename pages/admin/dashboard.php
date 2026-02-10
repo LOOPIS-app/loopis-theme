@@ -65,12 +65,12 @@ if (!defined('ABSPATH')) {
     </p>
 </div>
 
-<!-- Gift archive count -->
+<!-- Archive count -->
 <div class="wrapped link" onclick="location.href='/admin/?view=archive'">
     <h5>🕸 Arkivet</h5>
     <hr>
     <p class="small">
-        <?php include __DIR__ . '/dashboard-blocks/gift-archive-stats.php'; ?>
+        <?php include __DIR__ . '/dashboard-blocks/archive-stats.php'; ?>
     </p>
 </div>
 
@@ -101,6 +101,17 @@ if (!defined('ABSPATH')) {
         <hr>
         <p class="small">
             <?php include __DIR__ . '/dashboard-blocks/support-active.php'; ?>
+        </p>
+    </div>
+<?php endif; ?>
+
+<!-- Settings Section -->
+<?php if (current_user_can('manager') || current_user_can('administrator')) : ?>
+    <div class="wrapped link" onclick="location.href='/admin/?view=settings'">
+        <h5>⚙ Inställningar</h5>
+        <hr>
+        <p class="small">
+            <?php include __DIR__ . '/dashboard-blocks/settings-status.php'; ?>
         </p>
     </div>
 <?php endif; ?>
