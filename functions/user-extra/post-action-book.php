@@ -70,7 +70,7 @@ function action_book_custom(int $post_id) {
     }
 
     // Get variables
-    $location = get_field('location');
+    $location = get_post_meta($post_id, 'location', true);
     $author = get_post_field('post_author');
     $author_name = get_userdata($author)->display_name;
     $fetcher_name = get_userdata($fetcher)->display_name;

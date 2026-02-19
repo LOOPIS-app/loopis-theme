@@ -19,7 +19,7 @@ function reminder_leave(int $reminder_leave, int $post_id) {
     // Get user data
     $author_id = get_post_field('post_author', $post_id);
     $author_name = get_userdata($author_id)->display_name;
-    $fetcher_id = get_field('fetcher', $post_id);
+    $fetcher_id = get_post_meta($post_id, 'fetcher', true);
     $fetcher_name = get_userdata($fetcher_id)->display_name;
 
     // Send notifications & leave comments
@@ -83,7 +83,7 @@ function reminder_fetch(int $reminder_fetch, int $post_id) {
     $locker_code = get_locker_code(LOCKER_ID);
 
     // Get user data
-    $fetcher_id = get_field('fetcher', $post_id);
+    $fetcher_id = get_post_meta($post_id, 'fetcher', true);
     $fetcher_name = get_userdata($fetcher_id)->display_name;
 
     // Send notifications & leave comments
@@ -139,11 +139,11 @@ function reminder_fetch(int $reminder_fetch, int $post_id) {
 function reminder_custom(int $reminder_fetch, int $post_id) {
     // Get variables
     $number = $reminder_fetch + 1;
-    $location = get_field('location', $post_id);
+    $location = get_post_meta($post_id, 'location', true);
 
     // Get user data
     $author_id = get_post_field('post_author', $post_id);
-    $fetcher_id = get_field('fetcher', $post_id);
+    $fetcher_id = get_post_meta($post_id, 'fetcher', true);
     $fetcher_name = get_userdata($fetcher_id)->display_name;
     $author_name = get_userdata($author_id)->display_name;
     $author_phone = get_the_author_meta('wpum_phone', $author_id);

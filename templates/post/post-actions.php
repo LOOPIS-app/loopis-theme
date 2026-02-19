@@ -263,7 +263,7 @@ $locker_code = get_locker_code(LOCKER_ID);
 	
 	<?php if ( $current == $fetcher ) : ?>
 		
-	<?php $forward_post = get_field('forward_post') ?>
+	<?php $forward_post = get_post_meta($post_id, 'forward_post', true) ?>
 		<?php if ( $forward_post ) { ?> 
 			<p>♻ Du har skickat vidare! <span class="link"><a href="<?php echo get_permalink($forward_post); ?>">→ Ny annons</a></span></p>
 			

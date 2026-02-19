@@ -15,7 +15,7 @@ function reminder_leave_sms(int $reminder_leave, int $post_id) {
         // Prepare SMS
         $author = get_post_field('post_author');
 		$author_name = get_userdata($author)->display_name;
-        $book_time = strtotime(get_field('book_date'));
+        $book_time = strtotime(get_post_meta($post_id, 'book_date', true));
         $now_time = (new DateTime(current_time('mysql')))->getTimestamp();
         $time_difference = $now_time - $book_time;
         $days = floor($time_difference / (24 * 3600));
@@ -52,9 +52,9 @@ function reminder_fetch_sms(int $reminder_fetch, int $post_id) {
     // Check if the reminder fetch count is 3
     if ($reminder_fetch == 3) {
         // Prepare SMS
-        $fetcher = get_field('fetcher');
+        $fetcher = get_post_meta($post_id, 'fetcher', true);
 		$fetcher_name = get_userdata($fetcher)->display_name;
-        $locker_time = strtotime(get_field('locker_date'));
+        $locker_time = strtotime(get_post_meta($post_id, 'locker_date', true));
 		$now_time = (new DateTime(current_time('mysql')))->getTimestamp();
         $time_difference = $now_time - $locker_time;
         $days = floor($time_difference / (24 * 3600));
@@ -75,7 +75,7 @@ function reminder_fetch_sms(int $reminder_fetch, int $post_id) {
         // Return the SMS URL
         return "sms:$phone?body=$message_encoded";
     } else { 
-		$fetcher = get_field('fetcher');
+		$fetcher = get_post_meta($post_id, 'fetcher', true);
 		$name = get_userdata($fetcher)->first_name;
 		$phone = get_the_author_meta('wpum_phone', $fetcher);
 		$message = "Hej igen $name!\n";
@@ -91,15 +91,15 @@ function reminder_custom_sms(int $reminder_fetch, int $post_id) {
     // Check if the reminder fetch count is 3
     if ($reminder_fetch == 3) {
         // Prepare SMS
-        $fetcher = get_field('fetcher');
+        $fetcher = get_post_meta($post_id, 'fetcher',true);
 		$fetcher_name = get_userdata($fetcher)->display_name;
-        $book_time = strtotime(get_field('book_date'));
+        $book_time = strtotime(get_post_meta($post_id, 'book_date',true));
 		$now_time = (new DateTime(current_time('mysql')))->getTimestamp();
         $time_difference = $now_time - $book_time;
         $days = floor($time_difference / (24 * 3600));
         $phone = get_the_author_meta('wpum_phone', $fetcher);
         $name = get_userdata($fetcher)->first_name;
-		$location = get_field('location');
+		$location = get_post_meta($post_id, 'location', true);
         $link = get_the_permalink($post_id);
         $message = "Hej $name!\nHur går det med hämtningen på $location? Det har gått $days dagar nu.\n💚 Johan på LOOPIS\n\n$link";
         
@@ -115,7 +115,7 @@ function reminder_custom_sms(int $reminder_fetch, int $post_id) {
         // Return the SMS URL
         return "sms:$phone?body=$message_encoded";
     } else { 
-		$fetcher = get_field('fetcher');
+		$fetcher = get_post_meta($post_id, 'fetcher',true);
 		$phone = get_the_author_meta('wpum_phone', $fetcher);
 		$name = get_userdata($fetcher)->first_name;
 		$message = "Hej igen $name!\n";

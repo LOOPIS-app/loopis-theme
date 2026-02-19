@@ -51,11 +51,11 @@ $count = $the_query->found_posts;
     <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
         <?php
         $post_id = get_the_ID();
-        $book_time = strtotime(get_field('book_date'));
-        $locker_time = strtotime(get_field('locker_date'));
-        $fetcher = get_field('fetcher');
+        $book_time = strtotime(get_post_meta($post_id, 'book_date', true));
+        $locker_time = strtotime(get_post_meta($post_id, 'locker_date', true));
+        $fetcher = get_post_meta($post_id, 'fetcher', true);
         if ($fetcher) { $fetcher_name = get_userdata($fetcher)->display_name; $fetcher_link = get_author_posts_url($fetcher); }
-        $reminder_fetch = absint(get_field('reminder_fetch')); ?>
+        $reminder_fetch = absint(get_post_meta($post_id, 'reminder_fetch', true)); ?>
 
         <div class="post-list-post" style="position:relative;" onclick="location.href='<?php the_permalink(); ?>';">
             <div class="post-list-post-thumbnail"><?php the_post_thumbnail('thumbnail'); ?></div>
@@ -119,11 +119,11 @@ $count = $the_query->found_posts;
 <?php if( $the_query->have_posts() ):
 	while( $the_query->have_posts() ) : $the_query->the_post();
 		$post_id = get_the_ID();
-		$book_time = strtotime(get_field('book_date'));
+		$book_time = strtotime(get_post_meta($post_id, 'book_date', true));
 		$author = get_post_field('post_author');
-		$fetcher = get_field('fetcher');
+		$fetcher = get_post_meta($post_id, 'fetcher', true);
 		if ($fetcher) { $fetcher_name = get_userdata($fetcher)->display_name; $fetcher_link = get_author_posts_url($fetcher);}
-	    $reminder_leave = absint(get_field('reminder_leave')); ?>
+	    $reminder_leave = absint(get_post_meta($post_id, 'reminder_leave', true)); ?>
 
 <div class="post-list-post" style="position:relative;" onclick="location.href='<?php the_permalink(); ?>';">
 	<div class="post-list-post-thumbnail"><?php the_post_thumbnail('thumbnail'); ?></div>
@@ -187,11 +187,11 @@ $count = $the_query->found_posts;
 <?php if( $the_query->have_posts() ):
 	while( $the_query->have_posts() ) : $the_query->the_post();
 		$post_id = get_the_ID();
-		$book_time = strtotime(get_field('book_date'));
+		$book_time = strtotime(get_post_meta($post_id, 'book_date', true));
 		$author = get_post_field('post_author');
-		$fetcher = get_field('fetcher');
+		$fetcher = get_post_meta($post_id, 'fetcher', true);
 		if ($fetcher) { $fetcher_name = get_userdata($fetcher)->display_name; $fetcher_link = get_author_posts_url($fetcher);}
-		$reminder_fetch = absint(get_field('reminder_fetch')); ?>
+		$reminder_fetch = absint(get_post_meta($post_id, 'reminder_fetch', true)); ?>
 
 <div class="post-list-post" style="position:relative;" onclick="location.href='<?php the_permalink(); ?>';">
 	<div class="post-list-post-thumbnail"><?php the_post_thumbnail('thumbnail'); ?></div>

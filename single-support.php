@@ -13,11 +13,11 @@ $author = get_the_author_meta('ID');
 $current = get_current_user_id();
 $invited = get_post_meta($post_id, 'invited', true);
 	if (!is_array($invited)) { $invited = array(); }
-$page_title = get_field('title');
-$page_link = get_field('link');
+$page_title = get_post_meta($post_id, 'title', true);
+$page_link = get_post_meta($post_id, 'link', true);
 
 // Get category of the post
-$status_id = get_field('status');
+$status_id = get_post_meta($post_id, 'status', true);
 $status_term = get_term($status_id, 'support-status');
 $status_name = $status_term->name;
 $status_slug = $status_term->slug;
