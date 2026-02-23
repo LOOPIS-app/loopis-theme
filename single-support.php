@@ -1,4 +1,9 @@
-<?php get_header(); ?>
+<?php
+/**
+ * Template for single support post.
+ */
+
+get_header(); ?>
 
 <!-- VARIABLER -->
 <?php
@@ -11,7 +16,7 @@ $invited = get_post_meta($post_id, 'invited', true);
 $page_title = get_field('title');
 $page_link = get_field('link');
 
-// Get status of the post
+// Get category of the post
 $status_id = get_field('status');
 $status_term = get_term($status_id, 'support-status');
 $status_name = $status_term->name;
@@ -57,20 +62,37 @@ $status_slug = $status_term->slug;
 <p class="label">Meddelande:</p>
 <?php the_content(); ?>
 
+				<!-- Copy link -->
+                <button type="button" id="copy_url">🔗 Kopiera länk</button>
 			</div><!--post-content-->				
 		</div><!--post-padding-->				
 	</div><!--post-wrapper-->							
+	
+<div class="page-padding" style="padding-top: 5px;"> <!-- Logg close to post -->
 
-<!-- LOGG -->
+<!-- User log -->
 <div class="logg">
 <p>✉ Skickad av <?php echo get_the_author_posts_link(); ?> för <?php echo human_time_diff(get_the_time('U'), current_time('timestamp'))?> sen <span><?php the_time('Y-m-d H:i')?></span></p>
-</div><!--logg-->	
-
-<div class="page-padding">
-
+</div><!--logg-->
 
 <!-- INTERACTION-->
-<?php if (comments_open()) { comments_template('/comments-support.php', true); } ?>
+<?php if (comments_open()) { comments_template('/comments.php', true); } ?>
+
+<h6>Status</h6>
+<hr>
+
+<p>Ärendets status är <span class="label"><?php echo $status_name; ?></span></p>
+
+<!-- Arkivera -->
+<?php if ($status_slug === 'active' && ($current == $author || current_user_can('administrator') || $current == 2)) : ?>
+<?php if(isset($_POST['inactive'])) { 
+	update_field('status', null, $post_id);
+	update_field('status', 146, $post_id); 
+	add_comment ('<p class="participate">✅ Markerar frågan som besvarad.</p>', $post_id );
+	echo "<meta http-equiv='refresh' content='0'>"; } ?>
+		<form method="post" class="arb" action=""><button name="inactive" type="submit" class="green small" onclick="return confirm('Är frågan besvarad?')">Frågan är besvarad</button></form>
+		<p class="info">Tryck på knappen så arkiveras ärendet.</p>
+<?php endif;?>
 
 </div> <!--page-padding-->
 

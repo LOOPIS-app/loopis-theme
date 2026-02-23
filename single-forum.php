@@ -1,4 +1,9 @@
-<?php get_header(); ?>
+<?php
+/**
+ * Template for single forum post.
+ */
+
+get_header(); ?>
 
 <!-- VARIABLER -->
 <?php
@@ -46,19 +51,21 @@ if ($terms && !is_wp_error($terms)) {
 		</div><!--post-padding-->				
 	</div><!--post-wrapper-->							
 
+<div class="page-padding" style="padding-top: 5px;"> <!-- Logg close to post -->
+
 <!-- POST LOGG -->
 <div class="logg">
 <p><i class="fas fa-arrow-alt-circle-up"></i><?php echo get_the_author_posts_link(); ?> postade för <?php echo human_time_diff(get_the_time('U'), current_time('timestamp'))?> sen <span><?php the_time('Y-m-d H:i')?></span></p>
 </div><!--LOGG-->	
 
 <!-- POST INTERACTION-->
-<div class="page-padding">
-<?php if (comments_open()) { comments_template('/comments-forum.php', true); } ?>
+<?php if (comments_open()) { comments_template('/comments.php', true); } ?>
+
 </div><!--page-padding-->
 
 <!-- NO ACCESS MESSAGE -->
 <?php } else { ?>
-			<?php include_once LOOPIS_THEME_DIR . '/assets/output/member-only.php'; ?>
+			<?php include_once LOOPIS_THEME_DIR . '/templates/access/member-only.php'; ?>
 			</div><!--post-content-->				
 		</div><!--post-padding-->		
 <?php } ?>

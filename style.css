@@ -1,9 +1,9 @@
 /*
  Theme Name: LOOPIS Theme
- Version: 0.6
- Author: joxyzan
+ Version: 0.79
+ Author: The Develoopers
  Author URI: https://loopis.org
- Description: Theme for making LOOPIS.app work and shine
+ Description: Theme providing all frontend design and functionality for LOOPIS.app
  Text Domain: loopis-theme
 */
 
@@ -45,10 +45,10 @@ img.wp-smiley, img.emoji { margin: 0 1px 0 0 !important; vertical-align: -0.1em 
 #wrapper { max-width:900px; height:100%; margin: 0 auto; background: #fefefe; margin-bottom: 25px;}
 .container { width:100%; margin-top: 70px; background: #fff; border: 1px solid #f5f5f5; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
 .content { }
-.page-padding { padding:20px 15px; }
+.page-padding { padding: 20px 15px; }
 
 /*  Header */
-#header { position: fixed; top: 0px; left: 0px; z-index: 1; padding-top:10px; height: 60px; width: 100%; font-size: 19px; color: #999; background: #fff; border-bottom: 1px solid #e5e5e5; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
+#header { position: fixed; top: 0px; left: 0px; z-index: 1; padding-top:10px; height: 60px; width: 100%; font-size: 19px; color: #777; background: #fff; border-bottom: 1px solid #e5e5e5; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
 #header-img { width: 195px; height: 50px; display: block; margin: 0 auto; }
 .header-back { display: none; }
 .header-back { display: block; width: 20px; height: 20px; position: absolute; left: 3px; top: 10px; padding: 15px; z-index: 9; cursor: pointer;}
@@ -119,7 +119,7 @@ i { margin-right: 3px; }
 /* Links */
 a { color:#1e73be; text-decoration:none;}
 a:hover { color:#333; }
-.post-meta a { color:#999; }
+.post-meta a { color:#777; }
 .post-meta a:hover { color:#333; }
 
 /* Paragraph */
@@ -148,8 +148,8 @@ hr { width:100%; padding:0px; margin:0 0 9px 0; background-color:#000; height:1p
 
 /* Economy layout */
 .economy { margin-top: 0px; min-width: 200px;}
-.economy p { margin: 0; font-size: 14px; color: #999; line-height: 1.7; text-decoration: none; } 
-.economy hr { margin: 1px 0; background-color: #999; }
+.economy p { margin: 0; font-size: 14px; color: #777; line-height: 1.7; text-decoration: none; } 
+.economy hr { margin: 1px 0; background-color: #777; }
 .economy b { font-weight: 700; }
 .economy span.right { padding-right: 5px }
 
@@ -168,8 +168,8 @@ span.small-link:hover { background: #ebebeb; }
 span.big-link:hover { background: #ebebeb; }
 span.mega-link:hover { background: #ebebeb; cursor: pointer; }
 span.rounded { font-size: 16px; padding:4px 10px; border-radius: 20px; background: #fff; }
-span.grey { color: #999 !important; }
-span.grey a { color: #999 !important; text-decoration: none; }
+span.grey { color: #777 !important; }
+span.grey a { color: #777 !important; text-decoration: none; }
 span.code { font-family: 'Courier New', monospace; font-weight: bold; }
 span.unclickable { color: #333; pointer-events: none; color: inherit; text-decoration: none; }
 span.plus { font-weight: 700; color: #73c23d !important; }
@@ -185,7 +185,7 @@ h3 { font-size: 28px; margin-top: 25px; }		/* used for subheadings on FAQ etc */
 h4 { font-size: 22px; margin-top: 15px;}		/* used on my profile on front page */
 h5 { font-size: 24px; margin-top: 0px; }		/* used in wrapped divs and puff */
 h6 { font-size: 16px; margin-top: 25px; }		/* used for custom comment */
-h7 { font-size: 28px; padding-top: 10px; }		/* added for admin-page + WPUM tabs */
+h7 { font-size: 28px; padding-top: 10px; }		/* added for WPUM tabs */
 
 /* Special heading  */
 h1 .symbol { height: 30px !important; width: auto; padding-right: 5px; }  /* used for coins  */
@@ -195,20 +195,20 @@ h1.wrap { white-space: normal; }
 /* Post layout */
 .post-wrapper { background:#f5f5f5; }
 .post-wrapper-form { background:#f5f5f5; padding:15px; border-radius: 10px; }
-.post-padding { padding: 10px 20px; }
+.post-padding { padding: 10px 15px; }
 .post-images { position: relative; }
 .post-image { margin: 0; padding: 0; }
 .post-image img { width: 100%; height: auto; }
 .extra-image { position: absolute; right: 15px; bottom: -25px; }
 .extra-image img { height: 100px !important; width: 100px !important; object-fit: cover; overflow: hidden; border: 3px solid white; border-radius: 50%; }
-.post-meta { font-size: 15px; color: #999; margin-bottom: 15px; }
+.post-meta { font-size: 15px; color: #777; margin-bottom: 15px; }
 .post-meta span { font-size: 15px; background: none; padding:0; margin-right: 7px; }
 .post-meta span.rounded { font-size: 16px; padding:4px 10px; border-radius: 20px; color: #333; background: #fff;}
-.post-meta a { color: #999; }
+.post-meta a { color: #777; }
 .post-meta a:hover { color: #000; background: none; }
 .post-content { font-size: 18px; }
 .post-content span { font-size: 16px; padding:5px; background: #fff !important; }
-.post-content .label { font-size: 14px; color: #999; margin-bottom: 0; }
+.post-content .label { font-size: 14px; color: #777; margin-bottom: 0; }
 .post-content .wrapped { background-color: #fff; padding: 8px 10px 5px 10px; margin: 0 15px 15px 0; }
 .post-content .wrapped p { margin: 5px 0; }
 
@@ -217,9 +217,9 @@ h1.wrap { white-space: normal; }
 .wp-block-embed__wrapper iframe { width: 240px !important; height: auto !important; }
 
 /* Logg layout */
-.logg { font-size:13px; color:#999; line-height:1.5; text-decoration:none; padding: 0 20px; } 
+.logg { font-size:13px; color:#777; line-height:1.5; text-decoration:none; } 
 .logg p { margin:0; } 
-.logg a { color: #999; }
+.logg a { color: #777; }
 .logg a:hover { color:#333; }
 .logg span { float: right; font-size:13px; background:none !important; padding:0; }
 
@@ -228,7 +228,7 @@ h1.wrap { white-space: normal; }
 .admin-block .logg { padding: 0 0 10px 0; } 
 
 /* Post-list */
-.post-list { margin-bottom: 20px; }
+.post-list { }
 .post-list-post { height: 60px; background: #f5f5f5; box-shadow: 2px 2px 5px #eee; margin-bottom: 13px; }
 .post-list-post-big { height: 120px; background: #f5f5f5; box-shadow: 2px 2px 5px #eee; margin-bottom:15px; }
 .post-list > .link:hover { background: #ebebeb; box-shadow: 1px 1px 3px #eee; cursor: pointer; }
@@ -240,15 +240,15 @@ h1.wrap { white-space: normal; }
 .post-list-post-excerpt br { display: none; }
 .post-list-post-excerpt .read-more { font-weight: 400; color: #1e73be; }
 .post-list-post-comment { font-size: 16px; font-style: italic; padding-top: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #333; }
-.post-list-post-comment p { padding: 0; margin: 0; background: none !important; display: inline-block; }
+.post-list-post-comment p { padding: 0; margin: 0; background: none !important; }
 .post-list-post-comment span { padding: 4px; background: #fff; }
 .post-list-post-comment a { }
 .post-list-post-comment br { display: none; } 
-.post-list-post-meta { font-size: 15px; color: #999; }
+.post-list-post-meta { color: #777; }
 .post-list-post-meta span { padding: 0; margin-right: 7px; }
 .post-list-post-meta i { margin: 0 3px 0 1px; }
-.post-list-post-meta p { margin: 0; }
-.post-list-post-meta a { color: #999; }
+.post-list-post-meta p { margin: 2px 0; }
+.post-list-post-meta a { color: #777; }
 .post-list-post-meta a:hover { color: #333; }
 .post-list .right { font-size: 13px; text-align: right; padding-right: 5px; }
 
@@ -295,7 +295,7 @@ h1.wrap { white-space: normal; }
 body .wp-block-columns .wp-block-column {gap: 0em !important; }
 
 /* Pagination (WPUM style) */
-#post-pagination { display: flex; justify-content: center; background: #f5f5f5; flex-wrap: wrap; margin-top: 20px; font-size: 24px; }
+#post-pagination { display: flex; justify-content: center; background: #f5f5f5; flex-wrap: wrap; margin-top: 30px; font-size: 24px; }
 #post-pagination a { padding: 10px 15px;  }
 #post-pagination span { padding: 10px 15px; }
 
@@ -332,6 +332,34 @@ label .required { color: #333; }
 input[type="search"], input[type="text"], input[type="password"], input[type="email"], input[type="url"], input[type="tel"], input[type="number"], select, textarea { background: #fff; border: 2px solid #e5e5e5; color: #777; display: block; max-width: 100%; outline: none; padding: 7px 8px; }
 input[type="search"]:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="tel"]:focus, input[type="number"]:focus, select:focus, textarea:focus { border-color: #ddd; color: #333; -webkit-box-shadow: 0 0 3px rgba(0,0,0,0.1); box-shadow: 0 0 3px rgba(0,0,0,0.1); }
 
+
+/* CoPilot: Search form */
+.searchandfilter { 
+    margin: 10px 0 20px 0; 
+}
+.searchandfilter form {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.searchandfilter input[type="text"],
+.searchandfilter input[type="search"] { 
+    font-size: 15px; 
+    width: 145px; 
+    height: 35px;
+    flex: 1;
+    min-width: 200px;
+}
+.searchandfilter select { 
+    font-size: 15px; 
+    padding: 6px; 
+    height: 35px;
+    min-width: 150px;
+}
+.searchandfilter input[type="submit"] { 
+    font-size: 15px; 
+}
+
 /* Poe: Buttons */
 input[type="button"], input[type="reset"], input[type="submit"], button[type="button"], button[type="reset"], button[type="submit"] {
   background: #78b159;
@@ -366,13 +394,13 @@ button.admin-style { border: 2px dotted #FF969D !important; }
 .admin-style { border: 2px dotted #FF969D !important; }
 
 /* Post bottom stuff */
-.value { font-size: 14px; background: none; color: #999; padding: 5px 0; margin: 0 }
-#copy_url { display: inline; font-size: 14px; background: none; color: #999 !important; padding: 5px 10px 0 0; }
+.value { font-size: 14px; background: none; color: #777; padding: 5px 0; margin: 0 }
+#copy_url { display: inline; font-size: 14px; background: none; color: #777 !important; padding: 5px 10px 0 0; }
 #copy_url:hover { color: #333 !important; background: none !important; }
-a[href$="/edit"] { font-size: 14px; background: none; color: #999; padding: 5px 10px 0 0; }
+a[href$="/edit"] { font-size: 14px; background: none; color: #777; padding: 5px 10px 0 0; }
 a[href$="/edit"]::before { content:"🔧 " }
 a[href$="/edit"]:hover { color: #333; }
-button.option { display: inline; float: left; font-size: 14px; background: none; color: #999 !important; padding: 5px 10px 0 0; }
+button.option { display: inline; float: left; font-size: 14px; background: none; color: #777 !important; padding: 5px 10px 0 0; }
 button.option:hover { background: none !important; color: #333 !important; }
 
 /* Comment list */
@@ -388,7 +416,7 @@ button.option:hover { background: none !important; color: #333 !important; }
 .commentlist .avatar { position: absolute; left: -50px; top: 0px; width: 45px; height: 45px;}
 .commentlist .comment-meta a, .pinglist .ping-meta { color: #aaa; }
 .commentlist .reply { font-size: 13px; line-height: 16px; }
-.commentlist .reply a { color: #999; }
+.commentlist .reply a { color: #777; }
 .commentlist .reply a:hover { color: #333; }
 
 /* Comment reply */
@@ -398,7 +426,7 @@ button.option:hover { background: none !important; color: #333 !important; }
 .commentlist li ul {  }
 .commentlist li li { padding-left: 35px; }
 .commentlist li li .avatar { width: 30px; height: 30px; left: -36px; top: 2px; }
-#cancel-comment-reply-link { display: block; position: absolute; bottom: 14px; left: 70px; font-size: 13px; color: #999; }
+#cancel-comment-reply-link { display: block; position: absolute; bottom: 14px; left: 70px; font-size: 13px; color: #777; }
 #cancel-comment-reply-link:hover { color: #333; }
 
 /* Comment text */
@@ -459,16 +487,17 @@ li #reply-title { font-size: 0; margin: 0!important; padding: 0; height: 0; bord
 .wpum-account-page { padding-top:20px; }
 .profile-tab-content { padding: 10px 0; margin-bottom: 10px; }
 
-/* WPUM admin tabs */
-.tabcontent { display: none; clear: both; }
-  
+/* Tabs - styling to prevent flash of all tabs' content */
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
 /* WPUM forms */
 .wpum-form fieldset.fieldset-privacy { line-height: 1em; }
 .wpum-form fieldset.fieldset-location { line-height: 1.6em; padding-bottom:5px;}
 .wpum-form fieldset div.field label { font-size: 22px; } /* radio buttons */
 .wpum-form fieldset label[for="custom_location"] { display:none }
 .wpum-form fieldset #custom_location { font-size:14px }
-.wpum-form fieldset small.description { font-size: 13px; font-style:italic; margin-top: 5px; opacity: 1; color: #999; white-space: normal; }
+.wpum-form fieldset small.description { font-size: 13px; font-style:italic; margin-top: 5px; opacity: 1; color: #777; white-space: normal; }
 .wpum-form fieldset select { width: 100%; }
 .select2-selection { height: 38px; }
 .select2-selection--multiple { border: 2px solid #e5e5e5 !important; border-radius: 0px !important; }
@@ -481,7 +510,7 @@ li #reply-title { font-size: 0; margin: 0!important; padding: 0; height: 0; bord
 .wpum-form wpum-required { background: none }
 .wpum-form span.field { background: none }
 input:is([type="hidden"], [type="image"], [type="file"]) { padding-top: 3px; display: flex; flex-direction: column; align-items: flex-start; } /* snyggar till "ingen fil vald"/filnamn */
-.wpum-form input[name="submit_registration"].waiting { background: #999; } /* publish button */
+.wpum-form input[name="submit_registration"].waiting { background: #777; } /* publish button */
 
 /* WPUM forms: support */
 #booking .fieldset-post_title { display: none; }
@@ -500,8 +529,10 @@ input:is([type="hidden"], [type="image"], [type="file"]) { padding-top: 3px; dis
 /* WPUM addon Registration forms (added here because it hides the button on edit post) */
 input[name="submit_registration"].button { display: inline-block !important; }
 
-/* Searchandfilter  */
-.searchandfilter { margin: 10px 0 20px 0; }
-.searchandfilter input[type="text"] { font-size: 15px; width: 145px; height: 35px; }
-.searchandfilter select { font-size: 15px; padding: 6px; height: 35px;}
-.searchandfilter input[type="submit"] { font-size: 15px; }
+/* Admin Tables */
+.admin-table { width: 100%; border-collapse: collapse; }
+.admin-table th,
+.admin-table td { padding: 8px; text-align: left; }
+.admin-table th { background-color: #f4f4f4; font-weight: bold; }
+.admin-table tr:nth-child(even) { background-color: #f5f5f5; }
+.admin-table tr:nth-child(odd) { background-color: #ffffff; }

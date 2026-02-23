@@ -5,14 +5,17 @@
 
 <!-- INLOGGAD? -->
 <?php if (is_user_logged_in()) { 
+
 // Get author info
 $user = get_queried_object();
 $user_id = get_queried_object_id();
+
+// Get separate names
 $first_name = get_user_meta($user_id, 'first_name', true);
 $last_name = get_user_meta($user_id, 'last_name', true);
 ?>
 
-<h1>👤 <?php echo $first_name; ?> <?php echo $last_name; ?></h1>
+<h1><?php include_once LOOPIS_THEME_DIR . '/templates/user/profile/user-names.php'; ?></h1>
 <hr>
 
 <?php
@@ -38,7 +41,7 @@ $joined_date = $profile_economy['joined_date'];
 if ($count_submitted !== 0) { $given_percentage = round(($count_given / $count_submitted) * 100); } else { $given_percentage = 0; }
 ?>
 
-<p>Bor i <span class="label">📍<?php include LOOPIS_THEME_DIR . '/assets/output/user/profile/user-area.php'; ?></span></p>
+<p>Bor i <span class="label"><?php include LOOPIS_THEME_DIR . '/templates/user/profile/user-area.php'; ?></span></p>
 <p>Blev loopare <span class="label">🎉 <?php echo $joined_date; ?></span></p>
 <div class="wrapped">
 <h1><img src="<?php echo LOOPIS_THEME_URI; ?>/assets/img/coin.png" alt="Mynt:" class="symbol"><?php echo $coins; ?></h1>
@@ -47,11 +50,11 @@ if ($count_submitted !== 0) { $given_percentage = round(($count_given / $count_s
 <p><span class="label">💚 <?php echo $count_given; ?> saker lämnade</span></p>
 <p><span class="label">❤ <?php echo $count_booked; ?> saker hämtade</span></p>
 <p><span class="label">🍀 <?php echo $clovers; ?> fyrklöver</span></p>
-<p><span class="label">🌟 <?php echo $stars; ?> guldstjärnor</span></p>
+<p><span class="label">⭐ <?php echo $stars; ?> guldstjärnor</span></p>
 </div><!-- wrapped -->
 
 <!--ADMIN LOG-->
-<?php if (current_user_can('manager') || current_user_can('administrator')) { include LOOPIS_THEME_DIR . '/assets/output/admin/profile/user-summary.php'; } ?>
+<?php if (current_user_can('manager') || current_user_can('administrator')) { include LOOPIS_THEME_DIR . '/templates/admin/profile/user-summary.php'; } ?>
 
 <?php endif; ?>
 

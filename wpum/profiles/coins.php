@@ -45,6 +45,9 @@ $coins = $profile_economy['coins'];
 <p class="small">💡 Detaljerad lista över din aktivitet finns här nedanför.<br>
 <a href="../../faq/hur-funkar-regnbagsmynt/">📌 Hur funkar regnbågsmynt?</a></p>
 
+<!--BUY COINTS-->
+<p><button type="submit"><a href="/shop/?option=coins">Köp mynt</a></button></p>
+
 <!-- ACTIVITY -->
 <h3>🧮 Min aktivitet</h3>
 <hr>
@@ -82,7 +85,7 @@ $coins = $profile_economy['coins'];
 <div class="economy wrapped">
 <p>Guldstjärnor<span class="right">🌟</span></p>
 <hr>
-<?php include_once LOOPIS_THEME_DIR . '/assets/output/user/profile/user-rewards.php'; ?>
+<?php include_once LOOPIS_THEME_DIR . '/templates/user/profile/user-rewards.php'; ?>
 <hr>
 <p>&nbsp;<span class="right">Totalt: <b><?php echo $stars; ?></b></span></p>
 
@@ -109,9 +112,4 @@ $coins = $profile_economy['coins'];
 <h3>📒 Mina kvitton</h3>
 <hr>
 <p>Här är dina registrerade betalningar till föreningen:</p>
-<?php include_once LOOPIS_THEME_DIR . '/assets/output/user/profile/user-payments.php'; ?>
-
-<!--BUY COINTS-->
-<h3>💰 Köp mynt</h3>
-<hr>
-<?php echo do_shortcode( '[code_snippet id=111 php]' ); ?>
+<?php include_once LOOPIS_THEME_DIR . '/templates/user/profile/user-payments.php'; ?>

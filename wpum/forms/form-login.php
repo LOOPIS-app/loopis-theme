@@ -1,4 +1,10 @@
 <?php
+/**
+ * WPUM template for displaying the login form.
+ *
+ * Modified by LOOPIS.
+ */
+
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -11,6 +17,9 @@ if ( $redirect_to ) {
 ?>
 
 <div class="wpum-template wpum-form">
+
+<h1>👤 Logga in</h1>
+<hr>
 
 <?php do_action( 'wpum_before_login_form' ); ?>
 
@@ -68,6 +77,11 @@ if ( $redirect_to ) {
 		<?php echo esc_html( apply_filters( 'wpum_password_link_label', __( 'Tryck här.', 'wp-user-manager' ) ) ); ?>
 	</a></p>
 
+<div class="wpum-message information">
+<p>Bara medlemmar i föreningen LOOPIS kan logga in.</p>
+<p><span class="big-link"><a href="/register">📋 Bli medlem</a></span></p>
+<p><span class="link"><a href="/faq/varfor-medlemskap">📌 Varför måste jag vara medlem?</a></span></p>
+</div>
 
 	<?php do_action( 'wpum_after_login_form' ); ?>
 
