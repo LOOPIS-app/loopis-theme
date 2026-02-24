@@ -1,8 +1,8 @@
 <?php
 /**
- * List of posts with location different from "Skåpet"
- * Filterable by categories.
- * Should be improved.
+ * List posts with location different from "Skåpet", with category filter.
+ * 
+ * Used for communication/statistics.
  */
 
 if (!defined('ABSPATH')) {
@@ -10,18 +10,20 @@ if (!defined('ABSPATH')) {
 }
 ?>
 
-<h1>📍 Annonser med hämtning på annan plats</h1>
+<h1>📍 Annan adress</h1>
 <hr>
 <p class="small">💡 Annonser med hämtning på annan plats än "Skåpet".</p>
 
 <?php
 // Fetch selected categories from the URL query string (if any).
 $selected_categories = isset($_GET['categories']) ? array_map('intval', $_GET['categories']) : array();
+$paged = isset($_GET['paged']) ? max(1, absint($_GET['paged'])) : 1;
 
 // Query arguments for fetching posts.
 $args = array(
     'post_type'      => 'post',
-    'posts_per_page' => -1,
+    'posts_per_page' => 50,
+    'paged'          => $paged,
     'meta_query'     => array(
         array(
             'key'     => 'location',
@@ -31,9 +33,9 @@ $args = array(
     ),
 );
 
-// Exclude selected categories from the query.
+// Include selected categories in the query.
 if (!empty($selected_categories)) {
-    $args['category__not_in'] = $selected_categories;
+    $args['category__in'] = $selected_categories;
 }
 
 // Run the custom query.
@@ -43,80 +45,70 @@ $the_query = new WP_Query($args);
 $post_count = $the_query->found_posts;
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <style>
-        .category-filters {
-            margin-bottom: 20px;
-        }
-        .category-filters label {
-            margin-right: 10px;
-            font-size: 14px;
-        }
-        .filter-button {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 5px 10px;
-            background-color: #0073aa;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-        .filter-button:hover {
-            background-color: #005177;
-        }
-        .post-count {
-            margin-bottom: 20px;
-            font-size: 16px;
-            font-weight: bold;
-        }
-    </style>
-</head>
-<body>
-    <!-- Category filter form -->
-    <form method="GET" class="category-filters">
-        <?php
-        // Get all available categories.
-        $categories = get_categories();
-        foreach ($categories as $category) {
-            ?>
-            <label>
-                <input type="checkbox" name="categories[]" value="<?php echo esc_attr($category->term_id); ?>"
-                    <?php if (in_array($category->term_id, $selected_categories)) echo 'checked'; ?>>
-                <?php echo esc_html($category->name); ?>
-            </label>
-            <?php
-        }
-        ?>
-        <br>
-        <button type="submit" class="small">Apply Filter</button>
-    </form>
+<style>
+    .category-filters {
+        margin-bottom: 20px;
+    }
+    .category-filters label {
+        margin-right: 10px;
+        font-size: 14px;
+    }
+    .filter-button {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 5px 10px;
+        background-color: #0073aa;
+        color: white;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+    .filter-button:hover {
+        background-color: #005177;
+    }
+    .post-count {
+        margin-bottom: 20px;
+        font-size: 16px;
+        font-weight: bold;
+    }
+</style>
 
-	<div class="columns"><div class="column1">↓ <?php echo $post_count; ?> annonser</div>
+<!-- Category filter form -->
+<form method="GET" class="category-filters">
+    <input type="hidden" name="view" value="<?php echo esc_attr(trim(isset($_GET['view']) ? sanitize_text_field($_GET['view']) : 'special/custom-location', '/')); ?>">
+    <?php
+    // Get all available categories.
+    $categories = get_categories();
+    foreach ($categories as $category) {
+        ?>
+        <label>
+            <input type="checkbox" name="categories[]" value="<?php echo esc_attr($category->term_id); ?>"
+                <?php if (in_array($category->term_id, $selected_categories)) echo 'checked'; ?>>
+            <?php echo esc_html($category->name); ?>
+        </label>
+        <?php
+    }
+    ?>
+    <br>
+    <button type="submit" class="small">Filtrera</button>
+</form>
+
+<div class="columns"><div class="column1">↓ <?php echo $post_count; ?> annonser</div>
 <div class="column2"></div></div>
 <hr>
+
+<!-- Post output -->
 <div class="post-list">
-	
-    <!-- Post list -->
-    <div id="post-list">
-        <?php if ($the_query->have_posts()) : ?>
-            <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
-                <div class="post-list-post-big" onclick="location.href='<?php the_permalink(); ?>';">
-                    <div class="post-list-post-thumbnail-big"><?php the_post_thumbnail('thumbnail'); ?></div>
-                    <div class="post-list-post-title-big"><?php the_title(); ?></div>
-                    <div class="post-list-post-meta">
-                        <p><?php the_category(' '); if (in_category('new')) { echo raffle_time(); } ?></p>
-                        <p><i class="fas fa-walking"></i><?php echo get_field('location'); ?></p>
-                        <p><i class="fas fa-hashtag"></i><?php the_tags(''); ?></p>
-                    </div>
-                </div>
-            <?php endwhile; ?>
-        <?php else : ?>
-            <p>💢 Det finns inga sådana annonser</p>
-        <?php endif; ?>
-        <?php wp_reset_postdata(); ?>
-    </div>
-</body>
-</html>
+    <?php if ($the_query->have_posts()) : ?>
+        <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
+            <?php get_template_part('templates/post-list/big-posts'); ?>
+        <?php endwhile; ?>
+</div><!--post-list-->
+
+<?php include_once get_template_directory() . '/templates/post-list/pagination.php'; ?>
+
+<?php else : ?>
+    <p>💢 Inga annonser</p>
+<?php endif; ?>
+
+<?php wp_reset_postdata(); ?>
