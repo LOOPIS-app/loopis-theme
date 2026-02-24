@@ -2,9 +2,9 @@
 /**
  * Stripe coins purchase handler
  * 
+ * Created by CoPilot
  * Handles automatic coin addition after successful Stripe payment via webhook.
- * This file must be loaded on all requests because Stripe webhooks
- * can fire at any time via REST API callbacks.
+ * This file must be loaded on all requests because Stripe webhooks can fire at any time via REST API callbacks.
  */
 
 // Exit if accessed directly
@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// Define Stripe Webhook Secret (if not defined in wp-config)
+// Get secret from .env if not defined in wp-config
 if (!defined('LOOPIS_STRIPE_WEBHOOK_SECRET_COINS')) {
     define('LOOPIS_STRIPE_WEBHOOK_SECRET_COINS', getenv('LOOPIS_STRIPE_WEBHOOK_SECRET_COINS') ?: '');
 }
@@ -141,11 +141,14 @@ function loopis_handle_coins_checkout_completed($session) {
     if (!$user) {
         error_log("LOOPIS: No user found with email: {$email}");
         return;
+    } else {
+        $user_ID = $user->ID;
     }
     
     // Add coins to the user's account
     if (function_exists('add_coins')) {
-        add_coins($user->ID);
-        error_log("LOOPIS: Coins added for user {$user->ID}");
+        add_coins($user_ID);
+        $display_name = $user->display_name;
+        error_log("LOOPIS: add_coins success using Stripe: {$display_name} (ID {$user_ID})");
     }
 }

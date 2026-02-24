@@ -1,6 +1,8 @@
 <?php
 /**
- * Activation of new account.
+ * Automatic activation of new account initiated by Stripe payment.
+ * 
+ * Setting username, display name, role, adding payment and sending welcome email.
  */
  
 if (!defined('ABSPATH')) {
@@ -93,7 +95,5 @@ function activate_account($user_id = null) {
     $headers = array('Content-Type: text/html; charset=UTF-8');
     wp_mail($to, $subject, $email_content, $headers);
 
-    error_log("LOOPIS: Account activation completed for user {$user_id}");
-    
     return true;
 }

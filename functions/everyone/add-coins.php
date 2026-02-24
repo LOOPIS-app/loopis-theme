@@ -1,8 +1,8 @@
 <?php
 /**
- * Add coins to a user's account.
+ * Automatic additions of coins initiated by Stripe payment.
  * 
- * Included in XXX.php
+ * Adding payment details to the user's account.
  */
  
 if (!defined('ABSPATH')) {
