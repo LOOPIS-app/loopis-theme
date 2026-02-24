@@ -1,6 +1,8 @@
 <?php
 /**
- * Activate account for pending member.
+ * Manual activation of new account (after confirming Swish payment).
+ * 
+ * Setting username, display name, role, adding payment and sending welcome email.
  *
  * Included in activation.php
  */
@@ -89,7 +91,10 @@ function admin_action_activate_account(int $user_id) {
 
     // Send the activation email
     $to = $user->user_email;
-    wp_mail($to, $subject, $email_content);
+    $headers = array('Content-Type: text/html; charset=UTF-8');
+    wp_mail($to, $subject, $email_content, $headers);
+
+    error_log("LOOPIS: activate_account success using Swish: {$new_username} (ID {$user_id})");
 
 	// Refresh page
 	refresh_page();

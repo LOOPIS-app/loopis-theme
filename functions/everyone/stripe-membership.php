@@ -2,9 +2,9 @@
 /**
  * Stripe account activation handler
  * 
+ * Created by CoPilot
  * Handles account activation after successful Stripe payment via webhook.
- * This file must be loaded on all requests because Stripe webhooks
- * can fire at any time via REST API callbacks.
+ * This file must be loaded on all requests because Stripe webhooks can fire at any time via REST API callbacks.
  */
 
 // Exit if accessed directly
@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// Define Stripe Webhook Secret (if not defined in wp-config)
+// Get secret from .env if not defined in wp-config
 if (!defined('LOOPIS_STRIPE_WEBHOOK_SECRET_MEMBERSHIP')) {
     define('LOOPIS_STRIPE_WEBHOOK_SECRET_MEMBERSHIP', getenv('LOOPIS_STRIPE_WEBHOOK_SECRET_MEMBERSHIP') ?: '');
 }
@@ -119,7 +119,13 @@ function loopis_verify_stripe_membership_webhook($payload, $sig_header) {
     }
     
     // Decode and return event
-    return json_decode($payload, true);
+    $event = json_decode($payload, true);
+
+    if (!is_array($event) || empty($event['type'])) {
+        throw new Exception('Invalid webhook payload');
+    }
+
+    return $event;
 }
 
 /**
@@ -175,6 +181,7 @@ function loopis_activate_membership_account($user_id, $stripe_data = array()) {
     // Activate the account
     if (function_exists('activate_account')) {
         activate_account($user_id);
-        error_log("LOOPIS: Account activated for user {$user_id}");
+        $display_name = $user->display_name;
+        error_log("LOOPIS: activate_account success using Stripe: {$display_name} (ID {$user_id})");
     }
 }
