@@ -22,7 +22,7 @@
 <!-- No access -->
 <?php } else { 
     include LOOPIS_THEME_DIR . '/templates/access/message.php';
-	include LOOPIS_THEME_DIR . '/templates/visitor/templates/general/faq-single.php';
+	  include LOOPIS_THEME_DIR . '/templates/faq/questions-visitor.php';
  } ?>
 
 <div class="clear"></div>

@@ -116,7 +116,7 @@
 			<?php if ( is_front_page() && current_user_can('loopis_admin') && !current_user_can('administrator') ) : ?>
 				<div class="header-faq" onclick="location.href='/admin'">🐙</div>
 			<?php else: ?>
-				<div class="header-faq" onclick="location.href='/faq'">💡</div>
+				<div class="header-faq" onclick="location.href='/faqs'">💡</div>
 			<?php endif; ?>
 			</div>
 		</header>

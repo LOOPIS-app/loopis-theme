@@ -1,6 +1,6 @@
 <?php
 /**
- * Content for page using url /faq
+ * Content for page using url /faqs
  * 
  * Will soon be listing posts instead of pages!
  */
@@ -12,12 +12,12 @@ get_header(); ?>
 
 <h1>💡 Frågor & svar</h1>
 <hr>
-<p class="small">💡 Vanliga frågor och info om hur LOOPIS fungerar.</p>
+<p class="small">💡 Vanliga frågor och info om LOOPIS.</p>
 
 <p>Undrar du något? Här finns svar på det mesta.</p>
 <?php if ( is_user_logged_in() ) : ?>
-<p>Du som är inloggad kan också skicka frågor och feedback till admin längst ner.</p>
-<p>🛟 För frågor om en specifik annons: använd formuläret under annonsen!</p>
+<p class="small">🛟 Har du problem med en annons? Använd formuläret längst ner på annonssidan!</p>
+<p class="small">💭 Du kan också skicka frågor och feedback till admin längst ner.</p>
 <?php endif; ?>
 
 <h3>Instruktioner</h3>
@@ -69,26 +69,17 @@ get_header(); ?>
 <h3>För medlemmar</h3>
 <hr>
 <p><span class="big-link"><a href="https://drive.google.com/drive/folders/1l1B43flky-zXgQ2wFD24s_32N_pfWHvd?usp=drive_link"><i class="fas fa-share"></i> Föreningens protokoll</a></span></p>
-<p><span class="big-link"><a href="https://www.facebook.com/groups/loopis" target="_blank" rel="noreferrer noopener"><i class="fas fa-share"></i> Facebook-grupp för medlemmar</a></span></p>
+<p><span class="big-link"><a href="https://www.facebook.com/groups/loopis" target="_blank" rel="noreferrer noopener"><i class="fas fa-share"></i> Facebook-grupp</a></span></p>
 <?php endif; ?>
-
-<?php if ( is_user_logged_in() ) {  ?>
-<h3>Skicka en fråga</h3>
-<hr>
-<p>Skicka en fråga eller feedback till admin:</p>
-<div id="support">
-<?php echo do_shortcode('[wpum_post_form form_id="3"]'); ?>
-</div>
-<?php }  ?>
 
 <div style="height:25px" aria-hidden="true" class="wp-block-spacer"></div>
 
-<div class="wrapped faq">
+<div class="wrapped">
 <h5>⚠ Fler frågor?</h5>
 <hr>
-<p>→ Titta på sidan <a href="/faq">Frågor &amp; svar</a></p>
 <?php if ( is_user_logged_in() ) { ?>
 <p>→ Fråga i medlemmarnas <a rel="noreferrer noopener" href="https://web.facebook.com/groups/loopis.medlemmar" target="_blank">Facebook-grupp</a></p>
+<p>→ Skicka en fråga eller feedback till admin i formuläret här nedanför.</p>
 <?php } ?>
 <p>→ Maila styrelsen på <a rel="noreferrer noopener" href="mailto:info@loopis.org" target="_blank">info@loopis.org</a></p>
 </div>

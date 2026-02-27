@@ -11,11 +11,8 @@
             <div class="wpum-message information">
                 <h5>Har du hittat ett fel i LOOPIS.app?</h5>
                 <hr>
-                <p>⬇ Berätta gärna hur du hamnade här i formuläret nedan!</p>
+                <p>⬇ Berätta gärna hur du hamnade här i formuläret längst ner!</p>
             </div>
-
-            <div class="clear"></div>
-            <?php get_template_part('templates/user/support/support-form'); ?>
             
         <?php endif; ?>
     </div><!--page-padding-->
