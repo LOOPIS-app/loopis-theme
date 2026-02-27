@@ -26,6 +26,16 @@
                 console.error("Ett fel uppstod: ", err);
             });
         });
+        $('.copy_user_info').on('click', function() {
+            const text = $(this).prev().text().trim(); // Get text of previous element
+            navigator.clipboard.writeText(text).then(() => {
+                const $btn = $(this);
+                $btn.html('Copied!');
+                setTimeout(() => $btn.html('<i class="far fa-copy"></i>'), 1000);
+            }).catch(err => {
+                console.error("Copy failed:", err);
+            });
+        });
 
         /* "Trap focus" by ALX (keyboard focus restricted) */
         const focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
