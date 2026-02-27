@@ -135,7 +135,7 @@ if (empty($image_2_id)) {
                 } else {
                     // Visitor message & FAQ
                     include LOOPIS_THEME_DIR . '/templates/access/message.php';
-                    include LOOPIS_THEME_DIR . '/templates/general/faq-single.php';
+                    include LOOPIS_THEME_DIR . '/templates/faq/questions-visitor.php';
                 } 
                 ?>
 
