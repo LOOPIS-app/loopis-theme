@@ -2,7 +2,7 @@
 <?php get_template_part('templates/general/scroll-to-top'); ?>
 
 <?php if ((current_user_can('member') || current_user_can('administrator'))) : ?>
-    <?php get_template_part('templates/user/support/support-form'); ?>
+    <?php get_template_part('templates/support/create-ticket'); ?>
 <?php endif; ?>
 
 </div><!--wrapper-->
@@ -30,7 +30,7 @@
                     <span class="text">Min aktivitet</span>
                 </a>
             <?php else : ?>
-                <a href="/faq/" class="footer-button">
+                <a href="/faqs/" class="footer-button">
                     <span class="emoji">💡</span>
                     <span class="text">Hur funkar det?</span>
                 </a>
