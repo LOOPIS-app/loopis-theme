@@ -1,6 +1,6 @@
 /*
  Theme Name: LOOPIS Theme
- Version: 0.79
+ Version: 0.80 (beta)
  Author: The Develoopers
  Author URI: https://loopis.org
  Description: Theme providing all frontend design and functionality for LOOPIS.app
@@ -223,7 +223,7 @@ h1.wrap { white-space: normal; }
 .logg a:hover { color:#333; }
 .logg span { float: right; font-size:13px; background:none !important; padding:0; }
 
-/*  Admin block */
+/*  Special privileges block */
 .admin-block { background: #fff7f7; border: 2px dotted #ff969d; padding: 10px 10px 1px 10px; margin: 10px 0;  }
 .admin-block .logg { padding: 0 0 10px 0; } 
 
@@ -528,11 +528,3 @@ input:is([type="hidden"], [type="image"], [type="file"]) { padding-top: 3px; dis
 
 /* WPUM addon Registration forms (added here because it hides the button on edit post) */
 input[name="submit_registration"].button { display: inline-block !important; }
-
-/* Admin Tables */
-.admin-table { width: 100%; border-collapse: collapse; }
-.admin-table th,
-.admin-table td { padding: 8px; text-align: left; }
-.admin-table th { background-color: #f4f4f4; font-weight: bold; }
-.admin-table tr:nth-child(even) { background-color: #f5f5f5; }
-.admin-table tr:nth-child(odd) { background-color: #ffffff; }

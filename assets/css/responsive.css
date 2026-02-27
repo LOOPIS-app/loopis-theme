@@ -32,7 +32,7 @@ h1 .symbol .emoji { font-size: 90%; }  /* used for clovers and stars */
 
 /* special */
 .wrapped { display: block; margin: 0 0 15px 0;}  /* unwraps the wrap */
-#feedback { max-width: 100%; display: block; margin: 20px 0; }  /* unwraps the wrap */
+.feedback { max-width: 100%; display: block; margin: 20px 0; }  /* unwraps the wrap */
 
 /* spans */
 span.recipe { font-size: 13px; }
