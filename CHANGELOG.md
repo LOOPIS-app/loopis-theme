@@ -1,4 +1,8 @@
 # 📋 Changelog for "LOOPIS Theme"
+## 0.81 (2026-03-09)
+- Added two new templates for FAQ: archive-faq.php and single-faq.php for CPT faq.
+- Added two experimental templates for /faq-tag/ : page-faq-tag.php and /faq-tag/tag/ : taxonomy-faq-tag.php
+- page-faq-tag.php needs to be set in an empty page with slug "faq-tag" in order to work
 
 ## 0.80 (beta)
 - Preparing for migration of FAQ pages to FAQ posts.
