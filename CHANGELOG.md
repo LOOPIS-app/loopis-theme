@@ -1,7 +1,9 @@
 # 📋 Changelog for "LOOPIS Theme"
 
 ## 0.80 (beta)
-- Preparing for migration of FAQ pages to FAQ posts.
+- Preparing for migration of FAQ pages to FAQ posts
+- Replacing all occurences of ACF funtion get_field()
+- Blocking forwarding of already forwarded posts
 
 ## 0.79 (2026-02-10)
 - Added frontend admin toggle for locker full warning
