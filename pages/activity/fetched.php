@@ -2,7 +2,11 @@
 /**
  * List of fetched posts for the current user.
  * 
- * Uses custom functions to output content.
+ * Needs improvements:
+ * – Add search box
+ * – Add pagination
+ * – For a forwarded post: add button (with correct category symbol) to view the forwarded post
+ * – Maybe add metadata output for forward_date
  */
 
 if (!defined('ABSPATH')) {
@@ -18,7 +22,7 @@ include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-forward.php';
 // Get current user ID
 $user_ID = wp_get_current_user()->ID;
 
-// Set the category (non-existing slug for fetched posts)
+// Set the category (non-existing slug for forwarded posts)
 $category_slug = 'forward';
 
 // Get all things fetched (using SQL for better performance)
@@ -53,26 +57,35 @@ $count = count($results);
 <p><?php list_instruction_output($category_slug, $count) ?></p>
 
 <div class="columns"><div class="column1">↓ <?php echo $count; ?> annons<?php if ($count !== 1) { echo "er"; } ?></div>
-<div class="column2"></div></div>
+<div class="column2 small">💡 Senaste överst</div></div>
 <hr>
 
 <div class="post-list">
 <?php if (!empty($results)) : ?>
     <?php foreach ($results as $post) : ?>
         <?php
-        // Setup post data manually
+        // Get post data
         $post_id = $post->ID;
         $post_title = $post->post_title;
         $fetch_date = $post->fetch_date; // Already fetched in the query
         $permalink = get_permalink($post_id);
         $thumbnail = get_the_post_thumbnail($post_id, 'thumbnail');
+
+        // Check if post already has been forwarded
+        $forward_post_id = get_post_meta($post_id, 'forward_post', true);
+        if ($forward_post_id) {
+            $forward_post_category = get_the_category($forward_post_id);
+            // Later: Fetch category symbol
+        }
         ?>
         <div class="post-list-post" style="position:relative;">
             <div class="post-list-post-thumbnail" onclick="location.href='<?php echo esc_url($permalink); ?>';">
                 <?php echo $thumbnail; ?>
             </div>
             <div class="post-list-post-title"><?php echo esc_html($post_title); ?></div>
-            <?php list_button_output($category_slug, $post_id); ?>
+            <?php if ($forward_post_id) { 
+                // Later: Add button to view the forwarded post
+                } else { list_button_output($category_slug, $post_id); } ?>
             <div class="notif-meta post-list-post-meta">
                 <span>
                     <?php list_category_output($category_slug); ?> för 

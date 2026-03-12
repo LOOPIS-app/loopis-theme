@@ -8,3 +8,11 @@ body.admin-bar #header { margin-top: 32px; }
 .admin-content .emoji { filter: grayscale(40%); }
 .admin-block .emoji { filter: grayscale(40%); }
 .admin-footer .emoji { filter: grayscale(40%); }
+
+/* Admin Tables */
+.admin-table { width: 100%; border-collapse: collapse; }
+.admin-table th,
+.admin-table td { padding: 8px; text-align: left; }
+.admin-table th { background-color: #f4f4f4; font-weight: bold; }
+.admin-table tr:nth-child(even) { background-color: #f5f5f5; }
+.admin-table tr:nth-child(odd) { background-color: #ffffff; }

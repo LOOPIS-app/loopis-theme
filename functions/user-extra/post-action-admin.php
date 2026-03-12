@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
 function admin_action_notif_manual($post_id) {
 
 	// Get users
-	$winner_id = get_field('fetcher', $post_id);
+	$winner_id = get_post_meta($post_id, 'fetcher', true);
 	$winner_name = get_user_by('ID', $winner_id)->display_name;
 	$participants = get_post_meta($post_id, 'participants', true); 
 	$count = count($participants);

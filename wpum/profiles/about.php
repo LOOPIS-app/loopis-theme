@@ -40,14 +40,9 @@ $authorlink = get_author_posts_url($user_id);
 
 <p><span class="big-link"><a href="<?php echo $authorlink ?>">👥 Din profil</a></span> som den visas för andra</p>
 <p><span class="big-link"><a href="../../profile-settings">⚙ Inställningar</a></span> för medlemskap</p>
-
-<div class="columns"><div class="column1"><h3>🔧 Övrigt</h3></div>
-<div class="column2 bottom"></div></div>
-<hr>
-<p><span class="big-link"><a href="/activity/#settings">😎 Pausa annonser</a></span> om du ska resa bort</p>
 <p><span class="big-link"><a href="../../wp-login.php?action=logout">🚪 Logga ut</a></span> från LOOPIS.app</p>
 
-<!--h4>Integritet</h4>
+<!--h3>Integritet</h3>
 <hr>
 <p class="info"><span>👤<?php echo $user->display_name ?></span>visas för alla när du 1⃣ lägger upp en annons och 2⃣ visar intresse för en annons.</p>
 <p class="info"><span>📱<?php echo $user->wpum_phone ?></span> visas endast för 1⃣ givare/mottagare vid hämtning på annan plats än skåpet och 2⃣ utlånaren när du vill låna något.</p>

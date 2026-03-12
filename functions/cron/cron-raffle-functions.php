@@ -57,7 +57,7 @@ function admin_action_book_custom(int $winner_id, int $post_id) {
 	$author_id = get_post_field('post_author', $post_id);
 	$author_name = get_the_author_meta('display_name', $author_id);
 	$author_phone = get_the_author_meta('wpum_phone', $author_id);
-	$location = get_field('location', $post_id);
+	$location = get_post_meta($post_id, 'location', true);
 	
 	// Set post meta
 	wp_set_object_terms( $post_id, null, 'category' ); 
@@ -155,7 +155,7 @@ function admin_action_raffle_custom(array $participants, int $tickets, int $post
 	$author_id = get_post_field('post_author', $post_id);
 	$author_name = get_the_author_meta('display_name', $author_id);
 	$author_phone = get_the_author_meta('wpum_phone', $author_id);
-	$location = get_field('location', $post_id);
+	$location = get_post_meta($post_id, 'location', true);
 	
 	// Set post meta
 	wp_set_object_terms( $post_id, null, 'category' ); 
