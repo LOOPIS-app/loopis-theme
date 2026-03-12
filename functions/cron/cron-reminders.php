@@ -42,8 +42,8 @@ function cron_job_reminders() {
 
             // BOOKED
             if (in_category('booked_locker')) {
-                $book_time = strtotime(get_field('book_date'));
-                $reminder_leave = (int) get_field('reminder_leave');
+                $book_time = strtotime(get_post_meta($post_id, 'book_date',true));
+                $reminder_leave = (int) get_post_meta($post_id, 'reminder_leave',true);
                 if ($reminder_leave === null) {
                     update_field('reminder_leave', 0, $post_id);
                     $reminder_leave = 0;
@@ -57,8 +57,8 @@ function cron_job_reminders() {
 
             // LOCKER
             if (in_category('locker')) {
-                $locker_time = strtotime(get_field('locker_date'));
-                $reminder_fetch = (int) get_field('reminder_fetch');
+                $locker_time = strtotime(get_post_meta($post_id, 'locker_date',true));
+                $reminder_fetch = (int) get_post_meta($post_id, 'reminder_fetch',true);
                 if ($reminder_fetch === null) {
                     update_field('reminder_fetch', 0, $post_id);
                     $reminder_fetch = 0;
@@ -72,8 +72,8 @@ function cron_job_reminders() {
             
             // CUSTOM LOC.
             if (in_category('booked_custom')) {
-                $book_time = strtotime(get_field('book_date'));
-                $reminder_fetch = (int) get_field('reminder_fetch');
+                $book_time = strtotime(get_post_meta($post_id, 'book_date', true));
+                $reminder_fetch = (int) get_post_meta($post_id, 'reminder_fetch', true);
                 if ($reminder_fetch === null) {
                     update_field('reminder_fetch', 0, $post_id);
                     $reminder_fetch = 0;

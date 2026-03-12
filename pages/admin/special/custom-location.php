@@ -103,12 +103,13 @@ $post_count = $the_query->found_posts;
     <div id="post-list">
         <?php if ($the_query->have_posts()) : ?>
             <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
+                <?php $post_id = get_the_ID(); ?>
                 <div class="post-list-post-big" onclick="location.href='<?php the_permalink(); ?>';">
                     <div class="post-list-post-thumbnail-big"><?php the_post_thumbnail('thumbnail'); ?></div>
                     <div class="post-list-post-title-big"><?php the_title(); ?></div>
                     <div class="post-list-post-meta">
                         <p><?php the_category(' '); if (in_category('new')) { echo raffle_time(); } ?></p>
-                        <p><i class="fas fa-walking"></i><?php echo get_field('location'); ?></p>
+                        <p><i class="fas fa-walking"></i><?php echo get_post_meta($post_id, 'location', true); ?></p>
                         <p><i class="fas fa-hashtag"></i><?php the_tags(''); ?></p>
                     </div>
                 </div>

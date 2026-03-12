@@ -42,6 +42,7 @@ $count = $the_query->found_posts;
 <div class="post-list">
     <?php if ($the_query->have_posts()) : ?>
         <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
+            <?php $post_id = get_the_ID(); ?>
             <div class="post-list-post">
                 <a href="<?php the_permalink(); ?>">
                     <div class="post-list-post-thumbnail">
@@ -53,7 +54,7 @@ $count = $the_query->found_posts;
                     <div class="post-list-post-meta">
                         <span><?php the_category(' '); ?></span>
                         <span class="right">
-                            <i class="fas fa-heart"></i><?php echo human_time_diff(strtotime(get_field('book_date')), current_time('timestamp')); ?> sen
+                            <i class="fas fa-heart"></i><?php echo human_time_diff(strtotime(get_post_meta($post_id,'book_date', true)), current_time('timestamp')); ?> sen
                         </span>
                     </div>
                 </a>

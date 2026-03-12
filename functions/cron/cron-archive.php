@@ -33,7 +33,7 @@ function cron_job_archive() {
 
     if ($old_posts->have_posts()) {
         foreach ($old_posts->posts as $post_id) {
-            $extend_date = get_field('extend_date', $post_id);
+            $extend_date = get_post_meta($post_id, 'extend_date', true);
             $do_archive = null;
 
             if ($extend_date) {

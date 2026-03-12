@@ -35,12 +35,13 @@ $count = $the_query->found_posts;
 
 <?php if( $the_query->have_posts() ): ?>
 <?php while( $the_query->have_posts() ) : $the_query->the_post(); ?>
+	<?php $post_id = get_the_ID(); ?>
 	<div class="post-list-post" onclick="location.href='<?php the_permalink(); ?>';">
 		<div class="post-list-post-thumbnail"><?php echo the_post_thumbnail('thumbnail'); ?>´</div>
 		<div class="post-list-post-title"><?php the_title(); ?></div>
 		<div class="post-list-post-meta">
 			<span><?php the_category(' '); ?></span>
-			<span class="right bottom"><i class="fas fa-check-square"></i><?php echo human_time_diff(strtotime(get_field('fetch_date')), current_time('timestamp'))?> sen</span>
+			<span class="right bottom"><i class="fas fa-check-square"></i><?php echo human_time_diff(strtotime(get_post_meta($post_id, 'fetch_date', true)), current_time('timestamp'))?> sen</span>
 		</div>
 	</div><!--post-list-post-->
 <?php endwhile; ?>
