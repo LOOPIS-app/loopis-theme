@@ -14,7 +14,17 @@ $query = isset($the_query) ? $the_query : $wp_query;
 
 // Only show pagination if there's more than one page
 if ($query->max_num_pages > 1) :
-    $paged = max(1, get_query_var('paged'));
+    $paged = get_query_var('paged');
+    if (!$paged && isset($_GET['paged'])) {
+        $paged = absint($_GET['paged']);
+    }
+    $paged = max(1, (int) $paged);
+
+    $pagination_add_args = array();
+    if (!empty($_GET) && is_array($_GET)) {
+        $pagination_add_args = wp_unslash($_GET);
+        unset($pagination_add_args['paged']);
+    }
     ?>
     <div id="post-pagination">
         <?php
@@ -30,7 +40,7 @@ if ($query->max_num_pages > 1) :
             'prev_next'    => true,
             'prev_text'    => '<',
             'next_text'    => '>',
-            'add_args'     => false,
+            'add_args'     => $pagination_add_args,
             'add_fragment' => '',
         )));
         ?>
