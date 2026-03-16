@@ -1,6 +1,6 @@
 <?php
 /**
- * Content for page using url /faqs
+ * Content for page using url /faq
  * 
  * Will soon be listing posts instead of pages!
  */
