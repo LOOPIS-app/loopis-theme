@@ -1,7 +1,11 @@
 /**
  * Tab navigation handler
- * Handles tab switching for tabbed interface.
- * Should be improved with AJAX for dynamic loading of tab content.
+ * 
+ * Handles tab switching for pages with tabs (eg. the users profile and activity pages).
+ * 
+ * Should be improved: 
+ * – with possibility to use URL for each tab
+ * – with dynamic loading of a tabs content when clicked?
  * 
  * Created by CoPilot, inspired by WPUM.
  */

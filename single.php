@@ -8,10 +8,10 @@ get_header(); ?>
 <!-- Extra php functions -->
 <?php 
 if (current_user_can('member') || current_user_can('administrator')) {
-    include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-remove.php';
+    include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-remove.php';
 } 
 if (current_user_can('administrator')) {
-    include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-admin.php';
+    include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-admin.php';
 } 
 ?>
 
@@ -96,7 +96,7 @@ if (empty($image_2_id)) {
                     <!-- POST OPTIONS -->
                     <!-- Remove -->
                     <?php if (($current == $author || current_user_can('administrator')) && !in_category(array('removed', 'fetched', 'locker'))) : ?>
-                        <?php include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-remove.php'; ?>
+                        <?php include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-remove.php'; ?>
                         <?php if (isset($_POST['remove'])) { action_remove(get_the_ID()); } ?>
                         <button type="submit" form="remove-form" class="option" onclick="return confirm('Ta bort annonsen?')"><i class="fas fa-times"></i>Ta bort</button>
                         <form id="remove-form" method="post" action="" style="display:inline; float:left;"><input type="hidden" name="remove" value="1"></form>

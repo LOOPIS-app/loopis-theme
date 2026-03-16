@@ -27,7 +27,7 @@ $locker_code = get_locker_code(LOCKER_ID);
 
 <!-- NEW POST -->
 <?php if (in_category( 'new' )) : ?>
-<?php include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-participate.php'; ?>
+<?php include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-participate.php'; ?>
 
 <?php if ( $current != $author ) : ?>
 	<?php if (!in_array($current, $participants)) :
@@ -53,7 +53,7 @@ $locker_code = get_locker_code(LOCKER_ID);
 
 <!-- AVAILABLE POST -->
 <?php if (in_category( 'first' )) : ?>
-<?php include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-book.php'; ?>
+<?php include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-book.php'; ?>
 
 	<p>Ingen ville delta i lottning så nu gäller <span class="label">🟢 Först till kvarn</span></p>
 
@@ -93,7 +93,7 @@ $locker_code = get_locker_code(LOCKER_ID);
 	endif; ?>
 
 	<?php if ( current_user_can('administrator') || current_user_can('manager') ) : ?>
-		<?php include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-storage.php'; ?>
+		<?php include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-storage.php'; ?>
 		<?php if(isset($_POST['publish_storage'])) { admin_action_publish_storage ($post_id); } ?>
 		<form method="post" class="arb" action=""><button name="publish_storage" type="submit" class="small" onclick="return confirm('Publiera som ny annons?')">Publicera</button></form>
 		<p class="info">Vill du publicera annonsen? Tryck på knappen.</p>
@@ -142,7 +142,7 @@ $locker_code = get_locker_code(LOCKER_ID);
 	<?php endif;?>
 	
 	<?php if ( $current == $author ) : ?>
-		<?php include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-deliver.php'; ?>
+		<?php include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-deliver.php'; ?>
 		<p>🔔 Dags att lämna i <span class="label"><i class="fas fa-walking"></i><?php echo $location; ?></span></p>
 		<p><?php include LOOPIS_THEME_DIR . '/templates/post/timer-locker.php';?></p>
 		<p>🔓 Kod till skåpet: <span class="code"><?php echo $locker_code;?></span></p>
@@ -152,7 +152,7 @@ $locker_code = get_locker_code(LOCKER_ID);
 	<?php endif;?>	
 
 	<?php if ( $current == $fetcher ) : ?>
-		<?php include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-regret.php'; ?>	
+		<?php include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-regret.php'; ?>	
 		<?php if(isset($_POST['regret'])){ action_regret($post_id); } ?>
 		<form method="post" class="arb" action=""><button name="regret" type="submit" class="red small" onclick="return confirm('Vill du inte längre hämta?')">Jag har ångrat mig</button></form>
 		<p class="info">Du kan ångra dig fram tills att givaren lämnat i skåpet.</p>
@@ -163,8 +163,8 @@ $locker_code = get_locker_code(LOCKER_ID);
 
 <!-- BOOKED POST (CUSTOM) -->
 <?php if (in_category( 'booked_custom' )) : ?>
-<?php include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-fetch.php'; ?>
-<?php include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-regret.php'; ?>
+<?php include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-fetch.php'; ?>
+<?php include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-regret.php'; ?>
 
 	<?php if ( $current == $fetcher ) : ?>
 
@@ -194,7 +194,7 @@ $locker_code = get_locker_code(LOCKER_ID);
 
 <!-- BOOKED POST (LOCKER/CUSTOM) -->
 <?php if (in_category( array( 'booked_locker', 'booked_custom' ) )) : ?>
-	<?php include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-queue.php'; ?>
+	<?php include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-queue.php'; ?>
 
 	<?php if ( $current != $author && $current != $fetcher && !in_array($current, $queue)) : ?>
 		<p>♻ Denna pryl är på väg till ett nytt hem.<br>💔 Du kan köa om den som paxat ångrar sig. <span class="label">👫 <?php echo $queue_total; ?> står i kö</span> </p>
@@ -225,8 +225,8 @@ $locker_code = get_locker_code(LOCKER_ID);
 	<?php endif;?>
 
 	<?php if ( $current == $fetcher ) : ?>
-		<?php include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-fetch.php'; ?>
-		<?php include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-regret.php'; ?>
+		<?php include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-fetch.php'; ?>
+		<?php include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-regret.php'; ?>
 
 		<p>🔔 Dags att hämta i <span class="label"><i class="fas fa-walking"></i><?php echo $location; ?></span></p>
 		<p><?php include LOOPIS_THEME_DIR . '/templates/post/timer-fetch.php';?></p>
@@ -244,7 +244,7 @@ $locker_code = get_locker_code(LOCKER_ID);
 	<?php endif;?>
 	
 	<?php if (current_user_can('administrator') || current_user_can('manager')) : ?>
-		<?php include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-fetch.php'; ?>
+		<?php include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-fetch.php'; ?>
 	<?php endif;?>
 
 <?php endif;?>
@@ -270,7 +270,7 @@ $locker_code = get_locker_code(LOCKER_ID);
 			<?php } else { ?>
 			
 			<p>♻ Du har hämtat. Tack för att du loopar!</p>
-			<?php include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-forward.php'; ?>
+			<?php include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-forward.php'; ?>
 		<?php if(isset($_POST['forward'])) { action_forward ($post_id); } ?>
 		<form method="post" class="arb" action=""><button name="forward" type="submit" class="purple" onclick="return confirm('Vill du skicka vidare? Du kan redigera din kopia av annonsen.')">Skicka vidare</button></form>
 		<p class="info">Tryck på knappen så lägger vi upp samma annons igen.</p>

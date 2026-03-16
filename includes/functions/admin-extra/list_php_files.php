@@ -1,5 +1,5 @@
 <?php
-// filepath: /Users/mbp/Documents/PROJEKT.../LOOPIS/_APPEN/_GIT/loopis-theme/functions/admin-extra/list_php_files.php
+// filepath: /Users/mbp/Documents/PROJEKT.../LOOPIS/_APPEN/_GIT/loopis-theme/includes/functions/admin-extra/list_php_files.php
 /**
  * Generic function to list PHP files in a directory
  */

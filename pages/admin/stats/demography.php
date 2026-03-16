@@ -22,7 +22,7 @@ global $wpdb;
 $current_year = date('Y');
 
 // Render dropdown and get the selected year
-include_once LOOPIS_THEME_DIR . '/functions/admin-extra/stats/stats_select_year.php';
+include_once LOOPIS_THEME_DIR . '/includes/functions/admin-extra/stats/stats_select_year.php';
 $selected_year = stats_select_year();
 
 // Set the field ID and meta key for the gender dropdown field

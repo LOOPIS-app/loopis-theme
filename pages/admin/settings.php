@@ -22,7 +22,7 @@ if (!defined('ABSPATH')) {
 
 <?php
 // Extra php functions?
-include_once LOOPIS_THEME_DIR . '/functions/admin-extra/update-locker.php';
+include_once LOOPIS_THEME_DIR . '/includes/functions/admin-extra/update-locker.php';
 
 // Persist locker full toggles
 if (

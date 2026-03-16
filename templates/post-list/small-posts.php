@@ -1,7 +1,7 @@
 <?php
 /**
- * Template part for displaying small posts with tags instead of category.
- * Used in: search.php for recommendations, only?
+ * Template part for displaying small posts with category only.
+ * Used in: nowhere yet
  */
 
 if (!defined('ABSPATH')) {
@@ -13,6 +13,6 @@ if (!defined('ABSPATH')) {
 	<div class="post-list-post-thumbnail"><?php the_post_thumbnail('thumbnail'); ?></div>
 	<div class="post-list-post-title"><?php the_title(); ?></div>
 	<div class="post-list-post-meta">
-		<span><i class="fas fa-hashtag"></i><?php the_tags(''); ?></span>
+		<span><?php the_category(' '); ?><?php if (in_category('new')) { echo raffle_time(); } ?></span>
 	</div>
 </div>

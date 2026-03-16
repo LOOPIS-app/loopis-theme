@@ -30,7 +30,7 @@
                     <span class="text">Min aktivitet</span>
                 </a>
             <?php else : ?>
-                <a href="/faqs/" class="footer-button">
+                <a href="/faq/" class="footer-button">
                     <span class="emoji">💡</span>
                     <span class="text">Hur funkar det?</span>
                 </a>

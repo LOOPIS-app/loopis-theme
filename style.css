@@ -1,11 +1,22 @@
-/*
- Theme Name: LOOPIS Theme (beta)
- Version: 0.80
- Author: The Develoopers
- Author URI: https://loopis.org
- Description: Theme providing all frontend design and functionality for LOOPIS.app
- Text Domain: loopis-theme
-*/
+/**
+ * Theme Name:  LOOPIS Theme (beta)
+ * Version:     0.81
+ * Description: Theme providing all frontend design and functionality for LOOPIS.app
+ * Author:      The Develoopers
+ * Author URI:  https://loopis.org
+ * License:     GPL-3.0-or-later
+ * License URI: https://www.gnu.org/licenses/gpl-3.0.html
+ * Text Domain: loopis-theme
+ */
+
+/**
+ * Copyright (C) 2026 LOOPIS
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ */
 
 /* Reset - http://meyerweb.com/eric/tools/css/reset/ v2.0 */
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, 

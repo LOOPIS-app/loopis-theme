@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
 <div class="wrapped">
 <h5>⚠ Fler frågor?</h5>
 <hr>
-<p>→ Titta på sidan <a href="/faqs">Frågor & svar</a></p>
+<p>→ Titta på sidan <a href="/faq">Frågor & svar</a></p>
 <?php if ( is_user_logged_in() ) { ?>
 <p>→ Fråga i medlemmarnas <a rel="noreferrer noopener" href="https://web.facebook.com/groups/loopis.medlemmar" target="_blank">Facebook-grupp</a></p>
 <?php } ?>

@@ -3,9 +3,6 @@
  * Force Twemoji Override
  * 
  * Loads Twemoji library to replace native emojis with consistent SVG versions.
- * 
- * @package LOOPIS_Theme
- * @since 0.7
  */
 
 // Prevent direct access

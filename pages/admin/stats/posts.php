@@ -20,11 +20,11 @@ if (!defined('ABSPATH')) {
 $current_year = date('Y');
 
 // Render dropdown and get the selected year
-include_once LOOPIS_THEME_DIR . '/functions/admin-extra/stats/stats_select_year.php';
+include_once LOOPIS_THEME_DIR . '/includes/functions/admin-extra/stats/stats_select_year.php';
 $selected_year = stats_select_year();
 
 // Calculate days passed and output message
-include_once LOOPIS_THEME_DIR . '/functions/admin-extra/stats/stats_days_passed.php';
+include_once LOOPIS_THEME_DIR . '/includes/functions/admin-extra/stats/stats_days_passed.php';
 $days_passed = stats_days_passed($selected_year); 
 
 // Exclude the board?

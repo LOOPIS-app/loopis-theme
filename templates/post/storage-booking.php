@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Extra functions
-include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-storage.php';
+include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-storage.php';
 ?>
 
 <div class="admin-block">

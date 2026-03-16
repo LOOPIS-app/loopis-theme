@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) {
 
 <?php
 // Function to display top users
-include_once LOOPIS_THEME_DIR . '/functions/admin-extra/stats/display_top_users.php';
+include_once LOOPIS_THEME_DIR . '/includes/functions/admin-extra/stats/display_top_users.php';
 
 // Get the category by slug
 $category = get_category_by_slug('archived');

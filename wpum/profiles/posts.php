@@ -1,6 +1,11 @@
 <?php
 /**
- * Template for displaying my profile POSTS tab content.
+ * Template for displaying WPUM profile tab content.
+ * 
+ * Modified by LOOPIS.
+ * 
+ * Improvements:
+ * – Fade out post types not relevant to the user
  */
 
 // Exit if accessed directly
@@ -8,46 +13,82 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-// Get current user ID
-$user_ID = wp_get_current_user()->ID;
+// Count function
+include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-list-counts.php';
 
-// Get all things given + count
-$args = array( 
-    'author' 	=> $user_ID,
-    'cat'   	=> '41',
-    'posts_per_page' => -1,
-);
+// Get current user iD
+$user_id = get_current_user_id();
 
-$the_query = new WP_Query( $args );
-$count = $the_query->found_posts;
-
+// Count all posts published by user
+$user_post_count = user_post_count($user_id);
+$count_posts_submitted = $user_post_count['count_posts_submitted'];
+$count_posts_new = $user_post_count['count_posts_new'];
+$count_posts_old = $user_post_count['count_posts_old'];
+$count_posts_active = $user_post_count['count_posts_active'];
+$count_posts_given = $user_post_count['count_posts_given'];
+$count_posts_booked = $user_post_count['count_posts_booked'];
+$count_posts_locker = $user_post_count['count_posts_locker'];
+$count_posts_removed = $user_post_count['count_posts_removed'];
+$count_posts_archived = $user_post_count['count_posts_archived'];
+$count_posts_paused = $user_post_count['count_posts_paused'];
+$count_posts_disappeared = $user_post_count['count_posts_disappeared'];
+$count_others_claimed = $user_post_count['count_others_claimed'];
+$count_others_booked = $user_post_count['count_others_booked'];
+$count_others_fetched = $user_post_count['count_others_fetched'];
 ?>
 
-<p class="small">💡 Här visas alla saker du gett bort.</p>
-<h7>⬆ Saker lämnade</h7>
-<div class="columns"><div class="column1">↓ <?php echo $count; ?> sak<?php if ($count > 1) { echo "er"; } ?></div>
+<p class="small">💡 Här hittar du samtliga annonser du skapat och paxat.</p>
+<h7>💚 Mina annonser</h7>
+<div class="columns"><div class="column1">↓ <?php echo $count_posts_submitted; ?> annons<?php if ($count_posts_submitted !== 1) { echo "er"; } ?></div>
 <div class="column2"></div></div>
 <hr>
-
-<div class="post-list">
-
-<?php if ( $the_query->have_posts() ) : ?>
-<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
-	<div class="post-list-post" onclick="location.href='<?php the_permalink(); ?>';">
-		<div class="post-list-post-thumbnail"><?php echo the_post_thumbnail('thumbnail'); ?></div>
-		<div class="post-list-post-title"><?php the_title(); ?></div>
-		<div class="post-list-post-meta">
-			<span><?php the_category(' '); if (in_category( 'new' )) { echo raffle_time(); } ?></span>
-			<span class="right"><i class="fas fa-arrow-alt-circle-up"></i><?php echo human_time_diff(get_the_time('U'), current_time('timestamp'));?> sen</span>
-		</div>
-	</div><!--post-list-post-->
-<?php endwhile; ?>
-		
-<?php else : ?>
-		<p>💢 Du har inte gett bort något ännu.</p>
-		<p><span class="link"><a href="../../submit">💚 Ge bort</a></span> något nu</p>
-		<p><span class="link"><a href="../../activity/#active">⏳ Aktuella annonser</a></span></p>
+<?php if ($count_posts_submitted > 0) : ?>
+<!--Output list of post types-->
+<?php if ($count_posts_new > 0) : ?>
+<p><a href="/activity/?view=posts-submitted&status=new"><span class="big-link">⏳ <?php echo $count_posts_new; ?> väntar på lottning</span></a></p>
 <?php endif; ?>
-</div><!--post-list-->
+<?php if ($count_posts_old > 0) : ?>
+<p><a href="/activity/?view=posts-submitted&status=old"><span class="big-link">🟢 <?php echo $count_posts_old; ?> väntar på paxning</span></a></p>
+<?php endif; ?>
+<?php if ($count_posts_booked > 0) : ?>
+<p><a href="/activity/?view=posts-submitted&status=booked"><span class="big-link">💖 <?php echo $count_posts_booked; ?> är paxade</span></a></p>
+<?php endif; ?>
+<?php if ($count_posts_locker > 0) : ?>
+<p><a href="/activity/?view=posts-submitted&status=locker"><span class="big-link">⏹ <?php echo $count_posts_locker; ?> är i skåpet</span></a></p>
+<?php endif; ?>
+<?php if ($count_posts_given > 0) : ?>
+<p><a href="/activity/?view=posts-submitted&status=fetched"><span class="big-link">☑ <?php echo $count_posts_given; ?> är hämtade</span></a></p>
+<?php endif; ?>
+<?php if ($count_posts_removed > 0) : ?>
+<p><a href="/activity/?view=posts-submitted&status=removed"><span class="big-link">❌ <?php echo $count_posts_removed; ?> är borttagna</span></a></p>
+<?php endif; ?>
+<?php if ($count_posts_archived > 0) : ?>
+<p><a href="/activity/?view=posts-submitted&status=archived"><span class="big-link">⭕ <?php echo $count_posts_archived; ?> är arkiverade</span></a></p>
+<?php endif; ?>
+<?php if ($count_posts_paused > 0) : ?>
+<p><a href="/activity/?view=posts-submitted&status=paused"><span class="big-link">😎 <?php echo $count_posts_paused; ?> är pausade</span></a></p>
+<?php endif; ?>
+<?php if ($count_posts_disappeared > 0) : ?>
+<p><a href="/activity/?view=posts-submitted&status=disappeared"><span class="big-link">💢 <?php echo $count_posts_disappeared; ?> är försvunna</span></a></p>
+<?php endif; ?>
+<?php else : ?>
+		<p>💢 Du har inte skapat några annonser ännu.</p>
+		<p><span class="link"><a href="/submit">💚 Ge bort</a></span> något nu</p>
+<?php endif; ?>
 
+<h3>❤ Mina paxningar</h3>
+<div class="columns"><div class="column1">↓ <?php echo $count_others_claimed; ?> annons<?php if ($count_others_claimed !== 1) { echo "er"; } ?></div>
+<div class="column2"></div></div>
+<hr>
+<?php if ($count_others_claimed > 0) : ?>
+<?php if ($count_others_booked > 0) : ?>
+<p><a href="/activity/?view=posts-booked"><span class="big-link">💝 <?php echo $count_others_booked; ?> är paxade</span></a></p>
+<?php endif; ?>
+<?php if ($count_others_fetched > 0) : ?>
+<p><a href="/activity/?view=posts-fetched"><span class="big-link">✅ <?php echo $count_others_fetched; ?> är hämtade</span></a></p>
+<?php endif; ?>
+<?php else : ?>
+		<p>💢 Du har inte paxat några annonser ännu.</p>
+		<p>Ta en titt på <span class="link"><a href="<?php echo home_url(); ?>/things">🎁 Saker att få</a></span></p>
+<?php endif; ?>
 <?php wp_reset_postdata(); ?>

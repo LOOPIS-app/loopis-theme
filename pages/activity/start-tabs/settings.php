@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Extra php functions
-include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-pause.php'; 
+include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-pause.php'; 
 
 // Get current user ID
 $user_ID = get_current_user_id();
