@@ -1,5 +1,5 @@
 <?php
-// Load environment variables from theme .env if present (skip on live)
+// Load environment variables from theme .env if present (skip if WP_LIVE is defined in wp-config.php)
 if (!(defined('WP_LIVE') && WP_LIVE)) {
     $loopis_env_path = __DIR__ . '/.env';
     if (is_readable($loopis_env_path)) {
