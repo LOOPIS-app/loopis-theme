@@ -1,8 +1,8 @@
 <?php
 /**
- * Dynamic content for pages using url /profil/?view=
+ * Dynamic content for pages using url /activity/?view=
  * 
- * Not to be confused with WPUM profile content pages located in wpum/profile.php
+ * This content complements the WPUM profile pages on /profile
  */
 
 get_header(); ?>
