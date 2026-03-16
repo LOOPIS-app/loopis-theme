@@ -7,9 +7,9 @@ $theme_dir = $wp_root . '/wp-content/themes/loopis-theme';
 require_once $wp_root . '/wp-load.php';
 
 // Include the necessary files
-include_once $theme_dir . '/functions/cron/cron-archive.php';
-include_once $theme_dir . '/functions/user/admin-post-comment.php';
-include_once $theme_dir . '/functions/user/admin-notification.php';
+include_once $theme_dir . '/includes/functions/cron/cron-archive.php';
+include_once $theme_dir . '/includes/functions/user/admin-post-comment.php';
+include_once $theme_dir . '/includes/functions/user/admin-notification.php';
 
 // Start the custom cron job
 cron_job_archive();

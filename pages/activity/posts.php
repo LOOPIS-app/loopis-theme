@@ -1,21 +1,22 @@
 <?php
 /**
- * List of posts for the current user.
+ * List of posts in a specific category for the current user.
+ * Reached on https://loopis.app/activity/?view=posts&status='category-slug'
  * 
- * Uses category slug from URL to filter posts and custom functions to output content.
+ * Uses category slug from URL to filter posts and a function to output labels and content.
  */
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-// Output functions
-include_once __DIR__ . '/functions/profile-list-components.php';
+// Include post list output functions
+include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-list-output.php';
 
 // Include post action functions
-include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-extend.php';
-include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-remove.php';
-include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-pause.php';
+include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-extend.php';
+include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-remove.php';
+include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-pause.php';
 ?>
 
 <div class="content">

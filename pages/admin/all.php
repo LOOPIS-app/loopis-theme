@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) {
 
 <?php
 // Include generic function
-include_once LOOPIS_THEME_DIR . '/functions/admin-extra/list_php_files.php';
+include_once LOOPIS_THEME_DIR . '/includes/functions/admin-extra/list_php_files.php';
 
 // Specify the directory to scan
 $content_dir = LOOPIS_THEME_DIR . '/pages/admin/';

@@ -1,6 +1,7 @@
 <?php
 /**
  * List of fetched posts for the current user.
+ * Reached on https://loopis.app/activity/?view=fetched
  * 
  * Needs improvements:
  * – Add search box
@@ -13,11 +14,11 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-// Output functions
-include_once __DIR__ . '/functions/profile-list-components.php';
+// Include post list output functions
+include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-list-output.php';
 
 // Include post action functions
-include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-forward.php';
+include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-forward.php';
 
 // Get current user ID
 $user_ID = wp_get_current_user()->ID;

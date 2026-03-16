@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Extra php functions
-include_once LOOPIS_THEME_DIR . '/functions/admin-extra/admin_action_activate_account.php';
+include_once LOOPIS_THEME_DIR . '/includes/functions/admin-extra/admin_action_activate_account.php';
 ?>
 
 <style>
