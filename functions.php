@@ -78,7 +78,6 @@ function loopis_theme_load_files() {
 
     // For administrator and manager
     if (current_user_can('administrator') || current_user_can('manager')) { 
-        loopis_theme_include_folder('functions/admin');
         loopis_theme_include_folder('functions/cron');
     }
 }
