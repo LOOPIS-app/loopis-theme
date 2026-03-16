@@ -54,6 +54,7 @@ $results = $wpdb->get_results(
 $count = count($results);
 ?>
 
+<!-- Output title and instructions -->
 <h1><?php list_header_output($url_slug) ?></h1>
 <hr>
 <p><?php list_instruction_output($url_slug, $count) ?></p>
@@ -62,6 +63,7 @@ $count = count($results);
 <div class="column2 small">💡 Senaste överst</div></div>
 <hr>
 
+<!-- Output post list -->
 <div class="post-list">
 <?php if (!empty($results)) : ?>
     <?php foreach ($results as $post) : ?>

@@ -22,9 +22,6 @@ include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-remo
 include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-pause.php';
 ?>
 
-<div class="content">
-	<div class="page-padding">
-
 <?php
 // Get current user ID
 $user_ID = wp_get_current_user()->ID;
@@ -74,7 +71,7 @@ $count = $the_query->found_posts;
 <div class="columns"><div class="column1">↓ <?php echo $count; ?> annons<?php if ($count !== 1) { echo "er"; } ?></div>
 <div class="column2 small">💡 Senast överst</div></div>
 <hr>
-
+<!-- Output post list -->
 <div class="post-list">
 <?php if ( $the_query->have_posts() ) : ?>
 <?php while ( $the_query->have_posts() ) : $the_query->the_post(); $post_id = get_the_ID(); ?>
@@ -94,5 +91,3 @@ $count = $the_query->found_posts;
 </div><!--post-list-->
 
 <?php wp_reset_postdata(); ?>
-
-<?php get_footer(); ?>
