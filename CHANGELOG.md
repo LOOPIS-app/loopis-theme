@@ -1,6 +1,10 @@
 # 📋 Changelog for "LOOPIS Theme"
 
-## 0.80 (beta)
+## 0.81 (beta)
+- Added folder `includes` with sub folders for better file structure
+- Revised WPUM tabs and content on `/profile`
+
+## 0.80
 - Preparing for migration of FAQ pages to FAQ posts
 - Replacing all occurences of ACF funtion get_field()
 - Blocking forwarding of already forwarded posts
