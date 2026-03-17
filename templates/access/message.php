@@ -1,6 +1,9 @@
 <?php
 /**
  * Messages for user/visitor.
+ * 
+ * Improvements:
+ * - Revise to work with WordPress multisite and membership on different sites.
  */
  
 if (!defined('ABSPATH')) {
@@ -21,7 +24,7 @@ if (is_user_logged_in()) {
     // Member earlier
     elseif (current_user_can('member_earlier')) {
         $message = '<p>Du behöver förnya ditt medlemskap för att fortsätta använda LOOPIS. ✨</p>
-                    <p><span class="big-link"><a href="/fornya-medlemskap">🌈 Förnya medlemskap</a></span></p>';
+                    <p><span class="big-link"><a href="/renew">🌈 Förnya medlemskap</a></span></p>';
     }
 
     // Member outside
@@ -35,7 +38,7 @@ if (is_user_logged_in()) {
     elseif (current_user_can('member_outside_earlier')) {
         $message = '<p>Förnya ditt medlemskap för att fortsätta stötta oss!</p>
                     <p>Eller börja loopa om vi finns i ditt område nu.</p>
-                    <p><span class="link"><a href="/fornya-medlemskap">🌈 Förnya medlemskap</a></span></p>
+                    <p><span class="link"><a href="/renew">🌈 Förnya medlemskap</a></span></p>
                     <p><span class="link"><a href="/faq/varfor-bagis">📌 Varför måste jag bo i Bagarmossen?</a></span></p>';
     }
 
