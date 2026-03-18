@@ -48,6 +48,9 @@ $image_2_id = get_post_meta($post_id, 'image_2', true);
 if (empty($image_2_id)) {
     $extra_image_url = get_post_meta($post_id, 'extra_image', true);
     if ($extra_image_url) {
+        require_once ABSPATH . 'wp-admin/includes/media.php';
+        require_once ABSPATH . 'wp-admin/includes/file.php';
+        require_once ABSPATH . 'wp-admin/includes/image.php';
         $file_name = basename($extra_image_url);
         $attachment_id = media_sideload_image($extra_image_url, $post_id, $file_name, 'id');
         update_field('image_2', $attachment_id, $post_id);
