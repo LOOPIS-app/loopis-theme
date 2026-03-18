@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
 }
 
 ?>
-        <p class="small">Administrators:
+        <p class="small">Wordpress administrators:
             <?php
             $users = get_users(array('role' => 'administrator'));
             foreach ($users as $user) {
@@ -30,14 +30,14 @@ if (!defined('ABSPATH')) {
             ?>
         </p>
         
-        <p class="small">Managers:
+        <p class="small">Admins (managers):
             <?php
             $users = get_users(array('role' => 'manager'));
             foreach ($users as $user) {
                 $user_first_name = get_user_meta($user->ID, 'first_name', true);
                 $user_last_name = get_user_meta($user->ID, 'last_name', true);
                 $author_link = get_author_posts_url($user->ID);
-                echo '<a href="' . esc_url($author_link) . '">👤' . esc_html($user_first_name . ' ' . $user_last_name) . '</a> &nbsp;';
+                echo '<a href="' . esc_url($author_link) . '">🤓' . esc_html($user_first_name . ' ' . $user_last_name) . '</a> &nbsp;';
             }
             ?>
         </p>
@@ -49,7 +49,7 @@ if (!defined('ABSPATH')) {
                 $user_first_name = get_user_meta($user->ID, 'first_name', true);
                 $user_last_name = get_user_meta($user->ID, 'last_name', true);
                 $author_link = get_author_posts_url($user->ID);
-                echo '<a href="' . esc_url($author_link) . '">👤' . esc_html($user_first_name . ' ' . $user_last_name) . '</a> &nbsp;';
+                echo '<a href="' . esc_url($author_link) . '">🕵' . esc_html($user_first_name . ' ' . $user_last_name) . '</a> &nbsp;';
             }
             ?>
         </p>
