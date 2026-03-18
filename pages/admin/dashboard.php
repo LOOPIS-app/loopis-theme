@@ -171,6 +171,7 @@ if (!defined('ABSPATH')) {
     <p>&nbsp;</p>
     <div class="wrapped">
         <h5>🚧 Vilka har tillgång?</h5>
+        <hr>
         <?php include __DIR__ . '/dashboard-blocks/access.php'; ?>
     </div>
 <?php endif; ?>
