@@ -84,7 +84,7 @@ if (!defined('ABSPATH')) {
 </div>
 
 <!-- Pending members count -->
-<?php if (current_user_can('manager') || current_user_can('administrator')) : ?>
+<?php if (current_user_can('manage_options') || current_user_can('loopis_admin')) : ?>
     <div class="wrapped link" onclick="location.href='/admin/?view=activation'">
         <h5>👥 Nya medlemmar</h5>
         <hr>
@@ -95,7 +95,7 @@ if (!defined('ABSPATH')) {
 <?php endif; ?>
 
 <!-- Active support count -->
-<?php if (current_user_can('loopis_support')) : ?>
+<?php if (current_user_can('manage_options') || current_user_can('loopis_admin')) : ?>
     <div class="wrapped link" onclick="location.href='/admin/?view=support'">
         <h5>🛟 Support</h5>
         <hr>
@@ -106,7 +106,7 @@ if (!defined('ABSPATH')) {
 <?php endif; ?>
 
 <!-- Settings Section -->
-<?php if (current_user_can('manager') || current_user_can('administrator')) : ?>
+<?php if (current_user_can('manage_options') || current_user_can('loopis_admin')) : ?>
     <div class="wrapped link" onclick="location.href='/admin/?view=settings'">
         <h5>⚙ Inställningar</h5>
         <hr>
@@ -127,7 +127,7 @@ if (!defined('ABSPATH')) {
 <?php endif; ?>
 
 <!-- Member Info Section -->
-<?php if (current_user_can('board_member') || current_user_can('administrator')) : ?>
+<?php if (current_user_can('board') ) : ?>
     <h3>👤 Medlemsinfo</h3>
     <hr>
     <div>
@@ -147,7 +147,7 @@ if (!defined('ABSPATH')) {
 </div>
 
 <!-- Webmaster Section -->
-<?php if (current_user_can('develooper') || current_user_can('administrator')) : ?>
+<?php if (current_user_can('manage_options') || current_user_can('develooper')) : ?>
     <h3>👽 Webmaster</h3>
     <hr>
     <div>
@@ -159,7 +159,7 @@ if (!defined('ABSPATH')) {
 <?php endif; ?>
 
 <!-- Access List -->
-<?php if (current_user_can('develooper') || current_user_can('administrator')) : ?>
+<?php if (current_user_can('manage_options') || current_user_can('loopis_admin')) : ?>
     <p>&nbsp;</p>
     <div class="wrapped">
         <h5>🚧 Vilka har tillgång?</h5>

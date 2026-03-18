@@ -25,7 +25,7 @@ if (!defined('ABSPATH')) {
             foreach ($users as $user) {
                 $user_first_name = get_user_meta($user->ID, 'first_name', true);
                 $author_link = get_author_posts_url($user->ID);
-                echo '<a href="' . esc_url($author_link) . '">👽' . esc_html($user_first_name) . '</a> &nbsp;';
+                echo '<a href="' . esc_url($author_link) . '">🧑‍💻' . esc_html($user_first_name) . '</a> &nbsp;';
             }
             ?>
         </p>
@@ -44,7 +44,7 @@ if (!defined('ABSPATH')) {
         
         <p class="small">Styrelsen:
             <?php
-            $users = get_users(array('role' => 'board_member'));
+            $users = get_users(array('role' => 'board'));
             foreach ($users as $user) {
                 $user_first_name = get_user_meta($user->ID, 'first_name', true);
                 $user_last_name = get_user_meta($user->ID, 'last_name', true);
