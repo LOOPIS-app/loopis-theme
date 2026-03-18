@@ -1,7 +1,13 @@
 <?php
+/**
+ * Functions and filters which handle frontend links in different ways.
+ * 
+ * @package LOOPIS_Theme
+ * @subpackage Frontend
+ */
 
 /**
- * Function: Wrap links
+ * Function: wrap_links
  * Description: Wrap, shorten & make links clickable
  * 
  * @return string HTML output
@@ -52,7 +58,8 @@ function no_links($thelist) {
 }
 
 /**
- * Function: customize comment author link
+ * Function: customize_comment_author_link
+ * 
  * Description: Builds link to comment author
  * 
  * @return string HTML output link
@@ -70,7 +77,11 @@ add_filter('get_comment_author_link', 'customize_comment_author_link', 10, 3);
 
 
 /**
- * Skip logout confirmation
+ * Function: logout_without_confirm
+ * 
+ * Description: Skips logout confirmation
+ * 
+ * @return void
  */
 add_action('check_admin_referer', 'logout_without_confirm', 10, 2);
 function logout_without_confirm($action, $result)
@@ -87,9 +98,11 @@ function logout_without_confirm($action, $result)
 }
 
 /**
- * Image: Missing?
- *
- * Added 2023-01-10 by Poe to avoid missing thumbnails
+ * Function: no_thumbnail
+ * 
+ * Description: Image missing thumbnail fix
+ * 
+ * @return string HTML output
  */
 function no_thumbnail($html, $post_id, $post_thumbnail_id, $size, $attr) {
     $thumbnail = '/wp-content/themes/loopis-theme/assets/img/support.png';
@@ -102,3 +115,12 @@ function no_thumbnail($html, $post_id, $post_thumbnail_id, $size, $attr) {
 add_filter('post_thumbnail_html', 'no_thumbnail', 10, 5);
 
 
+/**
+ * Function: add_opengraph_doctype
+ * Description: Facebook open-graph protocol. Varianter finns i header.php och header-single.php
+ * @return string HTML output
+ */
+function add_opengraph_doctype( $output ) {
+    return $output . ' xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml"';
+}
+add_filter('language_attributes', 'add_opengraph_doctype');

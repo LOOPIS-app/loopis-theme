@@ -8,14 +8,14 @@
 
 
 /**
- *  Shortcode: [loopis_faq_foot]
+ *  Shortcode: [loopis_fler_frågor]
  * 
  *  Displays the faq page end!
  * 
  * @return string HTML output
  */
 
-add_shortcode( 'loopis_faq_foot', function () {
+add_shortcode( 'loopis_fler_frågor', function () {
 	ob_start();
 	?>
 
