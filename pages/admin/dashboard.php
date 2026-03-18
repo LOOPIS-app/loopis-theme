@@ -126,6 +126,14 @@ if (!defined('ABSPATH')) {
     </div>
 <?php endif; ?>
 
+<!-- Manager Section -->
+<h3>🤓 Admin</h3>
+<hr>
+<div>
+    <span class="big-link"><a href="/admin/?view=manager/inventory">📋 Inventering</a></span>&nbsp;
+    <span class="big-link"><a href="/admin/?view=manager/post-search">🎁 Sök annons</a></span>&nbsp;
+</div>
+
 <!-- Member Info Section -->
 <?php if (current_user_can('board') ) : ?>
     <h3>👤 Medlemsinfo</h3>
@@ -143,7 +151,7 @@ if (!defined('ABSPATH')) {
 <hr>
 <div>
     <span class="big-link"><a href="/admin/?view=special/collage">🖼 Kollage</a></span>&nbsp;
-    <span class="big-link"><a href="/admin/?view=special/custom-location">📍 Annan adress</a></span>&nbsp;
+    <span class="big-link"><a href="/admin/?view=special/uncategorized">❤️‍🩹 Annonser utan kategori</a></span>&nbsp;
 </div>
 
 <!-- Webmaster Section -->
