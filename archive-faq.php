@@ -1,8 +1,8 @@
 <?php
 /**
- * Content for page using url /faqs
+ * Archive for custom post type 'faq' reached on URL /faq
  * 
- * Lists faq posts dynamically (unordered).
+ * Lists all existing faq posts dynamically (alphabetically ordered?) with tags as headers (alphabetically ordered?).
  */
 
 get_header(); ?>
@@ -10,7 +10,7 @@ get_header(); ?>
 <div class="content">
 	<div class="page-padding">
 
-<h1>💡 Frågor & svar - <?php the_title(); ?></h1>
+<h1>💡 Frågor & svar</h1>
 <hr>
 <p class="small">💡 Vanliga frågor och info om LOOPIS.</p>
 
@@ -33,9 +33,10 @@ if (!empty($terms) && !is_wp_error($terms)) :
     foreach ($terms as $term) : ?>
 
         <section class="faq-tag-section">
-            <h2>
+            <h3>
                 <?php echo esc_html($term->name); ?>
-            </h2>
+            </h3>
+            <hr>
 
             <?php
             $faq_query = new WP_Query([
@@ -60,7 +61,7 @@ if (!empty($terms) && !is_wp_error($terms)) :
                 wp_reset_postdata();
 
             else :
-                echo '<p>Inga FAQ i denna tag.</p>';
+                echo '<p>💢 Inga FAQ med denna tagg.</p>';
             endif;
             ?>
 
@@ -69,7 +70,7 @@ if (!empty($terms) && !is_wp_error($terms)) :
     <?php endforeach;
 
 else :
-    echo '<p>Inga tags hittades.</p>';
+    echo '<p>💢 Inga taggar hittades.</p>';
 endif;
 ?>
 
