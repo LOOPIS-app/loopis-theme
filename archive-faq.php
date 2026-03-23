@@ -12,19 +12,26 @@ get_header(); ?>
 
 <h1>💡 Frågor & svar</h1>
 <hr>
-<p class="small">💡 Undrar du något? Här finns svar på det mesta.</p>
+<p class="small">💡 Information om hur LOOPIS fungerar</p>
 
-<p><b>Titta alltid på frågorna nedan innan du skickar en fråga till admin!</b></p>
+<p>Undrar du något? Här finns svar på det mesta!</p>
+<p><b>Titta på allting här nedanför innan du skickar en fråga till admin.</b></p>
 
 <?php if ( is_user_logged_in() ) : ?>
 <h3>För medlemmar</h3>
 <hr>
+<div class="wrapped">
 <p style="margin-bottom: 0px;">🎁 Har du problem med en annons?</p>
-<p class="small">→ Skriv en kommentar på annonsen och pinga admin med @LOOPIS</p>
+<p>→ Skriv en kommentar på annonsen och pinga admin med @LOOPIS</p>
+</div>
+<div class="wrapped">
 <p style="margin-bottom: 0px;">💭 Har du andra frågor eller feedback?</p>
-<p class="small">→ Skriv till admin genom hjälp-rutan längst ner på den berörda sidan.</p>
+<p>→ Skriv till admin genom hjälp-rutan längst ner på den berörda sidan.</p>
+</div>
+<div class="wrapped">
 <p style="margin-bottom: 0px;">🗨 Vill du diskutera med andra medlemmar?</p>
-<p class="small">→ Gå till medlemmarnas <a rel="noreferrer noopener" href="https://web.facebook.com/groups/loopis.medlemmar" target="_blank">Facebook-grupp</a> eller <a rel="noreferrer noopener" href="https://discord.com/channels/1480883243740954626/1480883244449927231" target="_blank">Discord-server</a></p>
+<p>→ Gå till medlemmarnas <a rel="noreferrer noopener" href="https://web.facebook.com/groups/loopis.medlemmar" target="_blank">Facebook-grupp</a> eller <a rel="noreferrer noopener" href="https://discord.com/channels/1480883243740954626/1480883244449927231" target="_blank">Discord-server</a></p>
+</div>
 <?php endif; ?>
 
 <!-- start list all tags -->
