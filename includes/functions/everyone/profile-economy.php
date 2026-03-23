@@ -8,10 +8,6 @@
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
-// Categories
-$fetcher_cat = loopis_cat('fetched');
-$activity_cats = loopis_cats(['fetched', 'booked_locker', 'booked_custom', 'locker']);
-$removed_cat = loopis_cat('removed');
 /**
  * Calculate economy for the specified user.
  * 
@@ -148,7 +144,7 @@ function count_given($user_ID) {
     $args = array(
         'author'     => $user_ID,
         'post_type'  => 'post',
-        'cat'        => $fetcher_cat,
+        'cat'        =>  loopis_cat('fetched'),
 		'posts_per_page' => -1,
     );
     $the_query = new WP_Query($args);
@@ -164,7 +160,7 @@ function count_given($user_ID) {
 function count_booked($user_ID) {
     $args = array(
         'post_type'   => 'post',
-        'cat'        => $activity_cats,
+        'cat'        => loopis_cats(['fetched', 'booked_locker', 'booked_custom', 'locker']),
 		'meta_key'    => 'fetcher',
         'meta_value'  => $user_ID,
 		'posts_per_page' => -1,
@@ -197,7 +193,7 @@ function count_deleted($user_ID) {
     $args = array(
         'author'     => $user_ID,
         'post_type'  => 'post',
-        'cat'        => $removed_cat,
+        'cat'        => loopis_cat('removed'),
 		'posts_per_page' => -1,
     );
     $the_query = new WP_Query($args);
@@ -213,7 +209,7 @@ function count_deleted($user_ID) {
 function count_fetched($user_ID) {
     $args = array(
         'post_type'   => 'post',
-        'cat'        => $fetcher_cat,
+        'cat'        =>  loopis_cat('fetched'),
 		'meta_key'    => 'fetcher',
         'meta_value'  => $user_ID,
 		'posts_per_page' => -1,
