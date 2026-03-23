@@ -152,7 +152,15 @@ function exclude_hidden( $query ) {
     if ( !is_admin() ) {
         // Exclude categories on the home page, tag archives, and search results
         if ( ( $query->is_home() || $query->is_tag() || $query->is_search() ) && $query->is_main_query() ) {
-            $query->set( 'category__not_in', array( 41, 58, 104, 156, 157, 159, 167 ) );
+            $query->set( 'category__not_in', loopis_cats([
+                'fetched',
+                'booked_locker', 
+                'locker', 
+                'disappeared', 
+                'storage', 
+                'paused', 
+                'archived',
+                 ]) );
         }
     }
 }

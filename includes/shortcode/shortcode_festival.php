@@ -23,7 +23,7 @@ add_shortcode( 'loopis_get_festival', function () {
 	// Arguments
 	$args = array(
 	    'post_type' => 'post',
-	    'cat'   	=> '155', // Categopry 'tips'
+	    'cat'   	=> loopis_cat('tips'), // Categopry 'tips'
 	    'post_status' => 'publish',
 	    'posts_per_page' => -1, // Output all posts
 	);
