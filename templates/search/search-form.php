@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Categories
-$available_cats = loopis_cats(['new', 'first', 'booked_custom', 'booked_locker']);
+$available_cats = loopis_cats(['new', 'old', 'booked_custom', 'booked']);
 
 // Get current tag if on tag archive
 $current_tag = '';

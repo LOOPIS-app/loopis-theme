@@ -35,7 +35,7 @@ function action_book_locker(int $post_id) {
 
     // Set post meta
     wp_set_object_terms($post_id, null, 'category');
-    wp_set_object_terms($post_id, 'booked_locker', 'category');
+    wp_set_object_terms($post_id, 'booked', 'category');
     update_field('fetcher', $fetcher, $post_id);
     update_field('book_date', current_time('Y-m-d H:i:s'), $post_id);
 

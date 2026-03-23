@@ -33,12 +33,12 @@ $url_slug = isset($_GET['status']) ? sanitize_text_field($_GET['status']) : '';
 
 // Set multiple IDs for booked posts
 if ($url_slug === 'booked') {
-	$category_ids = loopis_cats(['booked', 'booked_locker', 'booked_custom']); // booked_locker will be renamed to booked after migration
+	$category_ids = loopis_cats(['booked', 'booked_custom']); // booked_locker will be renamed to booked after migration
 
 
 // Set multiple IDs for old posts (Remove after migration)
 } elseif ($url_slug === 'old') {
-	$category_ids = loopis_cats(['old', 'first']); // first will be deprecated
+	$category_ids = loopis_cats(['old']); // first will be deprecated
 
 // Set single ID for other slugs
 } else {

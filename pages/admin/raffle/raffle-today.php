@@ -84,7 +84,7 @@ $count = $the_query->found_posts;
                     <div class="notif-meta post-list-post-meta">
                         <p>
                             <?php
-                            if (has_category(array('booked_locker', 'booked_custom'))) {
+                            if (has_category(array('booked', 'booked_custom'))) {
                                 $fetcher = get_post_meta($post_id, 'fetcher', true);
                                 if ($fetcher) {
                                     $fetchername = get_userdata($fetcher)->display_name;

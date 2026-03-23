@@ -23,7 +23,7 @@ $user_ID = wp_get_current_user()->ID;
 
 // Set the category (non-existing slug for forwarded posts)
 $url_slug = 'others_booked';
-$category_ids = loopis_cats(['booked_custom', 'booked_locker', 'booked', 'locker']); // Remove 'booked_locker' after migration
+$category_ids = loopis_cats(['booked_custom', 'booked', 'locker']); // Remove 'booked_locker' after migration
 
 // Get all things fetched (using SQL for better performance)
 global $wpdb;

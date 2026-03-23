@@ -22,7 +22,7 @@ function cron_job_reminders() {
     $args = array( 
         'post_type' => 'post',
         'posts_per_page' => -1,
-        'category__in' => loopis_cats(['booked_locker', 'locker', 'booked_custom']),
+        'category__in' => loopis_cats(['booked', 'locker', 'booked_custom']),
     );
 
     // query
@@ -41,7 +41,7 @@ function cron_job_reminders() {
             $post_id = get_the_ID();
 
             // BOOKED
-            if (in_category('booked_locker')) {
+            if (in_category('booked')) {
                 $book_time = strtotime(get_post_meta($post_id, 'book_date',true));
                 $reminder_leave = (int) get_post_meta($post_id, 'reminder_leave',true);
                 if ($reminder_leave === null) {

@@ -19,7 +19,7 @@ get_header(); ?>
         <?php
         
         // Categories
-        $available_cats = loopis_cats(['new', 'first', 'booked_custom', 'booked_locker']);  
+        $available_cats = loopis_cats(['new', 'old', 'booked_custom', 'booked']);  
         // Check if search query exists
         $search_query = get_search_query();
         $has_search = !empty($search_query) || (isset($_GET['tag']) && !empty($_GET['tag']));

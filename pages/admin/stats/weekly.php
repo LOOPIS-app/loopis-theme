@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
 <?php
 
 // Categories
-$activity_cats = loopis_cats(['fetched', 'booked_locker', 'booked_custom', 'locker']);
+$activity_cats = loopis_cats(['fetched', 'booked', 'booked_custom', 'locker']);
 
 // Set the default year to the current year
 $current_year = date('Y');

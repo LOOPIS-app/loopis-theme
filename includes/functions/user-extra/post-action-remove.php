@@ -36,7 +36,7 @@ function action_unremove(int $post_id) {
 	
 	// Set post meta
 	wp_set_object_terms( $post_id, null, 'category' ); 
-	wp_set_object_terms( $post_id, 'first', 'category' );
+	wp_set_object_terms( $post_id, 'old', 'category' );
 	update_field('remove_date', null);
 	update_field('extend_date', current_time('Y-m-d H:i:s'));
 	

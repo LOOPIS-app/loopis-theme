@@ -17,7 +17,7 @@ $args_booked_locker = array(
         array(
             'taxonomy' => 'category',
             'field'    => 'term_id',
-            'terms'    => loopis_cat('booked_locker'),
+            'terms'    => loopis_cat('booked'),
         ),
     ),
 );

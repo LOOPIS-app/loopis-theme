@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
 // Post with 0 participants
 function admin_action_switch(int $post_id) {
 	wp_set_object_terms( $post_id, null, 'category' ); 
-	wp_set_object_terms( $post_id, 'first', 'category' );
+	wp_set_object_terms( $post_id, 'old', 'category' );
 }
 
 /** CRON: BOOK LOCKER */
@@ -27,7 +27,7 @@ function admin_action_book_locker(int $winner_id, int $post_id) {
 	
 	// Set post meta
 	wp_set_object_terms( $post_id, null, 'category' ); 
-	wp_set_object_terms( $post_id, 'booked_locker', 'category' );
+	wp_set_object_terms( $post_id, 'booked', 'category' );
 	update_field('fetcher', $winner_id);
 	update_field('book_date', current_time('Y-m-d H:i:s'));
 	update_field('raffle_date', current_time('Y-m-d H:i:s'));
@@ -103,7 +103,7 @@ function admin_action_raffle_locker(array $participants, int $tickets, int $post
 	
 	// Set post meta
 	wp_set_object_terms( $post_id, null, 'category' ); 
-	wp_set_object_terms( $post_id, 'booked_locker', 'category' );
+	wp_set_object_terms( $post_id, 'booked', 'category' );
 	update_field('fetcher', $winner_id);
 	update_field('book_date', current_time('Y-m-d H:i:s'));
 	update_field('raffle_date', current_time('Y-m-d H:i:s'));

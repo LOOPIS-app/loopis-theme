@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) {
 
 // Categories
 $new_cat = loopis_cat('new');
-$activity_cats = loopis_cats(['fetched', 'booked_locker', 'booked_custom', 'locker']);
+$activity_cats = loopis_cats(['fetched', 'booked', 'booked_custom', 'locker']);
 
 
 // RAFFLE YESTERDAY (day before yesterday)
