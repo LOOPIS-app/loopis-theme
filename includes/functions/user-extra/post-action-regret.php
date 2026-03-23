@@ -61,7 +61,7 @@ function action_regret(int $post_id) {
 	update_field('book_date', current_time('Y-m-d H:i:s'));
 	$fetcher_name = get_userdata($fetcher)->display_name;
 	
-	// Category is 'booked_locker'
+	// Category is 'booked'
 	if (has_category( 'booked', $post_id)) {
 	
 	// Send notification from LOOPIS to fetcher

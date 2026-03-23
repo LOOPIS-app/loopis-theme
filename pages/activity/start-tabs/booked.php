@@ -16,7 +16,7 @@ include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-regr
 $user_ID = get_current_user_id();
 
 // Get category IDs
-$booked_categories = loopis_cats(['booked_locker', 'booked_custom', 'locker']);
+$booked_categories = loopis_cats(['booked', 'booked_custom', 'locker']);
 
 // Arguments
 $args = array(

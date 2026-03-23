@@ -154,7 +154,7 @@ function exclude_hidden( $query ) {
         if ( ( $query->is_home() || $query->is_tag() || $query->is_search() ) && $query->is_main_query() ) {
             $query->set( 'category__not_in', loopis_cats([
                 'fetched',
-                'booked_locker', 
+                'booked', 
                 'locker', 
                 'disappeared', 
                 'storage', 
