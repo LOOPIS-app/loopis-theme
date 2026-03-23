@@ -17,6 +17,9 @@ get_header(); ?>
         <?php get_template_part('templates/search/search-form'); ?>
 
         <?php
+        
+        // Categories
+        $available_cats = loopis_cats(['new', 'first', 'booked_custom', 'booked_locker']);  
         // Check if search query exists
         $search_query = get_search_query();
         $has_search = !empty($search_query) || (isset($_GET['tag']) && !empty($_GET['tag']));
@@ -30,7 +33,7 @@ get_header(); ?>
                 $args = array(
                     's'              => $search_query,
                     'tag'            => $tag_slug,
-                    'cat'            => '1,37,57,147',  // Only available categories
+                    'cat'            => $available_cats,  // Only available categories
                     'post_type'      => 'post',
                     'post_status'    => 'publish',
                     'posts_per_page' => get_option('posts_per_page'),

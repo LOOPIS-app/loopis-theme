@@ -22,7 +22,7 @@ function cron_job_reminders() {
     $args = array( 
         'post_type' => 'post',
         'posts_per_page' => -1,
-        'category__in' => array(57, 104, 147),
+        'category__in' => loopis_cats(['booked_locker', 'locker', 'booked_custom']),
     );
 
     // query

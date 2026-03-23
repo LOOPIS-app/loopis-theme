@@ -28,7 +28,7 @@ Bli medlem idag så kan du ta hem fem saker från vårt LOOPIS-bord.</p>
 // Arguments
 $args = array(
     'post_type' => 'post',
-    'cat'   	=> '155', // Category 'tips'
+    'cat'   	=> loopis_cat('tips'), // Category 'tips'
     'post_status' => 'publish',
     'posts_per_page' => -1, // Output all posts
 );

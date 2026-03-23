@@ -16,6 +16,10 @@ if (!defined('ABSPATH')) {
 <p class="small">💡 Statistik för måndagsbrevet</p>
 
 <?php
+
+// Categories
+$activity_cats = loopis_cats(['fetched', 'booked_locker', 'booked_custom', 'locker']);
+
 // Set the default year to the current year
 $current_year = date('Y');
 $selected_year = $current_year;
@@ -156,7 +160,7 @@ $total_noboard_count = $total_noboard_query->found_posts;
 // Number of posts booked (board excluded)
 $booked_noboard_args = array(
     'post_type'      => 'post',
-    'category__in'   => array(41, 57, 104, 147),
+    'category__in'   => $activity_cats,
     'posts_per_page' => -1,
     'date_query'     => array(
         array(
@@ -173,7 +177,7 @@ $booked_noboard_count = $booked_noboard_query->found_posts;
 // Number of posts removed (board excluded)
 $removed_noboard_args = array(
     'post_type'      => 'post',
-    'category__in'   => 58,
+    'category__in'   => loopis_cat('removed'),
     'posts_per_page' => -1,
     'date_query'     => array(
         array(

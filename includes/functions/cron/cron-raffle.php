@@ -116,7 +116,7 @@ function cron_job_raffle() {
             array(
                 'taxonomy' => 'category',
                 'field'    => 'term_id',
-                'terms'    => 104,
+                'terms'    => loopis_cat('locker'),
             ),
         ),
     );

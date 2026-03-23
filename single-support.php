@@ -87,7 +87,7 @@ $status_slug = $status_term->slug;
 <?php if ($status_slug === 'active' && ($current == $author || current_user_can('administrator') || $current == 2)) : ?>
 <?php if(isset($_POST['inactive'])) { 
 	update_field('status', null, $post_id);
-	update_field('status', 146, $post_id); 
+	update_field('status', loopis_cat('inactive'), $post_id); 
 	add_comment ('<p class="participate">✅ Markerar frågan som besvarad.</p>', $post_id );
 	echo "<meta http-equiv='refresh' content='0'>"; } ?>
 		<form method="post" class="arb" action=""><button name="inactive" type="submit" class="green small" onclick="return confirm('Är frågan besvarad?')">Frågan är besvarad</button></form>

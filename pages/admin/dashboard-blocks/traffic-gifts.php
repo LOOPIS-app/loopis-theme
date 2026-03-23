@@ -7,6 +7,8 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
+
+
 // GIFTS BOOKED FOR LOCKER
 $args_booked_locker = array(
     'post_type'      => 'post',
@@ -15,7 +17,7 @@ $args_booked_locker = array(
         array(
             'taxonomy' => 'category',
             'field'    => 'term_id',
-            'terms'    => 57,
+            'terms'    => loopis_cat('booked_locker'),
         ),
     ),
 );
@@ -33,7 +35,7 @@ $args_booked_custom = array(
         array(
             'taxonomy' => 'category',
             'field'    => 'term_id',
-            'terms'    => 147,
+            'terms'    => loopis_cat('booked_custom'),
         ),
     ),
 );
@@ -51,7 +53,7 @@ $args_locker = array(
         array(
             'taxonomy' => 'category',
             'field'    => 'term_id',
-            'terms'    => 104,
+            'terms'    => loopis_cat('locker'),
         ),
     ),
 );

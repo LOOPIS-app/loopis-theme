@@ -12,11 +12,14 @@ if (!defined('ABSPATH')) {
 // Get the current author ID
 $user_ID = get_queried_object_id();
 
+// Categories
+$activity_cats = loopis_cats(['fetched', 'booked_locker', 'booked_custom', 'locker']);
+
 // Get all things booked + count
 $args = array(
     'meta_key'      => 'fetcher',
     'meta_value'    => $user_ID,
-    'cat'   		 => '41, 57, 104, 106',
+    'cat'   		 => $activity_cats,
 );
 
 $the_query = new WP_Query( $args );

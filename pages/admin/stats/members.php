@@ -185,7 +185,7 @@ $only_fetchers_query = "
 
 $only_fetchers_count = $wpdb->get_var($only_fetchers_query);
 $only_fetchers_percentage = ($member_count > 0) ? round(($only_fetchers_count / $member_count) * 100) : 0;
-
+$fetcher_cat = loopis_cat('fetched');
 // Determine the conditions for active members
 $post_year_condition = '';
 $fetch_date_condition = '';
@@ -200,7 +200,7 @@ if ($selected_year !== 'all') {
 $active_members_query = "
     SELECT COUNT(DISTINCT user_id) 
     FROM (
-        -- Givers: Users who created a post in category 41 in the selected year
+        -- Givers: Users who created a post in category fetched in the selected year
         SELECT DISTINCT p.post_author AS user_id
         FROM {$wpdb->prefix}posts p
         JOIN {$wpdb->prefix}term_relationships tr ON p.ID = tr.object_id
@@ -210,7 +210,7 @@ $active_members_query = "
             AND um.meta_key = '{$wpdb->prefix}capabilities'
         WHERE p.post_type = 'post' 
         AND p.post_status = 'publish'
-        AND tt.term_id = 41 -- Only include posts in category 41
+        AND tt.term_id = {$fetcher_cat} -- Only include posts in category fetched
         AND (um.meta_value NOT LIKE '%\"administrator\"%') 
         $post_year_condition
 
@@ -411,7 +411,7 @@ $new_giver_query = "
     JOIN {$wpdb->prefix}users u ON p.post_author = u.ID
     WHERE p.post_type = 'post' 
     AND p.post_status = 'publish'
-    AND tt.term_id = 41
+    AND tt.term_id = {$fetcher_cat}
     $fetch_date_condition
     $user_registered_condition
 ";
