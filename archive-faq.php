@@ -2,7 +2,7 @@
 /**
  * Content for page using url /faqs
  * 
- * Lists faq posts.
+ * Lists faq posts dynamically (unordered).
  */
 
 get_header(); ?>
@@ -10,7 +10,7 @@ get_header(); ?>
 <div class="content">
 	<div class="page-padding">
 
-<h1>💡 Frågor & svar</h1>
+<h1>💡 Frågor & svar - <?php the_title(); ?></h1>
 <hr>
 <p class="small">💡 Vanliga frågor och info om LOOPIS.</p>
 
@@ -20,50 +20,60 @@ get_header(); ?>
 <p class="small">💭 Du kan också skicka frågor och feedback till admin längst ner.</p>
 <?php endif; ?>
 
-<h3>Instruktioner</h3>
-<hr>
-<p><span class="big-link"><a href="/faq/hur-funkar-loopis">📌 Hur funkar LOOPIS?</a></span></p>
-<p><span class="big-link"><a href="/faq/hur-far-jag-saker">📌 Hur får jag saker?</a></span></p>
-<p><span class="big-link"><a href="/faq/hur-ger-jag-saker/">📌 Hur ger jag saker?</a></span></p>
-<p><span class="big-link"><a href="/faq/tips-hemskarm">📌 Lägg LOOPIS på din hemskärm</a></span></p>
+<!-- start list all tags -->
 
-<?php if ( is_user_logged_in() ) : ?>
-<p><span class="big-link"><a href="/faq/kop-mynt">💰 Köp regnbågsmynt</a></span></p>
-<?php endif; ?>
+<?php
+$terms = get_terms([
+    'taxonomy'   => 'faq-tag',
+    'hide_empty' => false,
+]);
 
-<h3>Medlemskap</h3>
-<hr>
-<p><span class="big-link"><a href="/faq/varfor-medlemskap">📌 Varför måste jag vara medlem?</a></span></p>
-<p><span class="big-link"><a href="/faq/varfor-bagis">📌 Varför måste jag bo i Bagis?</a></span></p>
-<p><span class="big-link"><a href="/faq/tips-till-ny-medlem">📌 Tips till ny medlem</a></span></p>
+if (!empty($terms) && !is_wp_error($terms)) :
 
-<?php if ( current_user_can('member_earlier')) { ?>
-	<p><span class="big-link"><a href="../fornya-medlemskap">📋 Förnya medlemskap</a></span></p>
-<?php } else { ?>
-	<p><span class="big-link"><a href="../register">📋 Bli medlem</a></span></p>
-<?php } ?>
+    foreach ($terms as $term) : ?>
 
-<h3>LOOPIS.app</h3>
-<hr>
-<p><span class="big-link"><a href="/faq/hur-funkar-lottning">📌 Hur funkar lottning?</a></span></p>
-<p><span class="big-link"><a href="/faq/hur-funkar-regnbagsmynt">📌 Hur funkar regnbågsmynt?</a></span></p>
-<p><span class="big-link"><a href="/faq/hur-funkar-beloningar/">📌 Hur funkar belöningar?</a></span></p>
-<p><span class="big-link"><a href="/faq/restriktioner">📌 Vilka annonser är inte tillåtna?</a></span></p>
+        <section class="faq-tag-section">
+            <h2>
+                <?php echo esc_html($term->name); ?>
+            </h2>
 
+            <?php
+            $faq_query = new WP_Query([
+                'post_type'      => 'faq',
+                'posts_per_page' => -1, // show all posts
+                'tax_query'      => [
+                    [
+                        'taxonomy' => 'faq-tag',
+                        'field'    => 'term_id',
+                        'terms'    => $term->term_id,
+                    ],
+                ],
+            ]);
 
-<h3>LOOPIS skåp</h3>
-<hr>
-<p><span class="big-link"><a href="/faq/hur-funkar-skapet">📌 Hur funkar skåpet?</a></span></p>
-<p><span class="big-link"><a href="/faq/saker-som-inte-ryms-i-skapet">📌 Saker som inte ryms i skåpet?</a></span></p>
+            if ($faq_query->have_posts()) :
 
-<h3>Om föreningen</h3>
-<hr>
-<p><span class="big-link"><a href="/faq/vad-ar-loopis">📌 Vad är LOOPIS?</a></span></p>
-<p><span class="big-link"><a href="/faq/kontakt">📌 Kontakt med föreningen</a></span></p>
-<p><span class="big-link"><a href="/faq/hjalpa-till">📌 Hur kan jag hjälpa till?</a></span></p>
-<p><span class="big-link"><a href="/faq/max-murpos">📌 Vem är Max Murpos?</a></span></p>
-<p><span class="big-link"><a href="stadgar">📜 Föreningens stadgar</a></span></p>
-<p><span class="big-link"><a href="../privacy">🗄 Integritetspolicy</a></span></p>
+                while ($faq_query->have_posts()) :
+                    $faq_query->the_post();
+                    echo '<p><span class="big-link"><a href="' . esc_url(get_permalink()) . '">' . esc_html(get_the_title()) . '</a></span></p>';
+                endwhile;
+
+                wp_reset_postdata();
+
+            else :
+                echo '<p>Inga FAQ i denna tag.</p>';
+            endif;
+            ?>
+
+        </section>
+
+    <?php endforeach;
+
+else :
+    echo '<p>Inga tags hittades.</p>';
+endif;
+?>
+
+<!-- end list all tags -->
 
 <?php if ( is_user_logged_in() ) : ?>
 <h3>För medlemmar</h3>
