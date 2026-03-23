@@ -10,7 +10,7 @@ get_header(); ?>
 <div class="content">
 	<div class="page-padding">
 
-<h1>💡 Frågor & svar - <?php the_title(); ?></h1>
+<h1>💡 Frågor & svar</h1>
 <hr>
 <p class="small">💡 Vanliga frågor och info om LOOPIS.</p>
 
