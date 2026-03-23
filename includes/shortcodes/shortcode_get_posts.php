@@ -1,23 +1,21 @@
 <?php
 /**
- * Function for fetching and displaying posts relevant to special pages.
+ * Shortcode for displaying an array of posts within selected tag(s).
  * 
- * @package LOOPIS_Theme
- * @subpackage Frontend
- */
-
-
-/**
- *  Shortcode: [loopis_get_posts]
+ * Migrated from earlier use in Code Snippets plugin.
+ * Used in forum posts.
  * 
- *  Displays an array of random posts from specified tags
+ * Shortcode: [loopis_get_posts]
  * 
  * Attributes:
  *  - posts (int): Number of posts to display. Default: 3
- *  - tags  (string): Comma-separated tag slugs. Default: None
+ *  - tags (string): Comma-separated tag slugs. Default: None (will show posts with any tags)
+ * 
+ * Example usage: [loopis_get_posts posts="3" tags="tag1,tag2"]
  * 
  * @return string HTML output
  */
+
 add_shortcode( 'loopis_get_posts', function ($atts) {
 
     $atts = shortcode_atts(

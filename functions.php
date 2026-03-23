@@ -69,8 +69,9 @@ function loopis_theme_load_files() {
     // For everyone
     loopis_theme_include_folder('interface');
     loopis_theme_include_folder('features');
+    loopis_theme_include_folder('shortcodes');
+    loopis_theme_include_folder('filters');
     loopis_theme_include_folder('functions/everyone');
-    loopis_theme_include_folder('shortcode');
 
     // For user
     if (is_user_logged_in()) { 

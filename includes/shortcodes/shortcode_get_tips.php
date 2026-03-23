@@ -1,21 +1,18 @@
 <?php
 /**
- * Function for fetching and displaying posts relevant to festival event.
+ * Shortcode for displaying all posts within the category "tips".
  * 
- * @package LOOPIS_Theme
- * @subpackage Frontend
- */
-
-
-/**
- *  Shortcode: [loopis_get_festival]
+ * Migrated from earlier use in Code Snippets plugin.
+ * Used in forum posts.
  * 
- *  Displays an array of storage posts for the festival!
+ * Shortcode: [loopis_get_tips]
+ * 
+ * No optional attributes at the moment.
  * 
  * @return string HTML output
  */
 
-add_shortcode( 'loopis_get_festival', function () {
+add_shortcode( 'loopis_get_tips', function () {
 	ob_start();
 	?>
 
@@ -23,7 +20,7 @@ add_shortcode( 'loopis_get_festival', function () {
 	// Arguments
 	$args = array(
 	    'post_type' => 'post',
-	    'cat'   	=> '155', // Categopry 'tips'
+	    'category__in'   => loopis_cats(['tips']),
 	    'post_status' => 'publish',
 	    'posts_per_page' => -1, // Output all posts
 	);

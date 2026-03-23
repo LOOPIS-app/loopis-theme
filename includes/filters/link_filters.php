@@ -1,14 +1,19 @@
 <?php
 /**
- * Functions and filters which handle frontend links in different ways.
+ * Filters and actions affecting frontend links.
+ * 
+ * Migrated from earlier use in Code Snippets plugin.
  * 
  * @package LOOPIS_Theme
  * @subpackage Frontend
  */
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 /**
- * Function: wrap_links
- * Description: Wrap, shorten & make links clickable
+ * Wrap, shorten & make links clickable
  * 
  * @return string HTML output
  */
@@ -47,9 +52,9 @@ add_filter('the_content', 'wrap_links', 10);
 add_filter('comment_text', 'wrap_links', 10);
 add_filter( 'the_category', 'no_links' );
 
+
 /**
- * Function: no_links
- * Desctiption: Disable links for categories
+ * Disable the WP default links for categories
  * 
  * @return string 
  */
@@ -57,10 +62,9 @@ function no_links($thelist) {
     return preg_replace('#<a.*?>([^<]*)</a>#i', '$1', $thelist);
 }
 
+
 /**
- * Function: customize_comment_author_link
- * 
- * Description: Builds link to comment author
+ * Provide link to comment author
  * 
  * @return string HTML output link
  */
@@ -77,9 +81,7 @@ add_filter('get_comment_author_link', 'customize_comment_author_link', 10, 3);
 
 
 /**
- * Function: logout_without_confirm
- * 
- * Description: Skips logout confirmation
+ * Skips logout confirmation
  * 
  * @return void
  */
@@ -96,31 +98,3 @@ function logout_without_confirm($action, $result)
         die;
     }
 }
-
-/**
- * Function: no_thumbnail
- * 
- * Description: Image missing thumbnail fix
- * 
- * @return string HTML output
- */
-function no_thumbnail($html, $post_id, $post_thumbnail_id, $size, $attr) {
-    $thumbnail = '/wp-content/themes/loopis-theme/assets/img/support.png';
-
-    if (empty($html)) {
-        $html = '<img src="' . esc_url($thumbnail) . '" alt="Thumbnail">';
-    }
-    return $html;
-}
-add_filter('post_thumbnail_html', 'no_thumbnail', 10, 5);
-
-
-/**
- * Function: add_opengraph_doctype
- * Description: Facebook open-graph protocol. Varianter finns i header.php och header-single.php
- * @return string HTML output
- */
-function add_opengraph_doctype( $output ) {
-    return $output . ' xmlns:og="http://opengraphprotocol.org/schema/" xmlns:fb="http://www.facebook.com/2008/fbml"';
-}
-add_filter('language_attributes', 'add_opengraph_doctype');
