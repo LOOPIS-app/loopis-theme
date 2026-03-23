@@ -68,11 +68,11 @@ function support_data( $post_id, $post, $update ) {
     $user_ID = wp_get_current_user()->ID;
         
     // Update ACF fields
-    update_field( 'status', 145, $post_id );
+    update_post_meta($post_id, 'status', loopis_cat("active") );
     $current_title = get_the_title();
-    update_field( 'title', $current_title, $post_id );
+    update_post_meta($post_id, 'title', $current_title);
     $current_url = get_permalink();
-    update_field( 'link', $current_url, $post_id );
+    update_post_meta($post_id, 'link', $current_url );
         
     // Create post slug
     $count = 0;

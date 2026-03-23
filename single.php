@@ -50,7 +50,7 @@ if (empty($image_2_id)) {
     if ($extra_image_url) {
         $file_name = basename($extra_image_url);
         $attachment_id = media_sideload_image($extra_image_url, $post_id, $file_name, 'id');
-        update_field('image_2', $attachment_id, $post_id);
+        update_post_meta($post_id,'image_2', $attachment_id);
         delete_post_meta($post_id, 'extra_image');
         $cache_buster = time();
         echo '<meta http-equiv="refresh" content="0;url=' . esc_url(add_query_arg('cache_buster', $cache_buster)) . '">';

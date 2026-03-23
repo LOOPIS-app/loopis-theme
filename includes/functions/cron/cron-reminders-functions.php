@@ -71,7 +71,7 @@ function reminder_leave(int $reminder_leave, int $post_id) {
     }
 
     // Set new number
-    update_field('reminder_leave', $reminder_leave + 1, $post_id);
+    update_post_meta($post_id,'reminder_leave', $reminder_leave + 1);
     return 1;
 }
 
@@ -130,7 +130,7 @@ function reminder_fetch(int $reminder_fetch, int $post_id) {
     }
 
     // Set new number
-    update_field('reminder_fetch', $reminder_fetch + 1, $post_id);
+    update_post_meta($post_id,'reminder_fetch', $reminder_fetch + 1);
     return 1;
 }
 
@@ -182,8 +182,7 @@ function reminder_custom(int $reminder_fetch, int $post_id) {
     } else {
         return 0;
     }
-
     // Set new number
-    update_field('reminder_fetch', $reminder_fetch + 1, $post_id);
+    update_post_meta($post_id,'reminder_fetch', $reminder_fetch + 1);
     return 1;
 }

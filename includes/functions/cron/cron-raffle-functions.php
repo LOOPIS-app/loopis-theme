@@ -28,10 +28,10 @@ function admin_action_book_locker(int $winner_id, int $post_id) {
 	// Set post meta
 	wp_set_object_terms( $post_id, null, 'category' ); 
 	wp_set_object_terms( $post_id, 'booked_locker', 'category' );
-	update_field('fetcher', $winner_id);
-	update_field('book_date', current_time('Y-m-d H:i:s'));
-	update_field('raffle_date', current_time('Y-m-d H:i:s'));
-	
+	update_post_meta($post_id, 'fetcher', $winner_id);
+	update_post_meta($post_id, 'book_date', current_time('Y-m-d H:i:s'));
+	update_post_meta($post_id, 'raffle_date', current_time('Y-m-d H:i:s'));
+
 	// Send notification from LOTTEN to winner	
 	send_admin_notification_email ('🥳 Grattis @'.$winner_name.' – du har vunnit lottningen! <br>
 	⌛ Du får ett meddelande när du kan hämta i skåpet.', $post_id, 11 ,$winner_id);
@@ -62,9 +62,9 @@ function admin_action_book_custom(int $winner_id, int $post_id) {
 	// Set post meta
 	wp_set_object_terms( $post_id, null, 'category' ); 
 	wp_set_object_terms( $post_id, 'booked_custom', 'category' );
-	update_field('fetcher', $winner_id);
-	update_field('book_date', current_time('Y-m-d H:i:s'));
-	update_field('raffle_date', current_time('Y-m-d H:i:s'));
+	update_post_meta($post_id, 'fetcher', $winner_id);
+	update_post_meta($post_id, 'book_date', current_time('Y-m-d H:i:s'));
+	update_post_meta($post_id, 'raffle_date', current_time('Y-m-d H:i:s'));
 	
 	// Send notification from LOTTEN to winner	
 	send_admin_notification_email ('🥳 Grattis @'.$winner_name.' – du har vunnit lottningen! <br>
@@ -104,9 +104,9 @@ function admin_action_raffle_locker(array $participants, int $tickets, int $post
 	// Set post meta
 	wp_set_object_terms( $post_id, null, 'category' ); 
 	wp_set_object_terms( $post_id, 'booked_locker', 'category' );
-	update_field('fetcher', $winner_id);
-	update_field('book_date', current_time('Y-m-d H:i:s'));
-	update_field('raffle_date', current_time('Y-m-d H:i:s'));
+	update_post_meta($post_id, 'fetcher', $winner_id);
+	update_post_meta($post_id, 'book_date', current_time('Y-m-d H:i:s'));
+	update_post_meta($post_id, 'raffle_date', current_time('Y-m-d H:i:s'));
 	
 	// Send notification from LOTTEN to winner	
 	send_admin_notification_email ('🥳 Grattis @'.$winner_name.' – du har vunnit lottningen! <br>
@@ -160,9 +160,9 @@ function admin_action_raffle_custom(array $participants, int $tickets, int $post
 	// Set post meta
 	wp_set_object_terms( $post_id, null, 'category' ); 
 	wp_set_object_terms( $post_id, 'booked_custom', 'category' );
-	update_field('fetcher', $winner_id);
-	update_field('book_date', current_time('Y-m-d H:i:s'));
-	update_field('raffle_date', current_time('Y-m-d H:i:s'));
+	update_post_meta($post_id, 'fetcher', $winner_id);
+	update_post_meta($post_id, 'book_date', current_time('Y-m-d H:i:s'));
+	update_post_meta($post_id, 'raffle_date', current_time('Y-m-d H:i:s'));
 	
 	// Send notification from LOTTEN to winner	
 	send_admin_notification_email ('🥳 Grattis @'.$winner_name.' – du har vunnit lottningen! <br>
