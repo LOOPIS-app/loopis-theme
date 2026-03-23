@@ -210,17 +210,6 @@ HTML;
         </form>
 HTML;
 
-    } elseif ($url_slug === 'first') {
-        // PHP logic
-        if (isset($_POST['remove' . $post_id])) { action_remove($post_id); }
-
-        // Output buttons
-        echo <<<HTML
-        <form method="post" class="arb" action="">
-            <button name="remove$post_id" type="submit" class="notif-button small grey" onclick="return confirm('Ta bort annonsen?')">❌</button>
-        </form>
-HTML;
-		
     } elseif ($url_slug === 'others_fetched') {
         // PHP logic
         if (isset($_POST['forward' . $post_id])) { action_forward($post_id); }

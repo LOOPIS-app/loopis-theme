@@ -34,13 +34,6 @@ $url_slug = isset($_GET['status']) ? sanitize_text_field($_GET['status']) : '';
 // Set multiple IDs for booked posts
 if ($url_slug === 'booked') {
 	$category_ids = loopis_cats(['booked', 'booked_custom']); 
-
-
-// Set multiple IDs for old posts (Remove after migration)
-} elseif ($url_slug === 'old') {
-	$category_ids = loopis_cats(['old']); // first will be deprecated
-
-// Set single ID for other slugs
 } else {
 	// Get the category by slug
 	$category_id = loopis_cat($url_slug);

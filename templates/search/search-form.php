@@ -38,7 +38,7 @@ if (is_tag()) {
             ));
             
             foreach ($tags as $tag) {
-                // Count posts with this tag in available categories 'new', 'first', 'booked_custom', 'booked'
+                // Count posts with this tag in available categories 'new', 'old', 'booked_custom', 'booked'
                 $count_args = array(
                     'post_type'      => 'post',
                     'post_status'    => 'publish',
