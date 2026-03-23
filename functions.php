@@ -42,7 +42,7 @@ function loopis_theme_assets() {
     wp_enqueue_script('loopis-theme-scripts', LOOPIS_THEME_URI . '/assets/js/general.js', array('jquery'), filemtime(LOOPIS_THEME_DIR . '/assets/js/general.js'), true);
 
     // Enqueue CSS styles and JS for admin
-    if (current_user_can('administrator') || current_user_can('manager') || current_user_can('board_member')) {
+    if (current_user_can('manage_options') || current_user_can('loopis_admin')) {
         wp_enqueue_style('loopis-theme-admin', LOOPIS_THEME_URI . '/assets/css/admin.css', array(), filemtime(LOOPIS_THEME_DIR . '/assets/css/admin.css')); 
         wp_enqueue_script('loopis-admin-script', LOOPIS_THEME_URI . '/assets/js/admin.js', array('jquery'), filemtime(LOOPIS_THEME_DIR . '/assets/js/admin.js'), true);
     }
@@ -76,8 +76,8 @@ function loopis_theme_load_files() {
         loopis_theme_include_folder('functions/user');
     }
 
-    // For administrator and manager
-    if (current_user_can('administrator') || current_user_can('manager')) { 
+    // For administrator and cron
+    if (current_user_can('manage_options')) { 
         loopis_theme_include_folder('functions/cron');
     }
 }
