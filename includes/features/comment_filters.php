@@ -1,12 +1,12 @@
 <?php
 /**
- * Functions and filters which handle frontend links in different ways.
+ * Functions and filters which handle comments in different ways.
  * 
  * @package LOOPIS_Theme
  * @subpackage Frontend
  */
 
- 
+
 /**
  * Filters: convert_smilies
  * Description:  
