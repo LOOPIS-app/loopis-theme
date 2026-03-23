@@ -12,12 +12,19 @@ get_header(); ?>
 
 <h1>💡 Frågor & svar</h1>
 <hr>
-<p class="small">💡 Vanliga frågor och info om LOOPIS.</p>
+<p class="small">💡 Undrar du något? Här finns svar på det mesta.</p>
 
-<p>Undrar du något? Här finns svar på det mesta.</p>
+<p><b>Titta alltid på frågorna nedan innan du skickar en fråga till admin!</b></p>
+
 <?php if ( is_user_logged_in() ) : ?>
-<p class="small">🛟 Har du problem med en annons? Använd formuläret längst ner på annonssidan!</p>
-<p class="small">💭 Du kan också skicka frågor och feedback till admin längst ner.</p>
+<h3>För medlemmar</h3>
+<hr>
+<p style="margin-bottom: 0px;">🎁 Har du problem med en annons?</p>
+<p class="small">→ Skriv en kommentar på annonsen och pinga admin med @LOOPIS</p>
+<p style="margin-bottom: 0px;">💭 Har du andra frågor eller feedback?</p>
+<p class="small">→ Skriv till admin genom hjälp-rutan längst ner på den berörda sidan.</p>
+<p style="margin-bottom: 0px;">🗨 Vill du diskutera med andra medlemmar?</p>
+<p class="small">→ Gå till medlemmarnas <a rel="noreferrer noopener" href="https://web.facebook.com/groups/loopis.medlemmar" target="_blank">Facebook-grupp</a> eller <a rel="noreferrer noopener" href="https://discord.com/channels/1480883243740954626/1480883244449927231" target="_blank">Discord-server</a></p>
 <?php endif; ?>
 
 <!-- start list all tags -->
@@ -79,21 +86,15 @@ endif;
 <?php if ( is_user_logged_in() ) : ?>
 <h3>För medlemmar</h3>
 <hr>
-<p><span class="big-link"><a href="https://drive.google.com/drive/folders/1l1B43flky-zXgQ2wFD24s_32N_pfWHvd?usp=drive_link"><i class="fas fa-share"></i> Föreningens protokoll</a></span></p>
-<p><span class="big-link"><a href="https://www.facebook.com/groups/loopis" target="_blank" rel="noreferrer noopener"><i class="fas fa-share"></i> Facebook-grupp</a></span></p>
+<p><span class="big-link"><a href="https://drive.google.com/drive/folders/1l1B43flky-zXgQ2wFD24s_32N_pfWHvd?usp=drive_link"><i class="fas fa-share"></i> Föreningens protokoll</a></span> på Google Drive</p>
+<p><span class="big-link"><a href="https://www.facebook.com/groups/loopis" target="_blank" rel="noreferrer noopener"><i class="fas fa-share"></i> Facebook-grupp</a></span> för frågor och diskussion</p>
+<p><span class="big-link"><a href="https://discord.com/channels/1480883243740954626/1480883244449927231" target="_blank" rel="noreferrer noopener"><i class="fas fa-share"></i> Discord-server</a></span> för frågor och diskussion</p>
 <?php endif; ?>
 
 <div style="height:25px" aria-hidden="true" class="wp-block-spacer"></div>
 
-<div class="wrapped">
-<h5>⚠ Fler frågor?</h5>
-<hr>
-<?php if ( is_user_logged_in() ) { ?>
-<p>→ Fråga i medlemmarnas <a rel="noreferrer noopener" href="https://web.facebook.com/groups/loopis.medlemmar" target="_blank">Facebook-grupp</a></p>
-<p>→ Skicka en fråga eller feedback till admin i formuläret här nedanför.</p>
-<?php } ?>
-<p>→ Maila styrelsen på <a rel="noreferrer noopener" href="mailto:info@loopis.org" target="_blank">info@loopis.org</a></p>
-</div>
+<!-- More questions? -->
+<?php include LOOPIS_THEME_DIR . '/templates/faq/questions-faq.php'; ?>
 
 </div><!--page-padding-->
 </div><!--content-->
