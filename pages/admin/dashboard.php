@@ -84,7 +84,7 @@ if (!defined('ABSPATH')) {
 </div>
 
 <!-- Pending members count -->
-<?php if (current_user_can('manager') || current_user_can('administrator')) : ?>
+<?php if (current_user_can('manage_options') || current_user_can('loopis_admin')) : ?>
     <div class="wrapped link" onclick="location.href='/admin/?view=activation'">
         <h5>👥 Nya medlemmar</h5>
         <hr>
@@ -95,7 +95,7 @@ if (!defined('ABSPATH')) {
 <?php endif; ?>
 
 <!-- Active support count -->
-<?php if (current_user_can('loopis_support')) : ?>
+<?php if (current_user_can('manage_options') || current_user_can('loopis_admin')) : ?>
     <div class="wrapped link" onclick="location.href='/admin/?view=support'">
         <h5>🛟 Support</h5>
         <hr>
@@ -106,7 +106,7 @@ if (!defined('ABSPATH')) {
 <?php endif; ?>
 
 <!-- Settings Section -->
-<?php if (current_user_can('manager') || current_user_can('administrator')) : ?>
+<?php if (current_user_can('manage_options') || current_user_can('loopis_admin')) : ?>
     <div class="wrapped link" onclick="location.href='/admin/?view=settings'">
         <h5>⚙ Inställningar</h5>
         <hr>
@@ -126,8 +126,16 @@ if (!defined('ABSPATH')) {
     </div>
 <?php endif; ?>
 
+<!-- Manager Section -->
+<h3>🤓 Admin (manager)</h3>
+<hr>
+<div>
+    <span class="big-link"><a href="/admin/?view=manager/inventory">📋 Inventering</a></span>&nbsp;
+    <span class="big-link"><a href="/admin/?view=manager/post-search">🎁 Sök annons</a></span>&nbsp;
+</div>
+
 <!-- Member Info Section -->
-<?php if (current_user_can('board_member') || current_user_can('administrator')) : ?>
+<?php if (current_user_can('board') ) : ?>
     <h3>👤 Medlemsinfo</h3>
     <hr>
     <div>
@@ -143,26 +151,27 @@ if (!defined('ABSPATH')) {
 <hr>
 <div>
     <span class="big-link"><a href="/admin/?view=special/collage">🖼 Kollage</a></span>&nbsp;
-    <span class="big-link"><a href="/admin/?view=special/custom-location">📍 Annan adress</a></span>&nbsp;
+    <span class="big-link"><a href="/admin/?view=special/uncategorized">❤️‍🩹 Annonser utan kategori</a></span>&nbsp;
 </div>
 
 <!-- Webmaster Section -->
-<?php if (current_user_can('develooper') || current_user_can('administrator')) : ?>
-    <h3>👽 Webmaster</h3>
+<?php if (current_user_can('manage_options') || current_user_can('develooper')) : ?>
+    <h3>👽 Wordpress administrator</h3>
     <hr>
     <div>
-        <span class="big-link"><a href="/admin/?view=webmaster/test">💣 Test</a></span>&nbsp;
-        <span class="big-link"><a href="/wp-admin">👩‍💻 WP-admin</a></span>&nbsp;
-        <span class="big-link"><a href="/profile/">👤 Profil</a></span>&nbsp;
+        <span class="big-link"><a href="/admin/?view=webmaster/test">💣 Testsida</a></span>&nbsp;
+        <span class="big-link"><a href="/wp-admin">👩‍💻 Gå till WP-admin</a></span>&nbsp;
+        <span class="big-link"><a href="/profile/">👤 Gå till profilsida</a></span>&nbsp;
         <span class="big-link"><a href="../../wp-login.php?action=logout">🚪 Logga ut</a></span>
     </div>
 <?php endif; ?>
 
 <!-- Access List -->
-<?php if (current_user_can('develooper') || current_user_can('administrator')) : ?>
+<?php if (current_user_can('manage_options') || current_user_can('loopis_admin')) : ?>
     <p>&nbsp;</p>
     <div class="wrapped">
         <h5>🚧 Vilka har tillgång?</h5>
+        <hr>
         <?php include __DIR__ . '/dashboard-blocks/access.php'; ?>
     </div>
 <?php endif; ?>

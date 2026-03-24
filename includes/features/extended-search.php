@@ -98,6 +98,20 @@ function loopis_search_query_vars($query_vars) {
         $query_vars['sentence'] = 0;
     }
 
+    if (!is_admin() && isset($query_vars['tag'])) {
+        $tag_slug = trim((string) $query_vars['tag']);
+
+        // Empty or placeholder values should behave as "no tag filter".
+        if ($tag_slug === '' || strtolower($tag_slug) === 'all') {
+            unset($query_vars['tag']);
+        } else {
+            $tag_term = get_term_by('slug', $tag_slug, 'post_tag');
+            if (!$tag_term) {
+                unset($query_vars['tag']);
+            }
+        }
+    }
+
     return $query_vars;
 }
 add_filter('request', 'loopis_search_query_vars');
