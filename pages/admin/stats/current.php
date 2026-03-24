@@ -28,7 +28,7 @@ $member_args = [
 $member_count = count(get_users($member_args));
 
 // Define category IDs for the query
-$category_ids = [1, 37]; // Replace with dynamic values if needed
+$category_ids = loopis_cats(['new','first']); // Replace with dynamic values if needed
 
 // Count current posters
 $current_query = "

@@ -65,7 +65,7 @@ $total_count = $total_query->found_posts;
 // Number of gifts disappeared 
 $disappeared_args = array(
     'post_type'      => 'post',
-    'category__in'   => 156,
+    'category__in'   => loopis_cat('disappeared'),
     'posts_per_page' => -1,
     'date_query'     => build_date_query($selected_year),
 );

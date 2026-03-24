@@ -7,6 +7,11 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
+// Categories
+$new_cat = loopis_cat('new');
+$activity_cats = loopis_cats(['fetched', 'booked_locker', 'booked_custom', 'locker']);
+
+
 // RAFFLE YESTERDAY (day before yesterday)
 $day = new DateTime(current_time('mysql'));
 $day->modify('-2 days');
@@ -32,7 +37,7 @@ $args_booked_count = array(
     'post_type'      => 'post',
     'posts_per_page' => -1,
     'fields'         => 'ids',
-    'category__in'   => array(41, 57, 147, 104),
+    'category__in'   => $activity_cats,
     'date_query'     => array(
         array(
             'after'     => $day_start,
@@ -96,7 +101,7 @@ $args_yesterday_participants = array(
 $args_yesterday_booked = array(
     'post_type'      => 'post',
     'posts_per_page' => -1,
-    'cat'   		 => '41, 57, 104, 147',
+    'cat'   		 => $activity_cats,
     'date_query'     => array(
         'after'     => $yesterday_start,
         'before'    => $yesterday_end,
@@ -107,7 +112,7 @@ $args_yesterday_booked = array(
 $args_yesterday_new = array(
     'post_type'      => 'post',
     'posts_per_page' => -1,
-    'cat'       => '1',
+    'cat'       => $new_cat,
     'date_query'     => array(
         'after'     => $yesterday_start,
         'before'    => $yesterday_end,
@@ -146,7 +151,7 @@ $today_end = $today->format('Y-m-d 23:59:59');
 $args_today = array(
     'post_type' 	 => 'post',
     'posts_per_page' => -1,
-    'cat'   		 => '1',
+    'cat'   		 => $new_cat,
     'date_query' => array(
         'after'     => $today_start,
         'before'    => $today_end,
@@ -157,7 +162,7 @@ $args_today = array(
 $args_today_participants = array(
     'post_type'      => 'post',
     'posts_per_page' => -1,
-    'cat'   		 => '1',
+    'cat'   		 => $new_cat,
     'date_query'     => array(
         'after'     => $today_start,
         'before'    => $today_end,

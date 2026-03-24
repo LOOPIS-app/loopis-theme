@@ -12,8 +12,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// Set categories to include in search results (same as front page listing)
-define('LOOPIS_SEARCH_CATEGORY_SLUGS', array('new', 'first', 'old', 'booked_locker', 'booked_custom'));
+define('LOOPIS_SEARCH_CATEGORY_SLUGS', array('new', 'first', 'booked_locker', 'booked_custom'));
 
 // Determine if a query is the frontend main search query.
 function loopis_is_frontend_main_search_query($query) {

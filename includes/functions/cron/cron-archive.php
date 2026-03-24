@@ -16,8 +16,8 @@ function cron_job_archive() {
     $four_weeks_ago = new DateTime(current_time('mysql'));
     $four_weeks_ago->modify('-28 days');
 
-    $old_category_ids = array(37, 159);
-    $new_category_id = 167;
+    $old_category_ids = loopis_cats(['first', 'paused']);
+    $new_category_id = loopis_cat('archived');
 
     $args = array(
         'category__in' => $old_category_ids,
