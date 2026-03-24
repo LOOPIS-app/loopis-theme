@@ -16,7 +16,7 @@ include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-remo
 $user_ID = get_current_user_id();
 
 // Get category IDs
-$active_categories = loopis_cats(['new', 'first', 'booked_locker', 'locker', 'booked_custom', 'borrow']);
+$active_categories = loopis_cats(['new', 'old', 'booked', 'locker', 'booked_custom', 'borrow']);
 
 // Arguments
 $args = array( 

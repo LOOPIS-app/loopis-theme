@@ -160,7 +160,7 @@ function count_given($user_ID) {
 function count_booked($user_ID) {
     $args = array(
         'post_type'   => 'post',
-        'cat'        => loopis_cats(['fetched', 'booked_locker', 'booked_custom', 'locker']),
+        'cat'        => loopis_cats(['fetched', 'booked', 'booked_custom', 'locker']),
 		'meta_key'    => 'fetcher',
         'meta_value'  => $user_ID,
 		'posts_per_page' => -1,

@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Categories
-$available_cats = loopis_cats(['new', 'first', 'booked_custom', 'booked_locker']);
+$available_cats = loopis_cats(['new', 'old', 'booked_custom', 'booked']);
 
 // Get current tag if on tag archive
 $current_tag = '';
@@ -42,7 +42,7 @@ $allowed_category_ids = function_exists('loopis_get_search_category_ids')
             ));
             
             foreach ($tags as $tag) {
-                // Count posts with this tag in available categories 'new', 'first', 'booked_custom', 'booked_locker'
+                // Count posts with this tag in available categories 'new', 'old', 'booked_custom', 'booked'
                 $count_args = array(
                     'post_type'      => 'post',
                     'post_status'    => 'publish',

@@ -10,22 +10,22 @@ if (!defined('ABSPATH')) {
 
 
 // GIFTS BOOKED FOR LOCKER
-$args_booked_locker = array(
+$args_booked = array(
     'post_type'      => 'post',
     'posts_per_page' => -1,
     'tax_query'      => array(
         array(
             'taxonomy' => 'category',
             'field'    => 'term_id',
-            'terms'    => loopis_cat('booked_locker'),
+            'terms'    => loopis_cat('booked'),
         ),
     ),
 );
 
-$query_booked_locker = new WP_Query($args_booked_locker);
-$count_booked_locker = $query_booked_locker->found_posts;
+$query_booked = new WP_Query($args_booked);
+$count_booked = $query_booked->found_posts;
 
-echo '❤ ' . $count_booked_locker . ' saker ska till skåpet<br>';
+echo '❤ ' . $count_booked . ' saker ska till skåpet<br>';
 
 // GIFTS BOOKED FOR CUSTOM LOCATION
 $args_booked_custom = array(

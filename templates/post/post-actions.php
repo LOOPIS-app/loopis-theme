@@ -52,7 +52,7 @@ $locker_code = get_locker_code(LOCKER_ID);
 
 
 <!-- AVAILABLE POST -->
-<?php if (in_category( 'first' )) : ?>
+<?php if (in_category( 'old' )) : ?>
 <?php include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-book.php'; ?>
 
 	<p>Ingen ville delta i lottning så nu gäller <span class="label">🟢 Först till kvarn</span></p>
@@ -135,7 +135,7 @@ $locker_code = get_locker_code(LOCKER_ID);
 
 
 <!-- BOOKED POST (LOCKER) -->
-<?php if (in_category( 'booked_locker' )) : ?>
+<?php if (in_category( 'booked' )) : ?>
 
 	<?php if ( $current == $fetcher ) : ?>
 		<p>⏳ Du väntar på att <span class="link">👤<?php echo $authorlink;?></span> ska lämna i <span class="label"><i class="fas fa-walking"></i><?php echo $location; ?></span> <?php include LOOPIS_THEME_DIR . '/templates/post/timer-locker.php';?>...</p>
@@ -193,7 +193,7 @@ $locker_code = get_locker_code(LOCKER_ID);
 
 
 <!-- BOOKED POST (LOCKER/CUSTOM) -->
-<?php if (in_category( array( 'booked_locker', 'booked_custom' ) )) : ?>
+<?php if (in_category( array( 'booked', 'booked_custom' ) )) : ?>
 	<?php include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-queue.php'; ?>
 
 	<?php if ( $current != $author && $current != $fetcher && !in_array($current, $queue)) : ?>

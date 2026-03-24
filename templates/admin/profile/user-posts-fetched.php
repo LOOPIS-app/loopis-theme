@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
 $user_ID = get_queried_object_id();
 
 // Categories
-$activity_cats = loopis_cats(['fetched', 'booked_locker', 'booked_custom', 'locker']);
+$activity_cats = loopis_cats(['fetched', 'booked', 'booked_custom', 'locker']);
 
 // Get all things booked + count
 $args = array(
@@ -49,7 +49,7 @@ $count = $the_query->found_posts;
 				</div>
 				<div class="post-list-post-meta">
 				<span><?php the_category(' '); ?> för 
-				<?php if (in_category( array( 'booked_locker', 'booked_custom', 'locker' ) )) : ?>
+				<?php if (in_category( array( 'booked', 'booked_custom', 'locker' ) )) : ?>
 					<?php echo human_time_diff(strtotime(get_post_meta($post_id, 'book_date', true)), current_time('timestamp'))?>
 				<?php endif;?>
 				<?php if (in_category( 'fetched' )) : ?>

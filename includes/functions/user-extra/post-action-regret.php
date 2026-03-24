@@ -45,7 +45,7 @@ function action_regret(int $post_id) {
 		
 	// Set category
 	wp_set_object_terms( $post_id, null, 'category' ); 
-	wp_set_object_terms( $post_id, 'first', 'category' );
+	wp_set_object_terms( $post_id, 'old', 'category' );
 	}
 	
 	// Queue exists
@@ -61,8 +61,8 @@ function action_regret(int $post_id) {
 	update_post_meta($post_id,'book_date', current_time('Y-m-d H:i:s'));
 	$fetcher_name = get_userdata($fetcher)->display_name;
 	
-	// Category is 'booked_locker'
-	if (has_category( 'booked_locker', $post_id)) {
+	// Category is 'booked'
+	if (has_category( 'booked', $post_id)) {
 	
 	// Send notification from LOOPIS to fetcher
 	send_admin_notification('💔 Mottagaren har ångrat sig och... <br>❤ Du stod först i kön @' . $fetcher_name . ' ! <br>⌛ Du får ett meddelanden när du kan hämta i skåpet.', $post_id, 1); 

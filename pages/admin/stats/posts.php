@@ -21,7 +21,7 @@ $current_year = date('Y');
 
 // Categories
 $fetcher_cat = loopis_cat('fetched');
-$activity_cats = loopis_cats(['fetched', 'booked_locker', 'booked_custom', 'locker']);
+$activity_cats = loopis_cats(['fetched', 'booked', 'booked_custom', 'locker']);
 $removed_cat = loopis_cat('removed');
 
 // Render dropdown and get the selected year

@@ -33,7 +33,7 @@ $args = array(
     'post_type'      => 'post',
     'posts_per_page' => -1,
     'fields'         => 'ids',
-    'cat'            => loopis_cat('first'),
+    'cat'            => loopis_cat('old'),
 );
 
 $count_cat37 = count(get_posts($args));

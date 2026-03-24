@@ -97,7 +97,7 @@ function count_posts_active($user_ID) {
     $args = array(
         'author'     => $user_ID,
         'post_type'  => 'post',
-        'cat'        => loopis_cats(['new', 'old', 'raffle', 'first']), // Remove raffle and first after migration
+        'cat'        => loopis_cats(['new', 'old']), 
         'posts_per_page' => -1,
     );
     $the_query = new WP_Query($args);
@@ -129,7 +129,7 @@ function count_posts_old($user_ID) {
     $args = array(
         'author'     => $user_ID,
         'post_type'  => 'post',
-        'cat'        => loopis_cats(['old', 'first']), // Remove 'first' after migration
+        'cat'        => loopis_cats(['old']), 
         'posts_per_page' => -1,
     );
     $the_query = new WP_Query($args);
@@ -161,7 +161,7 @@ function count_posts_booked($user_ID) {
     $args = array(
         'author'     => $user_ID,
         'post_type'  => 'post',
-        'cat'        => loopis_cats(['booked_custom', 'booked_locker', 'booked']),  // Remove 'booked_locker' after migration
+        'cat'        => loopis_cats(['booked_custom', 'booked']),  
 		'posts_per_page' => -1,
     );
     $the_query = new WP_Query($args);
@@ -259,7 +259,7 @@ function count_posts_disappeared($user_ID) {
 function count_others_claimed($user_ID) {
     $args = array(
         'post_type'   => 'post',
-        'cat'        => loopis_cats(['fetched', 'booked_custom', 'booked_locker', 'booked', 'locker']), // Remove 'booked_locker' after migration
+        'cat'        => loopis_cats(['fetched', 'booked_custom', 'booked', 'locker']), // Remove 'booked_locker' after migration
 		'meta_key'    => 'fetcher',
         'meta_value'  => $user_ID,
 		'posts_per_page' => -1,
@@ -277,7 +277,7 @@ function count_others_claimed($user_ID) {
 function count_others_booked($user_ID) {
     $args = array(
         'post_type'   => 'post',
-        'cat'        => loopis_cats(['booked_custom', 'booked_locker', 'booked', 'locker']), // Remove 'booked_locker' after migration
+        'cat'        => loopis_cats(['booked_custom', 'booked', 'locker']),
 		'meta_key'    => 'fetcher',
         'meta_value'  => $user_ID,
 		'posts_per_page' => -1,
