@@ -2,7 +2,13 @@
 /**
  * List posts with location different from "Skåpet", with category filter.
  * 
- * Used for communication/statistics.
+ * Previously used for communication/statistics.
+ * 
+ * IMPROVEMENTS:
+ * – This is planned to become a powerful frontend post search for managers where ALL posts can be found and filtered.
+ * – Currently only shows posts with location "annan adress", should use checkboxes to filter "annan adress" / "skåpet" / "loopis-bord".
+ * – Categories filter should be single input field allowing multiple categories with autocomplete, instead of separate checkboxes for each category.
+ * – Tags filter should be added, similar to categories as described above.
  */
 
 if (!defined('ABSPATH')) {

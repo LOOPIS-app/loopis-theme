@@ -15,8 +15,12 @@ $current_tag = '';
 if (is_tag()) {
     $current_tag = get_queried_object()->slug;
 } elseif (isset($_GET['tag']) && !empty($_GET['tag'])) {
-    $current_tag = sanitize_text_field($_GET['tag']);
+    $current_tag = sanitize_text_field(wp_unslash($_GET['tag']));
 }
+
+$allowed_category_ids = function_exists('loopis_get_search_category_ids')
+    ? loopis_get_search_category_ids()
+    : array();
 ?>
 
 <div class="searchandfilter">
@@ -47,6 +51,11 @@ if (is_tag()) {
                     'tag_id'         => $tag->term_id,
                     'fields'         => 'ids',
                 );
+
+                if (!empty($allowed_category_ids)) {
+                    $count_args['category__in'] = $allowed_category_ids;
+                }
+
                 $count_query = new WP_Query($count_args);
                 $available_count = $count_query->found_posts;
                 wp_reset_postdata();

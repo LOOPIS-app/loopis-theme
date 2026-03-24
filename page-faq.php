@@ -74,15 +74,8 @@ get_header(); ?>
 
 <div style="height:25px" aria-hidden="true" class="wp-block-spacer"></div>
 
-<div class="wrapped">
-<h5>⚠ Fler frågor?</h5>
-<hr>
-<?php if ( is_user_logged_in() ) { ?>
-<p>→ Fråga i medlemmarnas <a rel="noreferrer noopener" href="https://web.facebook.com/groups/loopis.medlemmar" target="_blank">Facebook-grupp</a></p>
-<p>→ Skicka en fråga eller feedback till admin i formuläret här nedanför.</p>
-<?php } ?>
-<p>→ Maila styrelsen på <a rel="noreferrer noopener" href="mailto:info@loopis.org" target="_blank">info@loopis.org</a></p>
-</div>
+<!-- More questions? -->
+<?php include LOOPIS_THEME_DIR . '/templates/faq/questions-faq.php'; ?>
 
 </div><!--page-padding-->
 </div><!--content-->

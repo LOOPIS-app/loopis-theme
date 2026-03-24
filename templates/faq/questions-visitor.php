@@ -6,8 +6,8 @@
  */
 
 if (!defined('ABSPATH')) {
-    }
     exit; // Exit if accessed directly
+}   
 ?>
 
 <div class="columns"><div class="column1"><h5>💡 Vanliga frågor</h5></div>
