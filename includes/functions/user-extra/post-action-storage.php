@@ -21,10 +21,10 @@ if (!function_exists('admin_action_book_storage')) {
         // Set post meta
         wp_set_object_terms($post_id, null, 'category');
         wp_set_object_terms($post_id, 'fetched', 'category'); 
-        update_field('fetcher', $user_id);
-        update_field('book_date', current_time('Y-m-d H:i:s'));
-        update_field('fetch_date', current_time('Y-m-d H:i:s'));
-        update_field('location', "LOOPIS-bord");
+        update_post_meta($post_id,'fetcher', $user_id);
+        update_post_meta($post_id,'book_date', current_time('Y-m-d H:i:s'));
+        update_post_meta($post_id,'fetch_date', current_time('Y-m-d H:i:s'));
+        update_post_meta($post_id,'location', "LOOPIS-bord");
         
         // Update post
         $post_data = array(
