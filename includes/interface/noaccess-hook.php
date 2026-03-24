@@ -12,7 +12,7 @@
  * Force admin redirect
  */
 add_action( 'admin_init', function() {
-    if ( is_admin() && !current_user_can('administrator') && !wp_doing_ajax() ) {
+    if ( is_admin() && !current_user_can('manage_options') && !wp_doing_ajax() ) {
         wp_redirect( home_url() );
         exit;
     }
