@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('LOOPIS_SEARCH_CATEGORY_SLUGS', array('new', 'old', 'booked', 'booked_custom'));
+define('LOOPIS_SEARCH_CATEGORY_SLUGS', array('new', 'first', 'booked_locker', 'booked_custom'));
 
 // Determine if a query is the frontend main search query.
 function loopis_is_frontend_main_search_query($query) {
@@ -96,6 +96,20 @@ function loopis_search_query_vars($query_vars) {
     if (!is_admin() && isset($query_vars['s']) && !empty($query_vars['s'])) {
         $query_vars['s'] = str_replace('"', '', $query_vars['s']);
         $query_vars['sentence'] = 0;
+    }
+
+    if (!is_admin() && isset($query_vars['tag'])) {
+        $tag_slug = trim((string) $query_vars['tag']);
+
+        // Empty or placeholder values should behave as "no tag filter".
+        if ($tag_slug === '' || strtolower($tag_slug) === 'all') {
+            unset($query_vars['tag']);
+        } else {
+            $tag_term = get_term_by('slug', $tag_slug, 'post_tag');
+            if (!$tag_term) {
+                unset($query_vars['tag']);
+            }
+        }
     }
 
     return $query_vars;

@@ -1,11 +1,16 @@
 <?php
 /**
- * List of fetched posts for the current user.
- * Reached on https://loopis.app/activity/?view=posts-booked
+ * List of posts booked by the current user.
  * 
- * Needs improvements:
- * – Add pagination
- * – Use template for post output? (needs a fix for button output first though)
+ * Reached on https://loopis.app/activity/?view=posts-booked
+ * Linked from /profile/user_nicename/posts (WPUM profile page) 
+ * 
+ * Uses non-existent category slug from URL to filter posts and a function to output labels and content.
+ * 
+ * Improvements:
+ * – Add pagination (will templates/post-list/pagination.php work with the URL structure?)
+ * – Later: Use a template for post list output? (needs a fix for output of specific button and metadata)
+ * – PS. Search form is not needed here.
  */
 
 if (!defined('ABSPATH')) {

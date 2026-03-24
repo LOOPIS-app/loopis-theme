@@ -18,7 +18,7 @@ function action_unpause(int $post_id) {
 	// Set post meta
 	wp_set_object_terms( $post_id, null, 'category' ); 
 	wp_set_object_terms( $post_id, 'old', 'category' );
-	update_field('extend_date', current_time('Y-m-d H:i:s'));
+	update_post_meta($post_id,'extend_date', current_time('Y-m-d H:i:s'));
 
     // Refresh page
     refresh_page();
@@ -46,7 +46,7 @@ function action_unpause_all(int $user_ID) {
 	    foreach ($user_posts as $post_id) {
 			wp_set_object_terms( $post_id, null, 'category' ); 
 			wp_set_object_terms( $post_id, 'old', 'category' );
-			update_field('extend_date', current_time('Y-m-d H:i:s'), $post_id);
+			update_post_meta($post_id,'extend_date', current_time('Y-m-d H:i:s'));
 	    }
 	
     // Refresh page
@@ -75,7 +75,7 @@ function action_pause_all(int $user_ID) {
 	    foreach ($user_posts as $post_id) {
 			wp_set_object_terms( $post_id, null, 'category' ); 
 			wp_set_object_terms( $post_id, 'paused', 'category' );
-			update_field('pause_date', current_time('Y-m-d H:i:s'), $post_id);
+			update_post_meta($post_id,'pause_date', current_time('Y-m-d H:i:s'));
 	    }
 	
     // Refresh page

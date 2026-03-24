@@ -28,8 +28,8 @@ function action_regret(int $post_id) {
     $locker_code = get_locker_code(LOCKER_ID);
 		
 	// Change post meta
-	update_field('fetcher', null);
-	update_field('book_date', null);
+	update_post_meta($post_id,'fetcher', null);
+	update_post_meta($post_id,'book_date', null);
 		
 	// Leave comment by fetcher
 	add_comment ('<p class="regret">💔 Jag har ångrat mig... <span>🔔LOOPIS</span></p>', $post_id );
@@ -57,8 +57,8 @@ function action_regret(int $post_id) {
 	update_post_meta($post_id, 'queue', $queue); 	// Update queue
 	
 	// Change post meta & variables
-	update_field('fetcher', $fetcher);
-	update_field('book_date', current_time('Y-m-d H:i:s'));
+	update_post_meta($post_id,'fetcher', $fetcher);
+	update_post_meta($post_id,'book_date', current_time('Y-m-d H:i:s'));
 	$fetcher_name = get_userdata($fetcher)->display_name;
 	
 	// Category is 'booked'
@@ -96,7 +96,7 @@ function action_regret(int $post_id) {
 	if (has_category( 'locker', $post_id)) {
 	
 	// Change post meta
-	update_field('locker_date', current_time('Y-m-d H:i:s'));
+	update_post_meta($post_id,'locker_date', current_time('Y-m-d H:i:s'));
 	
 	// Send notification from LOOPIS to fetcher
 	send_admin_notification('💔 Mottagaren har ångrat sig och... <br>❤ Du stod först i kön @' . $fetcher_name . ' ! <br>⌛ Du  bör hämta i skåpet inom 24 timmar. <br>🔓 Kod till skåpet: <b>' . $locker_code . '</b>', $post_id, 1); 

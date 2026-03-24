@@ -1,13 +1,16 @@
 <?php
 /**
- * List of fetched posts for the current user.
- * Reached on https://loopis.app/activity/?view=posts-fetched
+ * List of posts fetched by the current user.
  * 
- * Needs improvements:
- * – Add search box
- * – Add pagination
- * – For a forwarded post: add button (with correct category symbol) to view the forwarded post
- * – Use template for post output? (needs a fix for button output first though)
+ * Reached on https://loopis.app/activity/?view=posts-fetched
+ * Linked from /profile/user_nicename/posts (WPUM profile page) 
+ * 
+ * Uses non-existent category slug from URL to filter posts and a function to output labels and content.
+ * 
+ * Improvements:
+ * – Add search form if more than 20 posts (adaptation of templates/search/search-form.php?)
+ * – Add pagination (will templates/post-list/pagination.php work with the URL structure?)
+ * – Later: Use a template for post list output? (needs a fix for output of specific button and metadata)
  */
 
 if (!defined('ABSPATH')) {

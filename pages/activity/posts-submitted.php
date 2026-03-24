@@ -1,12 +1,16 @@
 <?php
 /**
  * List of posts in a specific category for the current user.
+ * 
  * Reached on https://loopis.app/activity/?view=posts-submitted&status=category-slug
+ * Linked from /profile/user_nicename/posts (WPUM profile page) 
  * 
  * Uses category slug from URL to filter posts and a function to output labels and content.
  * 
  * Improvements:
- * – Use template for post output? (needs a fix for button output first though)
+ * – Add search form if more than 20 posts (adaptation of templates/search/search-form.php?)
+ * – Add pagination (will templates/post-list/pagination.php work with the URL structure?)
+ * – Later: Use a template for post list output? (needs a fix for output of specific button and metadata)
  */
 
 if (!defined('ABSPATH')) {

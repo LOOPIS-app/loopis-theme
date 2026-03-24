@@ -45,7 +45,7 @@ function cron_job_reminders() {
                 $book_time = strtotime(get_post_meta($post_id, 'book_date',true));
                 $reminder_leave = (int) get_post_meta($post_id, 'reminder_leave',true);
                 if ($reminder_leave === null) {
-                    update_field('reminder_leave', 0, $post_id);
+                    update_post_meta($post_id,'reminder_leave', 0);
                     $reminder_leave = 0;
                 }
                 // Send reminder?
@@ -60,7 +60,7 @@ function cron_job_reminders() {
                 $locker_time = strtotime(get_post_meta($post_id, 'locker_date',true));
                 $reminder_fetch = (int) get_post_meta($post_id, 'reminder_fetch',true);
                 if ($reminder_fetch === null) {
-                    update_field('reminder_fetch', 0, $post_id);
+                    update_post_meta($post_id,'reminder_fetch', 0);
                     $reminder_fetch = 0;
                 }
                 // Send reminder?
@@ -75,7 +75,7 @@ function cron_job_reminders() {
                 $book_time = strtotime(get_post_meta($post_id, 'book_date', true));
                 $reminder_fetch = (int) get_post_meta($post_id, 'reminder_fetch', true);
                 if ($reminder_fetch === null) {
-                    update_field('reminder_fetch', 0, $post_id);
+                    update_post_meta($post_id,'reminder_fetch', 0);
                     $reminder_fetch = 0;
                 }
                 // Send reminder?

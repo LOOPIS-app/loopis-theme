@@ -53,7 +53,7 @@ function cron_job_archive() {
 
             if ($do_archive) {
                 wp_set_post_categories($post_id, array($new_category_id));
-                update_field('archive_date', current_time('Y-m-d H:i:s'), $post_id);
+                update_post_meta($post_id, 'archive_date', current_time('Y-m-d H:i:s'));
 
                 $archived_count++;
 
