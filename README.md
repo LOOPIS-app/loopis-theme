@@ -9,4 +9,4 @@ We are working on migration to MultiSite with fewer third party plugins. → [CH
 Installation + updates are managed by plugin "LOOPIS Config".
 
 ## 👤 Contributors
-Johan Hagvil, Hubert Hilborn, Nils Larsson, Poe, Copilot
+Johan Hagvil, Hubert Hilborn, Nils Larsson, Xiaoliang Gao, Poe & Copilot

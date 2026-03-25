@@ -1,19 +1,17 @@
 # 📋 Changelog for "LOOPIS Theme"
-## 0.82 (2026-03-19)
-- Modified archive-faq.php to have the same content as the template page-faq-tag.php
-- Removed templates page-faq-tag.php, taxonomy-faq-tag.php
-- Small fix for archive-faq.php (some link formatting)
 
-## 0.81 (2026-03-09)
-- Added two new templates for FAQ: archive-faq.php and single-faq.php for CPT faq.
-- Added two experimental templates for /faq-tag/ : page-faq-tag.php and /faq-tag/tag/ : taxonomy-faq-tag.php
-- page-faq-tag.php needs to be set in an empty page with slug "faq-tag" in order to work
+## 0.82 (2026-XX-XX)
+- FAQ content moved from pages to post (New plugin "LOOPIS Content" replaces "ACF")
+- All previous snippets in WP-admin integrated
+- All hardcoded category ID's replaced using loopis_cats()
+- Category slug update: first > old, booked_locker > booked
+- All relative paths adjusted to work with Multisite
 
-## 0.81 (beta)
+## 0.81 (2026-03-19)
 - Added folder `includes` with sub folders for better file structure
 - Revised WPUM tabs and content on `/profile`
 
-## 0.80
+## 0.80 (2026-03-09)
 - Preparing for migration of FAQ pages to FAQ posts
 - Replacing all occurences of ACF funtion get_field()
 - Blocking forwarding of already forwarded posts
