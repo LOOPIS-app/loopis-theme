@@ -56,12 +56,12 @@ function action_forward(int $post_id) {
 	}
 		
 	// Set old post ACF meta
-	update_field('forward_date', current_time('Y-m-d H:i:s'), $post_id);
-	update_field('forward_post', $new_post_id, $post_id);
+	update_post_meta($post_id,'forward_date', current_time('Y-m-d H:i:s'));
+	update_post_meta($post_id, 'forward_post', $new_post_id);
 	
 	// Set new post ACF meta
-	update_field('previous_post', $post_id, $new_post_id);
-	update_field('location', 'Skåpet', $new_post_id);
+	update_post_meta($new_post_id,'previous_post', $post_id);
+	update_post_meta($new_post_id, 'location', 'Skåpet');
 	
 	// Clear edit lock meta fields
 	delete_post_meta($new_post_id, '_edit_lock');

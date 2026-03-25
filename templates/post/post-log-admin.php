@@ -78,13 +78,13 @@ if ($raffle_date) {
 }
 
 // Booked
-if (in_category(array('booked_locker', 'booked_custom', 'locker', 'fetched'))) {
+if (in_category(array('booked', 'booked_custom', 'locker', 'fetched'))) {
     $book_date = get_post_meta($post_id, 'book_date', true);
     echo '<p><i class="fas fa-heart"></i><a href="' . esc_url($fetcherlink) . '">' . $fetchername . '</a> – ' . human_time_diff(strtotime($book_date), $now_time) . ' sen <span>' . $book_date . '</span></p>';
 }
 
 // Booked (locker)
-if (in_category('booked_locker')) {
+if (in_category('booked')) {
     echo '<p><i class="fas fa-check-square"></i>' . get_the_author_posts_link() . ' – <i class="fas fa-walking"></i>' . $location . '...<span>';
     include LOOPIS_THEME_DIR . '/templates/post/timer-locker.php';
     echo '</span></p>';

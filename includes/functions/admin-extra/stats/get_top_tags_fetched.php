@@ -9,13 +9,14 @@ if (!defined('ABSPATH')) {
 
 function get_top_tags_fetched($selected_year) {
     // Set up the query arguments
-$args = array(
-    'post_type'      => 'post',
-    'post_status'    => 'publish',
-    'posts_per_page' => -1, // Fetch all posts
-    'fields'         => 'ids', // Only retrieve post IDs to optimize performance
-    'category__in'   => array(41), // Only fetch posts in category 41
-);
+    $fetcher_cat = loopis_cat('fetched');
+    $args = array(
+        'post_type'      => 'post',
+        'post_status'    => 'publish',
+        'posts_per_page' => -1, // Fetch all posts
+        'fields'         => 'ids', // Only retrieve post IDs to optimize performance
+        'category__in'   => array($fetcher_cat), // Only fetch posts in category: fetcher
+    );
 
     // If a specific year is selected, add a date query
     if ($selected_year !== 'all') {

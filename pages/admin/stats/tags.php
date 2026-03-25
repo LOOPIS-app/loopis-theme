@@ -19,7 +19,7 @@ if (!defined('ABSPATH')) {
 $start_date = isset($_GET['start_date']) ? sanitize_text_field($_GET['start_date']) : '';
 $end_date = isset($_GET['end_date']) ? sanitize_text_field($_GET['end_date']) : '';
 
-$categories = array(41);
+$categories = loopis_cats(['fetched']);
 $tags = get_tags();
 
 // Create an array to store the post counts for each tag

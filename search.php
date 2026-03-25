@@ -17,6 +17,9 @@ get_header(); ?>
         <?php get_template_part('templates/search/search-form'); ?>
 
         <?php
+        
+        // Categories
+        $available_cats = loopis_cats(['new', 'first', 'booked_custom', 'booked_locker']);  
         // Check if search query exists
         $search_query = get_search_query();
         $tag_slug = (string) get_query_var('tag');

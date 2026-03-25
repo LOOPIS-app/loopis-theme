@@ -101,7 +101,7 @@ $count = $the_query->found_posts;
 // args
 $args = array( 
 	'post_type' => 'post',
-     'cat' => loopis_cat('booked_locker'),
+     'cat' => loopis_cat('booked'),
 );
 
 // query

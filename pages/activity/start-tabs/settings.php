@@ -33,7 +33,7 @@ $args = array(
     'post_type'      => 'post',
     'posts_per_page' => -1,
     'fields'         => 'ids',
-    'cat'            => '37',
+    'cat'            => loopis_cat('old'),
 );
 
 $count_cat37 = count(get_posts($args));
@@ -45,7 +45,7 @@ $args = array(
     'post_type'      => 'post',
     'posts_per_page' => -1,
     'fields'         => 'ids',
-    'cat'            => '159',
+    'cat'            => loopis_cat('paused'),
 );
 
 $count_cat159 = count(get_posts($args));

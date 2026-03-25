@@ -16,8 +16,8 @@ function cron_job_archive() {
     $four_weeks_ago = new DateTime(current_time('mysql'));
     $four_weeks_ago->modify('-28 days');
 
-    $old_category_ids = array(37, 159);
-    $new_category_id = 167;
+    $old_category_ids = loopis_cats(['old', 'paused']);
+    $new_category_id = loopis_cat('archived');
 
     $args = array(
         'category__in' => $old_category_ids,
@@ -53,7 +53,7 @@ function cron_job_archive() {
 
             if ($do_archive) {
                 wp_set_post_categories($post_id, array($new_category_id));
-                update_field('archive_date', current_time('Y-m-d H:i:s'), $post_id);
+                update_post_meta($post_id, 'archive_date', current_time('Y-m-d H:i:s'));
 
                 $archived_count++;
 

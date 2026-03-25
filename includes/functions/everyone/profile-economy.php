@@ -8,7 +8,6 @@
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
-
 /**
  * Calculate economy for the specified user.
  * 
@@ -145,7 +144,7 @@ function count_given($user_ID) {
     $args = array(
         'author'     => $user_ID,
         'post_type'  => 'post',
-        'cat'        => 41,
+        'cat'        =>  loopis_cat('fetched'),
 		'posts_per_page' => -1,
     );
     $the_query = new WP_Query($args);
@@ -161,7 +160,7 @@ function count_given($user_ID) {
 function count_booked($user_ID) {
     $args = array(
         'post_type'   => 'post',
-        'cat'        => '41, 57, 104, 147',
+        'cat'        => loopis_cats(['fetched', 'booked', 'booked_custom', 'locker']),
 		'meta_key'    => 'fetcher',
         'meta_value'  => $user_ID,
 		'posts_per_page' => -1,
@@ -194,7 +193,7 @@ function count_deleted($user_ID) {
     $args = array(
         'author'     => $user_ID,
         'post_type'  => 'post',
-        'cat'        => 58,
+        'cat'        => loopis_cat('removed'),
 		'posts_per_page' => -1,
     );
     $the_query = new WP_Query($args);
@@ -210,7 +209,7 @@ function count_deleted($user_ID) {
 function count_fetched($user_ID) {
     $args = array(
         'post_type'   => 'post',
-        'cat'        => 41,
+        'cat'        =>  loopis_cat('fetched'),
 		'meta_key'    => 'fetcher',
         'meta_value'  => $user_ID,
 		'posts_per_page' => -1,

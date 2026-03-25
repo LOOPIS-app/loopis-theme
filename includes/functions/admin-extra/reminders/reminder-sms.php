@@ -31,7 +31,7 @@ function reminder_leave_sms(int $reminder_leave, int $post_id) {
         add_admin_comment('<p class="reminder">💡 Påminnelse skickad via sms till <span>📱' . $author_name . '</span></p>', $post_id, 1);
 
         // Increase number
-        update_field('reminder_leave', $reminder_leave + 1);
+        update_post_meta($post_id,'reminder_leave', $reminder_leave + 1);
 
         // Return the SMS URL
         return "sms:$phone?body=$message_encoded";
@@ -70,7 +70,7 @@ function reminder_fetch_sms(int $reminder_fetch, int $post_id) {
         add_admin_comment('<p class="reminder">💡 Påminnelse skickad via sms till <span>📱' . $fetcher_name . '</span></p>', $post_id, 1);
 
         // Increase number
-        update_field('reminder_fetch', $reminder_fetch + 1);
+        update_post_meta($post_id,'reminder_fetch', $reminder_fetch + 1);
 
         // Return the SMS URL
         return "sms:$phone?body=$message_encoded";
@@ -110,7 +110,7 @@ function reminder_custom_sms(int $reminder_fetch, int $post_id) {
         add_admin_comment('<p class="reminder">💡 Påminnelse skickad via sms till <span>📱' . $fetcher_name . '</span></p>', $post_id, 1);
 
         // Increase number
-        update_field('reminder_fetch', $reminder_fetch + 1, $post_id);
+        update_post_meta($post_id,'reminder_fetch', $reminder_fetch + 1);
 
         // Return the SMS URL
         return "sms:$phone?body=$message_encoded";
