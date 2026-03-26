@@ -37,7 +37,7 @@ body { background:#fff; font-size:16px; line-height:1.5em; color:#333; font-weig
 ::-moz-selection { background:#333; color:#fff; }
 img { max-width:100%; height:auto; }
 address,cite,em { font-style: italic; }
-strong { font-weight:400; }
+b, strong { font-weight: 400; }
 ol, ul { box-sizing:content-box; }
 .left,.alignleft { float:left; }
 .right,.alignright { float:right; }
