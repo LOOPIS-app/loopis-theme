@@ -98,9 +98,6 @@ function support_data( $post_id, $post, $update ) {
         $count = $support->post_count;
         wp_reset_postdata(); }
     $new_slug = $count;
-    
-    // Create post title
-    $new_title = $current_title;
      // Create post title
     $new_title = $current_title;
     // get content
