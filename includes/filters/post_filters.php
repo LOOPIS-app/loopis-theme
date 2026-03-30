@@ -66,13 +66,6 @@ add_filter('term_links-post_tag', 'limit_tags');
 
 
 /**
- * Allow mail notification for new support posts.
- * Added to make plugin "Better Notifications for WP" functional.
- */
-add_filter( 'bnfw_trigger_insert_post', '__return_true' );
-
-
-/**
  * Add and update necessary data to support posts
  * 
  * @return string filepath
@@ -108,6 +101,10 @@ function support_data( $post_id, $post, $update ) {
     
     // Create post title
     $new_title = $current_title;
+     // Create post title
+    $new_title = $current_title;
+    // get content
+    $post_content = get_post_field('post_content', $post_id);
     
     // Update post
     $post_data = array(
@@ -117,6 +114,11 @@ function support_data( $post_id, $post, $update ) {
             'post_author' => $user_ID, );
     remove_action( 'wp_insert_post', 'support_data', 99, 3 );
     wp_update_post( $post_data );
-    
+    // get managers
+    $managers = get_users( ['role'=>'manager'] );
+    foreach ($managers as $user) {
+        // send email to all managers!
+        send_admin_notification_email('📣Jag behöver hjälp!📣 hjälp mig med detta:<br>'.$post_content.' <br> Finns det någon som säger. <br> Se till att finnas där för denna i god tid ⌛', $post_id, $user_ID, $user->ID);
+    }
 }
 add_action( 'wp_insert_post', 'support_data', 99, 3 );
