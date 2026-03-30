@@ -115,7 +115,7 @@ function support_data( $post_id, $post, $update ) {
     $managers = get_users( ['role'=>'manager'] );
     foreach ($managers as $user) {
         // send email to all managers!
-        send_admin_notification_email('📣Jag behöver hjälp!📣 hjälp mig med detta:<br>'.$post_content.' <br> Finns det någon som säger. <br> Se till att finnas där för denna i god tid ⌛', $post_id, $user_ID, $user->ID);
+        send_admin_notification_email('📣 Hjälp!<br>'.$post_content, $post_id, $user_ID, $user->ID);
     }
 }
 add_action( 'wp_insert_post', 'support_data', 99, 3 );
