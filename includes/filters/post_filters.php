@@ -86,7 +86,8 @@ function support_data( $post_id, $post, $update ) {
     $user_ID = wp_get_current_user()->ID;
         
     // Update ACF fields
-    update_post_meta($post_id, 'status', loopis_cat("active") );
+    update_post_meta($post_id, 'status', loopis_support_cat("active") );
+    wp_set_post_terms( $post_id, loopis_support_cat("active"), 'support-status', false );
     $current_title = get_the_title();
     update_post_meta($post_id, 'title', $current_title);
     $current_url = get_permalink();
