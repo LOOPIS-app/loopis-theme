@@ -27,8 +27,11 @@ $previous_post_id = get_post_meta($post_id, 'previous_post', true);
 $forward_post_id = get_post_meta($post_id, 'forward_post', true);
 $fetcher = get_post_meta($post_id, 'fetcher', true);
 if ($fetcher) { 
-    $fetchername = get_userdata($fetcher)->display_name; 
-    $fetcherlink = get_author_posts_url($fetcher); 
+    $fetcher_data = get_userdata($fetcher);
+    if($fetcher_data){
+        $fetchername = $fetcher_data->display_name; 
+        $fetcherlink = get_author_posts_url($fetcher); 
+    }
 } 
 ?>
 
