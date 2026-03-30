@@ -17,6 +17,7 @@ function admin_action_notif_manual($post_id) {
 	$winner_id = get_post_meta($post_id, 'fetcher', true);
 	$winner_name = get_user_by('ID', $winner_id)->display_name;
 	$author = get_post_field('post_author');
+	$author_name = get_user_by('ID', $author)->display_name;
 	$participants = get_post_meta($post_id, 'participants', true); 
 	$count = count($participants);
 	
@@ -29,7 +30,7 @@ function admin_action_notif_manual($post_id) {
 	send_admin_notification_email ('❤ '.$winner_name.' har vunnit lottningen! <br>
 	⌛ Lämna gärna i skåpet inom 24 timmar. <br>
 	🔓 Kod till skåpet: <b>'.$locker_code.'</b> <br>
-	🙏 Tack för att du loopar! @'.$author.' <br>
+	🙏 Tack för att du loopar! @'.$author_name.' <br>
 	💡 PS. Vi hade problem med mailutskick idag, därför kommer detta besked lite sent.', $post_id, 11, $author);
 	
 	// Send notification to losers
