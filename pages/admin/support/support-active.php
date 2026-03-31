@@ -37,7 +37,7 @@ $count = $the_query->found_posts;
 		<?php $post_id = get_the_ID(); ?>
 			<div class="post-list-post" style="padding-left:10px;" onclick="location.href='<?php the_permalink(); ?>';">
 				<div class="post-list-post-title">
-					<?php the_title(); ?>
+					<?php echo esc_html( get_the_title() ); ?>
 				</div>
 				<div class="post-list-post-meta">
 					<span><?php echo get_term(get_post_meta($post_id, 'status', true), 'support-status')->name; ?></span>

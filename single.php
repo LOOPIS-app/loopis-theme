@@ -93,7 +93,7 @@ if (empty($image_2_id)) {
                 <div class="post-content">
                     <?php the_content(); ?>
                     <?php if ($author == 66 || $author == 237) : ?>
-                        <a style="float:left; font-size:14px; padding-top:2px; margin-right:12px" href="/faq/max-murpos">💫 Räddad från soprum</a>
+                        <a style="float:left; font-size:14px; padding-top:2px; margin-right:12px" href="<?php esc_url(home_url('/faq/max-murpos'));?>">💫 Räddad från soprum</a>
                     <?php endif; ?>
 
                     <!-- POST OPTIONS -->

@@ -19,10 +19,10 @@ Bli medlem idag så kan du ta hem fem saker från vårt LOOPIS-bord.</p>
 
 <p>Här nedanför ser du vad som fortfarande finns att hämta. Kom gärna förbi och ta en titt!</p>
 
-<p><span class="big-link"><a href="../register">📋 Bli medlem!</a></span> - det kostar bara 50 kronor!</p>
-<p><span class="big-link"><a href="/faq/-hur-funkar-loopis">📌 Hur funkar LOOPIS?</a></span> - svaret finns här.</p>
+<p><span class="big-link"><a href="<?php echo esc_url(wp_registration_url()) ; ?>">📋 Bli medlem!</a></span> - det kostar bara 50 kronor!</p>
+<p><span class="big-link"><a href="<?php echo esc_url(home_url('/faq/-hur-funkar-loopis/')) ; ?>">📌 Hur funkar LOOPIS?</a></span> - svaret finns här.</p>
 
-<p class="info">PS. Som medlem kan du såklart också titta på <span class="small-link"><a href="/things">🎁 Saker att få</a></span> där XXX saker just nu finns att få på vanligt LOOPIS-sätt.</p>
+<p class="info">PS. Som medlem kan du såklart också titta på <span class="small-link"><a href="<?php echo esc_url(home_url('/things/')) ; ?>">🎁 Saker att få</a></span> där XXX saker just nu finns att få på vanligt LOOPIS-sätt.</p>
 
 <?php
 // Arguments

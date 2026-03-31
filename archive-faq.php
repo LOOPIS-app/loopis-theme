@@ -40,6 +40,8 @@ get_header(); ?>
 $terms = get_terms([
     'taxonomy'   => 'faq-tag',
     'hide_empty' => false,
+    'orderby'    => 'name',
+    'order'      => 'ASC',
 ]);
 
 if (!empty($terms) && !is_wp_error($terms)) :

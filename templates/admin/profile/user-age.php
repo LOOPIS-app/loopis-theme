@@ -12,10 +12,16 @@ if (!defined('ABSPATH')) {
 
 // Uses $user_id passed from author.php
 $birthyear = get_user_meta($user_id, 'wpum_birthyear', true);
-
+$birthyear_int = intval($birthyear);
 // Calculate current year and user's age
-$current_year = date('Y');
-$age = $current_year - $birthyear;
+if ($birthyear_int > 0) {
+    $current_year = intval(date('Y'));
+    $age = $current_year - $birthyear_int;
+    $output = "🚼 $birthyear_int ≈ $age år";
+} else {
+    $output = "🚼 Okänd";
+}
+
 
 // Output
-echo esc_html('🚼 ' . $birthyear . ' ≈ ' . $age . ' år');
+echo esc_html($output);

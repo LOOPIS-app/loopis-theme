@@ -28,7 +28,7 @@ get_header(); ?>
 <hr>
 <?php echo do_shortcode('[wpum_register form_id="2"]'); ?>
 
-<p class="info">Genom att vara medlem godkänner du föreningens väldigt snälla <span class="link"><a href="/faq/stadgar">📜 Stadgar</a></span> och <span class="link"><a href="/privacy">🗄 Integritetspolicy</a></span></p>
+<p class="info">Genom att vara medlem godkänner du föreningens väldigt snälla <span class="link"><a href="<?php echo esc_url( home_url('/faq/stadgar/') ); ?>">📜 Stadgar</a></span> och <span class="link"><a href="<?php echo esc_url( home_url('/privacy/') ); ?>">🗄 Integritetspolicy</a></span></p>
 
 <!-- ACTIVE MEMBER -->
 <?php } elseif ( current_user_can('member')) { ?>

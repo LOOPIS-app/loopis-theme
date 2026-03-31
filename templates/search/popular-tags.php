@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
 
 <div class="columns">
     <div class="column1"><h3><i class="fas fa-hashtag"></i> Populära kategorier</h3></div>
-    <div class="column2 bottom"><a href="/discover/?view=categories">Alla kategorier →</a></div>
+    <div class="column2 bottom"><a href="<?php echo esc_url(add_query_arg('view', 'categories', home_url('/discover/')) ); ?>">Alla kategorier →</a></div>
 </div>
 <hr>
 

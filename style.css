@@ -55,7 +55,7 @@ img.wp-smiley, img.emoji { margin: 0 1px 0 0 !important; vertical-align: -0.1em 
 /*  BASE LAYOUT */
 #wrapper { max-width:900px; height:100%; margin: 0 auto; background: #fefefe; margin-bottom: 25px;}
 .container { width:100%; margin-top: 70px; background: #fff; border: 1px solid #f5f5f5; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
-.content { }
+/*.content { }*/
 .page-padding { padding: 20px 15px; }
 
 /*  Header */
@@ -136,7 +136,7 @@ a:hover { color:#333; }
 /* Paragraph */
 p { margin:0 0 10px 0; }
 hr { width:100%; padding:0px; margin:0 0 9px 0; background-color:#000; height:1px; border:0; }
-.hidden { visiblity: hidden }
+.hidden { visibility: hidden }
 
 /* Special fonts */
 .small { font-size: 13px; line-height: 1.5em; margin:2px 0 10px 0; }
@@ -150,8 +150,8 @@ hr { width:100%; padding:0px; margin:0 0 9px 0; background-color:#000; height:1p
 .wrapped p { margin: 0; }
 .wrapped hr { margin-bottom: 5px; }
 .link:hover { background: #ebebeb; cursor: pointer; } /* Used when making divs clickable */
-.homescreen { }				/* Inline at the moment */
-.interaction { }				/* No style? */
+/*.homescreen { }		*/		/* Inline at the moment */
+/*.interaction { }		*/		/* No style? */
 
 /* Collapsed divs (not in use yet) */
 .collapsed { display: none; overflow: hidden; transition: max-height 0.2s ease-out; }
@@ -239,7 +239,7 @@ h1.wrap { white-space: normal; }
 .admin-block .logg { padding: 0 0 10px 0; } 
 
 /* Post-list */
-.post-list { }
+/*.post-list { }*/
 .post-list-post { height: 60px; background: #f5f5f5; box-shadow: 2px 2px 5px #eee; margin-bottom: 13px; }
 .post-list-post-big { height: 120px; background: #f5f5f5; box-shadow: 2px 2px 5px #eee; margin-bottom:15px; }
 .post-list > .link:hover { background: #ebebeb; box-shadow: 1px 1px 3px #eee; cursor: pointer; }
@@ -253,7 +253,7 @@ h1.wrap { white-space: normal; }
 .post-list-post-comment { font-size: 16px; font-style: italic; padding-top: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #333; }
 .post-list-post-comment p { padding: 0; margin: 0; background: none !important; }
 .post-list-post-comment span { padding: 4px; background: #fff; }
-.post-list-post-comment a { }
+/*.post-list-post-comment a { }*/
 .post-list-post-comment br { display: none; } 
 .post-list-post-meta { color: #777; }
 .post-list-post-meta span { padding: 0; margin-right: 7px; }
@@ -332,10 +332,10 @@ input, select, textarea, button, label { font-size: 22px; font-weight: 300;}
 /* Poe: Reset styles */
 input::-moz-focus-inner, button::-moz-focus-inner { border: 0; padding: 0; }
 input[type="search"], input[type="text"], input[type="password"], input[type="email"], input[type="url"], input[type="tel"], input[type="number"], input[type="submit"], select, button, textarea { margin: 0; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; -webkit-border-radius: 0; border-radius: 0; }
-input, select, textarea, button { -moz-appearance: none; -webkit-appearance: none; -moz-transition: all .2s ease; -webkit-transition: all .2s ease; transition: all .2s ease; }
-select { -moz-appearance: menulist; -webkit-appearance: menulist; }
-input[type="checkbox"] { -moz-appearance: checkbox; -webkit-appearance: checkbox; background: none; }
-input[type="radio"] { -moz-appearance: radio; -webkit-appearance: radio; }
+input, select, textarea, button { -moz-appearance: none; -webkit-appearance: none; appearance: none; -moz-transition: all .2s ease; -webkit-transition: all .2s ease; transition: all .2s ease; }
+select { -moz-appearance: menulist; -webkit-appearance: menulist; appearance: menulist;}
+input[type="checkbox"] { -moz-appearance: checkbox; -webkit-appearance: checkbox; appearance: checkbox; background: none; }
+input[type="radio"] { -moz-appearance: radio; -webkit-appearance: radio; appearance: radio; }
 
 /* Poe: Form elements */
 label { color: #333; }
@@ -415,7 +415,7 @@ button.option { display: inline; float: left; font-size: 14px; background: none;
 button.option:hover { background: none !important; color: #333 !important; }
 
 /* Comment list */
-#commentlist-container { }
+/*#commentlist-container { }*/
 .commentlist { margin-bottom: 10px;}
 .commentlist li { padding-left: 50px; font-size: 13px; line-height: 22px; }
 .commentlist .comment-body { margin-top: 10px; clear: both; position: relative; }
@@ -431,10 +431,10 @@ button.option:hover { background: none !important; color: #333 !important; }
 .commentlist .reply a:hover { color: #333; }
 
 /* Comment reply */
-#respond { }
+/*#respond { }*/
 .commentlist ul.children .comment-body { margin: 0 0 10px 0; }
 .commentlist ul.children .comment-body p { font-size: 14px; line-height: 18px; padding: 6px 8px; }
-.commentlist li ul {  }
+/*.commentlist li ul {  }*/
 .commentlist li li { padding-left: 35px; }
 .commentlist li li .avatar { width: 30px; height: 30px; left: -36px; top: 2px; }
 #cancel-comment-reply-link { display: block; position: absolute; bottom: 14px; left: 70px; font-size: 13px; color: #777; }
@@ -490,7 +490,7 @@ li #reply-title { font-size: 0; margin: 0!important; padding: 0; height: 0; bord
 .profile-navbar>button.active:first-child, 
 .profile-navbar>button:hover:first-child { border-top-left-radius: 10px }
 .profile-navbar > a { padding: 8px 16px; margin-right: 5px; border-radius: 10px 10px 0 0; background: #e8e8e8; }
-.profile-navbar>a:hover { background: }
+.profile-navbar>a:hover { background: #f5f5f5}
 .profile-navbar>a.active { background: #f5f5f5 }
 #profile-posts .wpum-post-thumbnail { float: left; width: 50px; margin-right: 10px; }
 .wpum-post-thumbnail img { width: 50px; height: 50px; object-fit: cover; }
@@ -539,3 +539,26 @@ input:is([type="hidden"], [type="image"], [type="file"]) { padding-top: 3px; dis
 
 /* WPUM addon Registration forms (added here because it hides the button on edit post) */
 input[name="submit_registration"].button { display: inline-block !important; }
+
+/* Css for blocklist, used in e.g. post stadgar*/
+
+.page-padding .wp-block-list {
+  counter-reset: wp-list-counter;
+  margin: 1.5em 0 ;
+  padding-left: 2em;
+  list-style-type: decimal;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 1rem;
+  line-height: 1.6em;
+}
+
+.page-padding .wp-block-list li{
+  margin-bottom: 0.8em;
+  position: relative;
+  padding-left: 1em;
+}
+
+.page-padding .wp-block-list li::marker{
+  font-weight: bold;
+  font-size: 1.1rem;
+}

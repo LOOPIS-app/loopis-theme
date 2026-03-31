@@ -54,7 +54,7 @@ get_header(); ?>
         <!-- List header -->
         <div class="columns">
             <div class="column1">↓ <?php echo $count_new; ?> nya och <?php echo $count_old; ?> tidigare</div>
-            <div class="column2"><a href="/discover/?view=random-posts">🤹 Fyndhörnan →</a></div>
+            <div class="column2"><a href="<?php echo esc_url(add_query_arg('view', 'random-posts', home_url('/discover/')) ); ?>">🤹 Fyndhörnan →</a></div>
         </div>
         <hr>
 

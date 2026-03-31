@@ -24,7 +24,7 @@ function exclude_hidden( $query ) {
     if ( !is_admin() ) {
         // Exclude categories on the home page, tag archives, and search results
         if ( ( $query->is_home() || $query->is_tag() || $query->is_search() ) && $query->is_main_query() ) {
-            $query->set( 'category__not_in', array( 41, 58, 104, 156, 157, 159, 167 ) );
+            $query->set( 'category__not_in', loopis_cats( 'fetched', 'removed', 'locker', 'disappeared', 'storage', 'paused', 'archived' ) );
         }
     }
 }
@@ -86,7 +86,8 @@ function support_data( $post_id, $post, $update ) {
     $user_ID = wp_get_current_user()->ID;
         
     // Update ACF fields
-    update_post_meta($post_id, 'status', loopis_cat("active") );
+    update_post_meta($post_id, 'status', loopis_support_cat("active") );
+    wp_set_post_terms( $post_id, loopis_support_cat("active"), 'support-status', false );
     $current_title = get_the_title();
     update_post_meta($post_id, 'title', $current_title);
     $current_url = get_permalink();
@@ -107,6 +108,9 @@ function support_data( $post_id, $post, $update ) {
     
     // Create post title
     $new_title = $current_title;
+    // get content
+    $post_content = get_post_field('post_content', $post_id);
+
     
     // Update post
     $post_data = array(
@@ -116,6 +120,10 @@ function support_data( $post_id, $post, $update ) {
             'post_author' => $user_ID, );
     remove_action( 'wp_insert_post', 'support_data', 99, 3 );
     wp_update_post( $post_data );
-    
+    $managers = get_users( ['role'=>'manager'] );
+    foreach ($managers as $user) {
+        send_admin_notification_email ('📣Jag behöver hjälp!📣 hjälp mig med detta:<br><blockquote class="quote"> '.$post_content.' </blockquote><br> Finns det någon som säger. <br> Se till att finnas där för denna i god tid ⌛', $post_id, 1, $user->ID);
+    }
+
 }
 add_action( 'wp_insert_post', 'support_data', 99, 3 );

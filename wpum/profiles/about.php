@@ -16,6 +16,14 @@ $user = wp_get_current_user();
 
 //Get author link
 $authorlink = get_author_posts_url($user_id);
+
+// Settings page (use network aware URL if needed)
+$settings_link = network_site_url('profile-settings', 'https');
+
+// Logout link (WordPress logout function handles redirection)
+$logout_link = wp_logout_url(home_url());
+
+
 ?>
 
 <p class="small">💡 Här ser du information och inställningar för ditt konto.</p>
@@ -31,8 +39,8 @@ $authorlink = get_author_posts_url($user_id);
 </div>
 
 <p><span class="big-link"><a href="<?php echo $authorlink ?>">👥 Din profil</a></span> som den visas för andra</p>
-<p><span class="big-link"><a href="../../profile-settings">⚙ Inställningar</a></span> för medlemskap</p>
-<p><span class="big-link"><a href="../../wp-login.php?action=logout">🚪 Logga ut</a></span> från LOOPIS.app</p>
+<p><span class="big-link"><a href="<?php echo $settings_link ?>">⚙ Inställningar</a></span> för medlemskap</p>
+<p><span class="big-link"><a href="<?php echo $logout_link ?>">🚪 Logga ut</a></span> från LOOPIS.app</p>
 
 <!--h3>Integritet</h3>
 <hr>

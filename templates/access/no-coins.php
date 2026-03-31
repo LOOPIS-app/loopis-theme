@@ -10,6 +10,6 @@ if (!defined('ABSPATH')) {
 <div class="wpum-message warning">
 	<h5>⚠ Slut på regnbågsmynt</h5>
 	<p>Du behöver ge bort något eller köpa fler mynt.</p>
-	<p><a href="/submit"><span class="link">💚 Ge bort</span></a> &nbsp;<span class="link"><a href="/shop/?option=coins">💰 Köp mynt</a></span></p>
-	<p><span class="link"><a href="/faq/hur-funkar-regnbagsmynt/">📌 Hur funkar regnbågsmynt?</a></span></p>
+	<p><a href="<?php echo esc_url(home_url('/submit'))?>"><span class="link">💚 Ge bort</span></a> &nbsp;<span class="link"><a href="<?php echo esc_url(add_query_arg('option', 'coins', home_url('/shop/')))?>">💰 Köp mynt</a></span></p>
+	<p><span class="link"><a href="<?php echo esc_url(home_url('/faq/hur-funkar-regnbagsmynt/'))?>">📌 Hur funkar regnbågsmynt?</a></span></p>
 </div>

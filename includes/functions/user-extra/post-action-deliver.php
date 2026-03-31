@@ -28,7 +28,7 @@ function action_locker(int $post_id) {
 	update_post_meta($post_id, 'locker_date', current_time('Y-m-d H:i:s'));
 	
 	// Send notification from LOOPIS to fetcher	
-	send_admin_notification ('🎁 Nu kan du hämta i skåpet @' . $fetcher_name . '! <br>⌛ Hämta gärna inom 24 timmar. <br>🔓 Kod till skåpet: <b>'.$locker_code.'</b>', $post_id, 1);
+	send_admin_notification_email ('🎁 Nu kan du hämta i skåpet @' . $fetcher_name . '! <br>⌛ Hämta gärna inom 24 timmar. <br>🔓 Kod till skåpet: <b>'.$locker_code.'</b>', $post_id, 1);
 	
 	// Leave comment by author
 	add_comment ('<p class="locker">✅ Nu har jag lämnat i skåpet! <span>🔔' . $fetcher_name . '</span></p>', $post_id );

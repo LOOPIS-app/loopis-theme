@@ -25,6 +25,6 @@ get_header(); ?>
 <p style="opacity: 0.5;">✅ Betalat.</p>
 
 <?php insert_spacer(20); ?>
-
-<p><button type="submit"><a href="/">Logga in!</a></button></p>
+/* What the heck? */
+<p><button type="submit"><a href="<?php echo esc_url(home_url('/'));?>">Logga in!</a></button></p>
 <p class="info">💡 Problem eller frågor? Maila <a href="mailto:info@loopis.org">info@loopis.org</a></p>

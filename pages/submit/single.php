@@ -13,7 +13,7 @@
 <p class="small">
 💡 Lägg bara upp <u>en sak i varje annons</u><br>
 💡 Fota gärna med ren bakgrund<br>
-💡 Lägg inte upp <a href="/faq/restriktioner">otillåtna annonser</a>
+💡 Lägg inte upp <a href="<?php esc_url( home_url('/faq/restriktioner'));?>">otillåtna annonser</a>
 </p>
 
 <!-- WPUM Frontend Posting -->

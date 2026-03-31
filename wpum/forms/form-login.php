@@ -79,8 +79,8 @@ if ( $redirect_to ) {
 
 <div class="wpum-message information">
 <p>Bara medlemmar i föreningen LOOPIS kan logga in.</p>
-<p><span class="big-link"><a href="/register">📋 Bli medlem</a></span></p>
-<p><span class="link"><a href="/faq/varfor-medlemskap">📌 Varför måste jag vara medlem?</a></span></p>
+<p><span class="big-link"><a href="<?php echo esc_url(home_url('/register/') ); ?>">📋 Bli medlem</a></span></p>
+<p><span class="link"><a href="<?php echo esc_url(home_url('/faq/varfor-medlemskap/') ); ?>">📌 Varför måste jag vara medlem?</a></span></p>
 </div>
 
 	<?php do_action( 'wpum_after_login_form' ); ?>

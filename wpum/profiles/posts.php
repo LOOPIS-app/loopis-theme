@@ -35,6 +35,10 @@ $count_posts_disappeared = $user_post_count['count_posts_disappeared'];
 $count_others_claimed = $user_post_count['count_others_claimed'];
 $count_others_booked = $user_post_count['count_others_booked'];
 $count_others_fetched = $user_post_count['count_others_fetched'];
+
+//
+$activity_url = home_url('/activity/');
+
 ?>
 
 <p class="small">💡 Här hittar du samtliga annonser du skapat och paxat.</p>
@@ -45,35 +49,62 @@ $count_others_fetched = $user_post_count['count_others_fetched'];
 <?php if ($count_posts_submitted > 0) : ?>
 <!--Output list of post types-->
 <?php if ($count_posts_new > 0) : ?>
-<p><a href="/activity/?view=posts-submitted&status=new"><span class="big-link">⏳ <?php echo $count_posts_new; ?> väntar på lottning</span></a></p>
+<p><a href="<?php echo esc_url( add_query_arg(array([
+	'view' => 'posts-submitted',
+	'status' => 'new',
+]), $admin_url) ); ?>"><span class="big-link">⏳ <?php echo $count_posts_new; ?> väntar på lottning</span></a></p>
 <?php endif; ?>
 <?php if ($count_posts_old > 0) : ?>
-<p><a href="/activity/?view=posts-submitted&status=old"><span class="big-link">🟢 <?php echo $count_posts_old; ?> väntar på paxning</span></a></p>
+<p><a href="<?php echo esc_url( add_query_arg(array([
+	'view' => 'posts-submitted',
+	'status' => 'old',
+]), $admin_url) ); ?>"><span class="big-link">🟢 <?php echo $count_posts_old; ?> väntar på paxning</span></a></p>
 <?php endif; ?>
 <?php if ($count_posts_booked > 0) : ?>
-<p><a href="/activity/?view=posts-submitted&status=booked"><span class="big-link">💖 <?php echo $count_posts_booked; ?> är paxade</span></a></p>
+<p><a href="<?php echo esc_url( add_query_arg(array([
+	'view' => 'posts-submitted',
+	'status' => 'booked',
+]), $admin_url) ); ?>"><span class="big-link">💖 <?php echo $count_posts_booked; ?> är paxade</span></a></p>
 <?php endif; ?>
 <?php if ($count_posts_locker > 0) : ?>
-<p><a href="/activity/?view=posts-submitted&status=locker"><span class="big-link">⏹ <?php echo $count_posts_locker; ?> är i skåpet</span></a></p>
+<p><a href="<?php echo esc_url( add_query_arg(array([
+	'view' => 'posts-submitted',
+	'status' => 'locker',
+]), $admin_url) ); ?>"><span class="big-link">⏹ <?php echo $count_posts_locker; ?> är i skåpet</span></a></p>
 <?php endif; ?>
 <?php if ($count_posts_given > 0) : ?>
-<p><a href="/activity/?view=posts-submitted&status=fetched"><span class="big-link">☑ <?php echo $count_posts_given; ?> är hämtade</span></a></p>
+<p><a href="<?php echo esc_url( add_query_arg(array([
+	'view' => 'posts-submitted',
+	'status' => 'fetched',
+]), $admin_url) ); ?>"><span class="big-link">☑ <?php echo $count_posts_given; ?> är hämtade</span></a></p>
 <?php endif; ?>
 <?php if ($count_posts_removed > 0) : ?>
-<p><a href="/activity/?view=posts-submitted&status=removed"><span class="big-link">❌ <?php echo $count_posts_removed; ?> är borttagna</span></a></p>
+<p><a href="<?php echo esc_url( add_query_arg(array([
+	'view' => 'posts-submitted',
+	'status' => 'removed',
+]), $admin_url) ); ?>"><span class="big-link">❌ <?php echo $count_posts_removed; ?> är borttagna</span></a></p>
 <?php endif; ?>
 <?php if ($count_posts_archived > 0) : ?>
-<p><a href="/activity/?view=posts-submitted&status=archived"><span class="big-link">⭕ <?php echo $count_posts_archived; ?> är arkiverade</span></a></p>
+<p><a href="<?php echo esc_url( add_query_arg(array([
+	'view' => 'posts-submitted',
+	'status' => 'archived',
+]), $admin_url) ); ?>"><span class="big-link">⭕ <?php echo $count_posts_archived; ?> är arkiverade</span></a></p>
 <?php endif; ?>
 <?php if ($count_posts_paused > 0) : ?>
-<p><a href="/activity/?view=posts-submitted&status=paused"><span class="big-link">😎 <?php echo $count_posts_paused; ?> är pausade</span></a></p>
+<p><a href="<?php echo esc_url( add_query_arg(array([
+	'view' => 'posts-submitted',
+	'status' => 'paused',
+]), $admin_url) ); ?>"><span class="big-link">😎 <?php echo $count_posts_paused; ?> är pausade</span></a></p>
 <?php endif; ?>
 <?php if ($count_posts_disappeared > 0) : ?>
-<p><a href="/activity/?view=posts-submitted&status=disappeared"><span class="big-link">💢 <?php echo $count_posts_disappeared; ?> är försvunna</span></a></p>
+<p><a href="<?php echo esc_url( add_query_arg(array([
+	'view' => 'posts-submitted',
+	'status' => 'disappeared',
+]), $admin_url) ); ?>"><span class="big-link">💢 <?php echo $count_posts_disappeared; ?> är försvunna</span></a></p>
 <?php endif; ?>
 <?php else : ?>
 		<p>💢 Du har inte skapat några annonser ännu.</p>
-		<p><span class="link"><a href="/submit">💚 Ge bort</a></span> något nu</p>
+		<p><span class="link"><a href="<?php esc_url(home_url( '/submit/')); ?>">💚 Ge bort</a></span> något nu</p>
 <?php endif; ?>
 
 <h3>❤ Mina paxningar</h3>
@@ -82,10 +113,20 @@ $count_others_fetched = $user_post_count['count_others_fetched'];
 <hr>
 <?php if ($count_others_claimed > 0) : ?>
 <?php if ($count_others_booked > 0) : ?>
-<p><a href="/activity/?view=posts-booked"><span class="big-link">💝 <?php echo $count_others_booked; ?> är paxade</span></a></p>
+<p>
+	<a href="<?php echo esc_url( add_query_arg(array([
+		'view' => 'posts-booked'
+	]), $admin_url) ); ?>/activity/?view=posts-booked"><span class="big-link">💝 <?php echo $count_others_booked; ?> är paxade</span>
+	</a>
+</p>
 <?php endif; ?>
 <?php if ($count_others_fetched > 0) : ?>
-<p><a href="/activity/?view=posts-fetched"><span class="big-link">✅ <?php echo $count_others_fetched; ?> är hämtade</span></a></p>
+<p>
+	<a href="<?php echo esc_url( add_query_arg(array([
+			'view' => 'posts-fetched',
+		]), $admin_url) ); ?>"><span class="big-link">✅ <?php echo $count_others_fetched; ?> är hämtade</span>
+	</a>
+</p>
 <?php endif; ?>
 <?php else : ?>
 		<p>💢 Du har inte paxat några annonser ännu.</p>
