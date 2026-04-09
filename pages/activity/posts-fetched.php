@@ -24,7 +24,46 @@ include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-list-output
 include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-forward.php';
 
 // Get current user ID
-$user_ID = wp_get_current_user()->ID;
+$user_ID = isset($_GET['id']) ? sanitize_text_field($_GET['id']) : wp_get_current_user()->ID;
+// Set show forward
+if (intval($user_ID)===intval(wp_get_current_user()->ID)){
+    $user_has_stuff = true;
+} else{
+    $user_has_stuff = false;
+}
+// Set pagination
+$pagge = isset($_GET['pagge']) ? intval($_GET['pagge']) : 1;
+$posts_per_pagge = 50;
+$offset = ($pagge - 1)*$posts_per_pagge;
+$max = 11; //exception
+//
+
+if ($pagge<=4){
+    if ($pagge>$max-4){
+        $range = range(1,$max);
+    }else{
+        $range = range(1,$pagge+2);
+        $range[] = '...';
+        //$range[] = $max-1;
+        $range[] = $max;
+    }
+}else{
+    if ($pagge>$max-4){
+        $range[] = 1;
+        //$range[] = 2;
+        $range[] = '...';
+        $range = array_merge($range, range($pagge-2,$max));
+    }else{
+        $range[] = 1;
+        //$range[] = 2;
+        $range[] = '...';
+        $range = array_merge($range, range($pagge-2,$pagge+2));
+        $range[] = '...';
+        //$range[] = $max-1;
+        $range[] = $max;
+    }
+}
+
 
 // Set the category (non-existing slug for forwarded posts)
 $url_slug = 'others_fetched';
@@ -48,7 +87,8 @@ $results = $wpdb->get_results(
          )
          AND tt.term_id = %d
          AND p.post_status = 'publish'
-         ORDER BY pm.meta_value DESC",
+         ORDER BY pm.meta_value DESC 
+         LIMIT {$posts_per_pagge} OFFSET {$offset}",
         'fetch_date', $user_ID, $category_id
     )
 );
@@ -92,7 +132,7 @@ $count = count($results);
             <div class="post-list-post-title"><?php echo esc_html($post_title); ?></div>
             <?php if ($forward_post_id) { 
                 // Later: Add button to view the forwarded post
-                } else { list_button_output($url_slug, $post_id); } ?>
+                } else { if ($user_has_stuff){list_button_output($url_slug, $post_id); }} ?>
             <div class="notif-meta post-list-post-meta">
                 <span>
                     <?php list_category_output($url_slug); ?> för 
@@ -104,6 +144,33 @@ $count = count($results);
 <?php else : ?>
     <p>💢 Du har inte hämtat några saker ännu.</p>
 <?php endif; ?>
+<div id="post-pagination">
+    <?php foreach ($range as $value) : ?>
+        <?php 
+        if ($value===1){
+            if (!($pagge===1)){
+                $arrow = $pagge-1;
+                echo "<a class='prev page-numbers' href='http://loopers.local/nacka/activity/?view=posts-fetched&id=103&pagge={$arrow}'>&lt;</a>";
+                echo "<a class='page-numbers' href='http://loopers.local/nacka/activity/?view=posts-fetched&id=103&pagge={$value}'>1</a>";
+            }else{
+                echo "<span aria-current='page' class='page-numbers current'>{$value}</span>";
+            }
+        }elseif($value===$pagge){
+            echo "<span aria-current='page' class='page-numbers current'>{$value}</span>";
+        }elseif($value===$max){
+            $arrow = $pagge+1;
+            echo "<a class='page-numbers' href='http://loopers.local/nacka/activity/?view=posts-fetched&id=103&pagge={$value}'>{$value}</a>";
+            echo "<a class='next page-numbers' href='http://loopers.local/nacka/activity/?view=posts-fetched&id=103&pagge={$arrow}'>&gt;</a>";
+        }elseif(is_string($value)){
+            echo "<span aria-current='page' class='page-numbers current'>...</span>";
+        }else{
+            echo "<a class='page-numbers' href='http://loopers.local/nacka/activity/?view=posts-fetched&id=103&pagge={$value}'>{$value}</a>";
+        }
+        ?> 
+     <?php endforeach; ?>
+ </div>
+
 </div><!--post-list-->
 
 <?php get_footer(); ?>
+

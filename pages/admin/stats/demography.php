@@ -228,7 +228,7 @@ $registration_date_limit = ($selected_year === 'all') ? "{$current_year}-12-31 2
 
 $all_users_area = $wpdb->get_results(
     $wpdb->prepare(
-        "SELECT ID FROM {$wpdb->prefix}users WHERE user_registered <= %s",
+        "SELECT ID FROM {$wpdb->base_prefix}users WHERE user_registered <= %s",
         $registration_date_limit
     )
 );

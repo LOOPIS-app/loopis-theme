@@ -307,8 +307,8 @@ body .wp-block-columns .wp-block-column {gap: 0em !important; }
 
 /* Pagination (WPUM style) */
 #post-pagination { display: flex; justify-content: center; background: #f5f5f5; flex-wrap: wrap; margin-top: 30px; font-size: 24px; }
-#post-pagination a { padding: 10px 15px;  }
-#post-pagination span { padding: 10px 15px; }
+#post-pagination a { padding: 8px 12px;  }
+#post-pagination span { padding: 8px 12px; }
 
 /* image position */
 img.size-auto,
@@ -545,15 +545,15 @@ input[name="submit_registration"].button { display: inline-block !important; }
 .page-padding .wp-block-list {
   counter-reset: wp-list-counter;
   margin: 1.5em 0 ;
-  padding-left: 2em;
+  padding-left: 3em;
   list-style-type: decimal;
   font-family: 'Roboto Condensed', sans-serif;
   font-size: 1rem;
-  line-height: 1.6em;
+  line-height: 1.0em;
 }
 
 .page-padding .wp-block-list li{
-  margin-bottom: 0.8em;
+  margin-bottom: 0.5em;
   position: relative;
   padding-left: 1em;
 }

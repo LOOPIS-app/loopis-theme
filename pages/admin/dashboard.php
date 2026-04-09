@@ -142,7 +142,7 @@ $admin_url = home_url('/admin/');
     <hr>
     <div>
         <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'members/registry', $admin_url) ); ?>">🗃 Medlemsregister</a></span>&nbsp;
-        <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'members/emails-list', $admin_url) ); ?>">✉ Epost-adresser</a></span>&nbsp;
+        <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'members/email-list', $admin_url) ); ?>">✉ Epost-adresser</a></span>&nbsp;
         <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'members/reward', $admin_url) ); ?>">🙏 Belöna</a></span>&nbsp;
         <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'members/rewards', $admin_url) ); ?>">🌟 Belöningar</a></span>&nbsp;
     </div>

@@ -42,7 +42,8 @@ $count = $the_query->found_posts;
 					<?php the_title(); ?>
 				</div>
 				<div class="post-list-post-meta">
-					<span><?php echo get_term(get_post_meta($post_id, 'status', true), 'support-status')->name; ?></span>
+					<?php $term = get_term(get_post_meta($post_id, 'status', true), 'support-category');?>
+					<span><?php echo (isset($term->name) ? $term->name : 'okänd' ); ?></span>
 					<span class="right"><i class="far fa-clock"></i><?php echo human_time_diff(get_the_time('U'), current_time('timestamp'));?> sen</span>
 				</div>
 			</div>

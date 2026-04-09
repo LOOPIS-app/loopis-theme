@@ -87,7 +87,7 @@ function support_data( $post_id, $post, $update ) {
         
     // Update ACF fields
     update_post_meta($post_id, 'status', loopis_support_cat("active") );
-    wp_set_post_terms( $post_id, loopis_support_cat("active"), 'support-status', false );
+    wp_set_post_terms( $post_id, loopis_support_cat("active"), 'support-category', false );
     $current_title = get_the_title();
     update_post_meta($post_id, 'title', $current_title);
     $current_url = get_permalink();

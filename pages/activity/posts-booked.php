@@ -24,7 +24,8 @@ include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-list-output
 include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-forward.php';
 
 // Get current user ID
-$user_ID = wp_get_current_user()->ID;
+$user_ID = isset($_GET['id']) ? sanitize_text_field($_GET['id']) : wp_get_current_user()->ID;
+
 
 // Set the category (non-existing slug for forwarded posts)
 $url_slug = 'others_booked';
@@ -77,16 +78,12 @@ $count = count($results);
         $book_date = $post->book_date; // Not used yet, but could be used for metadata output
         $permalink = get_permalink($post_id);
         $thumbnail = get_the_post_thumbnail($post_id, 'thumbnail');
-
         ?>
         <div class="post-list-post" style="position:relative;">
             <div class="post-list-post-thumbnail" onclick="location.href='<?php echo esc_url($permalink); ?>';">
                 <?php echo $thumbnail; ?>
             </div>
             <div class="post-list-post-title"><?php echo esc_html($post_title); ?></div>
-            <?php if ($forward_post_id) { 
-                // Later: Add button to view the forwarded post
-                } else { list_button_output($url_slug, $post_id); } ?>
             <div class="notif-meta post-list-post-meta">
                 <span><?php the_category(' '); ?></span>
             </div>

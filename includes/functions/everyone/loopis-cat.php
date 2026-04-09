@@ -33,14 +33,18 @@ function loopis_cat($slug) {
  */
 function loopis_cats($slugs) {
     $ids = array();
-    
-    foreach ($slugs as $slug) {
-        $id = loopis_cat($slug);
-        if ($id) {
-            $ids[] = $id;
+    if (!empty($slugs)){
+        if(is_string($slugs)){
+            $ids[] = loopis_cat($slugs);
+        } else{
+            foreach ($slugs as $slug) {
+                $id = loopis_cat($slug);
+                if ($id) {
+                    $ids[] = $id;
+                }
+            }
         }
     }
-    
     return $ids;
 }
 
@@ -52,7 +56,7 @@ function loopis_cats($slugs) {
  */
 function loopis_support_cat($slug) {
     // Get category by slug
-    $category = get_term_by('slug', $slug, 'support-status');
+    $category = get_term_by('slug', $slug, 'support-category');
     
     // Return ID if found, otherwise return false
     return $category ? $category->term_id : false;

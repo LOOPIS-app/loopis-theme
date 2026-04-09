@@ -12,7 +12,7 @@ $args = array(
     'post_type' => 'support',
     'tax_query' => array(
         array(
-            'taxonomy' => 'support-status',
+            'taxonomy' => 'support-category',
             'field' => 'slug',
             'terms' => 'inactive'
         )
@@ -41,7 +41,7 @@ $count = $the_query->found_posts;
 					<?php the_title(); ?>
 				</div>
 				<div class="post-list-post-meta">
-					<span><?php echo get_term(get_post_meta($post_id, 'status', true), 'support-status')->name; ?></span>
+					<span><?php echo get_term(get_post_meta($post_id, 'status', true), 'support-category')->name; ?></span>
 					<span>👤 <?php echo get_the_author_posts_link(); ?></span>
 					<span class="right"><i class="fas fa-arrow-alt-circle-up"></i><?php echo human_time_diff(get_the_time('U'), current_time('timestamp'));?> sen</span>
 				</div>

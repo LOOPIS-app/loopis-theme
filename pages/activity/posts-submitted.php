@@ -28,7 +28,9 @@ include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-paus
 
 <?php
 // Get current user ID
-$user_ID = wp_get_current_user()->ID;
+
+$user_ID = isset($_GET['id']) ? sanitize_text_field($_GET['id']) : wp_get_current_user()->ID;
+
 
 // Get category slug from the URL (e.g. /?status=paused)
 $url_slug = isset($_GET['status']) ? sanitize_text_field($_GET['status']) : '';

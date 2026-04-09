@@ -19,7 +19,7 @@
                 <span class="text">Sök</span>
             </a>
 
-            <a href="<?php echo $site_url . 'submit/' ?>" class="footer-button">
+            <a href="<?php echo esc_url($site_url . 'submit/'); ?>" class="footer-button">
                 <span class="emoji">💚</span>
                 <span class="text">Ge bort</span>
             </a>

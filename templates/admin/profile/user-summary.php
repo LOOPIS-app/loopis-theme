@@ -21,9 +21,10 @@ wp_enqueue_script('loopis-tabs', get_template_directory_uri() . '/assets/js/tabs
     <div class="tab-nav">
         <nav class="profile-navbar">
             <a href="#" class="tab-link" data-tab="tab-info">👤</a>
-            <a href="#" class="tab-link" data-tab="tab-submitted">⬆️</a>
-            <a href="#" class="tab-link" data-tab="tab-fetched">⬇️</a>
+            <a href="#" class="tab-link" data-tab="tab-economy">🧮</a>
+            <a href="#" class="tab-link" data-tab="tab-posts">🎁</a>
             <a href="#" class="tab-link" data-tab="tab-support">🛟</a>
+            <a href="#" class="tab-link" data-tab="tab-about">⚙️</a>
         </nav>
     </div><!--tab-nav-->
 
@@ -116,21 +117,24 @@ wp_enqueue_script('loopis-tabs', get_template_directory_uri() . '/assets/js/tabs
 
         </div><!--tab-panel-->
 
-        <!-- Submitted Posts Tab -->
-        <div id="tab-submitted" class="tab-panel">
-            <?php include_once LOOPIS_THEME_DIR . '/templates/admin/profile/user-posts-submitted.php'; ?>
-        </div>
 
-        <!-- Fetched Posts Tab -->
-        <div id="tab-fetched" class="tab-panel">
-            <?php include_once LOOPIS_THEME_DIR . '/templates/admin/profile/user-posts-fetched.php'; ?>
-        </div>
 
         <!-- Support Tab -->
         <div id="tab-support" class="tab-panel">
             <?php include_once LOOPIS_THEME_DIR . '/templates/admin/profile/user-posts-support.php'; ?>
         </div>
-
+        <!-- Economy Tab -->
+        <div id="tab-economy" class="tab-panel">
+            <?php include_once LOOPIS_THEME_DIR . '/templates/admin/profile/user-economy.php'; ?>
+        </div>
+        <!-- Posts Tab -->
+        <div id="tab-posts" class="tab-panel">
+            <?php include_once LOOPIS_THEME_DIR . '/templates/admin/profile/user-posts.php'; ?>
+        </div>
+        <!-- About Tab -->
+        <div id="tab-about" class="tab-panel">
+            <?php include_once LOOPIS_THEME_DIR . '/templates/admin/profile/user-about.php'; ?>
+        </div>
     </div><!--tab-content-->
 
 </div><!--admin-block-->
