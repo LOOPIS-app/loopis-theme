@@ -10,7 +10,11 @@ if (!defined('ABSPATH')) {
 
 // Determine which query to use
 global $wp_query;
-$query = isset($the_query) ? $the_query : $wp_query;
+if (isset($the_query)){
+    $query = $the_query;
+} else{
+    $query = get_query_var('custom_query') ?: $wp_query;
+}
 
 // Only show pagination if there's more than one page
 if ($query->max_num_pages > 1) :
