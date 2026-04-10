@@ -23,6 +23,9 @@ include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-list-output
 // Include post action functions
 include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-forward.php';
 
+// Include sql-pagination functionality
+include_once LOOPIS_THEME_DIR . '/includes/functions/everyone/sql-pagination.php';
+
 // Get current user ID
 $user_ID = isset($_GET['id']) ? sanitize_text_field($_GET['id']) : wp_get_current_user()->ID;
 // Set show forward
@@ -31,43 +34,43 @@ if (intval($user_ID)===intval(wp_get_current_user()->ID)){
 } else{
     $user_has_stuff = false;
 }
-// Set pagination
-$pagge = isset($_GET['pagge']) ? intval($_GET['pagge']) : 1;
-$posts_per_pagge = 50;
-$offset = ($pagge - 1)*$posts_per_pagge;
-$max = 11; //exception
-//
-
-if ($pagge<=4){
-    if ($pagge>$max-4){
-        $range = range(1,$max);
-    }else{
-        $range = range(1,$pagge+2);
-        $range[] = '...';
-        //$range[] = $max-1;
-        $range[] = $max;
-    }
-}else{
-    if ($pagge>$max-4){
-        $range[] = 1;
-        //$range[] = 2;
-        $range[] = '...';
-        $range = array_merge($range, range($pagge-2,$max));
-    }else{
-        $range[] = 1;
-        //$range[] = 2;
-        $range[] = '...';
-        $range = array_merge($range, range($pagge-2,$pagge+2));
-        $range[] = '...';
-        //$range[] = $max-1;
-        $range[] = $max;
-    }
-}
-
 
 // Set the category (non-existing slug for forwarded posts)
 $url_slug = 'others_fetched';
 $category_id = loopis_cat('fetched');
+
+
+$posts_per_page = 50;
+$total = $wpdb->get_var(
+    $wpdb->prepare(
+        "SELECT COUNT(DISTINCT p.ID)
+         FROM {$wpdb->posts} p
+         INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id
+         INNER JOIN {$wpdb->term_relationships} tr ON p.ID = tr.object_id
+         INNER JOIN {$wpdb->term_taxonomy} tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
+         WHERE pm.meta_key = %s
+         AND pm.meta_value != ''
+         AND pm.meta_value IS NOT NULL
+         AND EXISTS (
+             SELECT 1
+             FROM {$wpdb->postmeta} pm2
+             WHERE pm2.post_id = p.ID
+             AND pm2.meta_key = 'fetcher'
+             AND pm2.meta_value = %d
+         )
+         AND tt.term_id = %d
+         AND p.post_status = 'publish'",
+        'fetch_date',
+        $user_ID,
+        $category_id
+    )
+);
+
+$max_pages = ceil($total/$posts_per_page);
+
+// Set pagination
+$pagenum = loopis_GET_pagenum($max_pages);
+$offset = ($pagenum - 1)*$posts_per_page;
 
 // Get all things fetched (using SQL for better performance)
 global $wpdb;
@@ -88,7 +91,7 @@ $results = $wpdb->get_results(
          AND tt.term_id = %d
          AND p.post_status = 'publish'
          ORDER BY pm.meta_value DESC 
-         LIMIT {$posts_per_pagge} OFFSET {$offset}",
+         LIMIT {$posts_per_page} OFFSET {$offset}",
         'fetch_date', $user_ID, $category_id
     )
 );
@@ -102,7 +105,7 @@ $count = count($results);
 <hr>
 <p><?php list_instruction_output($url_slug, $count) ?></p>
 
-<div class="columns"><div class="column1">↓ <?php echo $count; ?> annons<?php if ($count !== 1) { echo "er"; } ?></div>
+<div class="columns"><div class="column1">↓ Visar annons<?php if ($count !== 1) { echo "er ".$offset." -";} ?><?php echo " ".($offset+$count); ?><?php echo " av " . $total . " totalt"; ?></div>
 <div class="column2 small">💡 Senaste överst</div></div>
 <hr>
 
@@ -144,33 +147,7 @@ $count = count($results);
 <?php else : ?>
     <p>💢 Du har inte hämtat några saker ännu.</p>
 <?php endif; ?>
-<div id="post-pagination">
-    <?php foreach ($range as $value) : ?>
-        <?php 
-        if ($value===1){
-            if (!($pagge===1)){
-                $arrow = $pagge-1;
-                echo "<a class='prev page-numbers' href='http://loopers.local/nacka/activity/?view=posts-fetched&id=103&pagge={$arrow}'>&lt;</a>";
-                echo "<a class='page-numbers' href='http://loopers.local/nacka/activity/?view=posts-fetched&id=103&pagge={$value}'>1</a>";
-            }else{
-                echo "<span aria-current='page' class='page-numbers current'>{$value}</span>";
-            }
-        }elseif($value===$pagge){
-            echo "<span aria-current='page' class='page-numbers current'>{$value}</span>";
-        }elseif($value===$max){
-            $arrow = $pagge+1;
-            echo "<a class='page-numbers' href='http://loopers.local/nacka/activity/?view=posts-fetched&id=103&pagge={$value}'>{$value}</a>";
-            echo "<a class='next page-numbers' href='http://loopers.local/nacka/activity/?view=posts-fetched&id=103&pagge={$arrow}'>&gt;</a>";
-        }elseif(is_string($value)){
-            echo "<span aria-current='page' class='page-numbers current'>...</span>";
-        }else{
-            echo "<a class='page-numbers' href='http://loopers.local/nacka/activity/?view=posts-fetched&id=103&pagge={$value}'>{$value}</a>";
-        }
-        ?> 
-     <?php endforeach; ?>
- </div>
-
+<?php loopis_sql_pagination($max_pages);?>
 </div><!--post-list-->
 
 <?php get_footer(); ?>
-

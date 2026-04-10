@@ -259,7 +259,7 @@ function count_posts_disappeared($user_ID) {
 function count_others_claimed($user_ID) {
     $args = array(
         'post_type'   => 'post',
-        'cat'        => loopis_cats(['fetched', 'booked_custom', 'booked', 'locker']), // Remove 'booked_locker' after migration
+        'cat'        => loopis_cats(['fetched', 'booked_custom', 'booked', 'locker']),
 		'meta_key'    => 'fetcher',
         'meta_value'  => $user_ID,
 		'posts_per_page' => -1,

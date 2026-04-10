@@ -24,6 +24,8 @@ include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-list-output
 include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-extend.php';
 include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-remove.php';
 include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-pause.php';
+
+
 ?>
 
 <?php
@@ -49,7 +51,7 @@ if ($url_slug === 'booked') {
 // Query args to get posts from current user...
 $args = array(
 	'author' => $user_ID,
-	'posts_per_page' => -1,
+	'posts_per_page' => 50,
 );
 
 // ...with category filter if ID(s) are set...
@@ -59,6 +61,7 @@ if (!empty($category_ids)) {
 
 // ...and go!
 $the_query = new WP_Query($args);
+error_log($the_query->request);
 $count = $the_query->found_posts;
 ?>
 
@@ -87,6 +90,7 @@ $count = $the_query->found_posts;
 <?php else : ?>
 		<p>💢 Du har inga annonser med denna status.</p>
 <?php endif; ?>
+<?php include_once get_template_directory() . '/templates/post-list/pagination.php';?>
 </div><!--post-list-->
 
 <?php wp_reset_postdata(); ?>
