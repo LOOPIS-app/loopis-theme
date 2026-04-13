@@ -61,3 +61,41 @@ function loopis_support_cat($slug) {
     // Return ID if found, otherwise return false
     return $category ? $category->term_id : false;
 }
+
+
+/**
+ * Get status ID by slug
+ * 
+ * @param string $slug Support-status slug (e.g., 'in'-/'active')
+ * @return int|false Term ID or false if not found
+ */
+function loopis_tag($slug) {
+    // Get category by slug
+    $category = get_term_by('slug', $slug, 'post_tag');
+    
+    // Return ID if found, otherwise return false
+    return $category ? $category->term_id : false;
+}
+
+/**
+ * Get multiple category IDs by slugs
+ * 
+ * @param array $slugs Array of category slugs (e.g., ['new', 'booked', 'fetched'])
+ * @return array Array of category IDs (excludes non-existent categories)
+ */
+function loopis_tags($slugs) {
+    $ids = array();
+    if (!empty($slugs)){
+        if(is_string($slugs)){
+            $ids[] = loopis_tag($slugs);
+        } else{
+            foreach ($slugs as $slug) {
+                $id = loopis_tag($slug);
+                if ($id) {
+                    $ids[] = $id;
+                }
+            }
+        }
+    }
+    return $ids;
+}

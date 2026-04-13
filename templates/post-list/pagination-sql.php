@@ -1,5 +1,8 @@
 <?php
 
+if (!defined('ABSPATH')) {
+    exit;
+}
 
 function loopis_GET_pagenum($max_pages){
     $pagenum = (int) ($_GET['pagenum'] ?? 1);
@@ -44,19 +47,14 @@ function loopis_sql_pagination($max_pages){
     if(($max_pages)<1){
         $max_pages=1;
     }
-    $pagenum = isset($_GET['pagenum']) ? intval($_GET['pagenum']) :1;
-    if (($pagenum)<1){
-        $pagenum=1;
-    } elseif ($pagenum>$max_pages){
-        $pagenum=$max_pages;
-    }
+    $pagenum = loopis_GET_pagenum($max_pages);
     $range = loopis_get_range($max_pages, $pagenum);
     $folder = home_url(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 
-    //The pagination
+    //The pagination template
     echo '<div id="post-pagination">';
     foreach ($range as $value) {
-        $args = $_GET;
+        $args = $_GET; //maybe overkill but good safety to have this inside forloop
         if ($value===1){
             if (!($pagenum===1)){
                 $arrow = $pagenum-1;

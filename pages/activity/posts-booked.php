@@ -27,7 +27,7 @@ include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-forw
 $user_ID = isset($_GET['id']) ? sanitize_text_field($_GET['id']) : wp_get_current_user()->ID;
 
 
-include_once LOOPIS_THEME_DIR . '/includes/functions/everyone/sql-pagination.php';
+include_once LOOPIS_THEME_DIR . '/templates/post-list/pagination-sql.php';
 
 // Set the category (non-existing slug for forwarded posts)
 $url_slug = 'others_booked';
@@ -100,6 +100,17 @@ $total = $wpdb->get_var(
     )
 );
 
+// Set the category (non-existing slug for forwarded posts)
+$url_slug = 'others_fetched';
+$search = (string)($_GET['search'] ?? false);
+$view = (string) $_GET['view'] ?? '';
+$tags = (array) (!empty($_GET['tag']) ? [loopis_tag($_GET['tag'])] : []);
+$posts_per_page = 50;
+[$results, $total] = loopis_get_posts_query($view,  $user_ID, false, $category_ids, $tags, $search);
+$max_pages = ceil($total/$posts_per_page);
+$pagenum = loopis_GET_pagenum($max_pages);
+$offset = ($pagenum - 1)*$posts_per_page;
+set_query_var( 'search_postids', wp_list_pluck($results, 'ID'));
 
 // Count the number of posts retrieved
 $count = count($results);
