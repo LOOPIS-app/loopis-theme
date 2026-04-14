@@ -11,8 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Get current user ID
-$user_id = get_current_user_id();
-$user = wp_get_current_user();
+$user_id = get_queried_object_id();
+$user = get_user($user_id);
 
 //Get author link
 $authorlink = get_author_posts_url($user_id);
@@ -38,9 +38,6 @@ $logout_link = wp_logout_url(home_url());
 <p>📍 Område: <b><?php include_once LOOPIS_THEME_DIR . '/templates/user/profile/user-area.php'; ?></b></p>
 </div>
 
-<p><span class="big-link"><a href="<?php echo $authorlink ?>">👥 Din profil</a></span> som den visas för andra</p>
-<p><span class="big-link"><a href="<?php echo $settings_link ?>">⚙ Inställningar</a></span> för medlemskap</p>
-<p><span class="big-link"><a href="<?php echo $logout_link ?>">🚪 Logga ut</a></span> från LOOPIS.app</p>
 
 <!--h3>Integritet</h3>
 <hr>

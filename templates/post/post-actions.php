@@ -108,7 +108,7 @@ $locker_code = get_locker_code(LOCKER_ID);
 	<p>⚠ Denna annons har pausats av givaren och kan inte paxas.</p>	
 
 	<?php if ( $current == $author ) : ?>
-		<p>Gå till dina <span class="big-link"><a href="/pages/activity/posts/?status=paused">😎 Pausade annonser</a></span> för att aktivera.<p>
+		<p>Gå till dina <span class="big-link"><a href="<?php echo esc_url( add_query_arg('status', 'paused', home_url('/pages/activity/posts/') ) ); ?>">😎 Pausade annonser</a></span> för att aktivera.<p>
 	<?php endif;?>
 	
 	<?php if ( $current != $author ) : ?>
@@ -124,7 +124,7 @@ $locker_code = get_locker_code(LOCKER_ID);
 <p>⚠ Denna annons är för tillfället automatiskt arkiverad eftersom den är äldre än 4 veckor.</p>	
 
 <?php if ( $current == $author ) : ?>
-	<p>Gå till dina <span class="big-link"><a href="/pages/activity/posts/?status=archived">⭕ Arkiverade annonser</a></span> för att aktivera.<p>
+	<p>Gå till dina <span class="big-link"><a href="<?php echo esc_url( add_query_arg('status', 'archived', home_url('/pages/activity/posts/') ) ); ?>">⭕ Arkiverade annonser</a></span> för att aktivera.<p>
 <?php endif;?>
 
 <?php if ( $current != $author ) : ?>
@@ -168,7 +168,7 @@ $locker_code = get_locker_code(LOCKER_ID);
 
 	<?php if ( $current == $fetcher ) : ?>
 
-		<p>🔔 Du ska skicka ett sms till <span class="link">👤 <?php echo $authorlink ?></span> för att komma överens om hämtning på <span class="label"><i class="fas fa-walking"></i><a href="http://maps.apple.com/maps?q=<?php echo $location; ?>"><?php echo $location; ?></a></span></p>
+		<p>🔔 Du ska skicka ett sms till <span class="link">👤 <?php echo $authorlink ?></span> för att komma överens om hämtning på <span class="label"><i class="fas fa-walking"></i><a href="<?php echo esc_url('https://maps.apple.com/maps?q=' . rawurlencode($location)); ?>"><?php echo $location; ?></a></span></p>
 		<form class="arb"><button type="button" onclick="location.href='sms:<?php echo get_the_author_meta('wpum_phone'); ?>'">&#128241;<?php echo get_the_author_meta('wpum_phone'); ?></button></form>
 		<p class="info">Tryck på knappen för att skicka ett sms till <?php echo $authorname; ?>.</p>
 
@@ -179,7 +179,7 @@ $locker_code = get_locker_code(LOCKER_ID);
 
 	<?php if ( $current == $author ) : ?>
 		<p>⏳ Du väntar på att  <span class="link">👤 <a href="<?php echo $fetcherlink; ?>"><?php echo $fetchername; ?></a></span> ska skicka ett sms och hämta...</span></p>
-		<form class="arb"><button type="button" onclick="location.href='sms:<?php echo get_user_meta($fetcher, 'wpum_phone', true); ?>'">&#128241;<?php echo get_user_meta($fetcher, 'wpum_phone', true); ?></button></form>
+		<form class="arb"><button type="button" onclick="location.href='sms:<?php echo esc_attr( preg_replace('/\s+/', '', get_user_meta($fetcher, 'wpum_phone', true)) ); ?>'">&#128241;<?php echo get_user_meta($fetcher, 'wpum_phone', true); ?></button></form>
 		<p class="info">Tryck på knappen om du vill skicka ett sms till <?php echo $fetchername ?></p>
 	<?php endif;?>	
 
@@ -217,7 +217,7 @@ $locker_code = get_locker_code(LOCKER_ID);
 <?php if (in_category( 'locker' )) : ?>
 
 	<?php if ( $current != $author && $current != $fetcher ) : ?>
-		<p>♻ Denna pryl är på väg till ett nytt hem. Du kan leta efter något liknande på <?php $tags = get_the_tags(); if ($tags) { foreach ($tags as $tag) { echo '<span class="link" style="margin-right:5px;"><a href="' . get_tag_link($tag->term_id) . '"><i class="fas fa-hashtag"></i>' . $tag->name . '</a></span>'; }} ?></p>
+		<p>♻ Denna pryl är på väg till ett nytt hem. Du kan leta efter något liknande på <?php $tags = get_the_tags(); if ($tags) { foreach ($tags as $tag) { echo '<span class="link" style="margin-right:5px;"><a href="' . esc_url( get_tag_link($tag->term_id) ) . '"><i class="fas fa-hashtag"></i>' . $tag->name . '</a></span>'; }} ?></p>
 	<?php endif;?>
 	
 	<?php if ( $current == $author ) : ?>

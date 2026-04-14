@@ -10,8 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-// Get current user iD
-$user_id = get_current_user_id();
+// Get author user iD
+$user_id = get_queried_object_id();
 
 // Get profile economy
 $profile_economy = get_economy($user_id);
@@ -88,7 +88,7 @@ $coins = $profile_economy['coins'];
 <?php if ($clovers < 10) { $remaining = 10 - $clovers; ?>
 💡 Samla <?php echo $remaining; ?> fyrklöver så får du ett mynt!<br>
 <?php } ?>
-<a href="<?php echo get_permalink( get_page_by_path('hur-funkar-beloningar') ); ?>">📌 Hur funkar belöningar?</a>
+<a href="<?php echo get_permalink( get_page_by_path('hur-funkar-beloningar/') ); ?>">📌 Hur funkar belöningar?</a>
 </p>
 
 

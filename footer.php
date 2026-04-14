@@ -4,33 +4,33 @@
 <?php if ((current_user_can('member') || current_user_can('administrator'))) : ?>
     <?php get_template_part('templates/support/create-ticket'); ?>
 <?php endif; ?>
-
+<?php $site_url = home_url("/"); ?>
 </div><!--wrapper-->
 
 <footer id="footer">
     <div class="footer-menu">
         <nav>
-            <a href="/" class="footer-button">
+            <a href="<?php echo $site_url ?>" class="footer-button">
                 <span class="emoji">️🎁️</span>
                 <span class="text">Saker att få</span>
             </a>
-            <a href="/?s=" class="footer-button">
+            <a href="<?php echo $site_url . '?s=' ?>" class="footer-button">
                 <span class="emoji">🔍️</span>
                 <span class="text">Sök</span>
             </a>
 
-            <a href="/submit/" class="footer-button">
+            <a href="<?php echo esc_url($site_url . 'submit/'); ?>" class="footer-button">
                 <span class="emoji">💚</span>
                 <span class="text">Ge bort</span>
             </a>
 
             <?php if (is_user_logged_in()) : ?>
-                <a href="/activity/" class="footer-button">
+                <a href="<?php echo $site_url . 'activity/' ?>" class="footer-button">
                     <span class="emoji">🔔</span>
                     <span class="text">Min aktivitet</span>
                 </a>
             <?php else : ?>
-                <a href="/faq/" class="footer-button">
+                <a href="<?php echo $site_url . 'faq/' ?>" class="footer-button">
                     <span class="emoji">💡</span>
                     <span class="text">Hur funkar det?</span>
                 </a>
@@ -38,18 +38,18 @@
 
             <?php if (is_user_logged_in()) : ?>
                 <?php if (current_user_can('administrator')) : ?>
-                    <a href="/admin/" class="footer-button">
+                    <a href="<?php echo $site_url . 'admin/' ?>" class="footer-button">
                         <span class="emoji">🐙️</span>
                         <span class="text">Admin</span>
                     </a>
                 <?php else : ?>
-                    <a href="/profile/" class="footer-button">
+                    <a href="<?php echo $site_url . 'profile/' ?>" class="footer-button">
                         <span class="emoji">👤️</span>
                         <span class="text">Min profil</span>
                     </a>
                 <?php endif; ?>
             <?php else : ?>
-                <a href="/log-in/" class="footer-button">
+                <a href="<?php echo $site_url . 'log-in/' ?>" class="footer-button">
                     <span class="emoji">👤️</span>
                     <span class="text">Logga in</span>
                 </a>

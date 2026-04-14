@@ -23,35 +23,30 @@ include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-list-output
 // Include post action functions
 include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-forward.php';
 
+// Include sql-pagination functionality
+include_once LOOPIS_THEME_DIR . '/templates/post-list/pagination-sql.php';
+
 // Get current user ID
-$user_ID = wp_get_current_user()->ID;
+$user_ID = isset($_GET['id']) ? sanitize_text_field($_GET['id']) : wp_get_current_user()->ID;
+// Set show forward
+if (intval($user_ID)===intval(wp_get_current_user()->ID)){
+    $user_has_stuff = true;
+} else{
+    $user_has_stuff = false;
+}
 
 // Set the category (non-existing slug for forwarded posts)
 $url_slug = 'others_fetched';
 $category_id = loopis_cat('fetched');
+$search = (string)($_GET['search'] ?? false);
+$view = (string) $_GET['view'] ?? '';
+$tags = (array) (!empty($_GET['tag']) ? [loopis_tag($_GET['tag'])] : []);
+$posts_per_page = 50;
+[$results, $total] = loopis_get_posts_query($view,  $user_ID, false, $category_id, $tags, $search);
+$max_pages = ceil($total/$posts_per_page);
+$pagenum = loopis_GET_pagenum($max_pages);
+$offset = ($pagenum - 1)*$posts_per_page;
 
-// Get all things fetched (using SQL for better performance)
-global $wpdb;
-
-$results = $wpdb->get_results(
-    $wpdb->prepare(
-        "SELECT p.ID, p.post_title, p.post_date, pm.meta_value AS fetch_date
-         FROM {$wpdb->posts} p
-         INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id
-         INNER JOIN {$wpdb->term_relationships} tr ON p.ID = tr.object_id
-         INNER JOIN {$wpdb->term_taxonomy} tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
-         WHERE pm.meta_key = %s AND pm.meta_value != '' AND pm.meta_value IS NOT NULL
-         AND EXISTS (
-             SELECT 1
-             FROM {$wpdb->postmeta} pm2
-             WHERE pm2.post_id = p.ID AND pm2.meta_key = 'fetcher' AND pm2.meta_value = %d
-         )
-         AND tt.term_id = %d
-         AND p.post_status = 'publish'
-         ORDER BY pm.meta_value DESC",
-        'fetch_date', $user_ID, $category_id
-    )
-);
 
 // Count the number of posts retrieved
 $count = count($results);
@@ -61,8 +56,8 @@ $count = count($results);
 <h1><?php list_header_output($url_slug) ?></h1>
 <hr>
 <p><?php list_instruction_output($url_slug, $count) ?></p>
-
-<div class="columns"><div class="column1">↓ <?php echo $count; ?> annons<?php if ($count !== 1) { echo "er"; } ?></div>
+<?php get_template_part('templates/search/search-form-sql'); ?>
+<div class="columns"><div class="column1">↓<?php if ($count !== 1) { echo $offset." -";} ?><?php echo " ".($offset+$count); ?><?php echo " av " . $total . " totalt"; ?></div>
 <div class="column2 small">💡 Senaste överst</div></div>
 <hr>
 
@@ -92,7 +87,7 @@ $count = count($results);
             <div class="post-list-post-title"><?php echo esc_html($post_title); ?></div>
             <?php if ($forward_post_id) { 
                 // Later: Add button to view the forwarded post
-                } else { list_button_output($url_slug, $post_id); } ?>
+                } else { if ($user_has_stuff){list_button_output($url_slug, $post_id); }} ?>
             <div class="notif-meta post-list-post-meta">
                 <span>
                     <?php list_category_output($url_slug); ?> för 
@@ -104,6 +99,7 @@ $count = count($results);
 <?php else : ?>
     <p>💢 Du har inte hämtat några saker ännu.</p>
 <?php endif; ?>
+<?php loopis_sql_pagination($max_pages);?>
 </div><!--post-list-->
 
 <?php get_footer(); ?>

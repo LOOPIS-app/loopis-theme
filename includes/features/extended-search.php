@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('LOOPIS_SEARCH_CATEGORY_SLUGS', array('new', 'first', 'booked_locker', 'booked_custom'));
+define('LOOPIS_SEARCH_CATEGORY_SLUGS', array('new', 'old', 'booked', 'booked_custom'));
 
 // Determine if a query is the frontend main search query.
 function loopis_is_frontend_main_search_query($query) {

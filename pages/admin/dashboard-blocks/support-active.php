@@ -13,7 +13,7 @@ $args = array(
     'posts_per_page' => -1,
     'tax_query'      => array(
         array(
-            'taxonomy' => 'support-status',
+            'taxonomy' => 'support-category',
             'field'    => 'slug',
             'terms'    => 'active'
         )

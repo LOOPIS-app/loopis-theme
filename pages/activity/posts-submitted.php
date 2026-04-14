@@ -24,14 +24,28 @@ include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-list-output
 include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-extend.php';
 include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-remove.php';
 include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-pause.php';
-?>
+// Include sql-pagination functionality
+include_once LOOPIS_THEME_DIR . '/templates/post-list/pagination-sql.php';
 
-<?php
 // Get current user ID
-$user_ID = wp_get_current_user()->ID;
+
+
+// Get current user ID
+$user_ID = isset($_GET['id']) ? sanitize_text_field($_GET['id']) : wp_get_current_user()->ID;
+// Set show forward
+if (intval($user_ID)===intval(wp_get_current_user()->ID)){
+    $user_has_stuff = true;
+} else{
+    $user_has_stuff = false;
+}
+
 
 // Get category slug from the URL (e.g. /?status=paused)
 $url_slug = isset($_GET['status']) ? sanitize_text_field($_GET['status']) : '';
+$search_query = get_search_query();
+$tag_slug = (string) get_query_var('tag');
+$tag = (array) loopis_tag($url_slug);
+
 
 /** Set category IDs from URL slug */
 
@@ -44,47 +58,68 @@ if ($url_slug === 'booked') {
 	$category_ids = $category_id ? array($category_id) : array();
 }
 
-// Query args to get posts from current user...
-$args = array(
-	'author' => $user_ID,
-	'posts_per_page' => -1,
-);
+// Set the category (non-existing slug for forwarded posts)
+$search = (string)($_GET['search'] ?? false);
+$view = (string) $_GET['view'] ?? '';
+$tags = (array) (!empty($_GET['tag']) ? [loopis_tag($_GET['tag'])] : []);
+$posts_per_page = 50;
+[$results, $total] = loopis_get_posts_query($view,  false, $user_ID, $category_ids, $tags, $search);
+$max_pages = ceil($total/$posts_per_page);
+$pagenum = loopis_GET_pagenum($max_pages);
+$offset = ($pagenum - 1)*$posts_per_page;
 
-// ...with category filter if ID(s) are set...
-if (!empty($category_ids)) {
-	$args['category__in'] = $category_ids;
-}
-
-// ...and go!
-$the_query = new WP_Query($args);
-$count = $the_query->found_posts;
+// Count the number of posts retrieved
+$count = count($results);
 ?>
 
 <!-- Output title and instructions -->
 <h1><?php list_header_output($url_slug) ?></h1>
 <hr>
 <p><?php list_instruction_output($url_slug, $count) ?></p>
-
-<div class="columns"><div class="column1">↓ <?php echo $count; ?> annons<?php if ($count !== 1) { echo "er"; } ?></div>
+<?php get_template_part('templates/search/search-form-sql'); ?>
+<div class="columns"><div class="column1">↓ <?php if ($count !== 1) { echo $offset." -";} ?><?php echo " ".($offset+$count); ?><?php echo " av " . $total . " totalt"; ?></div>
 <div class="column2 small">💡 Senast överst</div></div>
 <hr>
 <!-- Output post list -->
 <div class="post-list">
-<?php if ( $the_query->have_posts() ) : ?>
-<?php while ( $the_query->have_posts() ) : $the_query->the_post(); $post_id = get_the_ID(); ?>
-	<div class="post-list-post" style="position:relative;">
-		<div class="post-list-post-thumbnail" onclick="location.href='<?php the_permalink(); ?>';"><?php echo the_post_thumbnail('thumbnail'); ?></div>
-		<div class="post-list-post-title"><?php the_title(); ?></div>
-		<?php list_button_output($url_slug, $post_id) ?>
-		<div class="notif-meta post-list-post-meta">
-			<span><?php the_category(' '); ?><?php if (in_category('new')) { echo raffle_time(); } ?></span>
-		</div>
-	</div><!--post-list-post-->
-<?php endwhile; ?>
-		
+<?php if (!empty($results)) : ?>
+    <?php foreach ($results as $post) : ?>
+        <?php
+        // Get post data
+        $post_id = $post->ID;
+        $post_title = $post->post_title;
+        $post_date = $post->post_date; // Already fetched in the query
+        $permalink = get_permalink($post_id);
+        $thumbnail = get_the_post_thumbnail($post_id, 'thumbnail');
+
+        // Check if post already has been forwarded
+        $forward_post_id = get_post_meta($post_id, 'forward_post', true);
+        if ($forward_post_id) {
+            $forward_post_category = get_the_category($forward_post_id);
+            // Later: Fetch category symbol
+        }
+        ?>
+        <div class="post-list-post" style="position:relative;">
+            <div class="post-list-post-thumbnail" onclick="location.href='<?php echo esc_url($permalink); ?>';">
+                <?php echo $thumbnail; ?>
+            </div>
+            <div class="post-list-post-title"><?php echo esc_html($post_title); ?></div>
+            <?php if ($forward_post_id) { 
+                // Later: Add button to view the forwarded post
+                } else { if ($user_has_stuff){list_button_output($url_slug, $post_id); }} ?>
+            <div class="notif-meta post-list-post-meta">
+				<span>
+					<?php the_category(' '); ?><?php if (in_category('new')) { echo raffle_time(); } ?> 
+				</span>
+            </div>
+        </div><!--post-list-post-->
+    <?php endforeach; ?>
 <?php else : ?>
 		<p>💢 Du har inga annonser med denna status.</p>
 <?php endif; ?>
+<?php 
+loopis_sql_pagination($max_pages);
+?>
 </div><!--post-list-->
 
 <?php wp_reset_postdata(); ?>

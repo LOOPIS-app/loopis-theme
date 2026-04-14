@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) {
 <p>Här kan du betala ditt medlemskap med Swish.</p>
 
 <div class="wpum-message information">
-<p>⚠ Vi föredrar att du <a href="/register-pay">betalar med kort</a>!</p>
+<p>⚠ Vi föredrar att du <a href="<?php echo esc_url(home_url('/register-pay'));?>">betalar med kort</a>!</p>
 <p class="small">💡 Swish-betalningar registreras manuellt av vår kassör, vanligtvis inom en timme.</p>
 </div>
 

@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
 <div class="wrapped">
 <h5>⚠ Fler frågor?</h5>
 <hr>
-<p>→ Titta först på sidan <a href="/faq">Frågor & svar</a>!</p>
+<p>→ Titta först på sidan <a href="<?php echo esc_url(home_url('/faq/'));?>">Frågor & svar</a>!</p>
 <?php if ( is_user_logged_in() ) { ?>
 <p>→ Fråga admin genom hjälp-rutan längst ner på den sida din fråga handlar om.</p>
 <p>→ Fråga i medlemmarnas <a rel="noreferrer noopener" href="https://web.facebook.com/groups/loopis.medlemmar" target="_blank">Facebook-grupp</a> eller <a rel="noreferrer noopener" href="https://discord.com/channels/1480883243740954626/1480883244449927231" target="_blank">Discord-server</a></p>

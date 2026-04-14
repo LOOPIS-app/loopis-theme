@@ -29,6 +29,7 @@ get_header(); ?>
             'paged'          => $paged,
         );
 
+
         $the_query = new WP_Query($args);
         $count = $the_query->found_posts;
         ?>
@@ -48,13 +49,18 @@ get_header(); ?>
                 <?php endwhile; ?>
         </div><!--post-list-->
 
-        <?php get_template_part('templates/post-list/pagination'); ?>
+        <?php 
+            set_query_var('custom_query', $the_query);
+            get_template_part('templates/post-list/pagination'); 
+        ?>
 
         <?php else : ?>
             <p>💢 Det finns inga aktuella annonser</p>
         <?php endif; ?>
 
-        <?php wp_reset_postdata(); ?>
+        <?php 
+            wp_reset_postdata(); 
+        ?>
 
     </div><!--page-padding-->
 </div><!--content-->

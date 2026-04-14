@@ -9,7 +9,11 @@ if (!defined('ABSPATH')) {
 
 function update_locker($locker_id, $field, $value) {
     global $wpdb;
-    $table = $wpdb->prefix . 'loopis_lockers';
+    if(is_multisite()){
+        $table = $wpdb->base_prefix . 'loopis_lockers';
+    }else{
+        $table = $wpdb->prefix . 'loopis_lockers';
+    }
 
     if ($locker_id === '' || $field === '') {
         return false;

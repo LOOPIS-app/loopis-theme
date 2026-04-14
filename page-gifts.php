@@ -12,6 +12,7 @@ get_header(); ?>
 
         <?php
         // Check pagination
+
         $paged = get_query_var('paged') ?: 1;
 
         // Get available posts categories
@@ -43,14 +44,17 @@ get_header(); ?>
                     <?php get_template_part('templates/post-list/big-posts'); ?>
                 <?php endwhile; ?>
         </div><!--post-list-->
-
-        <?php include_once get_template_directory() . '/templates/post-list/pagination.php'; ?>
-
+        <?php 
+            set_query_var('custom_query', $the_query);
+            include_once get_template_directory() . '/templates/post-list/pagination.php'; 
+        ?>
         <?php else : ?>
             <p>💢 Det finns inga aktuella annonser</p>
         <?php endif; ?>
 
-        <?php wp_reset_postdata(); ?>
+        <?php 
+            wp_reset_postdata(); 
+        ?>
 
     </div><!--page-padding-->
 </div><!--content-->

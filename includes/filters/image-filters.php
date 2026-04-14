@@ -66,3 +66,8 @@ function disable_image_rotation($file) {
 }
 
 add_filter('wp_handle_upload_prefilter', 'disable_image_rotation');
+
+add_filter('wp_get_attachment_image_attributes', function($attr){
+    $attr['loading'] = 'lazy';
+    return $attr;
+});

@@ -9,7 +9,7 @@
 // Get user birthday
 $birthyear = get_user_meta($user_id, 'wpum_birthyear', true);
 $birthyear_int = intval($birthyear);
-// Get current year and calculate user's age
+// Calculate current year and user's age
 if ($birthyear_int > 0) {
     $current_year = intval(date('Y'));
     $age = $current_year - $birthyear_int;

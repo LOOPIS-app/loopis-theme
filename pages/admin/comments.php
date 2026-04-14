@@ -73,6 +73,6 @@ $count = count($comments);
 </div><!--post-list-->
 
 <!-- Mention script -->
-<script src="<?php echo LOOPIS_THEME_URI; ?>/assets/js/mentions-show-list.js.js"></script>
+<script src="<?php echo LOOPIS_THEME_URI; ?>/assets/js/mentions-show-list.js"></script>
 
 <?php wp_reset_postdata(); ?>

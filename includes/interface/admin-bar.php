@@ -13,6 +13,6 @@ if (!defined('ABSPATH')) {
 /**
  * Disable admin bar for non-admin users
  */
-if ( ! current_user_can( 'manage_options' ) ) {
+if ( ! current_user_can('manage_options') ) {
     add_filter( 'show_admin_bar', '__return_false' );
 }

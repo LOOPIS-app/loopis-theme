@@ -10,8 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-// Get current user iD
-$user_id = get_current_user_id();
+// Get current user iD should get author 
+$user_id = get_queried_object_id();
 
 // Get profile economy
 $profile_economy = get_economy($user_id);
@@ -47,5 +47,3 @@ $coins = $profile_economy['coins'];
 <p class="small">💡 Detaljerad lista över din aktivitet finns på nästa flik.<br>
 <a href="<?php echo esc_url(home_url('/faq/hur-funkar-regnbagsmynt')); ?>">📌 Hur funkar regnbågsmynt?</a></p>
 
-<!--BUY COINTS-->
-<p><button type="submit"><a href="<?php echo esc_url(add_query_arg('option', 'coins', home_url('/shop/'))); ?>">Köp mynt</a></button></p>

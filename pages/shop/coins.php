@@ -37,8 +37,8 @@ if ($test_mode) {
 <p><button type="submit"><a href="<?php echo esc_url($payment_link); ?>">💳 Betala 50 kr</a></button></p>
 <p class="small">💡 Du får dina mynt direkt när betalningen är genomförd.</p>
 
-<p><span class="link"><a href="/faq/hur-funkar-regnbagsmynt">📌 Hur funkar regnbågsmynt?</a></span></p>
-<p><span class="link"><a href="/shop/?option=swish-coins">💸 Betala med Swish istället</a></span></p>
+<p><span class="link"><a href="<?php echo esc_url(home_url('/faq/hur-funkar-regnbagsmynt')); ?>">📌 Hur funkar regnbågsmynt?</a></span></p>
+<p><span class="link"><a href="<?php echo esc_url(add_query_arg('option', 'coins', home_url('/shop/'))); ?>">💸 Betala med Swish istället</a></span></p>
 
 <?php
 // Developer info in test mode

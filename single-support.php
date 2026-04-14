@@ -18,7 +18,7 @@ $page_link = get_post_meta($post_id, 'link', true);
 
 // Get category of the post
 $status_id = get_post_meta($post_id, 'status', true);
-$status_term = get_term($status_id, 'support-status');
+$status_term = get_term($status_id, 'support-category');
 $status_name = $status_term->name;
 $status_slug = $status_term->slug;
 ?>
@@ -88,7 +88,7 @@ $status_slug = $status_term->slug;
 <?php if(isset($_POST['inactive'])) { 
 	update_post_meta($post_id,'status', null);
 	update_post_meta($post_id,'status', loopis_support_cat('inactive')); 
-	wp_set_post_terms($post_id, loopis_support_cat('inactive'), 'support-status', false);
+	wp_set_post_terms($post_id, loopis_support_cat('inactive'), 'support-category', false);
 	add_comment ('<p class="participate">✅ Markerar frågan som besvarad.</p>', $post_id );
 	echo "<meta http-equiv='refresh' content='0'>"; } ?>
 		<form method="post" class="arb" action=""><button name="inactive" type="submit" class="green small" onclick="return confirm('Är frågan besvarad?')">Frågan är besvarad</button></form>

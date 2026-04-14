@@ -31,7 +31,7 @@ get_header(); ?>
         <!-- List header -->
         <div class="columns">
             <div class="column1">↓ <?php echo $count; ?> aktuella annonser</div>
-            <div class="column2"><a href="../../faq/hur-far-jag-saker/">📌 Hur får jag saker?</a></div>
+            <div class="column2"><a href="<?php echo get_permalink( get_page_by_path('hur-far-jag-saker') ); ?>">📌 Hur får jag saker?</a></div>
         </div>
         <hr>
 

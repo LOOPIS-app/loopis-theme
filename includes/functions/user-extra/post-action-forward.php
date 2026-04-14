@@ -68,8 +68,10 @@ function action_forward(int $post_id) {
 	delete_post_meta($new_post_id, '_edit_last');
 
 	// Leave comment by author
-	add_comment('<p class="forward">💝 Jag skickar vidare. <span>→ <a href="/' . get_post_field('post_name', $new_post_id) . '">Ny annons</a></span></p>', $post_id);
-	
+	add_comment(
+		'<p class="forward">💝 Jag skickar vidare. <span>→ <a href="' . esc_url( get_permalink($new_post_id) ) . '">Ny annons</a></span></p>',
+		$post_id
+	);
 	// Check queue + notify
 	$queue = maybe_unserialize(get_post_meta($post_id, 'queue', true)); // Ensure the value is unserialized
 	if (!empty($queue) && is_array($queue)) { 

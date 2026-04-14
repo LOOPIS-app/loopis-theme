@@ -96,7 +96,7 @@ if (empty($image_2_id)) {
                 <div class="post-content">
                     <?php the_content(); ?>
                     <?php if ($author == 66 || $author == 237) : ?>
-                        <a style="float:left; font-size:14px; padding-top:2px; margin-right:12px" href="/faq/max-murpos">💫 Räddad från soprum</a>
+                        <a style="float:left; font-size:14px; padding-top:2px; margin-right:12px" href="<?php esc_url(home_url('/faq/max-murpos'));?>">💫 Räddad från soprum</a>
                     <?php endif; ?>
 
                     <!-- POST OPTIONS -->
@@ -123,7 +123,7 @@ if (empty($image_2_id)) {
             <!-- INTERACTION -->
                 <div class="columns">
                     <div class="column1"><h3>Dina alternativ</h3></div>
-                    <div class="column2 bottom"><a href="../faq/hur-far-jag-saker/">📌 Hur får jag saker?</a></div>
+                    <div class="column2 bottom"><a href="<?php echo get_permalink( get_page_by_path('hur-far-jag-saker') ); ?>">📌 Hur får jag saker?</a></div>
                 </div>
                 <hr>
 

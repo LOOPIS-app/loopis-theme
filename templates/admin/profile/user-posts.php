@@ -16,8 +16,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Count function
 include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-list-counts.php';
 
-// Get current user iD
-$user_id = get_current_user_id();
+// Get author user iD
+$user_id = get_queried_object_id();
 
 // Count all posts published by user
 $user_post_count = user_post_count($user_id);
@@ -50,55 +50,64 @@ $activity_url = home_url('/activity/');
 <!--Output list of post types-->
 <?php if ($count_posts_new > 0) : ?>
 <p><a href="<?php echo esc_url( add_query_arg(array([
-	'view' => 'posts-submitted',
+	'view' => 'posts-submitted', 
+	'id'=>$user_id,
 	'status' => 'new',
 ]), $activity_url) ); ?>"><span class="big-link">⏳ <?php echo $count_posts_new; ?> väntar på lottning</span></a></p>
 <?php endif; ?>
 <?php if ($count_posts_old > 0) : ?>
 <p><a href="<?php echo esc_url( add_query_arg(array([
-	'view' => 'posts-submitted',
+	'view' => 'posts-submitted', 
+	'id'=>$user_id,
 	'status' => 'old',
 ]), $activity_url) ); ?>"><span class="big-link">🟢 <?php echo $count_posts_old; ?> väntar på paxning</span></a></p>
 <?php endif; ?>
 <?php if ($count_posts_booked > 0) : ?>
 <p><a href="<?php echo esc_url( add_query_arg(array([
-	'view' => 'posts-submitted',
+	'view' => 'posts-submitted', 
+	'id'=>$user_id,
 	'status' => 'booked',
 ]), $activity_url) ); ?>"><span class="big-link">💖 <?php echo $count_posts_booked; ?> är paxade</span></a></p>
 <?php endif; ?>
 <?php if ($count_posts_locker > 0) : ?>
 <p><a href="<?php echo esc_url( add_query_arg(array([
-	'view' => 'posts-submitted',
+	'view' => 'posts-submitted', 
+	'id'=>$user_id,
 	'status' => 'locker',
 ]), $activity_url) ); ?>"><span class="big-link">⏹ <?php echo $count_posts_locker; ?> är i skåpet</span></a></p>
 <?php endif; ?>
 <?php if ($count_posts_given > 0) : ?>
 <p><a href="<?php echo esc_url( add_query_arg(array([
-	'view' => 'posts-submitted',
+	'view' => 'posts-submitted', 
+	'id'=>$user_id,
 	'status' => 'fetched',
-]), $activity_url) ); ?>"><span class="big-link">☑ <?php echo $count_posts_given; ?> är hämtade</span></a></p>
+]), $activity_url) ); ?>"><span class="big-link">✅ <?php echo $count_posts_given; ?> är lämnade</span></a></p>
 <?php endif; ?>
 <?php if ($count_posts_removed > 0) : ?>
 <p><a href="<?php echo esc_url( add_query_arg(array([
-	'view' => 'posts-submitted',
+	'view' => 'posts-submitted', 
+	'id'=>$user_id,
 	'status' => 'removed',
 ]), $activity_url) ); ?>"><span class="big-link">❌ <?php echo $count_posts_removed; ?> är borttagna</span></a></p>
 <?php endif; ?>
 <?php if ($count_posts_archived > 0) : ?>
 <p><a href="<?php echo esc_url( add_query_arg(array([
-	'view' => 'posts-submitted',
+	'view' => 'posts-submitted', 
+	'id'=>$user_id,
 	'status' => 'archived',
 ]), $activity_url) ); ?>"><span class="big-link">⭕ <?php echo $count_posts_archived; ?> är arkiverade</span></a></p>
 <?php endif; ?>
 <?php if ($count_posts_paused > 0) : ?>
 <p><a href="<?php echo esc_url( add_query_arg(array([
-	'view' => 'posts-submitted',
+	'view' => 'posts-submitted', 
+	'id'=>$user_id,
 	'status' => 'paused',
 ]), $activity_url) ); ?>"><span class="big-link">😎 <?php echo $count_posts_paused; ?> är pausade</span></a></p>
 <?php endif; ?>
 <?php if ($count_posts_disappeared > 0) : ?>
 <p><a href="<?php echo esc_url( add_query_arg(array([
-	'view' => 'posts-submitted',
+	'view' => 'posts-submitted', 
+	'id'=>$user_id,
 	'status' => 'disappeared',
 ]), $activity_url) ); ?>"><span class="big-link">💢 <?php echo $count_posts_disappeared; ?> är försvunna</span></a></p>
 <?php endif; ?>
@@ -115,21 +124,23 @@ $activity_url = home_url('/activity/');
 <?php if ($count_others_booked > 0) : ?>
 <p>
 	<a href="<?php echo esc_url( add_query_arg(array([
-		'view' => 'posts-booked'
-	]), $activity_url) ); ?>"><span class="big-link">💝 <?php echo $count_others_booked; ?> är paxade</span>
+		'view' => 'posts-booked', 
+	    'id'=>$user_id,	
+        ]), $activity_url) ); ?>"><span class="big-link">💝 <?php echo $count_others_booked; ?> är paxade</span>
 	</a>
 </p>
 <?php endif; ?>
 <?php if ($count_others_fetched > 0) : ?>
 <p>
 	<a href="<?php echo esc_url( add_query_arg(array([
-			'view' => 'posts-fetched',
-		]), $activity_url) ); ?>"><span class="big-link">✅ <?php echo $count_others_fetched; ?> är hämtade</span>
+			'view' => 'posts-fetched', 
+	        'id'=>$user_id,		
+            ]), $activity_url) ); ?>"><span class="big-link">☑ <?php echo $count_others_fetched; ?> är hämtade</span>
 	</a>
 </p>
 <?php endif; ?>
 <?php else : ?>
 		<p>💢 Du har inte paxat några annonser ännu.</p>
-		<p>Ta en titt på <span class="link"><a href="<?php echo home_url(''); ?>">🎁 Saker att få</a></span></p>
+		<p>Ta en titt på <span class="link"><a href="<?php echo home_url(); ?>/things">🎁 Saker att få</a></span></p>
 <?php endif; ?>
 <?php wp_reset_postdata(); ?>

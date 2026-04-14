@@ -9,17 +9,16 @@ get_header(); ?>
 <div class="content">
     <div class="page-padding">
 
-        <h1>🔍 Sök</h1>
+        <h1>🔍 Sök </h1>
         <hr>
         <p class="small">💡 Sök bland alla aktuella annonser.</p>
-
         <!-- Search Form -->
         <?php get_template_part('templates/search/search-form'); ?>
 
         <?php
         
         // Categories
-        $available_cats = loopis_cats(['new', 'first', 'booked_custom', 'booked_locker']);  
+        $available_cats = loopis_cats(['new', 'old', 'booked_custom', 'booked']);  
         // Check if search query exists
         $search_query = get_search_query();
         $tag_slug = (string) get_query_var('tag');
