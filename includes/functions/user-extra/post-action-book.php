@@ -40,11 +40,11 @@ function action_book_locker(int $post_id) {
     update_post_meta($post_id,'book_date', current_time('Y-m-d H:i:s'));
 
     // Send notification from LOOPIS to author
-    send_admin_notification('
+    send_admin_notification_email('
     ❤ ' . $fetcher_name . ' har paxat! <br>
     ⌛ Lämna gärna i skåpet inom 24 timmar. <br>
     🔓 Kod till skåpet: <b>' . $locker_code . '</b> <br>
-    🙏 Tack för att du loopar! @' . $author_name, $post_id, 1);
+    🙏 Tack för att du loopar! @' . $author_name, $post_id, 1, $author);
 
     // Leave comment by fetcher
     add_comment('<p class="book">
@@ -83,16 +83,16 @@ function action_book_custom(int $post_id) {
     update_post_meta($post_id,'book_date', current_time('Y-m-d H:i:s'));
 
     // Send notification from LOOPIS to author
-    send_admin_notification('
+    send_admin_notification_email('
     ❤ ' . $fetcher_name . ' har paxat!<br>
     📱 Du kommer få ett sms för att komma överens om hämtning på ' . $location . '. <br>
-    🙏 Tack för att du loopar! @' . $author_name, $post_id, 1);
+    🙏 Tack för att du loopar! @' . $author_name, $post_id, 1, $author);
 
     // Send notification from LOOPIS to fetcher
-    send_admin_notification('
+    send_admin_notification_email('
     📍 Du har paxat för hämtning på ' . $location . '. <br>
     📱 Skicka ett sms till ' . $author_name . ' på <a href="sms:' . $author_phone .'">' . $author_phone .'</a> <br>
-    🙏 Tack för att du loopar! @' . $fetcher_name, $post_id, 1);
+    🙏 Tack för att du loopar! @' . $fetcher_name, $post_id, 1, $fetcher);
 
     // Leave comment by fetcher
     add_comment('<p class="book">
