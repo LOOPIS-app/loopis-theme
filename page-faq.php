@@ -22,48 +22,48 @@ get_header(); ?>
 
 <h3>Instruktioner</h3>
 <hr>
-<p><span class="big-link"><a href="hur-funkar-loopis">📌 Hur funkar LOOPIS?</a></span></p>
-<p><span class="big-link"><a href="hur-far-jag-saker">📌 Hur får jag saker?</a></span></p>
-<p><span class="big-link"><a href="hur-ger-jag-saker/">📌 Hur ger jag saker?</a></span></p>
-<p><span class="big-link"><a href="tips-hemskarm">📌 Lägg LOOPIS på din hemskärm</a></span></p>
+<p><span class="big-link"><a href="<?php echo get_permalink( get_page_by_path('hur-funkar-loopis') ); ?>">📌 Hur funkar LOOPIS?</a></span></p>
+<p><span class="big-link"><a href="<?php echo get_permalink( get_page_by_path('hur-far-jag-saker') ); ?>">📌 Hur får jag saker?</a></span></p>
+<p><span class="big-link"><a href="<?php echo get_permalink( get_page_by_path('hur-ger-jag-saker') ); ?>">📌 Hur ger jag saker?</a></span></p>
+<p><span class="big-link"><a href="<?php echo get_permalink( get_page_by_path('tips-hemskarm') ); ?>">📌 Lägg LOOPIS på din hemskärm</a></span></p>
 
 <?php if ( is_user_logged_in() ) : ?>
-<p><span class="big-link"><a href="kop-mynt">💰 Köp regnbågsmynt</a></span></p>
+<p><span class="big-link"><a href="<?php echo get_permalink( get_page_by_path('kop-mynt') ); ?>">💰 Köp regnbågsmynt</a></span></p>
 <?php endif; ?>
 
 <h3>Medlemskap</h3>
 <hr>
-<p><span class="big-link"><a href="varfor-medlemskap">📌 Varför måste jag vara medlem?</a></span></p>
-<p><span class="big-link"><a href="varfor-bagis">📌 Varför måste jag bo i Bagis?</a></span></p>
-<p><span class="big-link"><a href="tips-till-ny-medlem">📌 Tips till ny medlem</a></span></p>
+<p><span class="big-link"><a href="<?php echo get_permalink( get_page_by_path('varfor-medlemskap') ); ?>">📌 Varför måste jag vara medlem?</a></span></p>
+<p><span class="big-link"><a href="<?php echo get_permalink( get_page_by_path('varfor-bagis') ); ?>">📌 Varför måste jag bo i Bagis?</a></span></p>
+<p><span class="big-link"><a href="<?php echo get_permalink( get_page_by_path('tips-till-ny-medlem') ); ?>">📌 Tips till ny medlem</a></span></p>
 
 <?php if ( current_user_can('member_earlier')) { ?>
-	<p><span class="big-link"><a href="../fornya-medlemskap">📋 Förnya medlemskap</a></span></p>
+	<p><span class="big-link"><a href="<?php echo get_permalink( get_page_by_path('fornya-medlemskap') ); ?>">📋 Förnya medlemskap</a></span></p>
 <?php } else { ?>
-	<p><span class="big-link"><a href="../register">📋 Bli medlem</a></span></p>
+	<p><span class="big-link"><a href="<?php echo get_permalink( get_page_by_path('register') ); ?>">📋 Bli medlem</a></span></p>
 <?php } ?>
 
 <h3>LOOPIS.app</h3>
 <hr>
-<p><span class="big-link"><a href="hur-funkar-lottning">📌 Hur funkar lottning?</a></span></p>
-<p><span class="big-link"><a href="hur-funkar-regnbagsmynt">📌 Hur funkar regnbågsmynt?</a></span></p>
-<p><span class="big-link"><a href="hur-funkar-beloningar/">📌 Hur funkar belöningar?</a></span></p>
-<p><span class="big-link"><a href="restriktioner">📌 Vilka annonser är inte tillåtna?</a></span></p>
+<p><span class="big-link"><a href="<?php echo get_permalink( get_page_by_path('hur-funkar-lottning') ); ?>">📌 Hur funkar lottning?</a></span></p>
+<p><span class="big-link"><a href="<?php echo get_permalink( get_page_by_path('hur-funkar-regnbagsmynt') ); ?>">📌 Hur funkar regnbågsmynt?</a></span></p>
+<p><span class="big-link"><a href="<?php echo get_permalink( get_page_by_path('hur-funkar-beloningar/') ); ?>">📌 Hur funkar belöningar?</a></span></p>
+<p><span class="big-link"><a href="<?php echo get_permalink( get_page_by_path('restriktioner') ); ?>">📌 Vilka annonser är inte tillåtna?</a></span></p>
 
 
 <h3>LOOPIS skåp</h3>
 <hr>
-<p><span class="big-link"><a href="hur-funkar-skapet">📌 Hur funkar skåpet?</a></span></p>
-<p><span class="big-link"><a href="saker-som-inte-ryms-i-skapet">📌 Saker som inte ryms i skåpet?</a></span></p>
+<p><span class="big-link"><a href="<?php echo get_permalink( get_page_by_path('hur-funkar-skapet') ); ?>">📌 Hur funkar skåpet?</a></span></p>
+<p><span class="big-link"><a href="<?php echo get_permalink( get_page_by_path('saker-som-inte-ryms-i-skapet') ); ?>">📌 Saker som inte ryms i skåpet?</a></span></p>
 
 <h3>Om föreningen</h3>
 <hr>
-<p><span class="big-link"><a href="vad-ar-loopis">📌 Vad är LOOPIS?</a></span></p>
-<p><span class="big-link"><a href="kontakt">📌 Kontakt med föreningen</a></span></p>
-<p><span class="big-link"><a href="hjalpa-till">📌 Hur kan jag hjälpa till?</a></span></p>
-<p><span class="big-link"><a href="max-murpos">📌 Vem är Max Murpos?</a></span></p>
-<p><span class="big-link"><a href="stadgar">📜 Föreningens stadgar</a></span></p>
-<p><span class="big-link"><a href="../privacy">🗄 Integritetspolicy</a></span></p>
+<p><span class="big-link"><a href="<?php echo get_permalink( get_page_by_path('vad-ar-loopis') ); ?>">📌 Vad är LOOPIS?</a></span></p>
+<p><span class="big-link"><a href="<?php echo get_permalink( get_page_by_path('kontakt') ); ?>">📌 Kontakt med föreningen</a></span></p>
+<p><span class="big-link"><a href="<?php echo get_permalink( get_page_by_path('hjalpa-till') ); ?>">📌 Hur kan jag hjälpa till?</a></span></p>
+<p><span class="big-link"><a href="<?php echo get_permalink( get_page_by_path('max-murpos') ); ?>">📌 Vem är Max Murpos?</a></span></p>
+<p><span class="big-link"><a href="<?php echo get_permalink( get_page_by_path('stadgar') ); ?>">📜 Föreningens stadgar</a></span></p>
+<p><span class="big-link"><a href="<?php echo get_permalink( get_page_by_path('privacy') ); ?>">🗄 Integritetspolicy</a></span></p>
 
 <?php if ( is_user_logged_in() ) : ?>
 <h3>För medlemmar</h3>

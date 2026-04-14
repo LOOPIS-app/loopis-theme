@@ -34,7 +34,11 @@ if (
 		: array();
 
 	global $wpdb;
-	$table = $wpdb->prefix . 'loopis_lockers';
+    if(is_multisite()){
+        $table = $wpdb->base_prefix . 'loopis_lockers';
+    }else{
+        $table = $wpdb->prefix . 'loopis_lockers';
+    }
 	$locker_ids = $wpdb->get_col("SELECT locker_id FROM $table");
 
 	foreach ($locker_ids as $locker_id) {
@@ -45,7 +49,11 @@ if (
 
 // Load current locker states
 global $wpdb;
-$table = $wpdb->prefix . 'loopis_lockers';
+if(is_multisite()){
+    $table = $wpdb->base_prefix . 'loopis_lockers';
+}else{
+    $table = $wpdb->prefix . 'loopis_lockers';
+}
 $lockers = $wpdb->get_results("SELECT locker_id, locker_name, locker_full FROM $table ORDER BY locker_id");
 
 // Render table of lockers with inline toggle

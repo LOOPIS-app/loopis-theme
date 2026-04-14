@@ -120,7 +120,7 @@ if (empty($image_2_id)) {
             <!-- INTERACTION -->
                 <div class="columns">
                     <div class="column1"><h3>Dina alternativ</h3></div>
-                    <div class="column2 bottom"><a href="../faq/hur-far-jag-saker/">📌 Hur får jag saker?</a></div>
+                    <div class="column2 bottom"><a href="<?php echo get_permalink( get_page_by_path('hur-far-jag-saker') ); ?>">📌 Hur får jag saker?</a></div>
                 </div>
                 <hr>
 

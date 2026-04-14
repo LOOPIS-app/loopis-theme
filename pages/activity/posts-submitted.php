@@ -77,7 +77,7 @@ $count = count($results);
 <hr>
 <p><?php list_instruction_output($url_slug, $count) ?></p>
 <?php get_template_part('templates/search/search-form-sql'); ?>
-<div class="columns"><div class="column1">↓ Visar annons<?php if ($count !== 1) { echo "er ".$offset." -";} ?><?php echo " ".($offset+$count); ?><?php echo " av " . $total . " totalt"; ?></div>
+<div class="columns"><div class="column1">↓ <?php if ($count !== 1) { echo $offset." -";} ?><?php echo " ".($offset+$count); ?><?php echo " av " . $total . " totalt"; ?></div>
 <div class="column2 small">💡 Senast överst</div></div>
 <hr>
 <!-- Output post list -->
@@ -110,9 +110,6 @@ $count = count($results);
             <div class="notif-meta post-list-post-meta">
 				<span>
 					<?php the_category(' '); ?><?php if (in_category('new')) { echo raffle_time(); } ?> 
-					<div class="right">
-						Upplagd: <?php echo $post_date; ?>
-					</div>
 				</span>
             </div>
         </div><!--post-list-post-->
@@ -121,7 +118,7 @@ $count = count($results);
 		<p>💢 Du har inga annonser med denna status.</p>
 <?php endif; ?>
 <?php 
-include_once get_template_directory() . '/templates/post-list/pagination-sql.php';
+loopis_sql_pagination($max_pages);
 ?>
 </div><!--post-list-->
 

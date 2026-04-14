@@ -11,12 +11,11 @@ if (!defined('ABSPATH')) {
 
 // Get current user ID
 $user_ID = get_current_user_id();
-
 // Arguments
 $args = array(
     'user_id' => $user_ID,
     'status' => 'approve',
-    'number' => 50, );
+    'number' => 50,);
 
 // Query
 $comments = get_comments($args); ?>

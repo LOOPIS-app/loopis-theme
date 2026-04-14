@@ -81,7 +81,7 @@ $activity_url = home_url('/activity/');
 	'view' => 'posts-submitted', 
 	'id'=>$user_id,
 	'status' => 'fetched',
-]), $activity_url) ); ?>"><span class="big-link">☑ <?php echo $count_posts_given; ?> är hämtade</span></a></p>
+]), $activity_url) ); ?>"><span class="big-link">✅ <?php echo $count_posts_given; ?> är lämnade</span></a></p>
 <?php endif; ?>
 <?php if ($count_posts_removed > 0) : ?>
 <p><a href="<?php echo esc_url( add_query_arg(array([
@@ -135,7 +135,7 @@ $activity_url = home_url('/activity/');
 	<a href="<?php echo esc_url( add_query_arg(array([
 			'view' => 'posts-fetched', 
 	        'id'=>$user_id,		
-            ]), $activity_url) ); ?>"><span class="big-link">✅ <?php echo $count_others_fetched; ?> är hämtade</span>
+            ]), $activity_url) ); ?>"><span class="big-link">☑ <?php echo $count_others_fetched; ?> är hämtade</span>
 	</a>
 </p>
 <?php endif; ?>

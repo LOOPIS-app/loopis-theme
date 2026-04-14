@@ -4,7 +4,11 @@
  */
 
 global $wpdb;
-$table = $wpdb->prefix . 'loopis_lockers';
+if(is_multisite()){
+    $table = $wpdb->base_prefix . 'loopis_lockers';
+}else{
+    $table = $wpdb->prefix . 'loopis_lockers';
+}
 $total_lockers = (int) $wpdb->get_var("SELECT COUNT(*) FROM $table");
 $active_warnings = (int) $wpdb->get_var("SELECT COUNT(*) FROM $table WHERE locker_full = 1");
 

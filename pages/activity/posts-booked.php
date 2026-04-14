@@ -121,7 +121,7 @@ $count = count($results);
 <hr>
 <p><?php list_instruction_output($url_slug, $count) ?></p>
 
-<div class="columns"><div class="column1">↓ <?php echo $count; ?> annons<?php if ($count !== 1) { echo "er"; } ?></div>
+<div class="columns"><div class="column1">↓ <?php if ($count !== 1) { echo $offset." -";} ?><?php echo " ".($offset+$count); ?><?php echo " av " . $total . " totalt"; ?></div>
 <div class="column2 small">💡 Senaste överst</div></div>
 <hr>
 

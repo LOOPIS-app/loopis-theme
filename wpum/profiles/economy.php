@@ -88,7 +88,7 @@ $coins = $profile_economy['coins'];
 <?php if ($clovers < 10) { $remaining = 10 - $clovers; ?>
 💡 Samla <?php echo $remaining; ?> fyrklöver så får du ett mynt!<br>
 <?php } ?>
-<a href="../../faq/hur-funkar-beloningar/">📌 Hur funkar belöningar?</a>
+<a href="<?php echo get_permalink( get_page_by_path('hur-funkar-beloningar') ); ?>">📌 Hur funkar belöningar?</a>
 </p>
 
 
