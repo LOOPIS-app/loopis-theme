@@ -66,13 +66,6 @@ add_filter('term_links-post_tag', 'limit_tags');
 
 
 /**
- * Allow mail notification for new support posts.
- * Added to make plugin "Better Notifications for WP" functional.
- */
-add_filter( 'bnfw_trigger_insert_post', '__return_true' );
-
-
-/**
  * Add and update necessary data to support posts
  * 
  * @return string filepath
@@ -105,12 +98,10 @@ function support_data( $post_id, $post, $update ) {
         $count = $support->post_count;
         wp_reset_postdata(); }
     $new_slug = $count;
-    
-    // Create post title
+     // Create post title
     $new_title = $current_title;
     // get content
     $post_content = get_post_field('post_content', $post_id);
-
     
     // Update post
     $post_data = array(

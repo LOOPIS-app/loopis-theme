@@ -18,6 +18,73 @@ if (!defined('LOOPIS_STRIPE_WEBHOOK_SECRET_COINS')) {
 }
 
 /**
+ * Coins product identifiers for Stripe Checkout Session matching.
+ *
+ * Uses WP_TEST to switch between test and live IDs.
+ *
+ * @return array{payment_link_id:string,price_id:string}
+ */
+function loopis_get_coins_stripe_product_ids() {
+    $is_test_mode = defined('WP_TEST') && WP_TEST;
+
+    if ($is_test_mode) {
+        return array(
+            'payment_link_id' => 'plink_1SfNcjDbS0ElMuPwzWno8mRl',
+            'price_id' => 'price_1SfKM9DbS0ElMuPwKdOXY70r',
+        );
+    }
+
+    return array(
+        'payment_link_id' => 'plink_1StnoRDc5PTLJtA3d9nkdDIf',
+        'price_id' => 'price_1StmWqDc5PTLJtA3s0Dlr69H',
+    );
+}
+
+/**
+ * Extract Stripe price IDs from a checkout session payload when available.
+ *
+ * @param array $session Stripe checkout session object
+ * @return string[]
+ */
+function loopis_extract_coins_stripe_session_price_ids($session) {
+    $price_ids = array();
+
+    if (isset($session['line_items']['data']) && is_array($session['line_items']['data'])) {
+        foreach ($session['line_items']['data'] as $item) {
+            if (!empty($item['price']['id'])) {
+                $price_ids[] = $item['price']['id'];
+            } elseif (!empty($item['price'])) {
+                $price_ids[] = $item['price'];
+            }
+        }
+    }
+
+    if (!empty($session['metadata']['price_id'])) {
+        $price_ids[] = $session['metadata']['price_id'];
+    }
+
+    return array_values(array_unique(array_filter($price_ids)));
+}
+
+/**
+ * Check if this Stripe checkout session belongs to coins product.
+ *
+ * @param array $session Stripe checkout session object
+ * @return bool
+ */
+function loopis_is_coins_checkout_session($session) {
+    $ids = loopis_get_coins_stripe_product_ids();
+    $payment_link_id = isset($session['payment_link']) ? $session['payment_link'] : '';
+
+    if (!empty($payment_link_id) && $payment_link_id === $ids['payment_link_id']) {
+        return true;
+    }
+
+    $price_ids = loopis_extract_coins_stripe_session_price_ids($session);
+    return in_array($ids['price_id'], $price_ids, true);
+}
+
+/**
  * Register REST API endpoint for Stripe coin purchase webhooks
  */
 function loopis_register_stripe_coins_webhook() {
@@ -125,6 +192,12 @@ function loopis_verify_stripe_coins_webhook($payload, $sig_header) {
  * @param array $session Stripe checkout session object
  */
 function loopis_handle_coins_checkout_completed($session) {
+    if (!loopis_is_coins_checkout_session($session)) {
+        $session_id = isset($session['id']) ? $session['id'] : 'unknown';
+        error_log("LOOPIS: Coins webhook ignored session {$session_id} (product mismatch)");
+        return;
+    }
+
     // Get customer email from session
     $customer_email = isset($session['customer_email']) ? $session['customer_email'] : null;
     $customer_details = isset($session['customer_details']['email']) ? $session['customer_details']['email'] : null;

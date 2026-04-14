@@ -2,7 +2,7 @@
 /**
  * Archive for custom post type 'faq' reached on URL /faq
  * 
- * Lists all existing faq posts dynamically (alphabetically ordered?) with tags as headers (alphabetically ordered?).
+ * Lists all existing faq posts dynamically (ordered by ID?) with tags as headers (alphabetically ordered).
  */
 
 get_header(); ?>
@@ -12,24 +12,21 @@ get_header(); ?>
 
 <h1>💡 Frågor & svar</h1>
 <hr>
-<p class="small">💡 Information om hur LOOPIS fungerar</p>
+<p class="small">💡 Undrar du något? Här finns svar på det mesta!</p>
 
-<p>Undrar du något? Här finns svar på det mesta!</p>
 <p><b>Titta på allting här nedanför innan du skickar en fråga till admin.</b></p>
 
 <?php if ( is_user_logged_in() ) : ?>
-<h3>För medlemmar</h3>
-<hr>
 <div class="wrapped">
-<p style="margin-bottom: 0px;">🎁 Har du problem med en annons?</p>
+<p style="margin-bottom: 0px; font-weight: strong;">🎁 Problem med en annons?</p>
 <p>→ Skriv en kommentar på annonsen och pinga admin med @LOOPIS</p>
 </div>
 <div class="wrapped">
-<p style="margin-bottom: 0px;">💭 Har du andra frågor eller feedback?</p>
+<p style="margin-bottom: 0px; font-weight: strong;">💭 Andra frågor eller feedback?</p>
 <p>→ Skriv till admin genom hjälp-rutan längst ner på den berörda sidan.</p>
 </div>
 <div class="wrapped">
-<p style="margin-bottom: 0px;">🗨 Vill du diskutera med andra medlemmar?</p>
+<p style="margin-bottom: 0px; font-weight: strong;">🗨 Diskutera med andra medlemmar?</p>
 <p>→ Gå till medlemmarnas <a rel="noreferrer noopener" href="https://web.facebook.com/groups/loopis.medlemmar" target="_blank">Facebook-grupp</a> eller <a rel="noreferrer noopener" href="https://discord.com/channels/1480883243740954626/1480883244449927231" target="_blank">Discord-server</a></p>
 </div>
 <?php endif; ?>

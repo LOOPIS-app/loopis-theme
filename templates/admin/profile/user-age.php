@@ -6,11 +6,7 @@
  * $user_id has to be passed from context!
  */
  
-if (!defined('ABSPATH')) {
-    exit; // Exit if accessed directly
-}
-
-// Uses $user_id passed from author.php
+// Get user birthday
 $birthyear = get_user_meta($user_id, 'wpum_birthyear', true);
 $birthyear_int = intval($birthyear);
 // Calculate current year and user's age
