@@ -20,10 +20,6 @@ get_header(); ?>
 <hr>
 <p>→ Tryck på knappen nedanför för att betala 50 kronor.</p>
 
-<h3>3⃣ Verifiera e-postadress</h3>
-<hr>
-<p>→ Kolla din inkorg och tryck på länken i det mail som vi skickat.</p>
-
 <div class="wpum-message warning">
 <p>⚠ OBS! Du måste ange samma e-postadress i betalningen som i formuläret.</p>
 </div>
@@ -41,14 +37,16 @@ if ($test_mode) {
 <p><button type="submit"><a href="<?php echo esc_url($payment_link); ?>">💳 Betala 50 kr</a></button></p>
 <p class="info">💡 Problem eller frågor? Maila <a href="mailto:info@loopis.org">info@loopis.org</a></p>
 
+<h3>3⃣ Verifiera e-postadress</h3>
+<hr>
+<p>→ Kolla din inkorg och tryck på länken i vårt mail.</p>
+
 <?php
 // Developer info in test mode
 if ($test_mode) {
     echo '<div class="admin-block">';
     include_once LOOPIS_THEME_DIR . '/templates/admin/links/developer-link.php';
-    echo '<h5>⚠ Testläge!</h5>';
-    echo '<hr>';
-    echo '<p>Genom att använda kortnummer "4242 4242 4242 4242" simulerar du en betalning med Stripe sandbox.</p>';
+    echo '<p>⚠ Testläge! Genom att använda kortnummer "4242 4242 4242 4242" simulerar du en betalning med Stripe sandbox.</p>';
     echo '</div>';
 }
 ?>

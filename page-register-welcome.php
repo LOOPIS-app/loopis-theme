@@ -25,9 +25,12 @@ get_header(); ?>
 
 <h3>3⃣ Verifiera e-postadress</h3>
 <hr>
-<p><strong>→ Har du tryckt på länken i det mail vi skickat? Då kan du logga in!</strong></p>
+<p><strong>→ Kolla din inkorg och tryck på länken i vårt mail.</strong></p>
 
 <?php insert_spacer(20); ?>
-/* What the heck? */
-<p><button type="submit"><a href="<?php echo esc_url(home_url('/'));?>">Logga in!</a></button></p>
+
+<h5>✅ Färdig?</h5>
+<hr>
+<p>När du har gjort de tre stegen är det dags att logga in:</p>
+<p><button type="submit"><a href="<?php echo esc_url(home_url('/'));?>">Logga in</a></button></p>
 <p class="info">💡 Problem eller frågor? Maila <a href="mailto:info@loopis.org">info@loopis.org</a></p>
