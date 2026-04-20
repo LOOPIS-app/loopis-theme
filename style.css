@@ -223,6 +223,9 @@ h1.wrap { white-space: normal; }
 .post-content .wrapped { background-color: #fff; padding: 8px 10px 5px 10px; margin: 0 15px 15px 0; }
 .post-content .wrapped p { margin: 5px 0; }
 
+/* Forum layout */
+.wp-block-image { margin-bottom: 15px; }
+
 /* Video embedded in post */
 .wp-block-embed__wrapper { display: flex; justify-content: center; }
 .wp-block-embed__wrapper iframe { width: 240px !important; height: auto !important; }
