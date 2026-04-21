@@ -12,27 +12,23 @@ get_header(); ?>
 
 <h1>💡 Frågor & svar</h1>
 <hr>
-<p class="small">💡 Undrar du något? Här finns svar på det mesta!</p>
-
-<p><b>Titta på allting här nedanför innan du skickar en fråga till admin.</b></p>
+<p class="small">💡 Här finns svar på nästan allt</p>
 
 <?php if ( is_user_logged_in() ) : ?>
 <div class="wrapped">
-<p style="margin-bottom: 0px; font-weight: strong;">🎁 Problem med en annons?</p>
-<p>→ Skriv en kommentar på annonsen och pinga admin med @LOOPIS</p>
+    <p style="margin-bottom: 0px; font-weight: strong;">🎁 Har du problem med en annons?</p>
+    <p>→ Skriv en kommentar på annonsen och pinga admin med @LOOPIS</p>
 </div>
+
 <div class="wrapped">
-<p style="margin-bottom: 0px; font-weight: strong;">💭 Andra frågor eller feedback?</p>
-<p>→ Skriv till admin genom hjälp-rutan längst ner på den berörda sidan.</p>
-</div>
-<div class="wrapped">
-<p style="margin-bottom: 0px; font-weight: strong;">🗨 Diskutera med andra medlemmar?</p>
-<p>→ Gå till medlemmarnas <a rel="noreferrer noopener" href="https://web.facebook.com/groups/loopis.medlemmar" target="_blank">Facebook-grupp</a> eller <a rel="noreferrer noopener" href="https://discord.com/channels/1480883243740954626/1480883244449927231" target="_blank">Discord-server</a></p>
+    <p style="margin-bottom: 0px; font-weight: strong;">⛔ Har du problem med en sida?</p>
+    <p>→ Fråga admin i rutan längst ner på sidan det handlar om.</p>
 </div>
 <?php endif; ?>
 
-<!-- start list all tags -->
+<p>Titta på listan nedanför innan du frågar admin!</p>
 
+<!--List of all FAQ tags and posts-->
 <?php
 $terms = get_terms([
     'taxonomy'   => 'faq-tag',
@@ -87,8 +83,7 @@ else :
 endif;
 ?>
 
-<!-- end list all tags -->
-
+<!--For members-->
 <?php if ( is_user_logged_in() ) : ?>
 <h3>För medlemmar</h3>
 <hr>
