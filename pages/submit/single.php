@@ -1,5 +1,18 @@
 <?php
-/* Formerly named submit-single.php and defined as template "Submit-Single Template" */
+/**
+ * SUBMIT POST
+ * 
+ * Dynamic content of page-submit.php
+ * Reached on /submit/?option=single
+ * 
+ * Showing form to submit post
+ * 
+ * Footer is excluded to maximize space + avoid exiting when editing post content
+ */
+
+if (!defined('ABSPATH')) {
+    exit;
+}
 ?>
 
 
