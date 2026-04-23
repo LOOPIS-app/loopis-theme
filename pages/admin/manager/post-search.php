@@ -1,102 +1,189 @@
 <?php
 /**
- * List posts with location different from "Skåpet", with category filter.
- * 
- * Previously used for communication/statistics.
- * 
- * IMPROVEMENTS:
- * – This is planned to become a powerful frontend post search for managers where ALL posts can be found and filtered.
- * – Currently only shows posts with location "annan adress", should use checkboxes to filter "annan adress" / "skåpet" / "loopis-bord".
- * – Categories filter should be single input field allowing multiple categories with autocomplete, instead of separate checkboxes for each category.
- * – Tags filter should be added, similar to categories as described above.
+ * Post search for managers – filter by location, category, and tag.
  */
 
 if (!defined('ABSPATH')) {
     exit;
 }
-?>
 
-<h1>📍 Annan adress</h1>
-<hr>
-<p class="small">💡 Annonser med hämtning på annan plats än "Skåpet".</p>
+// ── Inputs ───────────────────────────────────────────────────────────────────
+$selected_locations  = isset($_GET['location'])   ? array_map('sanitize_text_field', (array) $_GET['location']) : array();
+$selected_categories = isset($_GET['categories']) ? array_map('intval', (array) $_GET['categories'])            : array();
+$selected_tags       = isset($_GET['tags'])        ? array_map('intval', (array) $_GET['tags'])                 : array();
+$paged               = isset($_GET['paged'])       ? max(1, absint($_GET['paged']))                             : 1;
 
-<?php
-// Fetch selected categories from the URL query string (if any).
-$selected_categories = isset($_GET['categories']) ? array_map('intval', $_GET['categories']) : array();
-$paged = isset($_GET['paged']) ? max(1, absint($_GET['paged'])) : 1;
+$has_custom   = in_array('custom',   $selected_locations, true);
+$has_bord     = in_array('bord',     $selected_locations, true);
+$has_skapetet = in_array('skapetet', $selected_locations, true);
 
-// Query arguments for fetching posts.
+// ── Query ─────────────────────────────────────────────────────────────────────
 $args = array(
     'post_type'      => 'post',
     'posts_per_page' => 50,
     'paged'          => $paged,
-    'meta_query'     => array(
-        array(
-            'key'     => 'location',
-            'value'   => 'Skåpet',
-            'compare' => '!=',
-        ),
-    ),
 );
 
-// Include selected categories in the query.
+// Build a meta_query OR clause for each selected location type.
+// No selection = no location filter (show all posts).
+$location_clauses = array();
+if ($has_skapetet) {
+    $location_clauses[] = array('key' => 'location', 'value' => 'Skåpet',      'compare' => '=');
+}
+if ($has_bord) {
+    $location_clauses[] = array('key' => 'location', 'value' => 'LOOPIS-bord', 'compare' => '=');
+}
+if ($has_custom) {
+    $location_clauses[] = array('key' => 'location', 'value' => array('Skåpet', 'LOOPIS-bord'), 'compare' => 'NOT IN');
+}
+if (!empty($location_clauses)) {
+    $args['meta_query'] = count($location_clauses) === 1
+        ? $location_clauses
+        : array_merge(array('relation' => 'OR'), $location_clauses);
+}
+
 if (!empty($selected_categories)) {
     $args['category__in'] = $selected_categories;
 }
 
-// Run the custom query.
-$the_query = new WP_Query($args);
+if (!empty($selected_tags)) {
+    $args['tag__in'] = $selected_tags;
+}
 
-// Count the number of posts in the query.
+$the_query  = new WP_Query($args);
 $post_count = $the_query->found_posts;
+
+// ── Data for filter UI ───────────────────────────────────────────────────────
+$all_categories = get_categories(array('hide_empty' => false));
+$all_tags       = get_tags(array('hide_empty' => false));
 ?>
 
+<h1>🔍 Sök annonser</h1>
+<hr>
+<p class="small">💡 Sök och filtrera bland alla annonser.</p>
+
 <style>
-    .category-filters {
+    .post-search-filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        align-items: flex-start;
         margin-bottom: 20px;
     }
-    .category-filters label {
-        margin-right: 10px;
-        font-size: 14px;
+    .post-search-filters .filter-group {
+        float: left; /* fallback */
+        display: flex;
+        flex-direction: column;
     }
-    .filter-button {
-        display: inline-block;
-        margin-top: 10px;
-        padding: 5px 10px;
-        background-color: #0073aa;
-        color: white;
-        border: none;
-        border-radius: 3px;
-        cursor: pointer;
+    .post-search-filters .filter-group-submit {
+        align-self: flex-end;
+        padding-top: 20px;
     }
-    .filter-button:hover {
-        background-color: #005177;
-    }
-    .post-count {
-        margin-bottom: 20px;
-        font-size: 16px;
+    .post-search-filters .group-label {
+        display: block;
         font-weight: bold;
+        margin-bottom: 4px;
+        font-size: 13px;
+    }
+    .post-search-filters .select-hint {
+        font-weight: normal;
+        font-size: 11px;
+    }
+    /* Checkbox list styled to look like a <select multiple> */
+    .filter-checklist {
+        border: 1px solid #8c8f94;
+        border-radius: 3px;
+        min-width: 180px;
+        max-width: 240px;
+        min-height: 88px;
+        max-height: 120px;
+        overflow-y: auto;
+        background: #fff;
+        padding: 2px 0;
+    }
+    .filter-checklist label {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 3px 8px;
+        cursor: pointer;
+        font-size: 13px;
+        white-space: nowrap;
+        user-select: none;
+    }
+    .filter-checklist label:hover {
+        background: #f0f6fc;
+    }
+    .filter-checklist label input[type="checkbox"] {
+        margin: 0;
+        flex-shrink: 0;
+    }
+    /* Twemoji images inside the list labels */
+    .filter-checklist label img.emoji {
+        height: 1.1em;
+        width: 1.1em;
+        vertical-align: -0.15em;
     }
 </style>
 
-<!-- Category filter form -->
-<form method="GET" class="category-filters">
+<!-- Filter form -->
+<form method="GET" class="post-search-filters">
     <input type="hidden" name="view" value="<?php echo esc_attr(trim(isset($_GET['view']) ? sanitize_text_field($_GET['view']) : 'special/custom-location', '/')); ?>">
-    <?php
-    // Get all available categories.
-    $categories = get_categories();
-    foreach ($categories as $category) {
-        ?>
-        <label>
-            <input type="checkbox" name="categories[]" value="<?php echo esc_attr($category->term_id); ?>"
-                <?php if (in_array($category->term_id, $selected_categories)) echo 'checked'; ?>>
-            <?php echo esc_html($category->name); ?>
-        </label>
-        <?php
-    }
-    ?>
-    <br>
-    <button type="submit" class="small">Filtrera</button>
+
+    <!-- Location -->
+    <div class="filter-group">
+        <span class="group-label">Plats <span class="select-hint">(inget = alla)</span></span>
+        <div class="filter-checklist">
+            <label>
+                <input type="checkbox" name="location[]" value="skapetet" <?php checked($has_skapetet); ?>>
+                Skåpet
+            </label>
+            <label>
+                <input type="checkbox" name="location[]" value="bord" <?php checked($has_bord); ?>>
+                LOOPIS-bord
+            </label>
+            <label>
+                <input type="checkbox" name="location[]" value="custom" <?php checked($has_custom); ?>>
+                Annan adress
+            </label>
+        </div>
+    </div>
+
+    <!-- Categories -->
+    <?php if (!empty($all_categories)) : ?>
+    <div class="filter-group">
+        <span class="group-label">Kategorier <span class="select-hint">(inget = alla)</span></span>
+        <div class="filter-checklist">
+            <?php foreach ($all_categories as $cat) : ?>
+                <label>
+                    <input type="checkbox" name="categories[]" value="<?php echo esc_attr($cat->term_id); ?>"
+                        <?php checked(in_array($cat->term_id, $selected_categories, true)); ?>>
+                    <?php echo esc_html($cat->name); ?>
+                </label>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <?php endif; ?>
+
+    <!-- Tags -->
+    <?php if (!empty($all_tags)) : ?>
+    <div class="filter-group">
+        <span class="group-label">Taggar <span class="select-hint">(inget = alla)</span></span>
+        <div class="filter-checklist">
+            <?php foreach ($all_tags as $tag) : ?>
+                <label>
+                    <input type="checkbox" name="tags[]" value="<?php echo esc_attr($tag->term_id); ?>"
+                        <?php checked(in_array($tag->term_id, $selected_tags, true)); ?>>
+                    #<?php echo esc_html($tag->name); ?>
+                </label>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <?php endif; ?>
+
+    <div class="filter-group filter-group-submit">
+        <button type="submit" class="small">Filtrera</button>
+    </div>
 </form>
 
 <div class="columns"><div class="column1">↓ <?php echo $post_count; ?> annonser</div>
