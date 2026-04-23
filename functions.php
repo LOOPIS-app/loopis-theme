@@ -77,10 +77,5 @@ function loopis_theme_load_files() {
     if (is_user_logged_in()) { 
         loopis_theme_include_folder('functions/user');
     }
-
-    // For administrator and cron
-    if (current_user_can('manage_options')) { 
-        loopis_theme_include_folder('functions/cron');
-    }
 }
 add_action('after_setup_theme', 'loopis_theme_load_files');

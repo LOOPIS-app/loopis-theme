@@ -13,5 +13,5 @@ if (!defined('ABSPATH')) {
 <div id="support" class="feedback">
 <h4>🛟 Behöver du hjälp?</h4>
 	<p class="small">Skriv din fråga här så svarar admin.</p>
-<?php echo do_shortcode('[wpum_post_form form_id="3"]');?>
+<?php echo do_shortcode('[loopis_support_post]');?>
 </div>

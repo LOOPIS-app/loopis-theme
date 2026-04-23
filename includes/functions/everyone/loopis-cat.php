@@ -100,17 +100,3 @@ function loopis_tags($slugs) {
     return $ids;
 }
 
-
-/**
- * Get status ID by slug
- * 
- * @param string $slug support-status slug (e.g., 'in'-/'active')
- * @return int|false Term ID or false if not found
- */
-function loopis_support_cat($slug) {
-    // Get category by slug
-    $category = get_term_by('slug', $slug, 'support-status');
-    
-    // Return ID if found, otherwise return false
-    return $category ? $category->term_id : false;
-}

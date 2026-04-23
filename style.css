@@ -551,14 +551,172 @@ input[name="submit_registration"].button { display: inline-block !important; }
   font-size: 1rem;
   line-height: 1.0em;
 }
-
 .page-padding .wp-block-list li{
   margin-bottom: 0.5em;
   position: relative;
   padding-left: 1em;
 }
-
 .page-padding .wp-block-list li::marker{
   font-weight: bold;
   font-size: 1.1rem;
+}
+
+/* Css for support post-form, used everywhere*/
+#support {
+  display: flex;
+  justify-content: center; 
+  flex-direction: column;
+  align-items: center;   
+  justify-content: flex-start;  
+  margin: 0 auto;
+  border-radius: 2px;
+  padding: 10px ;
+  height: 100%;          
+  max-width: 300px;
+  box-sizing: border-box;
+}
+#support  textarea[name="post_content"] {
+  width: 100%;            
+  max-width: 300px;  
+  height: 120px;
+  box-sizing: border-box; 
+  margin: 0;
+  resize: none;
+}
+
+#support p {
+  height: auto;
+}
+
+
+
+/* Css for gift-post-form*/
+#checkbox_container {
+  width: 100%;
+  height: 150px;
+  border: 1px solid #000;
+  justify-content: space-between; 
+  border-radius: 2px;
+  overflow-y: auto;
+  padding: 10 px;
+}
+
+#checkbox_container label{
+  width: 100%;
+  box-sizing: border-box;
+  justify-content: space-between; 
+  align-items: center;
+  display:flex;
+  padding: 5px 0;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border: 1px solid #c3c1c1;
+  background: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.checkbox-row:has(input[type="checkbox"]:checked) {
+  background-color: #e2f0fe; 
+}
+.checkbox-row input[type="checkbox"] {
+  display: none;
+}
+
+#image-previews img {
+  cursor: pointer;
+  transition: transform 0.2s;
+  flex-wrap: wrap;
+  margin-right: 10px;
+  gap:10px; 
+  margin-top:10px;
+}
+
+#image-previews img:hover {
+  transform: scale(1.05);
+}
+
+#loopis-form {
+    background: #f5f5f5;
+    background-color: rgb(245, 245, 245);
+    padding: 15px;
+    border-radius: 10px;
+}
+.form-subcontainer {
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-subcontainer label.required {
+  font-size: 22px;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+#post_title {
+   width: 100%;
+}
+
+
+#post_content {
+  width: 100%;
+  height: 200px;
+  resize: none; 
+  overflow-y: auto;
+}
+
+label.required::after {
+  content: " *";
+  color: red;
+  font-weight: bold;
+  margin-left: 2px; 
+}
+
+
+
+#radio-box{
+  font-size: 22px;
+  width: 100%;
+}
+
+#radio-box label.buttons {
+  display:flex;
+  align-items: center;
+  font-size: 20px;
+  width: 100%;
+}
+#radio-box label.buttons input[type="radio"]{
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  width: 1em;
+  height: 1em;
+}
+
+
+#radio-box:has(input#annan:checked) .hidden-container{
+  transition: opacity 0.3s ease,  height 0.5s ease;
+  visibility: visible;  
+  height: 40px;
+  opacity: 1;
+}
+
+#radio-box .hidden-container{
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+  opacity: 0;          
+  visibility: hidden;  
+  height: 0px;
+  transition: opacity 0.3s ease,  height 0.5s ease;
+}
+#radio-box .hidden-container label{
+  width: 120px;
+}
+#radio-box .hidden-container input{
+  flex-grow: 1;
 }

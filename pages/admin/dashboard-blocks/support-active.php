@@ -11,6 +11,7 @@ if (!defined('ABSPATH')) {
 $args = array(
     'post_type'      => 'support',
     'posts_per_page' => -1,
+    'count'          => true,
     'tax_query'      => array(
         array(
             'taxonomy' => 'support-category',

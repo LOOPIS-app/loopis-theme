@@ -43,7 +43,7 @@ if ($location == 'Annan adress') {
     update_post_meta($post_id, 'location', $location); 
 } 
 ?>
-
+ 
 <!-- Extra image?  -->
 <?php $thumbnail_id = get_post_thumbnail_id($post_id); ?>
 <?php 

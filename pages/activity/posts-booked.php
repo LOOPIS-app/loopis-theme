@@ -35,70 +35,9 @@ $category_ids = loopis_cats(['booked_custom', 'booked', 'locker']);
 $placeholders = implode(',', $category_ids);
 // Set pagination
 $posts_per_page = 50;
-$total = $wpdb->get_var(
-    $wpdb->prepare(
-        "SELECT count(DISTINCT p.ID) 
-         FROM {$wpdb->posts} p
-         INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id
-         INNER JOIN {$wpdb->term_relationships} tr ON p.ID = tr.object_id
-         INNER JOIN {$wpdb->term_taxonomy} tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
-         WHERE pm.meta_key = %s AND pm.meta_value != '' AND pm.meta_value IS NOT NULL
-         AND EXISTS (
-             SELECT 1
-             FROM {$wpdb->postmeta} pm2
-             WHERE pm2.post_id = p.ID AND pm2.meta_key = 'fetcher' AND pm2.meta_value = %d
-         )
-         AND tt.term_id IN ({$placeholders})
-         AND p.post_status = 'publish'",
-        'book_date', $user_ID
-    )
-);
-
 $max_pages = ceil($total/$posts_per_page);
 $pagenum = loopis_GET_pagenum($max_pages);
 $offset = ($pagenum - 1)*$posts_per_page;
-
-// Get all things fetched (using SQL for better performance)
-global $wpdb;
-
-$results = $wpdb->get_results(
-    $wpdb->prepare(
-        "SELECT p.ID, p.post_title, p.post_date, pm.meta_value AS book_date
-         FROM {$wpdb->posts} p
-         INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id
-         INNER JOIN {$wpdb->term_relationships} tr ON p.ID = tr.object_id
-         INNER JOIN {$wpdb->term_taxonomy} tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
-         WHERE pm.meta_key = %s AND pm.meta_value != '' AND pm.meta_value IS NOT NULL
-         AND EXISTS (
-             SELECT 1
-             FROM {$wpdb->postmeta} pm2
-             WHERE pm2.post_id = p.ID AND pm2.meta_key = 'fetcher' AND pm2.meta_value = %d
-         )
-         AND tt.term_id IN ({$placeholders})
-         AND p.post_status = 'publish'
-         ORDER BY pm.meta_value DESC
-         LIMIT {$posts_per_page} OFFSET {$offset}",
-        'book_date', $user_ID
-    )
-);
-$total = $wpdb->get_var(
-    $wpdb->prepare(
-        "SELECT count(DISTINCT p.ID) 
-         FROM {$wpdb->posts} p
-         INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id
-         INNER JOIN {$wpdb->term_relationships} tr ON p.ID = tr.object_id
-         INNER JOIN {$wpdb->term_taxonomy} tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
-         WHERE pm.meta_key = %s AND pm.meta_value != '' AND pm.meta_value IS NOT NULL
-         AND EXISTS (
-             SELECT 1
-             FROM {$wpdb->postmeta} pm2
-             WHERE pm2.post_id = p.ID AND pm2.meta_key = 'fetcher' AND pm2.meta_value = %d
-         )
-         AND tt.term_id IN ({$placeholders})
-         AND p.post_status = 'publish'",
-        'book_date', $user_ID
-    )
-);
 
 // Set the category (non-existing slug for forwarded posts)
 $url_slug = 'others_fetched';
