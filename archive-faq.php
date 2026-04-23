@@ -15,13 +15,15 @@ get_header(); ?>
 <p class="small">💡 Här finns svar på nästan allt</p>
 
 <?php if ( is_user_logged_in() ) : ?>
+<h3>För medlemmar</h3>
+<hr>
 <div class="wrapped">
-    <p style="margin-bottom: 0px; font-weight: strong;">🎁 Har du problem med en annons?</p>
-    <p>→ Skriv en kommentar på annonsen och pinga admin med @LOOPIS</p>
+    <p style="margin-bottom: 0px; font-weight: 400;">🎁 Har du problem med en annons?</p>
+    <p>→ Skriv en kommentar på annonsen och pinga @LOOPIS</p>
 </div>
 
 <div class="wrapped">
-    <p style="margin-bottom: 0px; font-weight: strong;">⛔ Har du problem med en sida?</p>
+    <p style="margin-bottom: 0px; font-weight: 400;">⛔ Har du problem med en sida?</p>
     <p>→ Fråga admin i rutan längst ner på sidan det handlar om.</p>
 </div>
 <?php endif; ?>
