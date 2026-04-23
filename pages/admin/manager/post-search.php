@@ -1,6 +1,11 @@
 <?php
 /**
- * Post search for managers – filter by location, category, and tag.
+ * Post search for managers.
+ * 
+ * All posts filtered by location, category, and tag.
+ * 
+ * Improvements:
+ * - Integrate CSS (simplified and reusable) with style.css
  */
 
 if (!defined('ABSPATH')) {
@@ -11,7 +16,19 @@ if (!defined('ABSPATH')) {
 $selected_locations  = isset($_GET['location'])   ? array_map('sanitize_text_field', (array) $_GET['location']) : array();
 $selected_categories = isset($_GET['categories']) ? array_map('intval', (array) $_GET['categories'])            : array();
 $selected_tags       = isset($_GET['tags'])        ? array_map('intval', (array) $_GET['tags'])                 : array();
+$search_term         = '';
+if (isset($_GET['search'])) {
+    $search_term = sanitize_text_field(wp_unslash($_GET['search']));
+} elseif (isset($_GET['s'])) {
+    // Backward compatibility for old links.
+    $search_term = sanitize_text_field(wp_unslash($_GET['s']));
+}
 $paged               = isset($_GET['paged'])       ? max(1, absint($_GET['paged']))                             : 1;
+$current_view        = trim(isset($_GET['view']) ? sanitize_text_field($_GET['view']) : 'special/custom-location', '/');
+$clear_url           = add_query_arg(
+    array('view' => $current_view),
+    remove_query_arg(array('search', 's', 'location', 'categories', 'tags', 'paged', 'filter_submitted'))
+);
 
 $has_custom   = in_array('custom',   $selected_locations, true);
 $has_bord     = in_array('bord',     $selected_locations, true);
@@ -50,6 +67,10 @@ if (!empty($selected_tags)) {
     $args['tag__in'] = $selected_tags;
 }
 
+if ($search_term !== '') {
+    $args['s'] = $search_term;
+}
+
 $the_query  = new WP_Query($args);
 $post_count = $the_query->found_posts;
 
@@ -58,9 +79,9 @@ $all_categories = get_categories(array('hide_empty' => false));
 $all_tags       = get_tags(array('hide_empty' => false));
 ?>
 
-<h1>🔍 Sök annonser</h1>
+<h1>🔍 Alla annonser</h1>
 <hr>
-<p class="small">💡 Sök och filtrera bland alla annonser.</p>
+<p class="small">💡 Filtrera och/eller skriv sökord.</p>
 
 <style>
     .post-search-filters {
@@ -69,6 +90,19 @@ $all_tags       = get_tags(array('hide_empty' => false));
         gap: 16px;
         align-items: flex-start;
         margin-bottom: 20px;
+    }
+    .post-search-filters .search-row {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .post-search-filters .search-row input[type="text"] {
+        min-width: 240px;
+        flex: 0 1 360px;
+    }
+    .post-search-filters .search-row .clear-link {
+        text-decoration: none;
     }
     .post-search-filters .filter-group {
         float: left; /* fallback */
@@ -101,6 +135,9 @@ $all_tags       = get_tags(array('hide_empty' => false));
         background: #fff;
         padding: 2px 0;
     }
+    .post-search-filters .location-checklist {
+        height: 120px;
+    }
     .filter-checklist label {
         display: flex;
         align-items: center;
@@ -128,12 +165,12 @@ $all_tags       = get_tags(array('hide_empty' => false));
 
 <!-- Filter form -->
 <form method="GET" class="post-search-filters">
-    <input type="hidden" name="view" value="<?php echo esc_attr(trim(isset($_GET['view']) ? sanitize_text_field($_GET['view']) : 'special/custom-location', '/')); ?>">
+    <input type="hidden" name="view" value="<?php echo esc_attr($current_view); ?>">
 
     <!-- Location -->
     <div class="filter-group">
-        <span class="group-label">Plats <span class="select-hint">(inget = alla)</span></span>
-        <div class="filter-checklist">
+        <span class="group-label">Överlämning</span>
+        <div class="filter-checklist location-checklist">
             <label>
                 <input type="checkbox" name="location[]" value="skapetet" <?php checked($has_skapetet); ?>>
                 Skåpet
@@ -152,7 +189,7 @@ $all_tags       = get_tags(array('hide_empty' => false));
     <!-- Categories -->
     <?php if (!empty($all_categories)) : ?>
     <div class="filter-group">
-        <span class="group-label">Kategorier <span class="select-hint">(inget = alla)</span></span>
+        <span class="group-label">Kategorier</span>
         <div class="filter-checklist">
             <?php foreach ($all_categories as $cat) : ?>
                 <label>
@@ -168,7 +205,7 @@ $all_tags       = get_tags(array('hide_empty' => false));
     <!-- Tags -->
     <?php if (!empty($all_tags)) : ?>
     <div class="filter-group">
-        <span class="group-label">Taggar <span class="select-hint">(inget = alla)</span></span>
+        <span class="group-label">Taggar</span>
         <div class="filter-checklist">
             <?php foreach ($all_tags as $tag) : ?>
                 <label>
@@ -181,13 +218,16 @@ $all_tags       = get_tags(array('hide_empty' => false));
     </div>
     <?php endif; ?>
 
-    <div class="filter-group filter-group-submit">
-        <button type="submit" class="small">Filtrera</button>
+    <div class="search-row">
+        <input type="text" name="search" value="<?php echo esc_attr($search_term); ?>" placeholder="🔍 Skriv sökord">
+        <button type="submit" class="small">Sök / Filtrera</button>
+        <a href="<?php echo esc_url($clear_url); ?>" class="small clear-link">Rensa</a>
     </div>
+
 </form>
 
 <div class="columns"><div class="column1">↓ <?php echo $post_count; ?> annonser</div>
-<div class="column2"></div></div>
+<div class="column2 small">💡 Senaste överst</div></div>
 <hr>
 
 <!-- Post output -->
