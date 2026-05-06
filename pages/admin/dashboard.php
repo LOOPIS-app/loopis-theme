@@ -98,7 +98,7 @@ $admin_url = home_url('/admin/');
 
 <!-- Active support count -->
 <?php if (current_user_can('manage_options') || current_user_can('loopis_admin')) : ?>
-    <div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'support', $admin_url) ); ?>'">
+    <div class="wrapped link" onclick="location.href='<?php echo get_post_type_archive_link('support'); ?>'">
         <h5>🛟 Support</h5>
         <hr>
         <p class="small">

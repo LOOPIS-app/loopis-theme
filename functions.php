@@ -16,7 +16,7 @@ if (!defined('ABSPATH')) { exit; }
  */
 
 // Define theme version
-define('LOOPIS_THEME_VERSION', '0.81'); // Update version number here + in style.css
+define('LOOPIS_THEME_VERSION', '0.83'); // Update version number here + in style.css
 
 // Define theme folder path constants
 define('LOOPIS_THEME_DIR', get_template_directory());       // Server-side path to /wp-content/themes/loopis-theme/

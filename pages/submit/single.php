@@ -16,10 +16,8 @@
 💡 Lägg inte upp <a href="<?php esc_url( home_url('/faq/restriktioner'));?>">otillåtna annonser</a>
 </p>
 
-<!-- Frontend Posting -->
-<?php 
-echo do_shortcode('[loopis_gift_post]'); 
-?>
+<!-- WPUM Frontend Posting -->
+<?php echo do_shortcode('[wpum_post_form form_id="1"]'); ?>
 
 <!-- No access -->
 <?php } else { 

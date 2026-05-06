@@ -1,6 +1,12 @@
 <?php
 /**
- * Content for page using url /forum
+ * Archive for custom post type 'forum' reached on URL /forum
+ * 
+ * IMPROVEMENTS:
+ * - Use pagination template
+ * - Add filtering by category
+ * - Add search function
+ * – Change name of CPT to "news"?
  */
 
 get_header(); ?>
@@ -13,20 +19,24 @@ get_header(); ?>
 <p class="small">💡 Här hittar du de senaste nyheterna från föreningen</p>
 
 <?php
+// Arguments
 $args = array(
     'post_type' => 'forum',
     'posts_per_page' => 50,
     'paged' => ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1, 
 );
 
+// Query
 $the_query = new WP_Query( $args );
 $count = $the_query->found_posts; ?>
 
+<!--Output-->
 <div class="columns"><div class="column1">↓ <?php echo $count; ?> nyheter</div>
-<div class="column2 bottom">Senast överst</div></div>
+<div class="column2 small">💡 Senast överst</div></div>
 <hr>
 <div class="post-list">
 
+<!--Post loop-->
 <?php if ( $the_query->have_posts() ) : ?>
 <?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
     <div class="post-list-forum" onclick="location.href='<?php echo the_permalink(); ?>';">
@@ -55,8 +65,8 @@ $count = $the_query->found_posts; ?>
             'end_size'     => 2,
             'mid_size'     => 2,
             'prev_next'    => true,
-            'prev_text'    => sprintf( '<i></i> %1$s', esc_html__( '<', 'wp-user-manager' ) ),
-            'next_text'    => sprintf( '%1$s <i></i>', esc_html__( '>', 'wp-user-manager' ) ),
+            'prev_text'    => '<',
+            'next_text'    => '>',
             'add_args'     => false,
             'add_fragment' => '',
         ) ) );
