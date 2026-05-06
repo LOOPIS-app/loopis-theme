@@ -1,6 +1,6 @@
 /**
  * Theme Name:  LOOPIS Theme
- * Version:     0.83
+ * Version:     0.84
  * Description: Theme providing all frontend design and functionality for LOOPIS.app
  * Author:      The Develoopers
  * Author URI:  https://loopis.org
@@ -222,6 +222,9 @@ h1.wrap { white-space: normal; }
 .post-content .label { font-size: 14px; color: #777; margin-bottom: 0; }
 .post-content .wrapped { background-color: #fff; padding: 8px 10px 5px 10px; margin: 0 15px 15px 0; }
 .post-content .wrapped p { margin: 5px 0; }
+
+/* Forum layout */
+.wp-block-image { margin-bottom: 15px; }
 
 /* Bullet-list (by Hubert, used in e.g. post Stadgar) */
 .page-padding .wp-block-list {
