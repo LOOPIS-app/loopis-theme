@@ -70,3 +70,4 @@ $(document).ready(function() {
   });
 });
 </script>
+<?php wp_footer(); ?>

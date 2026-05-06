@@ -10,4 +10,4 @@ if (!defined('ABSPATH')) {
 }
 
 // Output
-echo '<p><span class="rounded"><a href="/admin">🧑‍💻 Develooper</a></span></p>';
+echo '<p><span class="rounded"><a href="'.esc_url(home_url("/admin/")).'">🧑‍💻 Develooper</a></span></p>';

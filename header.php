@@ -44,7 +44,7 @@
 		$og_type = 'website';
 		$og_url = get_tag_link(get_queried_object_id());
 	} elseif (is_archive()) {
-        $title = $blog_name;
+		$title = post_type_archive_title('', false) ?: $blog_name;
         $description = 'För en glad och hållbar framtid.';
         $meta_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_app.png';
         $og_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_og.png';

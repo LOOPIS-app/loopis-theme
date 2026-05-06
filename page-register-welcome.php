@@ -29,8 +29,5 @@ get_header(); ?>
 
 <?php insert_spacer(20); ?>
 
-<h5>✅ Färdig?</h5>
-<hr>
-<p>När du har gjort de tre stegen är det dags att logga in:</p>
-<p><button type="submit"><a href="<?php echo esc_url(home_url('/'));?>">Logga in</a></button></p>
+<p><button type="submit"><a href="<?php echo esc_url(home_url('/'));?>">Logga in!</a></button></p>
 <p class="info">💡 Problem eller frågor? Maila <a href="mailto:info@loopis.org">info@loopis.org</a></p>

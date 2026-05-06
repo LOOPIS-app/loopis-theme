@@ -18,11 +18,7 @@ get_header(); ?>
 
 <h3>2⃣ Betala medlemskap</h3>
 <hr>
-<p>→ Tryck på knappen nedanför för att betala 50 kronor.</p>
-
-<div class="wpum-message warning">
-<p>⚠ OBS! Du måste ange samma e-postadress i betalningen som i formuläret.</p>
-</div>
+<p>→ Tryck på knappen för att betala 50 kronor.</p>
 
 <?php
 // Stripe Sandbox?
@@ -34,7 +30,7 @@ if ($test_mode) {
 }
 ?>
 
-<p><button type="submit"><a href="<?php echo esc_url($payment_link); ?>">💳 Betala 50 kr</a></button></p>
+<p><button class="green" onclick="window.location.href='<?php echo esc_url($payment_link); ?>'">💳 Betala 50 kr</button></p>
 <p class="info">💡 Problem eller frågor? Maila <a href="mailto:info@loopis.org">info@loopis.org</a></p>
 
 <h3>3⃣ Verifiera e-postadress</h3>

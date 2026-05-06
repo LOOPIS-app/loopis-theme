@@ -1,9 +1,10 @@
 # 📋 Changelog for "LOOPIS Theme"
 
-## 0.83 (2026-04-24)
+## 0.83 (2026-05-06)
 - All relative paths adjusted to work with Multisite
-- Improved UI for post lists on profile and author page
-- Role names and capabilites for "loopis_storage" revised
+- WPUM post form for support posts replaced with our custom one
+- Archive pages added for CPT's support and forum
+- Bug fixes for swish buttons
 
 ## 0.82 (2026-03-30)
 - All FAQ content moved from pages to posts
