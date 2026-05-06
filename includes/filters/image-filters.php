@@ -13,22 +13,9 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Enable featured image for pages
+ * Enable featured image for all post types (posts, pages, and custom post types)
  */
-function page_thumbnail() {
-    add_theme_support('post-thumbnails', array('post', 'page'));
-}
-add_action('after_setup_theme', 'page_thumbnail');
-
-
-/**
- * Enable featured image for custom post types
- */
-
-function cpt_thumbnail() {
-    add_theme_support('post-thumbnails');
-}
-add_action('after_setup_theme', 'cpt_thumbnail');
+add_theme_support('post-thumbnails');
 
 
 /**

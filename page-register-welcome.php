@@ -25,7 +25,7 @@ get_header(); ?>
 
 <h3>3⃣ Verifiera e-postadress</h3>
 <hr>
-<p><strong>→ Har du tryckt på länken i det mail vi skickat? Då kan du logga in!</strong></p>
+<p><strong>→ Kolla din inkorg och tryck på länken i vårt mail.</strong></p>
 
 <?php insert_spacer(20); ?>
 

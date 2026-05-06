@@ -23,12 +23,8 @@ elseif (current_user_can('member_earlier')) { echo "<h5>💚 Nytt år!</h5><hr>"
 // Member outside
 elseif (current_user_can('member_outside')) { echo "<h5>💚 Tack!</h5><hr>"; }
 
-// Member outside earlier
-elseif (current_user_can('member_outside_earlier')) { echo "<h5>💚 Nytt år!</h5><hr>"; }
-}
-
 // Not logged in
-else { echo "<h5>💚 Välkommen!</h5><hr>"; }
+} else { echo "<h5>💚 Välkommen!</h5><hr>"; }
 
 // All of them
 include_once LOOPIS_THEME_DIR . '/templates/access/message.php';

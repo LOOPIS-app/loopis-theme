@@ -33,24 +33,16 @@ if ($test_mode) {
 <p><button class="green" onclick="window.location.href='<?php echo esc_url($payment_link); ?>'">💳 Betala 50 kr</button></p>
 <p class="info">💡 Problem eller frågor? Maila <a href="mailto:info@loopis.org">info@loopis.org</a></p>
 
-<div class="wpum-message warning">
-<p>⚠ OBS! Du måste ange samma e-postadress i betalningen som i formuläret.</p>
-</div>
-
-<p><span class="big-link"><a href="<?php echo esc_url(add_query_arg('option', 'swish-membership', home_url('/shop/'))); ?>">💸 Betala med Swish istället</a></span></p>
-
 <h3>3⃣ Verifiera e-postadress</h3>
 <hr>
-<p>→ Kolla din inkorg och tryck på länken i det mail som vi skickat.</p>
+<p>→ Kolla din inkorg och tryck på länken i vårt mail.</p>
 
 <?php
 // Developer info in test mode
 if ($test_mode) {
     echo '<div class="admin-block">';
     include_once LOOPIS_THEME_DIR . '/templates/admin/links/developer-link.php';
-    echo '<h5>⚠ Testläge!</h5>';
-    echo '<hr>';
-    echo '<p>Genom att använda kortnummer "4242 4242 4242 4242" simulerar du en betalning med Stripe sandbox.</p>';
+    echo '<p>⚠ Testläge! Genom att använda kortnummer "4242 4242 4242 4242" simulerar du en betalning med Stripe sandbox.</p>';
     echo '</div>';
 }
 ?>

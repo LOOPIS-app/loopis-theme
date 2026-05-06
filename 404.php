@@ -9,9 +9,9 @@
         
         <?php if (is_user_logged_in()) : ?>
             <div class="wpum-message information">
-                <h5>Har du hittat ett fel i LOOPIS.app?</h5>
+                <h5>🪰 Har du hittat en bugg?</h5>
                 <hr>
-                <p>⬇ Berätta gärna hur du hamnade här i formuläret längst ner!</p>
+                <p>⬇ Berätta gärna hur du hamnade här i formuläret nedan.</p>
             </div>
             
         <?php endif; ?>
