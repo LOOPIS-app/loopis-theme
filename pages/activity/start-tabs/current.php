@@ -10,13 +10,13 @@ if (!defined('ABSPATH')) {
 }
 
 // Extra php functions (not yet used)
-include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-remove.php'; 
+include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-remove.php'; 
 
 // Get current user ID
 $user_ID = get_current_user_id();
 
 // Get category IDs
-$active_categories = loopis_cats(['new', 'first', 'booked_locker', 'locker', 'booked_custom', 'borrow']);
+$active_categories = loopis_cats(['new', 'old', 'booked', 'locker', 'booked_custom', 'borrow']);
 
 // Arguments
 $args = array( 
@@ -34,7 +34,7 @@ $count = $the_query->found_posts;
 <!--Output-->
 <div class="columns">
     <div class="column1">↓ <?php echo $count; ?> annons<?php if ($count != 1) { echo "er"; } ?></div>
-    <div class="column2 bottom"><a href="<?php echo esc_url(home_url() . '/profile/' . wp_get_current_user()->user_login . '/posts'); ?>">Visa lämnade →</a></div>
+    <div class="column2 bottom"><a href="<?php echo esc_url(home_url() . '/activity/?view=posts-submitted&status=fetched'); ?>">Visa lämnade →</a></div>
 </div>
 <hr>
 
@@ -58,8 +58,8 @@ $count = $the_query->found_posts;
         <?php endwhile; ?>
     <?php else : ?>
         <p>💢 Du har inga aktuella annonser.</p>
-        <p>Gå till <span class="link"><a href="<?php echo esc_url(home_url() . '/profile/' . wp_get_current_user()->user_login . '/posts'); ?>">⬆ Saker lämnade</a></span></p>
-        <p>Gå till <span class="link"><a href="/submit/">💚 Ge bort</a></span></p>
+        <p>Gå till <span class="link"><a href="<?php echo esc_url(home_url() . '/activity/?view=posts-submitted&status=fetched'); ?>">✅ Saker lämnade</a></span></p>
+        <p>Gå till <span class="link"><a href="<?php echo esc_url(home_url() . '/submit/'); ?>">💚 Ge bort</a></span></p>
     <?php endif; ?>
 </div><!--post-list-->
 

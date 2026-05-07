@@ -1,16 +1,8 @@
 <?php
 /**
- * The Template for displaying the profile about tab content.
+ * Template for displaying WPUM profile tab content.
  *
- * This template can be overridden by copying it to yourtheme/wpum/profiles/about.php
- *
- * HOWEVER, on occasion WPUM will need to update template files and you
- * (the theme developer) will need to copy the new files to your theme to
- * maintain compatibility. We try to do this as little as possible, but it does
- * happen. When this occurs the version of the template file will be bumped and
- * the readme will list any important changes.
- *
- * @version 1.0.0
+ * Modified by LOOPIS.
  */
 
 // Exit if accessed directly
@@ -24,6 +16,14 @@ $user = wp_get_current_user();
 
 //Get author link
 $authorlink = get_author_posts_url($user_id);
+
+// Settings page (use network aware URL if needed)
+$settings_link = network_site_url('profile-settings', 'https');
+
+// Logout link (WordPress logout function handles redirection)
+$logout_link = wp_logout_url(home_url());
+
+
 ?>
 
 <p class="small">💡 Här ser du information och inställningar för ditt konto.</p>
@@ -39,8 +39,8 @@ $authorlink = get_author_posts_url($user_id);
 </div>
 
 <p><span class="big-link"><a href="<?php echo $authorlink ?>">👥 Din profil</a></span> som den visas för andra</p>
-<p><span class="big-link"><a href="../../profile-settings">⚙ Inställningar</a></span> för medlemskap</p>
-<p><span class="big-link"><a href="../../wp-login.php?action=logout">🚪 Logga ut</a></span> från LOOPIS.app</p>
+<p><span class="big-link"><a href="<?php echo $settings_link ?>">⚙ Inställningar</a></span> för medlemskap</p>
+<p><span class="big-link"><a href="<?php echo $logout_link ?>">🚪 Logga ut</a></span> från LOOPIS.app</p>
 
 <!--h3>Integritet</h3>
 <hr>

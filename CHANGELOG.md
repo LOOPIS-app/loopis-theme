@@ -1,6 +1,26 @@
 # 📋 Changelog for "LOOPIS Theme"
 
-## 0.80 (beta)
+## 0.84 (2026-05-06)
+- WPUM post form for support posts replaced with our custom one
+- Archive pages added for CPT's support and forum
+- Bug fixes for swish buttons
+
+## 0.83 (2026-04-24)
+- All relative paths adjusted to work with Multisite
+- Improved UI for post lists on profile and author page
+- Role names and capabilites for "loopis_storage" revised
+
+## 0.82 (2026-03-30)
+- All FAQ content moved from pages to posts
+- All previous snippets in WP-admin integrated
+- All hardcoded category ID's replaced using loopis_cats()
+- Category naming update: first > old, booked_locker > booked
+
+## 0.81 (2026-03-19)
+- Added folder `includes` with sub folders for better file structure
+- Revised WPUM tabs and content on `/profile`
+
+## 0.80 (2026-03-09)
 - Preparing for migration of FAQ pages to FAQ posts
 - Replacing all occurences of ACF funtion get_field()
 - Blocking forwarding of already forwarded posts

@@ -7,6 +7,8 @@
 if (!defined('ABSPATH')) {
     exit;
 }
+$admin_url = home_url('/admin/');
+
 ?>
 
 <div class="columns">
@@ -16,12 +18,12 @@ if (!defined('ABSPATH')) {
     <div class="column2 bottom"></div>
 </div>
 <hr>
-<p class="small">💡 Visar verktyg tillgängliga för <span class="small-link"><a href="/profile/">👤<?php echo wp_get_current_user()->user_login; ?></a></span></p>
+<p class="small">💡 Visar verktyg tillgängliga för <span class="small-link"><a href="<?php echo esc_url( home_url('/profile/') ); ?>">👤<?php echo wp_get_current_user()->user_login; ?></a></span></p>
 
 <!-- Dashboard Cards -->
 
 <!-- Statistics -->
-<div class="wrapped link" onclick="location.href='/admin/?view=stats'">
+<div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'stats', $admin_url) ); ?>'">
     <h5>📊 Statistik</h5>
     <hr>
     <p class="small">
@@ -30,7 +32,7 @@ if (!defined('ABSPATH')) {
 </div>
 
 <!-- Raffle results -->
-<div class="wrapped link" onclick="location.href='/admin/?view=raffle'">
+<div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'raffle', $admin_url) ); ?>'">
     <h5>🎲 Lottning</h5>
     <hr>
     <p class="small">
@@ -39,7 +41,7 @@ if (!defined('ABSPATH')) {
 </div>
 
 <!-- Reminders -->
-<div class="wrapped link" onclick="location.href='/admin/?view=traffic-gifts'">
+<div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'traffic-gifts', $admin_url) ); ?>'">
     <h5>⏰ Påminnelser</h5>
     <hr>
     <p class="small">
@@ -48,7 +50,7 @@ if (!defined('ABSPATH')) {
 </div>
 
 <!-- Locker traffic -->
-<div class="wrapped link" onclick="location.href='/admin/?view=traffic-locker'">
+<div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'traffic-locker', $admin_url) ); ?>'">
     <h5>🔐 Trafik i skåp</h5>
     <hr>
     <p class="small">
@@ -66,7 +68,7 @@ if (!defined('ABSPATH')) {
 </div>
 
 <!-- Archive count -->
-<div class="wrapped link" onclick="location.href='/admin/?view=archive'">
+<div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'archive', $admin_url) ); ?>'">
     <h5>🕸 Arkivet</h5>
     <hr>
     <p class="small">
@@ -75,7 +77,7 @@ if (!defined('ABSPATH')) {
 </div>
 
 <!-- Comment count -->
-<div class="wrapped link" onclick="location.href='/admin/?view=comments'">
+<div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'comments', $admin_url) ); ?>'">
     <h5>🗨 Kommentarer</h5>
     <hr>
     <p class="small">
@@ -84,8 +86,8 @@ if (!defined('ABSPATH')) {
 </div>
 
 <!-- Pending members count -->
-<?php if (current_user_can('manager') || current_user_can('administrator')) : ?>
-    <div class="wrapped link" onclick="location.href='/admin/?view=activation'">
+<?php if (current_user_can('manage_options') || current_user_can('loopis_admin')) : ?>
+    <div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'activation', $admin_url) ); ?>'">
         <h5>👥 Nya medlemmar</h5>
         <hr>
         <p class="small">
@@ -95,8 +97,8 @@ if (!defined('ABSPATH')) {
 <?php endif; ?>
 
 <!-- Active support count -->
-<?php if (current_user_can('loopis_support')) : ?>
-    <div class="wrapped link" onclick="location.href='/admin/?view=support'">
+<?php if (current_user_can('manage_options') || current_user_can('loopis_admin')) : ?>
+    <div class="wrapped link" onclick="location.href='<?php echo get_post_type_archive_link('support'); ?>'">
         <h5>🛟 Support</h5>
         <hr>
         <p class="small">
@@ -106,8 +108,8 @@ if (!defined('ABSPATH')) {
 <?php endif; ?>
 
 <!-- Settings Section -->
-<?php if (current_user_can('manager') || current_user_can('administrator')) : ?>
-    <div class="wrapped link" onclick="location.href='/admin/?view=settings'">
+<?php if (current_user_can('manage_options') || current_user_can('loopis_admin')) : ?>
+    <div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'settings', $admin_url) ); ?>'">
         <h5>⚙ Inställningar</h5>
         <hr>
         <p class="small">
@@ -121,20 +123,28 @@ if (!defined('ABSPATH')) {
     <h3>💰 Ekonomi</h3>
     <hr>
     <div>
-        <span class="big-link"><a href="/admin/?view=economy/payments">📒 Alla köp</a></span>&nbsp;
-        <span class="big-link"><a href="/admin/?view=economy/coins">🪙 Köp av mynt</a></span>&nbsp;
+        <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'economy/payments', $admin_url) ); ?>">📒 Alla köp</a></span>&nbsp;
+        <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'economy/coins', $admin_url) ); ?>">🪙 Köp av mynt</a></span>&nbsp;
     </div>
 <?php endif; ?>
 
+<!-- Manager Section -->
+<h3>🤓 Admin</h3>
+<hr>
+<div>
+    <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'manager/post-search', $admin_url) ); ?>">🔍 Alla annonser</a></span>&nbsp;
+    <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'manager/inventory', $admin_url) ); ?>">📋 Inventering i skåpet</a></span>&nbsp;
+</div>
+
 <!-- Member Info Section -->
-<?php if (current_user_can('board_member') || current_user_can('administrator')) : ?>
+<?php if (current_user_can('manage_options') || current_user_can('board')) : ?>
     <h3>👤 Medlemsinfo</h3>
     <hr>
     <div>
-        <span class="big-link"><a href="/admin/?view=members/registry">🗃 Medlemsregister</a></span>&nbsp;
-        <span class="big-link"><a href="/admin/?view=members/email-list">✉ Epost-adresser</a></span>&nbsp;
-        <span class="big-link"><a href="/admin/?view=members/reward">🙏 Belöna</a></span>&nbsp;
-        <span class="big-link"><a href="/admin/?view=members/rewards">🌟 Belöningar</a></span>&nbsp;
+        <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'members/registry', $admin_url) ); ?>">🗃 Medlemsregister</a></span>&nbsp;
+        <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'members/email-list', $admin_url) ); ?>">✉ Epost-adresser</a></span>&nbsp;
+        <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'members/reward', $admin_url) ); ?>">🙏 Belöna</a></span>&nbsp;
+        <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'members/rewards', $admin_url) ); ?>">🌟 Belöningar</a></span>&nbsp;
     </div>
 <?php endif; ?>
 
@@ -142,27 +152,28 @@ if (!defined('ABSPATH')) {
 <h3>📡 Special</h3>
 <hr>
 <div>
-    <span class="big-link"><a href="/admin/?view=special/collage">🖼 Kollage</a></span>&nbsp;
-    <span class="big-link"><a href="/admin/?view=special/custom-location">📍 Annan adress</a></span>&nbsp;
+    <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'special/collage', $admin_url) ); ?>">🖼 Kollage</a></span>&nbsp;
+    <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'special/uncategorized', $admin_url) ); ?>">❤️‍🩹 Annonser utan kategori</a></span>&nbsp;
 </div>
 
 <!-- Webmaster Section -->
-<?php if (current_user_can('develooper') || current_user_can('administrator')) : ?>
-    <h3>👽 Webmaster</h3>
+<?php if (current_user_can('manage_options') || current_user_can('develooper')) : ?>
+    <h3>👽 WP-admin</h3>
     <hr>
     <div>
-        <span class="big-link"><a href="/admin/?view=webmaster/test">💣 Test</a></span>&nbsp;
-        <span class="big-link"><a href="/wp-admin">👩‍💻 WP-admin</a></span>&nbsp;
-        <span class="big-link"><a href="/profile/">👤 Profil</a></span>&nbsp;
-        <span class="big-link"><a href="../../wp-login.php?action=logout">🚪 Logga ut</a></span>
+        <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'webmaster/test', $admin_url) ); ?>">💣 Testsida</a></span>&nbsp;
+        <span class="big-link"><a href="<?php echo esc_url( admin_url() )?>">👩‍💻 Gå till WP-admin</a></span>&nbsp;
+        <span class="big-link"><a href="<?php echo esc_url( home_url('/profile/') ); ?>">👤 Gå till profilsida</a></span>&nbsp;
+        <span class="big-link"><a href="<?php echo esc_url( wp_logout_url( home_url('/') ) ); ?>">🚪 Logga ut</a></span>
     </div>
 <?php endif; ?>
 
 <!-- Access List -->
-<?php if (current_user_can('develooper') || current_user_can('administrator')) : ?>
+<?php if (current_user_can('manage_options') || current_user_can('loopis_admin')) : ?>
     <p>&nbsp;</p>
     <div class="wrapped">
         <h5>🚧 Vilka har tillgång?</h5>
+        <hr>
         <?php include __DIR__ . '/dashboard-blocks/access.php'; ?>
     </div>
 <?php endif; ?>

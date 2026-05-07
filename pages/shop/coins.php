@@ -1,7 +1,8 @@
 <?php
 /**
- * Shop: coins (dynamic loading from page-shop.php)
- * Content overview.
+ * Shop: coins 
+ * 
+ * Dynamic loading from page-shop.php (and currently set as the default page)
  */
 
 if (!defined('ABSPATH')) {
@@ -29,14 +30,25 @@ if (is_user_logged_in()) {
 $test_mode = defined('WP_TEST') && WP_TEST;
 if ($test_mode) {
     $payment_link = 'https://buy.stripe.com/test_dRm7sL5l05Bk7IKfNZcV200';
-    echo '<div class="wpum-message info"><p>⚠ Testläge! Använd testkort 4242 4242 4242 4242.</p></div>';
 } else {
     $payment_link = 'https://buy.stripe.com/8x2fZh4gZaGj8L16MC1wY01';
 }
 ?>
 
-<p><button type="submit"><a href="<?php echo esc_url($payment_link); ?>">💳 Betala 50 kr</a></button></p>
+<p><button type="button" class="green" onclick="window.location.href='<?php echo esc_url($payment_link); ?>'">💳 Betala 50 kr</button></p>
 <p class="small">💡 Du får dina mynt direkt när betalningen är genomförd.</p>
 
-<p><span class="link"><a href="/faq/hur-funkar-regnbagsmynt">📌 Hur funkar regnbågsmynt?</a></span></p>
-<p><span class="link"><a href="/shop/?option=swish-coins">💸 Betala med Swish istället</a></span></p>
+<p><span class="link"><a href="<?php echo esc_url(home_url('/faq/hur-funkar-regnbagsmynt')); ?>">📌 Hur funkar regnbågsmynt?</a></span></p>
+<p><span class="link"><a href="<?php echo esc_url(add_query_arg('option', 'swish-coins', home_url('/shop/'))); ?>">💸 Betala med Swish istället</a></span></p>
+
+<?php
+// Developer info in test mode
+if ($test_mode) {
+    echo '<div class="admin-block">';
+    include_once LOOPIS_THEME_DIR . '/templates/admin/links/developer-link.php';
+    echo '<h5>⚠ Testläge!</h5>';
+    echo '<hr>';
+    echo '<p>Genom att använda kortnummer "4242 4242 4242 4242" simulerar du en betalning med Stripe sandbox.</p>';
+    echo '</div>';
+}
+?>

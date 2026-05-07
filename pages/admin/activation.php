@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Extra php functions
-include_once LOOPIS_THEME_DIR . '/functions/admin-extra/admin_action_activate_account.php';
+include_once LOOPIS_THEME_DIR . '/includes/functions/admin-extra/admin_action_activate_account.php';
 ?>
 
 <style>
@@ -86,7 +86,7 @@ $count = count($pending_users);
 <h3>📋 Formulär</h3>
 <div class="columns">
     <div class="column1">
-        ↓ <?php echo $count; ?> <?php echo ($count == 1) ? 'ny' : 'nya' . ' som ej betalat'; ?>
+        ↓ <?php echo $count; ?> <?php echo (($count == 1) ? 'ny' : 'nya') . ' som ej betalat'; ?>
     </div>
     <div class="column2 small">💡 Senaste överst</div>
 </div>
@@ -158,9 +158,9 @@ $count = count($new_users);
 <h3>✅ Aktiverade</h3>
 <div class="columns">
     <div class="column1">
-        ↓ <?php echo $count; ?> <?php echo ($count == 1) ? 'ny' : 'nya'; ?> senaste veckan
+        ↓ <?php echo $count; ?> <?php echo (($count == 1) ? 'ny' : 'nya'); ?> senaste veckan
     </div>
-    <div class="column2">💡 Senaste överst</div>
+    <div class="column2 small">💡 Senaste överst</div>
 </div>
 <hr>
 
@@ -211,7 +211,7 @@ $count = count($new_users);
                 <div class="user-card-row details">
                     <span><?php include LOOPIS_THEME_DIR . '/templates/admin/profile/user-email.php'; ?></span>
                     <span><?php include LOOPIS_THEME_DIR . '/templates/admin/profile/user-phone.php'; ?></span>
-                    <span>💰 <?php echo esc_html($payment_type_display ?: '—'); ?></span>
+                    <span>💰 <?php echo esc_html($payment_method ?: '—'); ?></span>
                     <span class="user-card-time">⏳ <?php echo esc_html($registered); ?></span>
                 </div>
             </div>

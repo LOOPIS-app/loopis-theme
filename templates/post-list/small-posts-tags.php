@@ -1,7 +1,7 @@
 <?php
 /**
- * Template part for displaying small posts, with tags only, in list view.
- * Used in: page-gifts.php, archive pages, search results, etc.
+ * Template part for displaying small posts with tags instead of category.
+ * Used in: search.php for recommendations, only?
  */
 
 if (!defined('ABSPATH')) {
@@ -13,6 +13,6 @@ if (!defined('ABSPATH')) {
 	<div class="post-list-post-thumbnail"><?php the_post_thumbnail('thumbnail'); ?></div>
 	<div class="post-list-post-title"><?php the_title(); ?></div>
 	<div class="post-list-post-meta">
-		<p><i class="fas fa-hashtag"></i><?php the_tags(''); ?></p>
+		<span><i class="fas fa-hashtag"></i><?php the_tags(''); ?></span>
 	</div>
 </div>

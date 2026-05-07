@@ -11,12 +11,11 @@ if (!defined('ABSPATH')) {
 
 // Get current user ID
 $user_ID = get_current_user_id();
-
 // Arguments
 $args = array(
     'user_id' => $user_ID,
     'status' => 'approve',
-    'number' => 50, );
+    'number' => 50,);
 
 // Query
 $comments = get_comments($args); ?>
@@ -59,4 +58,4 @@ $comments = get_comments($args); ?>
 <?php wp_reset_postdata(); ?>
 
 <!-- Mention script -->
-<script src="<?php echo LOOPIS_THEME_URI; ?>/assets/js/mentions-show-list.js.js"></script>
+<script src="<?php echo LOOPIS_THEME_URI; ?>/assets/js/mentions-show-list.js"></script>

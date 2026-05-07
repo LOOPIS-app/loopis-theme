@@ -11,13 +11,13 @@ if (!defined('ABSPATH')) {
 $args = array(
     'posts_per_page' => 3,
     'orderby'        => 'rand',
-    'category__in'   => loopis_cats(['new', 'first']),
+    'category__in'   => loopis_cats(['new', 'old']),
 );
 $the_query = new WP_Query($args);
 ?>
 
 <div class="columns"><div class="column1"><h3>🤹 Tre tips</h3></div>
-<div class="column2 bottom"><a href="/discover/?view=random-posts">Fler tips →</a></div></div>
+<div class="column2 bottom"><a href="<?php echo esc_url( add_query_arg(array('view' => 'random-posts'), home_url('/discover/')) ); ?>">Fler tips →</a></div></div>
 <hr>
  <!-- Posts output -->
 <div class="post-list">

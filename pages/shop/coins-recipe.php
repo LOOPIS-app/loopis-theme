@@ -13,10 +13,10 @@ if (!defined('ABSPATH')) {
 <hr>
 <p>Din betalning är genomförd.</p>
 
-<div class="wpum-message success" onclick="location.href='/'">
+<a class="wpum-message success" href="<?php echo esc_url($home_url); ?>">
 <p>✅ 5 regnbågsmynt köpta!</p>
-</div>
+</a>
 
-<p><span class="link"><a href="/">🎁 Saker att få</a></span></p>
-<p><span class="link"><a href="/shop/?option=coins">🛒 Köp 5 mynt till</a></span></p>
-<p><span class="link"><a href="hur-funkar-regnbagsmynt">📌 Hur funkar regnbågsmynt?</a></span></p>
+<p><span class="link"><a href="<?php echo esc_url(home_url("/")); ?>">🎁 Saker att få</a></span></p>
+<p><span class="link"><a href="<?php echo esc_url(add_query_arg('option', 'coins', home_url('/shop/'))); ?>">🛒 Köp 5 mynt till</a></span></p>
+<p><span class="link"><a href="<?php echo esc_url(home_url('/faq/hur-funkar-regnbagsmynt')); ?>">📌 Hur funkar regnbågsmynt?</a></span></p>

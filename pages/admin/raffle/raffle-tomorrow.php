@@ -21,7 +21,7 @@ $visibility = current_user_can('loopis_raffle') ? 'visible' : 'hidden';
 $args = array(
     'post_type'      => 'post',
     'posts_per_page' => -1,
-    'cat'            => '1',
+    'cat'            => loopis_cat('new'),
     'date_query'     => array(
         array(
             'after'     => $today_start,
@@ -70,7 +70,7 @@ $count = $the_query->found_posts;
                         <p>
                             <?php
                             the_category(' ');
-                            if (has_category(array('booked_locker', 'booked_custom'))) {
+                            if (has_category(array('booked', 'booked_custom'))) {
                                 $fetcher = get_post_meta($post_id, 'fetcher', true);
                                 if ($fetcher) {
                                     $fetchername = get_userdata($fetcher)->display_name;

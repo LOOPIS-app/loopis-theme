@@ -19,12 +19,17 @@ if (!defined('ABSPATH')) {
 // Set current year (to avoid undefined variable)
 $current_year = date('Y');
 
+// Categories
+$fetcher_cat = loopis_cat('fetched');
+$activity_cats = loopis_cats(['fetched', 'booked', 'booked_custom', 'locker']);
+$removed_cat = loopis_cat('removed');
+
 // Render dropdown and get the selected year
-include_once LOOPIS_THEME_DIR . '/functions/admin-extra/stats/stats_select_year.php';
+include_once LOOPIS_THEME_DIR . '/includes/functions/admin-extra/stats/stats_select_year.php';
 $selected_year = stats_select_year();
 
 // Calculate days passed and output message
-include_once LOOPIS_THEME_DIR . '/functions/admin-extra/stats/stats_days_passed.php';
+include_once LOOPIS_THEME_DIR . '/includes/functions/admin-extra/stats/stats_days_passed.php';
 $days_passed = stats_days_passed($selected_year); 
 
 // Exclude the board?
@@ -84,7 +89,7 @@ $forwarded_count = $forwarded_query->found_posts;
 // Number of forwarded posts fetched
 $forwarded_fetched_args = array(
     'post_type'      => 'post',
-    'category__in'   => 41,
+    'category__in'   => $fetcher_cat,
     'meta_key'       => 'previous_post',
     'meta_query'     => array(
         array(
@@ -103,7 +108,7 @@ $forwarded_fetched_count = $forwarded_fetched_query->found_posts;
 // Number of posts booked
 $booked_args = array(
     'post_type'      => 'post',
-    'category__in'   => array(41, 57, 106, 104),
+    'category__in'   => $activity_cats,
     'posts_per_page' => -1,
     'date_query'     => build_date_query($selected_year),
 );
@@ -114,7 +119,7 @@ $booked_count = $booked_query->found_posts;
 // Number of posts booked (board excluded)
 $booked_noboard_args = array(
     'post_type'      => 'post',
-    'category__in'   => array(41, 57, 106, 104),
+    'category__in'   => $activity_cats,
     'posts_per_page' => -1,
     'date_query'     => build_date_query($selected_year),
     'author__not_in' => $board_ids,
@@ -126,7 +131,7 @@ $booked_noboard_count = $booked_noboard_query->found_posts;
 // Number of posts fetched
 $fetched_args = array(
     'post_type'      => 'post',
-    'category__in'   => 41,
+    'category__in'   => $fetcher_cat,
     'posts_per_page' => -1,
     'date_query'     => build_date_query($selected_year),
 );
@@ -137,7 +142,7 @@ $fetched_count = $fetched_query->found_posts;
 // Number of posts fetched (board excluded)
 $fetched_noboard_args = array(
     'post_type'      => 'post',
-    'category__in'   => 41,
+    'category__in'   => $fetcher_cat,
     'posts_per_page' => -1,
     'date_query'     => build_date_query($selected_year),
     'author__not_in' => $board_ids,
@@ -149,7 +154,7 @@ $fetched_noboard_count = $fetched_noboard_query->found_posts;
 // Number of posts removed
 $removed_args = array(
     'post_type'      => 'post',
-    'category__in'   => 58,
+    'category__in'   => $removed_cat,
     'posts_per_page' => -1,
     'date_query'     => build_date_query($selected_year),
 );
@@ -160,7 +165,7 @@ $removed_count = $removed_query->found_posts;
 // Number of booked posts with raffle_date
 $raffle_args = array(
     'post_type'      => 'post',
-    'category__in'   => array(41, 57, 106, 104),
+    'category__in'   => $activity_cats,
     'meta_key'       => 'raffle_date',
     'meta_value'     => '',
     'meta_compare'   => 'EXISTS',
@@ -174,7 +179,7 @@ $raffle_count = $raffle_query->found_posts;
 // Number of fetched posts with location 'Skåpet'
 $locker_args = array(
     'post_type'      => 'post',
-    'category__in'   => 41,
+    'category__in'   => $fetcher_cat,
     'meta_key'       => 'location',
     'meta_value'     => 'Skåpet',
     'posts_per_page' => -1,
@@ -187,7 +192,7 @@ $locker_count = $locker_query->found_posts;
 // Number of fetched posts with location 'LOOPIS-bord'
 $event_args = array(
     'post_type'      => 'post',
-    'category__in'   => 41,
+    'category__in'   => $fetcher_cat,
     'meta_key'       => 'location',
     'meta_value'     => 'LOOPIS-bord',
     'posts_per_page' => -1,

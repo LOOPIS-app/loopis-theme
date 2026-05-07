@@ -44,7 +44,7 @@
 		$og_type = 'website';
 		$og_url = get_tag_link(get_queried_object_id());
 	} elseif (is_archive()) {
-        $title = $blog_name;
+		$title = post_type_archive_title('', false) ?: $blog_name;
         $description = 'För en glad och hållbar framtid.';
         $meta_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_app.png';
         $og_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_og.png';
@@ -112,11 +112,11 @@
 	<header id="header">
 		<div class="group">
 			<div class="header-back" onclick="history.back()"><i class="fas fa-chevron-left"></i></div>
-			<a href="/"><img src="<?php echo LOOPIS_THEME_URI; ?>/assets/img/LOOPIS_logo.png" alt="LOOPIS-logo" id="header-img"></a>
+			<a href="<?php echo esc_url(home_url('/')); ?>"><img src="<?php echo LOOPIS_THEME_URI; ?>/assets/img/LOOPIS_logo.png" alt="LOOPIS-logo" id="header-img"></a>
 			<?php if ( is_front_page() && current_user_can('loopis_admin') && !current_user_can('administrator') ) : ?>
-				<div class="header-faq" onclick="location.href='/admin'">🐙</div>
+				<div class="header-faq" onclick="location.href='<?php echo esc_url( home_url('/admin/') ); ?>'">🐙</div>
 			<?php else: ?>
-				<div class="header-faq" onclick="location.href='/faqs'">💡</div>
+				<div class="header-faq" onclick="location.href='<?php echo esc_url( home_url('/faq/') ); ?>'">💡</div>
 			<?php endif; ?>
 			</div>
 		</header>

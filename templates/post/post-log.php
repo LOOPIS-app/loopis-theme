@@ -34,7 +34,7 @@ if (is_user_logged_in()) {
         echo '<p><i class="fas fa-minus-circle"></i>Arkiverad för ' . human_time_diff(strtotime($archive_date), $now_time) . ' sen<span>' . $archive_date . '</span></p>';
     }
     // Booked
-    if (in_category(array('booked_locker', 'booked_custom', 'locker'))) {
+    if (in_category(array('booked', 'booked_custom', 'locker'))) {
         $book_date = get_post_meta($post_id, 'book_date', true);
         echo '<p><i class="fas fa-heart"></i><a href="' . $fetcherlink . '">' . $fetchername . '</a> paxade för ' . human_time_diff(strtotime($book_date), $now_time) . ' sen <span>' . $book_date . '</span></p>';
     }

@@ -19,11 +19,11 @@ if (!defined('ABSPATH')) {
 $current_year = date('Y');
 
 // Render dropdown and get the selected year
-include_once LOOPIS_THEME_DIR . '/functions/admin-extra/stats/stats_select_year.php';
+include_once LOOPIS_THEME_DIR . '/includes/functions/admin-extra/stats/stats_select_year.php';
 $selected_year = stats_select_year();
 
 // Get top posts by participants
-include_once LOOPIS_THEME_DIR . '/functions/admin-extra/stats/get_top_posts_by_participants.php';
+include_once LOOPIS_THEME_DIR . '/includes/functions/admin-extra/stats/get_top_posts_by_participants.php';
 $top_posts = get_top_posts_by_participants($selected_year);
 
 // Output top posts by participants
@@ -60,11 +60,11 @@ $top_posts = get_top_posts_by_participants($selected_year);
 <?php endif;
 
 // Fetch the top 10 tags used in published posts
-include_once LOOPIS_THEME_DIR . '/functions/admin-extra/stats/get_top_tags_published.php';
+include_once LOOPIS_THEME_DIR . '/includes/functions/admin-extra/stats/get_top_tags_published.php';
 $tag_post_counts_published = get_top_tags_published($selected_year);
 
 // Fetch the top 10 tags used in fetched posts
-include_once LOOPIS_THEME_DIR . '/functions/admin-extra/stats/get_top_tags_fetched.php';
+include_once LOOPIS_THEME_DIR . '/includes/functions/admin-extra/stats/get_top_tags_fetched.php';
 $tag_post_counts_fetched = get_top_tags_fetched($selected_year);
 ?>
 

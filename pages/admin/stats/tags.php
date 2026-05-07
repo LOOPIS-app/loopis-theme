@@ -19,7 +19,7 @@ if (!defined('ABSPATH')) {
 $start_date = isset($_GET['start_date']) ? sanitize_text_field($_GET['start_date']) : '';
 $end_date = isset($_GET['end_date']) ? sanitize_text_field($_GET['end_date']) : '';
 
-$categories = array(41);
+$categories = loopis_cats(['fetched']);
 $tags = get_tags();
 
 // Create an array to store the post counts for each tag
@@ -70,7 +70,7 @@ arsort($tag_post_counts);
     <input type="date" id="start_date" name="start_date" value="<?php echo esc_attr($start_date); ?>">
     <label for="end_date">Slutdatum:</label>
     <input type="date" id="end_date" name="end_date" value="<?php echo esc_attr($end_date); ?>">
-    <button type="submit">Filtrera</button>
+    <button type="submit" class="green small">Filtrera</button>
 </form>
 
 <div class="columns">

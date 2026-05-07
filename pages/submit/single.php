@@ -1,5 +1,18 @@
 <?php
-/* Formerly named submit-single.php and defined as template "Submit-Single Template" */
+/**
+ * SUBMIT POST
+ * 
+ * Dynamic content of page-submit.php
+ * Reached on /submit/?option=single
+ * 
+ * Showing form to submit post
+ * 
+ * Footer is excluded to maximize space + avoid exiting when editing post content
+ */
+
+if (!defined('ABSPATH')) {
+    exit;
+}
 ?>
 
 
@@ -13,7 +26,7 @@
 <p class="small">
 💡 Lägg bara upp <u>en sak i varje annons</u><br>
 💡 Fota gärna med ren bakgrund<br>
-💡 Lägg inte upp <a href="/faq/restriktioner">otillåtna annonser</a>
+💡 Lägg inte upp <a href="<?php esc_url( home_url('/faq/restriktioner'));?>">otillåtna annonser</a>
 </p>
 
 <!-- WPUM Frontend Posting -->
@@ -57,3 +70,4 @@ $(document).ready(function() {
   });
 });
 </script>
+<?php wp_footer(); ?>

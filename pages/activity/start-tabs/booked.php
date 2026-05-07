@@ -10,13 +10,13 @@ if (!defined('ABSPATH')) {
 }
 
 // Extra php functions (not yet used)
-include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-regret.php'; 
+include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-regret.php'; 
 
 // Get current user ID
 $user_ID = get_current_user_id();
 
 // Get category IDs
-$booked_categories = loopis_cats(['booked_locker', 'booked_custom', 'locker']);
+$booked_categories = loopis_cats(['booked', 'booked_custom', 'locker']);
 
 // Arguments
 $args = array(
@@ -35,7 +35,7 @@ $count = $the_query->found_posts;
 <!--Output-->
 <div class="columns">
     <div class="column1">↓ <?php echo $count; ?> annons<?php if ($count != 1) { echo "er"; } ?></div>
-    <div class="column2 bottom"><a href="<?php echo esc_url(home_url() . '/profile/' . wp_get_current_user()->user_login . '/fetched'); ?>">Visa hämtade →</a></div>
+    <div class="column2 bottom"><a href="<?php echo esc_url(home_url() . '/activity/?view=posts-fetched'); ?>">Visa hämtade →</a></div>
 </div>
 <hr>
 
@@ -62,6 +62,8 @@ $count = $the_query->found_posts;
         <?php endwhile; ?>
     <?php else : ?>
         <p>💢 Du har inga aktuella paxningar.</p>
+        <p>Gå till <span class="link"><a href="<?php echo esc_url(home_url() . '/activity/?view=posts-fetched'); ?>">☑ Saker hämtade</a></span></p>
+        <p>Ta en titt på <span class="link"><a href="<?php echo home_url(); ?>">🎁 Saker att få</a></span></p>
     <?php endif; ?>
 </div><!--post-list-->
 

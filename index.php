@@ -19,7 +19,7 @@ get_header(); ?>
         $paged = get_query_var('paged') ?: 1;
 
         // Get available posts categories
-        $available_posts = loopis_cats(['new', 'first', 'booked_locker', 'booked_custom']);
+        $available_posts = loopis_cats(['new', 'old', 'booked', 'booked_custom']);
         
         // Fetch and count available posts
         $args = array(
@@ -28,6 +28,7 @@ get_header(); ?>
             'category__in'   => $available_posts,
             'paged'          => $paged,
         );
+
 
         $the_query = new WP_Query($args);
         $count = $the_query->found_posts;
@@ -48,13 +49,18 @@ get_header(); ?>
                 <?php endwhile; ?>
         </div><!--post-list-->
 
-        <?php get_template_part('templates/post-list/pagination'); ?>
+        <?php 
+            set_query_var('custom_query', $the_query);
+            get_template_part('templates/post-list/pagination'); 
+        ?>
 
         <?php else : ?>
             <p>💢 Det finns inga aktuella annonser</p>
         <?php endif; ?>
 
-        <?php wp_reset_postdata(); ?>
+        <?php 
+            wp_reset_postdata(); 
+        ?>
 
     </div><!--page-padding-->
 </div><!--content-->

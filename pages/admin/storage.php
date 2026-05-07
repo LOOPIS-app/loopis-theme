@@ -1,9 +1,13 @@
 <?php
 /**
  * Storage page
+ * 
+ * Dynamic content of page-admin.php
+ * Reached on /admin/?view=storage
+ * 
  * Shows all items in storage category
+ * Access restricted to users with loopis_storage capability
  * Includes search functionality for finding specific items
- * Access restricted to users with loopis_storage_book capability
  */
 
 if (!defined('ABSPATH')) {
@@ -15,7 +19,7 @@ if (!defined('ABSPATH')) {
 <hr>
 <p class="small">💡 Här ser du alla saker i kategorierna <span class="small-label">📦 Lager</span> - och ibland <span class="small-label">📌 Tips</span>.</p>
 
-<?php if (current_user_can('loopis_storage_book')) : ?>
+<?php if (current_user_can('loopis_storage')) : ?>
 
     <?php
     // Get search term

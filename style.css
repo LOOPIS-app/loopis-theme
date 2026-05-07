@@ -1,11 +1,22 @@
-/*
- Theme Name: LOOPIS Theme (beta)
- Version: 0.80
- Author: The Develoopers
- Author URI: https://loopis.org
- Description: Theme providing all frontend design and functionality for LOOPIS.app
- Text Domain: loopis-theme
-*/
+/**
+ * Theme Name:  LOOPIS Theme
+ * Version:     0.84
+ * Description: Theme providing all frontend design and functionality for LOOPIS.app
+ * Author:      The Develoopers
+ * Author URI:  https://loopis.org
+ * License:     GPL-3.0-or-later
+ * License URI: https://www.gnu.org/licenses/gpl-3.0.html
+ * Text Domain: loopis-theme
+ */
+
+/**
+ * Copyright (C) 2026 LOOPIS
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ */
 
 /* Reset - http://meyerweb.com/eric/tools/css/reset/ v2.0 */
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, 
@@ -26,7 +37,7 @@ body { background:#fff; font-size:16px; line-height:1.5em; color:#333; font-weig
 ::-moz-selection { background:#333; color:#fff; }
 img { max-width:100%; height:auto; }
 address,cite,em { font-style: italic; }
-strong { font-weight:400; }
+b, strong { font-weight: 400; }
 ol, ul { box-sizing:content-box; }
 .left,.alignleft { float:left; }
 .right,.alignright { float:right; }
@@ -44,7 +55,7 @@ img.wp-smiley, img.emoji { margin: 0 1px 0 0 !important; vertical-align: -0.1em 
 /*  BASE LAYOUT */
 #wrapper { max-width:900px; height:100%; margin: 0 auto; background: #fefefe; margin-bottom: 25px;}
 .container { width:100%; margin-top: 70px; background: #fff; border: 1px solid #f5f5f5; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
-.content { }
+/*.content { }*/
 .page-padding { padding: 20px 15px; }
 
 /*  Header */
@@ -125,7 +136,7 @@ a:hover { color:#333; }
 /* Paragraph */
 p { margin:0 0 10px 0; }
 hr { width:100%; padding:0px; margin:0 0 9px 0; background-color:#000; height:1px; border:0; }
-.hidden { visiblity: hidden }
+.hidden { visibility: hidden }
 
 /* Special fonts */
 .small { font-size: 13px; line-height: 1.5em; margin:2px 0 10px 0; }
@@ -139,8 +150,8 @@ hr { width:100%; padding:0px; margin:0 0 9px 0; background-color:#000; height:1p
 .wrapped p { margin: 0; }
 .wrapped hr { margin-bottom: 5px; }
 .link:hover { background: #ebebeb; cursor: pointer; } /* Used when making divs clickable */
-.homescreen { }				/* Inline at the moment */
-.interaction { }				/* No style? */
+/*.homescreen { }		*/		/* Inline at the moment */
+/*.interaction { }		*/		/* No style? */
 
 /* Collapsed divs (not in use yet) */
 .collapsed { display: none; overflow: hidden; transition: max-height 0.2s ease-out; }
@@ -167,7 +178,7 @@ span.link:hover { background: #ebebeb; }
 span.small-link:hover { background: #ebebeb; }
 span.big-link:hover { background: #ebebeb; }
 span.mega-link:hover { background: #ebebeb; cursor: pointer; }
-span.rounded { font-size: 16px; padding:4px 10px; border-radius: 20px; background: #fff; }
+span.rounded { font-size: 14px; padding:4px 10px; border-radius: 20px; background: #fff; }
 span.grey { color: #777 !important; }
 span.grey a { color: #777 !important; text-decoration: none; }
 span.code { font-family: 'Courier New', monospace; font-weight: bold; }
@@ -212,6 +223,29 @@ h1.wrap { white-space: normal; }
 .post-content .wrapped { background-color: #fff; padding: 8px 10px 5px 10px; margin: 0 15px 15px 0; }
 .post-content .wrapped p { margin: 5px 0; }
 
+/* Forum layout */
+.wp-block-image { margin-bottom: 15px; }
+
+/* Bullet-list (by Hubert, used in e.g. post Stadgar) */
+.page-padding .wp-block-list {
+  counter-reset: wp-list-counter;
+  margin: 1.5em 0 ;
+  padding-left: 3em;
+  list-style-type: decimal;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 1rem;
+  line-height: 1.0em;
+}
+.page-padding .wp-block-list li{
+  margin-bottom: 0.5em;
+  position: relative;
+  padding-left: 1em;
+}
+.page-padding .wp-block-list li::marker{
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
 /* Video embedded in post */
 .wp-block-embed__wrapper { display: flex; justify-content: center; }
 .wp-block-embed__wrapper iframe { width: 240px !important; height: auto !important; }
@@ -228,7 +262,7 @@ h1.wrap { white-space: normal; }
 .admin-block .logg { padding: 0 0 10px 0; } 
 
 /* Post-list */
-.post-list { }
+/*.post-list { }*/
 .post-list-post { height: 60px; background: #f5f5f5; box-shadow: 2px 2px 5px #eee; margin-bottom: 13px; }
 .post-list-post-big { height: 120px; background: #f5f5f5; box-shadow: 2px 2px 5px #eee; margin-bottom:15px; }
 .post-list > .link:hover { background: #ebebeb; box-shadow: 1px 1px 3px #eee; cursor: pointer; }
@@ -242,7 +276,7 @@ h1.wrap { white-space: normal; }
 .post-list-post-comment { font-size: 16px; font-style: italic; padding-top: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #333; }
 .post-list-post-comment p { padding: 0; margin: 0; background: none !important; }
 .post-list-post-comment span { padding: 4px; background: #fff; }
-.post-list-post-comment a { }
+/*.post-list-post-comment a { }*/
 .post-list-post-comment br { display: none; } 
 .post-list-post-meta { color: #777; }
 .post-list-post-meta span { padding: 0; margin-right: 7px; }
@@ -252,7 +286,7 @@ h1.wrap { white-space: normal; }
 .post-list-post-meta a:hover { color: #333; }
 .post-list .right { font-size: 13px; text-align: right; padding-right: 5px; }
 
-/* Forum-list */
+/* Forum-list (should be converted to a generic CPT solution) */
 .post-list-forum { display: flex; align-items: stretch; overflow: hidden; min-height: 60px; background: #f5f5f5; box-shadow: 2px 2px 5px #eee; margin-bottom: 13px; cursor: pointer; }
 .post-list-forum-content { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 5px 8px; }
 .post-list-forum-title { font-size: 22px; color: #333; padding: 3px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -291,13 +325,10 @@ h1.wrap { white-space: normal; }
 .padgin0 { padding: 0px !important; margin: 0px !important; }
 .center { text-align: center;  }
 
-/* Denna styling av gap funkar ej :(  */
-body .wp-block-columns .wp-block-column {gap: 0em !important; }
-
 /* Pagination (WPUM style) */
 #post-pagination { display: flex; justify-content: center; background: #f5f5f5; flex-wrap: wrap; margin-top: 30px; font-size: 24px; }
-#post-pagination a { padding: 10px 15px;  }
-#post-pagination span { padding: 10px 15px; }
+#post-pagination a { padding: 8px 12px;  }
+#post-pagination span { padding: 8px 12px; }
 
 /* image position */
 img.size-auto,
@@ -321,14 +352,14 @@ input, select, textarea, button, label { font-size: 22px; font-weight: 300;}
 /* Poe: Reset styles */
 input::-moz-focus-inner, button::-moz-focus-inner { border: 0; padding: 0; }
 input[type="search"], input[type="text"], input[type="password"], input[type="email"], input[type="url"], input[type="tel"], input[type="number"], input[type="submit"], select, button, textarea { margin: 0; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; -webkit-border-radius: 0; border-radius: 0; }
-input, select, textarea, button { -moz-appearance: none; -webkit-appearance: none; -moz-transition: all .2s ease; -webkit-transition: all .2s ease; transition: all .2s ease; }
-select { -moz-appearance: menulist; -webkit-appearance: menulist; }
-input[type="checkbox"] { -moz-appearance: checkbox; -webkit-appearance: checkbox; background: none; }
-input[type="radio"] { -moz-appearance: radio; -webkit-appearance: radio; }
+input, select, textarea, button { -moz-appearance: none; -webkit-appearance: none; appearance: none; -moz-transition: all .2s ease; -webkit-transition: all .2s ease; transition: all .2s ease; }
+select { -moz-appearance: menulist; -webkit-appearance: menulist; appearance: menulist;}
+input[type="checkbox"] { -moz-appearance: checkbox; -webkit-appearance: checkbox; appearance: checkbox; background: none; }
+input[type="radio"] { -moz-appearance: radio; -webkit-appearance: radio; appearance: radio; }
 
 /* Poe: Form elements */
-label { color: #333; }
-label .required { color: #333; }
+label { color: #333; font-size: 14px; margin-bottom: 5px; display: block; }
+label .required { color: #FF969D; }
 input[type="search"], input[type="text"], input[type="password"], input[type="email"], input[type="url"], input[type="tel"], input[type="number"], select, textarea { background: #fff; border: 2px solid #e5e5e5; color: #777; display: block; max-width: 100%; outline: none; padding: 7px 8px; }
 input[type="search"]:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="tel"]:focus, input[type="number"]:focus, select:focus, textarea:focus { border-color: #ddd; color: #333; -webkit-box-shadow: 0 0 3px rgba(0,0,0,0.1); box-shadow: 0 0 3px rgba(0,0,0,0.1); }
 
@@ -360,37 +391,36 @@ input[type="search"]:focus, input[type="text"]:focus, input[type="password"]:foc
     font-size: 15px; 
 }
 
-/* Poe: Buttons */
-input[type="button"], input[type="reset"], input[type="submit"], button[type="button"], button[type="reset"], button[type="submit"] {
+/* Buttons */
+input[type="button"], input[type="reset"], input[type="submit"], button[type="button"], button[type="reset"], button[type="submit"], button, a.button {
   background: #78b159;
   color: #FFF;
+  font-size: 22px;
   padding: 8px 14px;
   display: inline-block;
   border: none !important;
   cursor: pointer;
   -webkit-border-radius: 10px;
   border-radius: 10px; }
-input[type="button"]:hover, input[type="reset"]:hover, input[type="submit"]:hover, button[type="button"]:hover, button[type="reset"]:hover, button[type="submit"]:hover {
+input[type="button"]:hover, input[type="reset"]:hover, input[type="submit"]:hover, button[type="button"]:hover, button[type="reset"]:hover, button[type="submit"]:hover, button:hover, a.button:hover {
   background: #666 !important;
   color: #FFF !important; }
+a.button, a.button:link, a.button:visited, a.button:hover, a.button:active { color: #FFF !important; text-decoration: none !important; }
 input[disabled] { background: #e3ebdd; color: #333; padding: 8px 14px; display: inline-block; border: none; cursor: pointer; -webkit-border-radius: 10px; border-radius: 10px; }
-
-/* Poe: Swish-link */
-button[type="submit"] a { text-decoration: none; color: #FFF; }
 
 /* Auto-respond-buttons */
 .arb { margin-top:15px; } 	
-button.small { font-size: 15px; padding: 5px 10px; margin: 0; }
-button.green { background: #77b255; }
-button.red { background: #FF969D; }
-button.blue { background: #69A8D6; }
-button.purple { background: #E0AADC; }
-button.orange { background: #FFBC82; }
-button.yellow { background: #FFE18C; color: #333 !important; }
-button.grey { background: #ddd; color: #000 !important; }
-button.waiting { background: #333 !important; } /* Used when submitting forms */
-button.black { background: #333; }
+button.small, input[type="submit"].small { font-size: 15px !important; padding: 5px 10px; margin: 0; }
+button.green, a.button.green { background: #77b255; color:  }
+button.red, a.button.red { background: #FF969D; }
+button.blue, a.button.blue { background: #69A8D6; }
+button.purple, a.button.purple { background: #E0AADC; }
+button.orange, a.button.orange { background: #FFBC82; }
+button.yellow, a.button.yellow { background: #FFE18C; color: #333 !important; }
+button.grey, a.button.grey { background: #ddd; color: #000 !important; }
+button.black, a.button.black { background: #333; }
 button.admin-style { border: 2px dotted #FF969D !important; }
+button.waiting { background: #333 !important; color: #FFF !important; } /* Used when submitting forms */
 .admin-style { border: 2px dotted #FF969D !important; }
 
 /* Post bottom stuff */
@@ -404,7 +434,7 @@ button.option { display: inline; float: left; font-size: 14px; background: none;
 button.option:hover { background: none !important; color: #333 !important; }
 
 /* Comment list */
-#commentlist-container { }
+/*#commentlist-container { }*/
 .commentlist { margin-bottom: 10px;}
 .commentlist li { padding-left: 50px; font-size: 13px; line-height: 22px; }
 .commentlist .comment-body { margin-top: 10px; clear: both; position: relative; }
@@ -420,10 +450,10 @@ button.option:hover { background: none !important; color: #333 !important; }
 .commentlist .reply a:hover { color: #333; }
 
 /* Comment reply */
-#respond { }
+/*#respond { }*/
 .commentlist ul.children .comment-body { margin: 0 0 10px 0; }
 .commentlist ul.children .comment-body p { font-size: 14px; line-height: 18px; padding: 6px 8px; }
-.commentlist li ul {  }
+/*.commentlist li ul {  }*/
 .commentlist li li { padding-left: 35px; }
 .commentlist li li .avatar { width: 30px; height: 30px; left: -36px; top: 2px; }
 #cancel-comment-reply-link { display: block; position: absolute; bottom: 14px; left: 70px; font-size: 13px; color: #777; }
@@ -479,7 +509,7 @@ li #reply-title { font-size: 0; margin: 0!important; padding: 0; height: 0; bord
 .profile-navbar>button.active:first-child, 
 .profile-navbar>button:hover:first-child { border-top-left-radius: 10px }
 .profile-navbar > a { padding: 8px 16px; margin-right: 5px; border-radius: 10px 10px 0 0; background: #e8e8e8; }
-.profile-navbar>a:hover { background: }
+.profile-navbar>a:hover { background: #f5f5f5}
 .profile-navbar>a.active { background: #f5f5f5 }
 #profile-posts .wpum-post-thumbnail { float: left; width: 50px; margin-right: 10px; }
 .wpum-post-thumbnail img { width: 50px; height: 50px; object-fit: cover; }
@@ -512,13 +542,6 @@ li #reply-title { font-size: 0; margin: 0!important; padding: 0; height: 0; bord
 input:is([type="hidden"], [type="image"], [type="file"]) { padding-top: 3px; display: flex; flex-direction: column; align-items: flex-start; } /* snyggar till "ingen fil vald"/filnamn */
 .wpum-form input[name="submit_registration"].waiting { background: #777; } /* publish button */
 
-/* WPUM forms: support */
-#booking .fieldset-post_title { display: none; }
-#support .fieldset-post_title { display: none; }
-#support label[for="post_content"] { display: none; }
-#support input[type="submit"] { font-size: 15px; }
-.feedback { max-width: 300px; margin: 50px auto; padding: 1px; background-color: #f5f5f5; text-align: center; }
-
 /* WPUM message */
 .wpum-message { border: 0; border-radius: 10px; text-shadow: none; padding: 7px 7px 1px 7px; font-size: 16px; font-style: normal; }
 .wpum-message p { padding:0; margin:0 0 6px 0; }
@@ -528,3 +551,147 @@ input:is([type="hidden"], [type="image"], [type="file"]) { padding-top: 3px; dis
 
 /* WPUM addon Registration forms (added here because it hides the button on edit post) */
 input[name="submit_registration"].button { display: inline-block !important; }
+
+/* FORMS */
+/* replacing WPUM styles above */
+.loopis-form { padding: 20px; background-color: #f5f5f5; border-radius: 10px; }
+
+/* Support form */
+#support { max-width: 300px; margin: 0px auto; text-align: center; }
+#support textarea[name="post_content"] {
+  height: 100px;
+  min-height: 100px;
+  max-height: 100px;
+  resize: none;
+}
+
+/* Css for gift-post-form*/
+#checkbox_container {
+  width: 100%;
+  height: 150px;
+  border: 1px solid #000;
+  justify-content: space-between; 
+  border-radius: 2px;
+  overflow-y: auto;
+  padding: 10 px;
+}
+
+#checkbox_container label{
+  width: 100%;
+  box-sizing: border-box;
+  justify-content: space-between; 
+  align-items: center;
+  display:flex;
+  padding: 5px 0;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border: 1px solid #c3c1c1;
+  background: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.checkbox-row:has(input[type="checkbox"]:checked) {
+  background-color: #e2f0fe; 
+}
+.checkbox-row input[type="checkbox"] {
+  display: none;
+}
+
+#image-previews img {
+  cursor: pointer;
+  transition: transform 0.2s;
+  flex-wrap: wrap;
+  margin-right: 10px;
+  gap:10px; 
+  margin-top:10px;
+}
+
+#image-previews img:hover {
+  transform: scale(1.05);
+}
+
+#loopis-form {
+    background: #f5f5f5;
+    background-color: rgb(245, 245, 245);
+    padding: 15px;
+    border-radius: 10px;
+}
+.form-subcontainer {
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-subcontainer label.required {
+  font-size: 22px;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+#post_title {
+   width: 100%;
+}
+
+
+#post_content {
+  width: 100%;
+  height: 200px;
+  resize: none; 
+  overflow-y: auto;
+}
+
+label.required::after {
+  content: " *";
+  color: red;
+  font-weight: bold;
+  margin-left: 2px; 
+}
+
+
+
+#radio-box{
+  font-size: 22px;
+  width: 100%;
+}
+
+#radio-box label.buttons {
+  display:flex;
+  align-items: center;
+  font-size: 20px;
+  width: 100%;
+}
+#radio-box label.buttons input[type="radio"]{
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  width: 1em;
+  height: 1em;
+}
+
+
+#radio-box:has(input#annan:checked) .hidden-container{
+  transition: opacity 0.3s ease,  height 0.5s ease;
+  visibility: visible;  
+  height: 40px;
+  opacity: 1;
+}
+
+#radio-box .hidden-container{
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+  opacity: 0;          
+  visibility: hidden;  
+  height: 0px;
+  transition: opacity 0.3s ease,  height 0.5s ease;
+}
+#radio-box .hidden-container label{
+  width: 120px;
+}
+#radio-box .hidden-container input{
+  flex-grow: 1;
+}

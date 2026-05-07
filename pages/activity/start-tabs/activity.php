@@ -10,12 +10,12 @@ if (!defined('ABSPATH')) {
 }
 
 // Extra php functions
-include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-fetch.php'; 
-include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-deliver.php';
+include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-fetch.php'; 
+include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-deliver.php';
 
 // Query 1: Time to leave in the locker - OPTIMIZED
 $query_ttlitl = new WP_Query(array(
-    'cat' => loopis_cat('booked_locker'),
+    'cat' => loopis_cat('booked'),
     'author' => $user_id,
     'posts_per_page' => -1,
     'no_found_rows' => true,

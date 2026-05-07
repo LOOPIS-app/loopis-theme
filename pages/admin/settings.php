@@ -13,6 +13,8 @@ if (!defined('ABSPATH')) {
 <hr>
 <p class="small">💡 Här gör du inställningar.</p>
 
+<p>Om skåpet är fullt kan en varning visas överst på startsidan för alla användare som ska hämta/lämna saker.</p>
+
 <h3>⚠ Varningar</h3>
 <div class="columns">
     <div class="column1">↓ Fullt skåp?</div>
@@ -22,7 +24,7 @@ if (!defined('ABSPATH')) {
 
 <?php
 // Extra php functions?
-include_once LOOPIS_THEME_DIR . '/functions/admin-extra/update-locker.php';
+include_once LOOPIS_THEME_DIR . '/includes/functions/admin-extra/update-locker.php';
 
 // Persist locker full toggles
 if (
@@ -34,7 +36,11 @@ if (
 		: array();
 
 	global $wpdb;
-	$table = $wpdb->prefix . 'loopis_lockers';
+    if(is_multisite()){
+        $table = $wpdb->base_prefix . 'loopis_lockers';
+    }else{
+        $table = $wpdb->prefix . 'loopis_lockers';
+    }
 	$locker_ids = $wpdb->get_col("SELECT locker_id FROM $table");
 
 	foreach ($locker_ids as $locker_id) {
@@ -45,7 +51,11 @@ if (
 
 // Load current locker states
 global $wpdb;
-$table = $wpdb->prefix . 'loopis_lockers';
+if(is_multisite()){
+    $table = $wpdb->base_prefix . 'loopis_lockers';
+}else{
+    $table = $wpdb->prefix . 'loopis_lockers';
+}
 $lockers = $wpdb->get_results("SELECT locker_id, locker_name, locker_full FROM $table ORDER BY locker_id");
 
 // Render table of lockers with inline toggle
@@ -74,7 +84,7 @@ echo '</form>';
 insert_spacer(20);
 
 // Preview the warning shown to end users
-echo '<p class="info">💡 Här nedanför ser du den varning de användare som ska hämta/lämna ser överst på startsidan.</p>';
+echo '<p class="info">💡 Så här ser varningen ut:</p>';
 
 $full_warning = loopis_get_setting('locker_full_warning', '');
 if (!empty($full_warning)) {

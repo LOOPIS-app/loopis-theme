@@ -19,8 +19,8 @@ if (!defined('ABSPATH')) {
 
 <?php
 // Extra functions
-include_once LOOPIS_THEME_DIR . '/functions/admin-extra/reminders/reminder-symbols.php';
-include_once LOOPIS_THEME_DIR . '/functions/admin-extra/reminders/reminder-sms.php';
+include_once LOOPIS_THEME_DIR . '/includes/functions/admin-extra/reminders/reminder-symbols.php';
+include_once LOOPIS_THEME_DIR . '/includes/functions/admin-extra/reminders/reminder-sms.php';
 
 // Get current timestamp
 $now_time = (new DateTime(current_time('mysql')))->getTimestamp();
@@ -101,7 +101,7 @@ $count = $the_query->found_posts;
 // args
 $args = array( 
 	'post_type' => 'post',
-     'cat' => loopis_cat('booked_locker'),
+     'cat' => loopis_cat('booked'),
 );
 
 // query
@@ -122,7 +122,7 @@ $count = $the_query->found_posts;
 		$book_time = strtotime(get_post_meta($post_id, 'book_date', true));
 		$author = get_post_field('post_author');
 		$fetcher = get_post_meta($post_id, 'fetcher', true);
-		if ($fetcher) { $fetcher_name = get_userdata($fetcher)->display_name; $fetcher_link = get_author_posts_url($fetcher);}
+		if ($fetcher && $user = get_userdata($fetcher)) { $fetcher_name = $user->display_name; $fetcher_link = get_author_posts_url($fetcher);}
 	    $reminder_leave = absint(get_post_meta($post_id, 'reminder_leave', true)); ?>
 
 <div class="post-list-post" style="position:relative;" onclick="location.href='<?php the_permalink(); ?>';">

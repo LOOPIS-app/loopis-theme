@@ -17,21 +17,21 @@ if (!defined('ABSPATH')) {
 
 <?php
 // Function to display top users
-include_once LOOPIS_THEME_DIR . '/functions/admin-extra/stats/display_top_users.php';
+include_once LOOPIS_THEME_DIR . '/includes/functions/admin-extra/stats/display_top_users.php';
 
 // Define constants for fixed values
-define('LOOPIS_FETCHED_CATEGORY_ID', 41); // Renamed for better clarity
+define('LOOPIS_FETCHED_CATEGORY_ID', loopis_cat('fetched')); // Renamed for better clarity
 define('LOOPIS_EARLIEST_YEAR', 2023);
 
 // Set current year (to avoid undefined variable)
 $current_year = date('Y');
 
 // Render dropdown and get the selected year
-include_once LOOPIS_THEME_DIR . '/functions/admin-extra/stats/stats_select_year.php';
+include_once LOOPIS_THEME_DIR . '/includes/functions/admin-extra/stats/stats_select_year.php';
 $selected_year = stats_select_year();
 
 // Calculate days passed and output message
-include_once LOOPIS_THEME_DIR . '/functions/admin-extra/stats/stats_days_passed.php';
+include_once LOOPIS_THEME_DIR . '/includes/functions/admin-extra/stats/stats_days_passed.php';
 $days_passed = stats_days_passed($selected_year); 
 
 // Fetch top users data with caching

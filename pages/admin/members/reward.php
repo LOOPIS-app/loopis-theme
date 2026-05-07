@@ -1,7 +1,9 @@
 <?php
 /**
  * Tool for rewarding members
- * Should be improved.
+ * 
+ * IMPROVEMENTS
+ * - Check css styling of form
  */
 
 if (!defined('ABSPATH')) {
@@ -11,7 +13,7 @@ if (!defined('ABSPATH')) {
 
 <h1>🌟 Belöna medlemmar</h1>
 <hr>
-<p class="small">💡 Verktyg för att plocka ut e-postadresser till medlemmar.</p>
+<p class="small">💡 Verktyg för att dela ut guldstjärnor.</p>
 
 <?php
 // Check if the form is submitted
@@ -97,21 +99,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email_list'])) {
 ?>
 
 <!-- HTML Form -->
-<form method="post" style="margin-top: 20px;">
-    <label for="email_list" style="font-size: 16px; font-weight: bold;">Enter Email Addresses (one per line):</label><br>
-    <textarea name="email_list" id="email_list" rows="10" cols="50" style="width: 100%; margin-top: 10px;" placeholder="user1@example.com&#10;user2@example.com&#10;user3@example.com"></textarea><br>
+<form method="post">
+    <label>E-postadresser (en per rad):</label>
+    <textarea name="email_list" rows="10" cols="50" placeholder="user1@example.com&#10;user2@example.com&#10;user3@example.com"></textarea>
 
-    <label for="reward_date" style="font-size: 16px; font-weight: bold; margin-top: 10px;">Reward Date:</label><br>
-    <input type="date" name="reward_date" id="reward_date" style="width: 100%; margin-top: 10px;" required><br>
+    <label>Datum:</label>
+    <input type="date" name="reward_date" required><br>
 
-    <label for="reward_description" style="font-size: 16px; font-weight: bold; margin-top: 10px;">Reward Description:</label><br>
-    <input type="text" name="reward_description" id="reward_description" style="width: 100%; margin-top: 10px;" placeholder="e.g., 2024"><br>
+    <label>Beskrivning:</label>
+    <input type="text" name="reward_description" placeholder="2024...">
 
-    <label for="received_stars" style="font-size: 16px; font-weight: bold; margin-top: 10px;">Received Stars:</label><br>
-    <input type="number" name="received_stars" id="received_stars" style="width: 100%; margin-top: 10px;" placeholder="e.g., 1" required><br>
+    <label>Antal stjärnor:</label>
+    <input type="number" name="received_stars" placeholder="1..." required>
 
-    <label for="reward_reason" style="font-size: 16px; font-weight: bold; margin-top: 10px;">Reward Reason:</label><br>
-    <input type="text" name="reward_reason" id="reward_reason" style="width: 100%; margin-top: 10px;" placeholder="e.g., survey" required><br>
+    <label>Orsak:</label>
+    <input type="text" name="reward_reason" placeholder="survey...?" required>
 
-    <button type="submit" style="margin-top: 20px; padding: 10px 20px; font-size: 16px; background-color: #0073aa; color: white; border: none; cursor: pointer;">Add Rewards</button>
+    <button type="submit" class="blue">Belöna!</button>
 </form>

@@ -22,7 +22,7 @@ global $wpdb;
 $current_year = date('Y');
 
 // Render dropdown and get the selected year
-include_once LOOPIS_THEME_DIR . '/functions/admin-extra/stats/stats_select_year.php';
+include_once LOOPIS_THEME_DIR . '/includes/functions/admin-extra/stats/stats_select_year.php';
 $selected_year = stats_select_year();
 
 // Set the field ID and meta key for the gender dropdown field
@@ -64,18 +64,18 @@ if ($selected_year === 'all') {
     $fetch_date_start = "{$selected_year}-01-01 00:00:00";
     $fetch_date_end = "{$selected_year}-12-31 23:59:59";
 }
-
+$fetcher_cat = loopis_cat('fetched');
 // Query to fetch active members (user IDs)
 $active_members_query = "
     SELECT DISTINCT user_id 
     FROM (
-        -- Givers: Users who created a post in category 41 in the selected year(s)
+        -- Givers: Users who created a post in category fetched in the selected year(s)
         SELECT DISTINCT p.post_author AS user_id
         FROM {$wpdb->prefix}posts p
         JOIN {$wpdb->prefix}term_relationships tr ON p.ID = tr.object_id
         JOIN {$wpdb->prefix}term_taxonomy tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
         WHERE p.post_type = 'post' AND p.post_status = 'publish'
-        AND tt.term_id = 41 AND p.post_date BETWEEN %s AND %s
+        AND tt.term_id = {$fetcher_cat} AND p.post_date BETWEEN %s AND %s
 
         UNION
 
@@ -228,7 +228,7 @@ $registration_date_limit = ($selected_year === 'all') ? "{$current_year}-12-31 2
 
 $all_users_area = $wpdb->get_results(
     $wpdb->prepare(
-        "SELECT ID FROM {$wpdb->prefix}users WHERE user_registered <= %s",
+        "SELECT ID FROM {$wpdb->base_prefix}users WHERE user_registered <= %s",
         $registration_date_limit
     )
 );
@@ -252,13 +252,13 @@ foreach ($all_users_area as $user) {
 $active_members_area_query = "
     SELECT DISTINCT user_id 
     FROM (
-        -- Givers: Users who created a post in category 41 in the selected year(s)
+        -- Givers: Users who created a post in category fetched in the selected year(s)
         SELECT DISTINCT p.post_author AS user_id
         FROM {$wpdb->prefix}posts p
         JOIN {$wpdb->prefix}term_relationships tr ON p.ID = tr.object_id
         JOIN {$wpdb->prefix}term_taxonomy tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
         WHERE p.post_type = 'post' AND p.post_status = 'publish'
-        AND tt.term_id = 41 AND p.post_date BETWEEN %s AND %s
+        AND tt.term_id = {$fetcher_cat} AND p.post_date BETWEEN %s AND %s
 
         UNION
 

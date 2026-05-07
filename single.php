@@ -8,10 +8,10 @@ get_header(); ?>
 <!-- Extra php functions -->
 <?php 
 if (current_user_can('member') || current_user_can('administrator')) {
-    include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-remove.php';
+    include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-remove.php';
 } 
 if (current_user_can('administrator')) {
-    include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-admin.php';
+    include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-admin.php';
 } 
 ?>
 
@@ -26,9 +26,12 @@ $extend_date = get_post_meta($post_id, 'extend_date', true);
 $previous_post_id = get_post_meta($post_id, 'previous_post', true);
 $forward_post_id = get_post_meta($post_id, 'forward_post', true);
 $fetcher = get_post_meta($post_id, 'fetcher', true);
-if ($fetcher) { 
-    $fetchername = get_userdata($fetcher)->display_name; 
+if ($fetcher && ($fetcher_data = get_userdata($fetcher))) {
+    $fetchername = $fetcher_data->display_name; 
     $fetcherlink = get_author_posts_url($fetcher); 
+} else {
+    $fetchername = 'Okänd';
+    $fetcherlink = 'Okänd';
 } 
 ?>
 
@@ -40,7 +43,7 @@ if ($location == 'Annan adress') {
     update_post_meta($post_id, 'location', $location); 
 } 
 ?>
-
+ 
 <!-- Extra image?  -->
 <?php $thumbnail_id = get_post_thumbnail_id($post_id); ?>
 <?php 
@@ -48,9 +51,12 @@ $image_2_id = get_post_meta($post_id, 'image_2', true);
 if (empty($image_2_id)) {
     $extra_image_url = get_post_meta($post_id, 'extra_image', true);
     if ($extra_image_url) {
+        require_once ABSPATH . 'wp-admin/includes/media.php';
+        require_once ABSPATH . 'wp-admin/includes/file.php';
+        require_once ABSPATH . 'wp-admin/includes/image.php';
         $file_name = basename($extra_image_url);
         $attachment_id = media_sideload_image($extra_image_url, $post_id, $file_name, 'id');
-        update_field('image_2', $attachment_id, $post_id);
+        update_post_meta($post_id,'image_2', $attachment_id);
         delete_post_meta($post_id, 'extra_image');
         $cache_buster = time();
         echo '<meta http-equiv="refresh" content="0;url=' . esc_url(add_query_arg('cache_buster', $cache_buster)) . '">';
@@ -90,13 +96,13 @@ if (empty($image_2_id)) {
                 <div class="post-content">
                     <?php the_content(); ?>
                     <?php if ($author == 66 || $author == 237) : ?>
-                        <a style="float:left; font-size:14px; padding-top:2px; margin-right:12px" href="/faq/max-murpos">💫 Räddad från soprum</a>
+                        <a style="float:left; font-size:14px; padding-top:2px; margin-right:12px" href="<?php esc_url(home_url('/faq/max-murpos'));?>">💫 Räddad från soprum</a>
                     <?php endif; ?>
 
                     <!-- POST OPTIONS -->
                     <!-- Remove -->
                     <?php if (($current == $author || current_user_can('administrator')) && !in_category(array('removed', 'fetched', 'locker'))) : ?>
-                        <?php include_once LOOPIS_THEME_DIR . '/functions/user-extra/post-action-remove.php'; ?>
+                        <?php include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-remove.php'; ?>
                         <?php if (isset($_POST['remove'])) { action_remove(get_the_ID()); } ?>
                         <button type="submit" form="remove-form" class="option" onclick="return confirm('Ta bort annonsen?')"><i class="fas fa-times"></i>Ta bort</button>
                         <form id="remove-form" method="post" action="" style="display:inline; float:left;"><input type="hidden" name="remove" value="1"></form>
@@ -117,7 +123,7 @@ if (empty($image_2_id)) {
             <!-- INTERACTION -->
                 <div class="columns">
                     <div class="column1"><h3>Dina alternativ</h3></div>
-                    <div class="column2 bottom"><a href="../faq/hur-far-jag-saker/">📌 Hur får jag saker?</a></div>
+                    <div class="column2 bottom"><a href="<?php echo get_permalink( get_page_by_path('hur-far-jag-saker') ); ?>">📌 Hur får jag saker?</a></div>
                 </div>
                 <hr>
 

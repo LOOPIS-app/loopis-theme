@@ -16,11 +16,6 @@ $invited = get_post_meta($post_id, 'invited', true);
 $page_title = get_post_meta($post_id, 'title', true);
 $page_link = get_post_meta($post_id, 'link', true);
 
-// Get category of the post
-$status_id = get_post_meta($post_id, 'status', true);
-$status_term = get_term($status_id, 'support-status');
-$status_name = $status_term->name;
-$status_slug = $status_term->slug;
 ?>
 
 <div class="content">
@@ -33,7 +28,7 @@ $status_slug = $status_term->slug;
 		<p><span class="rounded">🛠 Support</span></p>
 			<h1><?php the_title(); ?></h1>
 			<div class="post-meta">
-				<span><?php echo $status_name; ?></span>
+				<span><?php echo esc_html(get_the_terms($post_id, 'support-category')[0]->name); ?></span>
 				<span>👤 <?php echo get_the_author_posts_link(); ?></span>
 				<span><i class="far fa-clock"></i> <?php echo human_time_diff(get_the_time('U'), current_time('timestamp'))?> sen</span>
 			</div><!--post-meta-->
@@ -81,13 +76,14 @@ $status_slug = $status_term->slug;
 <h6>Status</h6>
 <hr>
 
-<p>Ärendets status är <span class="label"><?php echo $status_name; ?></span></p>
+<p>Ärendets status är <span class="label"><?php echo esc_html(get_the_terms($post_id, 'support-category')[0]->name); ?></span></p>
 
 <!-- Arkivera -->
 <?php if ($status_slug === 'active' && ($current == $author || current_user_can('administrator') || $current == 2)) : ?>
 <?php if(isset($_POST['inactive'])) { 
-	update_field('status', null, $post_id);
-	update_field('status', 146, $post_id); 
+	update_post_meta($post_id,'status', null);
+	update_post_meta($post_id,'status', loopis_support_cat('inactive')); 
+	wp_set_post_terms($post_id, loopis_support_cat('inactive'), 'support-category', false);
 	add_comment ('<p class="participate">✅ Markerar frågan som besvarad.</p>', $post_id );
 	echo "<meta http-equiv='refresh' content='0'>"; } ?>
 		<form method="post" class="arb" action=""><button name="inactive" type="submit" class="green small" onclick="return confirm('Är frågan besvarad?')">Frågan är besvarad</button></form>

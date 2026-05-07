@@ -16,10 +16,11 @@ if (!defined('ABSPATH')) {
 $args = array(
     'post_type' => 'post',
     'posts_per_page' => 3,
-    'cat'   		 => loopis_cat('first'),
+    'cat'   		 => loopis_cat('old'),
  	'orderby' => 'rand',
 );
 
+$discover_url = home_url('/discover/');
 $the_query = new WP_Query( $args );
 $count = $the_query->found_posts; ?>
 
@@ -34,13 +35,13 @@ $count = $the_query->found_posts; ?>
             <?php endwhile; ?>
 </div><!--post-list-->
 
-<p><a href="/discover/?view=random-posts"><button type="button">🪄 Visa tre andra!</button></a></p>
+<p><a href="<?php echo esc_url( add_query_arg(array('view' => 'random-posts'), $discover_url) ); ?>"><button type="button">🪄 Visa tre andra!</button></a></p>
 
 <p class="info">Tryck på knappen för att hitta saker du inte visste att du behövde - eller en oväntad present till din vän. Alla sakerna är först till kvarn och kan paxas direkt!</p>
 
 <h3>Letar du efter något särskilt?</h3>
 <hr>
-<p>Ta en titt på våra <span class="link"><a href="/discover/?view=categories"><i class="fas fa-hashtag"></i>Kategorier</a></span> eller <span class="link"><a href="/?s=">🔍</i> Sök</a></span></p>
+<p>Ta en titt på våra <span class="link"><a href="<?php echo esc_url( add_query_arg(array('view' => 'categories'), $discover_url) ); ?>"><i class="fas fa-hashtag"></i>Kategorier</a></span> eller <span class="link"><a href="<?php echo esc_url( add_query_arg( array('s' => ''), home_url('/') ) ); ?>">🔍</i> Sök</a></span></p>
 
 <?php else : ?>
     <p>💢 Det finns inga aktuella annonser</p>
