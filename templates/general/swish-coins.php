@@ -23,6 +23,6 @@ $parameters = [
 $swish_url = 'https://app.swish.nu/1/p/sw/?'. http_build_query($parameters);
 ?>
 
-<p><button class="green" onclick="window.location.href='<?php echo esc_url($swish_url); ?>'">💸 Swisha <?php echo esc_html($fee); ?> kr</button></p>
+<p><button type="button" class="green" onclick="window.location.href='<?php echo esc_url($swish_url); ?>'">💰 Swisha <?php echo esc_html($fee); ?> kr</button></p>
 
 <p class="small">💡 Betalningen går till <?php echo $receiver; ?>: <span class="link"><a href="sms:<?php echo $number_dash; ?>">📱<?php echo $number_dash; ?></a></span></p>

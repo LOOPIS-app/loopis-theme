@@ -36,6 +36,7 @@ if ($test_mode) {
 
 <p><button type="button" class="green" onclick="window.location.href='<?php echo esc_url($payment_link); ?>'">💳 Betala 50 kr</button></p>
 <p class="info">💡 Problem eller frågor? Maila <a href="mailto:info@loopis.app">info@loopis.app</a></p>
+<p><span class="link"><a href="<?php echo esc_url(add_query_arg('option', 'swish-membership', home_url('/shop/'))); ?>">💸 Betala med Swish istället</a></span></p>
 
 <?php
 // Developer info in test mode
