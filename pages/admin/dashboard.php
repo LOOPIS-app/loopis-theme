@@ -137,7 +137,7 @@ $admin_url = home_url('/admin/');
 </div>
 
 <!-- Member Info Section -->
-<?php if (current_user_can('board') ) : ?>
+<?php if (current_user_can('manage_options') || current_user_can('board')) : ?>
     <h3>👤 Medlemsinfo</h3>
     <hr>
     <div>

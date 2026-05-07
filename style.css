@@ -358,8 +358,8 @@ input[type="checkbox"] { -moz-appearance: checkbox; -webkit-appearance: checkbox
 input[type="radio"] { -moz-appearance: radio; -webkit-appearance: radio; appearance: radio; }
 
 /* Poe: Form elements */
-label { color: #333; }
-label .required { color: #333; }
+label { color: #333; font-size: 14px; margin-bottom: 5px; display: block; }
+label .required { color: #FF969D; }
 input[type="search"], input[type="text"], input[type="password"], input[type="email"], input[type="url"], input[type="tel"], input[type="number"], select, textarea { background: #fff; border: 2px solid #e5e5e5; color: #777; display: block; max-width: 100%; outline: none; padding: 7px 8px; }
 input[type="search"]:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="tel"]:focus, input[type="number"]:focus, select:focus, textarea:focus { border-color: #ddd; color: #333; -webkit-box-shadow: 0 0 3px rgba(0,0,0,0.1); box-shadow: 0 0 3px rgba(0,0,0,0.1); }
 

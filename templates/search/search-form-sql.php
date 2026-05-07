@@ -92,6 +92,6 @@ foreach ($results as $row) {
         </select>
         
         <!-- Submit button -->
-        <input type="submit" value="Sök">
+        <input type="submit" class="green small" value="Sök">
     </form>
 </div>

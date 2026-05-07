@@ -220,7 +220,7 @@ $all_tags       = get_tags(array('hide_empty' => false));
 
     <div class="search-row">
         <input type="text" name="search" value="<?php echo esc_attr($search_term); ?>" placeholder="🔍 Skriv sökord">
-        <button type="submit" class="small">Sök / Filtrera</button>
+        <button type="submit" class="green small">Sök / Filtrera</button>
         <a href="<?php echo esc_url($clear_url); ?>" class="small clear-link">Rensa</a>
     </div>
 

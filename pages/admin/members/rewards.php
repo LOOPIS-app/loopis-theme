@@ -112,7 +112,7 @@ foreach ($all_rewards as $reward) {
             </option>
         <?php endforeach; ?>
     </select>
-    <button type="submit" class="small" style="margin:3px 0 0 10px;">Filter</button>
+    <button type="submit" class="green small" style="margin:3px 0 0 10px;">Filter</button>
 </form>
 
 <div class="columns">

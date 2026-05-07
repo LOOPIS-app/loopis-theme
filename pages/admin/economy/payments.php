@@ -151,7 +151,7 @@ foreach ($all_payments as $payment) {
             </option>
         <?php endforeach; ?>
     </select>
-    <button type="submit" class="small" style="margin: 3px 0 0 10px;">Välj år</button>
+    <button type="submit" class="green small" style="margin: 3px 0 0 10px;">Välj år</button>
 </form>
 
 <!-- Summary Section -->
@@ -177,7 +177,7 @@ foreach ($all_payments as $payment) {
             </option>
         <?php endforeach; ?>
     </select>
-    <button type="submit" class="small" style="margin: 3px 0 0 10px;">Filtrera typ</button>
+    <button type="submit" class="green small" style="margin: 3px 0 0 10px;">Filtrera typ</button>
 </form>
 
 <!-- Payments List -->
