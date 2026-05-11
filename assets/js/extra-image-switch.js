@@ -3,21 +3,15 @@
 */
 
 jQuery(document).ready(function($) {
-    // Store the original post image HTML
-    var originalPostImageHtml = $('.post-image').html();
+  $(document).on('click', '.extra-image', function() {
+    var extraImageHtml = $(this).html();
+    $(this).html($('.post-image').html());
+    $('.post-image').html(extraImageHtml);
+  });
 
-    // Handle click event on div with class "extra-image"
-    $('.extra-image').click(function() {
-        // Get the HTML of the clicked extra image
-        var extraImageHtml = $(this).html();
-
-        // Replace the HTML of the extra image div with the original post image HTML
-        $(this).html(originalPostImageHtml);
-
-        // Set the extra image HTML as the new post image HTML
-        $('.post-image').html(extraImageHtml);
-
-        // Update the original post image HTML
-        originalPostImageHtml = extraImageHtml;
-    });
+  $(document).on('click', '.extra-image-2', function() {
+    var extraImageHtml = $(this).html();
+    $(this).html($('.post-image').html());
+    $('.post-image').html(extraImageHtml);
+  });
 });

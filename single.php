@@ -33,6 +33,22 @@ if ($fetcher) {
         $fetcherlink = get_author_posts_url($fetcher); 
     }
 } 
+
+wp_enqueue_script(
+    'loopis_image_loader_js', // handle
+    LOOPIS_THEME_URI . '/assets/js/image-loader.js', // URL to JS
+    ['jquery'],
+    filemtime(LOOPIS_THEME_DIR . '/assets/js/image-loader.js'),
+    true // load in footer
+);
+
+wp_localize_script('loopis_image_loader_js', 'loopis_theme_ajax', [
+    'ajax_url'        => admin_url('admin-ajax.php'),
+    'nonce'           => wp_create_nonce('loopis_theme_nonce'),
+    'post_id'         => $post_id,
+]);
+
+
 ?>
 
 <!-- Custom location?  -->
@@ -44,10 +60,10 @@ if ($location == 'Annan adress') {
 } 
 ?>
  
-<!-- Extra image?  -->
-<?php $thumbnail_id = get_post_thumbnail_id($post_id); ?>
-<?php 
+<!-- Extra image? remove when new postform active  -->
+<?php $thumbnail_id = get_post_thumbnail_id($post_id);
 $image_2_id = get_post_meta($post_id, 'image_2', true);
+$image_3_id = get_post_meta($post_id, 'image_3', true);
 if (empty($image_2_id)) {
     $extra_image_url = get_post_meta($post_id, 'extra_image', true);
     if ($extra_image_url) {
@@ -63,6 +79,8 @@ if (empty($image_2_id)) {
         exit; 
     } 
 } 
+
+$pending = get_post_meta($post_id, '_pending_images',true);
 ?>
 
 <div class="content">
@@ -70,12 +88,26 @@ if (empty($image_2_id)) {
         <!-- THE POST -->
         <div class="post-wrapper">    
             <div class="post-images">
-                <div class="post-image"><?php echo wp_get_attachment_image($thumbnail_id, 'large'); ?></div>
+                <div id="loading-indicator" style="display: none; height : 200px; justify-content: center; align-items: center;">
+                    <img src="<?php echo LOOPIS_THEME_URI .'/assets/gif/LOOPIS_icon_snake.gif'; ?>" alt="Loading..." style="height : 100px;"/>
+                </div>
+                <div class="post-image">
+                    <?php 
+                        if ($thumbnail_id){
+                            echo wp_get_attachment_image($thumbnail_id, 'large'); 
+                        }
+                    ?>
+                </div>
+                <div class="extra-image">
                 <?php if ($image_2_id) {
-                    echo '<div class="extra-image">';
                     echo wp_get_attachment_image($image_2_id, 'large');
-                    echo '</div>'; 
                 } ?>
+                </div>
+                <div class="extra-image-2">
+                <?php if ($image_3_id) {
+                    echo wp_get_attachment_image($image_3_id, 'large');
+                } ?>
+                </div>
             </div><!--post-images-->
 
             <div class="post-padding">
@@ -94,7 +126,7 @@ if (empty($image_2_id)) {
                 </div><!--post-meta-->
 
                 <div class="post-content">
-                    <?php the_content(); ?>
+                    <?php the_content();?>
                     <?php if ($author == 66 || $author == 237) : ?>
                         <a style="float:left; font-size:14px; padding-top:2px; margin-right:12px" href="<?php esc_url(home_url('/faq/max-murpos'));?>">💫 Räddad från soprum</a>
                     <?php endif; ?>
@@ -154,6 +186,16 @@ if (empty($image_2_id)) {
     </div><!--content-->
 
 <!-- Extra scripts -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="<?php echo LOOPIS_THEME_URI; ?>/assets/js/extra-image-switch.js"></script>
+<script src="<?php echo LOOPIS_THEME_URI; ?>/assets/js/image-loader.js"></script>
 
-<?php get_footer(); ?>
+
+<?php get_footer();
+?>
+<script>
+    // loads and processes images see image-loader.js and gift-post-form.php loads
+<?php if (!empty($pending)): ?>
+    imageLoader();
+<?php endif; ?>
+</script>

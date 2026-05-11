@@ -18,7 +18,7 @@
 
 <!-- Frontend Posting -->
 <?php 
-echo do_shortcode('[loopis_gift_post]'); 
+get_template_part('templates/post-forms/gift-post-form'); 
 ?>
 
 <!-- No access -->
