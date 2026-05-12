@@ -135,7 +135,15 @@ a:hover { color:#333; }
 
 /* Paragraph */
 p { margin:0 0 10px 0; }
-hr { width:100%; padding:0px; margin:0 0 9px 0; background-color:#000; height:1px; border:0; }
+hr, .wp-block-separator {
+  width: 100%;
+  padding: 0;
+  margin: 0 0 9px 0;
+  background-color: #000;
+  height: 0px;
+  border-top: 1px solid #000 !important;
+}
+
 .hidden { visibility: hidden }
 
 /* Special fonts */

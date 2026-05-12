@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
 function loopis_mail_footer(string $role = ''): string {
     if ($role === 'manager') {
         $icon = LOOPIS_THEME_URI . '/assets/img/LOOPIS_icon_admin.png';
-        $text = 'Notifikation till manager på ' . get_bloginfo('name') . '.';
+        $text = 'Notifikation till admin på ' . get_bloginfo('name') . '.';
     } else {
         $icon = LOOPIS_THEME_URI . '/assets/img/LOOPIS_icon.png';
         $text = 'Gå till LOOPIS.app för att hantera annonsen eller skriva ett svar.';
