@@ -211,7 +211,7 @@ if ( is_user_logged_in() ) {
             }
         }
         
-        if ($edit){
+        if ($edit){ // IGNORE A LITTLE
 
             if (!empty($_POST['remove_0'])) {
                 wp_delete_attachment(get_post_thumbnail_id($post_id), true);
