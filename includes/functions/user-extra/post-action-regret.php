@@ -18,6 +18,7 @@ function action_regret(int $post_id) {
 	// Get user variables
 	$fetcher = get_post_meta($post_id, 'fetcher', true);
 	$fetcher_name = get_userdata($fetcher)->display_name; 
+	$author = get_post_field( 'post_author', $post_id );
 	
 	// Count queue
 	$queue = get_post_meta($post_id, 'queue', true);
