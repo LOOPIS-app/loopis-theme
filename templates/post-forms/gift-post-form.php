@@ -1,8 +1,6 @@
 <?php
 /**
  * Form for gift-posts
- * 
- * 
  */
 
 if (!defined('ABSPATH')) {
@@ -64,7 +62,6 @@ if ( is_user_logged_in() ) {
                     $images[] = [
                         'id' => (int) $id,
                         'src' => wp_get_attachment_image_url($id, 'large'),
-                        'rotation' => (int) get_post_meta($id, '_loopis_rotation', true),
                         'thumbnail' => ($id === $thumbnail_id)
                     ];
                 }
@@ -174,9 +171,9 @@ if ( is_user_logged_in() ) {
         $images['type']  = $_FILES['images']['type'] ?? [];
         $images['size']  = $_FILES['images']['size'] ?? [];
         $has_existing_changes =
-            !empty($_POST['remove_0']) ||
-            !empty($_POST['remove_1']) ||
-            !empty($_POST['remove_2']) ||
+            !empty($_POST['remove_old_0']) ||
+            !empty($_POST['remove_old_1']) ||
+            !empty($_POST['remove_old_2']) ||
             isset($_POST['rotation_0']) ||
             isset($_POST['rotation_1']) ||
             isset($_POST['rotation_2']);
@@ -203,7 +200,7 @@ if ( is_user_logged_in() ) {
 
                 if ($error !== UPLOAD_ERR_OK) {
                     wp_die('Image upload failed');
-                }
+                }  
 
                 if (!in_array($images['type'][$index], $allowed_mimes, true)) {
                     wp_die('Invalid image type');
@@ -213,17 +210,17 @@ if ( is_user_logged_in() ) {
         
         if ($edit){ // IGNORE A LITTLE
 
-            if (!empty($_POST['remove_0'])) {
+            if (!empty($_POST['remove_old_0'])) {
                 wp_delete_attachment(get_post_thumbnail_id($post_id), true);
                 delete_post_thumbnail($post_id);
             }
 
-            if (!empty($_POST['remove_1'])) {
+            if (!empty($_POST['remove_old_1'])) {
                 wp_delete_attachment(get_post_meta($post_id, 'image_2', true), true);
                 delete_post_meta($post_id, 'image_2');
             }
 
-            if (!empty($_POST['remove_2'])) {
+            if (!empty($_POST['remove_old_2'])) {
                 wp_delete_attachment(get_post_meta($post_id, 'image_3', true), true);
                 delete_post_meta($post_id, 'image_3');
             }

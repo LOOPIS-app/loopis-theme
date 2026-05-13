@@ -15,14 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 'image-previews',
                 true,
                 null,
-                null,
-                img.rotation||0
+                null
             );
             const image = document.getElementById(`img-${index}`);
-
-            if (image && img.rotation) {
-                image.style.transform = `rotate(${img.rotation}deg)`;
-            }
                 
 
             // highlight current featured image
@@ -202,27 +197,33 @@ function loopisPreviewImageRendering(){
     const imageWarning = document.getElementById('image_warning');
 
     if (!imageInput || !previewContainer || !imageWarning) return;  
-    const activeExisting = imageStore.filter(i => !i.isRemoved).length;
+    //const activeExisting = imageStore.filter(i => !i.isRemoved).length;
 
     imageInput.addEventListener('change', () => {
         const files = Array.from(imageInput.files);
-        if ((files.length + activeExisting)>3){
+        if ((files.length )>3){
             imageWarning.classList.add('warning');
             imageWarning.classList.remove('secret');
-            previewContainer.innerHTML = '';
             imageInput.value = ''; 
             return;
         }
-    
+        imageInput.value = ''; 
         previewContainer.innerHTML = '';
+        //if ver1
+        imageStore.forEach(i => {
+            i.isRemoved = true;
+            if (!i.old){
+                i.remove()
+            }
+            
+        })
 
         imageWarning.classList.remove('warning');
         imageWarning.classList.add('secret');
 
-        const existingCount = imageStore.length;
 
         files.forEach((file, index) => {
-            handleUpload(file, existingCount + index);
+            handleUpload(file, index);
         });
     });
 }
@@ -238,7 +239,7 @@ function handleUpload(file, index) {
 
 
 
-function loopisPImage(index, src, container, edit=false, input, file=null, initialRotation=0){
+function loopisPImage(index, src, container, old=false, input, file=null,){
     const thumb = document.getElementById("thumb");
 
     const imageInput = input ? document.getElementById(input) : null;
@@ -254,10 +255,9 @@ function loopisPImage(index, src, container, edit=false, input, file=null, initi
         index,
         src,
         file,
-        rotation: initialRotation,
         isRemoved: false,
         isThumbnail: false,
-        editMode: edit
+        old: old 
     };
 
     imageStore.push(state);
@@ -274,24 +274,25 @@ function loopisPImage(index, src, container, edit=false, input, file=null, initi
     img.classList.add('image-prev');
     img.src = src;
     img.id = `img-${index}`;     
-    if (initialRotation) {
-    img.style.transform = `rotate(${initialRotation}deg)`;
-    }
 
     const removeInput = document.createElement('input');
-
     removeInput.type = 'hidden';
-    removeInput.name = `remove_${index}`;
-    removeInput.id = `remove_${index}`;
+    if(old){
+        removeInput.name = `remove_old_${index}`;
+        removeInput.id = `remove_old_${index}`;
+    } else{
+        removeInput.name = `remove_${index}`;
+        removeInput.id = `remove_${index}`;
+    }
     removeInput.value = 0;
-    
     wrapper.appendChild(removeInput);
+    
 
     // Rotate input element
-    let rotate = initialRotation;  
+    let rotate = 0;  
     const rotateInput = document.createElement('input');
     rotateInput.type = 'hidden';
-    rotateInput.value = initialRotation;
+    rotateInput.value = 0;
     rotateInput.id = `rotation_${index}`;        
     rotateInput.name = `rotation_${index}`;
 
@@ -332,29 +333,22 @@ function loopisPImage(index, src, container, edit=false, input, file=null, initi
     rotateRBtn.onclick = () => rotateIMG(+1);
     rotateLBtn.onclick = () => rotateIMG(-1);
     setPrimaryBtn.onclick = () =>  setThumbnail();
-    
+    removeInput.value = 1;
+    if (state.id===0){
+        setThumbnail();          
+    }
     function removeIMG() {        
         state.isRemoved = true;
-        removeInput.value = 1;
-        if (edit) {
-            state.removed = true;
-        }
         wrapper.remove();
         overlay.classList.remove('overlay-visible');
         if (state.isThumbnail) {
-
             const next = imageStore.find(i =>
                 !i.isRemoved && i.id !== state.id
             );
-
             if (next) {
-
                 next.isThumbnail = true;
-
                 thumb.value = next.id;
-
                 const nextImg = document.getElementById(`img-${next.id}`);
-
                 if (nextImg) {
                     nextImg.classList.add('green-border');
                 }

@@ -155,5 +155,32 @@ function loopis_image_post_processing(){
     wp_send_json_success(['images' => $images_html]);
 }
 
+function loopis_image_rotation(){
+    $postid = isset($_POST['postid']) ? intval($_POST['postid']) : 0;
+    $images = get_post_meta($postid, '_image_rotation', true);
+    foreach($images as $id => $rotation){
+        
+        if ($index === 0){
+            $attachment_id = get_post_thumbnail_id($postid);
+        } else{
+            $attachment_id =  get_post_meta($postid, 'image_'.($index+1), true);;
+        }
+        
+        $aid = get_postmeta('image_'.$id);
+        $path = get_attached_file($aid);
+        $editor = wp_get_image_editor($path);
+
+        if (!is_wp_error($editor)) {
+
+            $editor->rotate($rotation);
+            $saved = $editor->save($path);
+
+        }
+    }
+    
+    delete_post_meta($postid, '_image_rotation');
+}
+
+
 add_action('wp_ajax_loopis_image_post_processing', 'loopis_image_post_processing');
 add_action('wp_ajax_nopriv_loopis_image_post_processing', 'loopis_image_post_processing');
