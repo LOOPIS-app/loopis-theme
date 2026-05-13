@@ -16,11 +16,6 @@ $invited = get_post_meta($post_id, 'invited', true);
 $page_title = get_post_meta($post_id, 'title', true);
 $page_link = get_post_meta($post_id, 'link', true);
 
-// Get category of the post
-$status_id = get_post_meta($post_id, 'status', true);
-$status_term = get_term($status_id, 'support-category');
-$status_name = $status_term->name;
-$status_slug = $status_term->slug;
 ?>
 
 <div class="content">
@@ -33,7 +28,7 @@ $status_slug = $status_term->slug;
 		<p><span class="rounded">🛠 Support</span></p>
 			<h1><?php the_title(); ?></h1>
 			<div class="post-meta">
-				<span><?php echo $status_name; ?></span>
+				<span><?php echo esc_html(get_the_terms($post_id, 'support-category')[0]->name); ?></span>
 				<span>👤 <?php echo get_the_author_posts_link(); ?></span>
 				<span><i class="far fa-clock"></i> <?php echo human_time_diff(get_the_time('U'), current_time('timestamp'))?> sen</span>
 			</div><!--post-meta-->
@@ -81,7 +76,7 @@ $status_slug = $status_term->slug;
 <h6>Status</h6>
 <hr>
 
-<p>Ärendets status är <span class="label"><?php echo $status_name; ?></span></p>
+<p>Ärendets status är <span class="label"><?php echo esc_html(get_the_terms($post_id, 'support-category')[0]->name); ?></span></p>
 
 <!-- Arkivera -->
 <?php if ($status_slug === 'active' && ($current == $author || current_user_can('administrator') || $current == 2)) : ?>

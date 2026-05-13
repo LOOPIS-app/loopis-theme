@@ -10,7 +10,7 @@ get_header(); ?>
 
 <h1>🎉 Bli medlem</h1>
 <hr>
-<p class="small">💡 Verifiera din e-post och betala medlemskap</p>
+<p class="small">💡 Betala medlemskapet</p>
 
 <h3 style="opacity: 0.5;">1⃣ Fyll i formulär</h3>
 <hr style="opacity: 0.5;">
@@ -18,14 +18,10 @@ get_header(); ?>
 
 <h3>2⃣ Betala medlemskap</h3>
 <hr>
-<p>→ Tryck på knappen nedanför för att betala 50 kronor.</p>
-
-<h3>3⃣ Verifiera e-postadress</h3>
-<hr>
-<p>→ Kolla din inkorg och tryck på länken i det mail som vi skickat.</p>
+<p>→ Tryck på knappen för att betala 50 kronor.</p>
 
 <div class="wpum-message warning">
-<p>⚠ OBS! Du måste ange samma e-postadress i betalningen som i formuläret.</p>
+<p>⚠ OBS! Du måste ange samma e-postadress i betalningen!</p>
 </div>
 
 <?php
@@ -38,17 +34,16 @@ if ($test_mode) {
 }
 ?>
 
-<p><button type="submit"><a href="<?php echo esc_url($payment_link); ?>">💳 Betala 50 kr</a></button></p>
-<p class="info">💡 Problem eller frågor? Maila <a href="mailto:info@loopis.org">info@loopis.org</a></p>
+<p><button type="button" class="green" onclick="window.location.href='<?php echo esc_url($payment_link); ?>'">💳 Betala 50 kr</button></p>
+<p class="info">💡 Problem eller frågor? Maila <a href="mailto:info@loopis.app">info@loopis.app</a></p>
+<p><span class="link"><a href="<?php echo esc_url(add_query_arg('option', 'swish-membership', home_url('/shop/'))); ?>">💸 Betala med Swish istället</a></span></p>
 
 <?php
 // Developer info in test mode
 if ($test_mode) {
     echo '<div class="admin-block">';
     include_once LOOPIS_THEME_DIR . '/templates/admin/links/developer-link.php';
-    echo '<h5>⚠ Testläge!</h5>';
-    echo '<hr>';
-    echo '<p>Genom att använda kortnummer "4242 4242 4242 4242" simulerar du en betalning med Stripe sandbox.</p>';
+    echo '<p>⚠ Testläge! Genom att använda kortnummer "4242 4242 4242 4242" simulerar du en betalning med Stripe sandbox.</p>';
     echo '</div>';
 }
 ?>

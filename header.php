@@ -14,20 +14,30 @@
 		$og_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_og.png';
 		$og_type = 'website';
 		$og_url = home_url('/');
-	} elseif (is_single() || is_page()) {
-        $title = get_the_title() . ' - ' . $blog_name;
-        $description = get_the_excerpt();
+	} elseif (is_singular()) {
+        $post_id = get_queried_object_id();
+        $title = get_the_title($post_id) . ' - ' . $blog_name;
+        
+        // Get excerpt, fallback to truncated content if no excerpt
+        $description = get_the_excerpt($post_id);
+        if (empty($description)) {
+            $content = get_the_content($post_id);
+            $description = wp_trim_words(wp_strip_all_tags($content), 30, '...');
+        }
+        
         $meta_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_app.png';
         $og_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_og.png';
-        if (has_post_thumbnail()) {
-            $thumbnail = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'large');
+        
+        if (has_post_thumbnail($post_id)) {
+            $thumbnail = wp_get_attachment_image_src(get_post_thumbnail_id($post_id), 'large');
             if ($thumbnail) {
                 $og_image = $thumbnail[0];
                 $meta_image = $thumbnail[0];
             }
         }
+        
         $og_type = 'article';
-        $og_url = get_permalink();
+        $og_url = get_permalink($post_id);
 	} elseif (is_author()) {
 		$author = get_queried_object();
 		$title = esc_html($author->display_name) . ' - ' . $blog_name;
@@ -44,7 +54,7 @@
 		$og_type = 'website';
 		$og_url = get_tag_link(get_queried_object_id());
 	} elseif (is_archive()) {
-        $title = $blog_name;
+		$title = post_type_archive_title('', false) ?: $blog_name;
         $description = 'För en glad och hållbar framtid.';
         $meta_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_app.png';
         $og_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_og.png';

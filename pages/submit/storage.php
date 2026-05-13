@@ -1,5 +1,18 @@
 <?php
-/* Formerly named submit-storage.php and defined as template "Submit-Storage Template" */
+/**
+ * SUBMIT POST TO STORAGE
+ * 
+ * Dynamic content of page-submit.php
+ * Reached on /submit/?option=storage
+ * 
+ * Showing form to submit posts to storage
+ * 
+ * Footer is excluded to maximize space + avoid exiting when editing post content
+ */
+
+if (!defined('ABSPATH')) {
+    exit;
+}
 ?>
 
 <div class="columns"><div class="column1"><h1>📦 Lägg i lager</h1></div>
@@ -7,7 +20,7 @@
 <hr>
 
 <!-- Access? -->
-<?php if (current_user_can('loopis_storage_submit')) { ?>
+<?php if (current_user_can('loopis_storage')) { ?>
 
 <p class="small">
 ⚠ Denna annons kommer att kunna paxas på event eller publiceras senare.

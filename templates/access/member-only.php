@@ -12,5 +12,4 @@ if (!defined('ABSPATH')) {
 	<p><a href="javascript:history.back()"><i class="fas fa-chevron-left"></i>Gå tillbaka</a></p>
 </div>
 
-<a href="<?php echo esc_url( wp_login_url(home_url())) ; ?>"><button name="log-in" type="submit" class="green">Logga in</button></a>&nbsp;&nbsp;
-<a href="<?php echo esc_url(wp_registration_url()) ; ?>"><button name="register" type="submit" class="blue">Bli medlem</button></a>
+<a href="<?php echo esc_url( wp_login_url(home_url())) ; ?>"><button name="log-in" type="submit" class="green">Logga in</button></a>

@@ -86,7 +86,7 @@ if ($selected_year == $current_year && $selected_week == $current_week) {
         }
         ?>
     </select>
-    <button type="submit">Submit</button>
+    <button type="submit" class="green small">Submit</button>
 </form>
 
 <?php

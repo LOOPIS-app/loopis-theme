@@ -11,9 +11,9 @@ get_header(); ?>
 <div class="content">
     <div class="page-padding">
 
-<h1>💚 Välkommen!</h1>
+<h1>🎉 Bli medlem</h1>
 <hr>
-<p class="small">💡 Nu är du medlem i LOOPIS!</p>
+<p class="small">💡 Verifiera e-postadress</p>
 
 <h3 style="opacity: 0.5;">1⃣ Fyll i formulär</h3>
 <hr style="opacity: 0.5;">
@@ -25,9 +25,12 @@ get_header(); ?>
 
 <h3>3⃣ Verifiera e-postadress</h3>
 <hr>
-<p><strong>→ Har du tryckt på länken i det mail vi skickat? Då kan du logga in!</strong></p>
+<p><strong>→ Kolla din inkorg och tryck på länken i vårt mail.</strong></p>
 
 <?php insert_spacer(20); ?>
-/* What the heck? */
-<p><button type="submit"><a href="<?php echo esc_url(home_url('/'));?>">Logga in!</a></button></p>
-<p class="info">💡 Problem eller frågor? Maila <a href="mailto:info@loopis.org">info@loopis.org</a></p>
+
+<h3>Färdig?</h3>
+<hr>
+När alla tre steg är klara kan du logga in:
+<p><button type="button" class="green" onclick="window.location.href='<?php echo esc_url(home_url('/')); ?>'">Logga in</button></p>
+<p class="info">💡 Problem eller frågor? Maila <a href="mailto:info@loopis.app">info@loopis.app</a></p>

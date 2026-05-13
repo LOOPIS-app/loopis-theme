@@ -117,33 +117,33 @@ function list_instruction_output($url_slug, $count) {
             break;
 
         case 'removed':
-            echo '<p class="small">💡 Här ser du dina borttagna annonser.</p>';
+            echo '<p class="small">💡 Här är dina borttagna annonser.</p>';
             echo '<p>Tryck på <span class="label">🟢</span> för att aktivera en annons igen.</p>';
             break;
         
         case 'disappeared':
-            echo '<p class="small">💡 Här ser du saker som försvunnit på vägen...</p>';
+            echo '<p class="small">💡 Här är dina saker som försvunnit på vägen...</p>';
             echo '<p>Ibland händer det! 😯<p>';
             echo '<p>Tryck på en annons för mer info.<p>';
             break;
 
         case 'fetched':
-            echo '<p class="small">💡 Här är dina saker som hämtats.</p>';
+            echo '<p class="small">💡 Här är dina saker som lämnats.</p>';
             echo '<p>Här finns inga alternativ för dig. Tack för att du loopar! 🙏</p>';
             break;
 
         case 'others_booked':
-            echo '<p class="small">💡 Här visas alla saker du just nu har paxat.</p>';
+            echo '<p class="small">💡 Här är alla saker du just nu har paxade.</p>';
             echo '<p>Tryck på en annons för mer info.<p>';
             break;
 
         case 'others_fetched':
-            echo '<p class="small">💡 Här visas alla saker du hämtat.</p>';
+            echo '<p class="small">💡 Här är alla saker du hämtat.</p>';
             echo '<p>Tryck på <span class="label">💝</span> för att skicka vidare!</p>';
             break;
 
         default:
-            echo '<p>För annonser med denna status finns ingen info.</p>';
+            echo '<p class="small">💡 För annonser med denna status finns ingen info.</p>';
             break;
     }
 }

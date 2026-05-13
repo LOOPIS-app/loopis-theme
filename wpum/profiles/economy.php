@@ -30,11 +30,12 @@ $clover_coins = $profile_economy['clover_coins'];
 $coins = $profile_economy['coins'];
 ?>
 
-<p class="small">💡 Här ser du detaljerad information om din aktivitet.</p>
+<p class="small">💡 Här ser du information om din aktivitet.</p>
 <div class="columns"><div class="column1"><h7>🧮 Min aktivitet</h7></div>
 <div class="column2 small bottom"></div></div>
 <hr>
 
+<!--COINS-->
 <div class="economy wrapped">
 <p>Regnbågsmynt<span class="right"><img src="<?php echo LOOPIS_THEME_URI; ?>/assets/img/coin.png" alt="coin symbol" style="height:15px; width: auto;"></span></p>
 <hr>
@@ -48,7 +49,7 @@ $coins = $profile_economy['coins'];
 <p>&nbsp;<span class="right">Totalt: <b><?php echo $coins - $clover_coins - $star_coins; ?></b></span></p>
 </div>
 
-<!-- CLOVERS -->
+<!--CLOVERS-->
 <div class="economy wrapped">
 <p>Fyrklöver<span class="right">🍀</span></p>
 <hr>
@@ -56,7 +57,7 @@ $coins = $profile_economy['coins'];
 <p><b><?php echo $count_booked; ?></b> saker hämtade <span class="plus right">+<?php echo $count_booked; ?></span></p>
 <hr>
 <p>&nbsp;<span class="right">Totalt: <b><?php echo $clovers; ?></b></span></p>
-
+<!-- Reward -->
 <p class="small">
 <?php if ($clover_coins > 0) { ?>
 → <b><?php echo $clover_coins; ?> mynt</b> i belöning! 🎉
@@ -65,14 +66,14 @@ $coins = $profile_economy['coins'];
 </p>
 </div>
 
-<!-- STARS -->
+<!--STARS-->
 <div class="economy wrapped">
 <p>Guldstjärnor<span class="right">🌟</span></p>
 <hr>
 <?php include_once LOOPIS_THEME_DIR . '/templates/user/profile/user-rewards.php'; ?>
 <hr>
 <p>&nbsp;<span class="right">Totalt: <b><?php echo $stars; ?></b></span></p>
-
+<!--Reward-->
 <p class="small">
 <?php if ($star_coins > 0) { ?>
 → <b><?php echo $star_coins; ?> mynt</b> i belöning! 🎉 
@@ -81,6 +82,7 @@ $coins = $profile_economy['coins'];
 </p>
 </div>
 
+<!--Info-->
 <p class="small">
 <?php if ($clovers >= 10) {  $remainder = $clovers % 10; $remaining = 10 - $remainder; ?>
 💡 Samla <?php echo $remaining; ?> fyrklöver för att få nästa mynt.<br>
@@ -88,11 +90,12 @@ $coins = $profile_economy['coins'];
 <?php if ($clovers < 10) { $remaining = 10 - $clovers; ?>
 💡 Samla <?php echo $remaining; ?> fyrklöver så får du ett mynt!<br>
 <?php } ?>
-<a href="<?php echo get_permalink( get_page_by_path('hur-funkar-beloningar') ); ?>">📌 Hur funkar belöningar?</a>
 </p>
 
+<!--FAQ-->	
+<p><span class="link"><a href="<?php echo get_permalink( get_page_by_path('hur-funkar-beloningar') ); ?>">📌 Hur funkar belöningar?</a></span></p>
 
-<!--PAYMENTS-->	
+<!--Payments-->	
 <h3>📒 Mina kvitton</h3>
 <hr>
 <p>Här är dina registrerade betalningar till föreningen:</p>

@@ -98,7 +98,7 @@ $admin_url = home_url('/admin/');
 
 <!-- Active support count -->
 <?php if (current_user_can('manage_options') || current_user_can('loopis_admin')) : ?>
-    <div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'support', $admin_url) ); ?>'">
+    <div class="wrapped link" onclick="location.href='<?php echo get_post_type_archive_link('support'); ?>'">
         <h5>🛟 Support</h5>
         <hr>
         <p class="small">
@@ -129,15 +129,15 @@ $admin_url = home_url('/admin/');
 <?php endif; ?>
 
 <!-- Manager Section -->
-<h3>🤓 Admin (manager)</h3>
+<h3>🤓 Admin</h3>
 <hr>
 <div>
-    <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'manager/inventory', $admin_url) ); ?>">📋 Inventering</a></span>&nbsp;
-    <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'manager/post-search', $admin_url) ); ?>">🎁 Sök annons</a></span>&nbsp;
+    <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'manager/post-search', $admin_url) ); ?>">🔍 Alla annonser</a></span>&nbsp;
+    <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'manager/inventory', $admin_url) ); ?>">📋 Inventering i skåpet</a></span>&nbsp;
 </div>
 
 <!-- Member Info Section -->
-<?php if (current_user_can('board') ) : ?>
+<?php if (current_user_can('manage_options') || current_user_can('board')) : ?>
     <h3>👤 Medlemsinfo</h3>
     <hr>
     <div>
@@ -158,7 +158,7 @@ $admin_url = home_url('/admin/');
 
 <!-- Webmaster Section -->
 <?php if (current_user_can('manage_options') || current_user_can('develooper')) : ?>
-    <h3>👽 Wordpress administrator</h3>
+    <h3>👽 WP-admin</h3>
     <hr>
     <div>
         <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'webmaster/test', $admin_url) ); ?>">💣 Testsida</a></span>&nbsp;

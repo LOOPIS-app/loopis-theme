@@ -70,7 +70,7 @@ arsort($tag_post_counts);
     <input type="date" id="start_date" name="start_date" value="<?php echo esc_attr($start_date); ?>">
     <label for="end_date">Slutdatum:</label>
     <input type="date" id="end_date" name="end_date" value="<?php echo esc_attr($end_date); ?>">
-    <button type="submit">Filtrera</button>
+    <button type="submit" class="green small">Filtrera</button>
 </form>
 
 <div class="columns">

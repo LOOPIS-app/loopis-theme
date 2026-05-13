@@ -24,7 +24,7 @@ switch ($post_type) {
         $message = "👋 Skriv den första kommentaren!";
         break;
     case 'support':
-        $message = "⌛ Väntar på svar från admin...";
+        $message = "⌛ Väntar på svar...";
         break;
     default:
         $message = "💢 Inga kommentarer ännu.";

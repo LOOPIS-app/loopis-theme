@@ -28,7 +28,7 @@ get_header(); ?>
 
 <?php echo do_shortcode('[wpum_register form_id="1"]'); ?>
 
-<p class="info">💡 Problem eller frågor? Maila <a href="mailto:info@loopis.org">info@loopis.org</a></p>
+<p class="info">💡 Problem eller frågor? Maila <a href="mailto:info@loopis.app">info@loopis.app</a></p>
     </div><!--page-padding-->
 </div><!--content-->
 

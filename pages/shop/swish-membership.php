@@ -1,7 +1,8 @@
 <?php
 /**
- * Shop: start (page-shop.php)
- * Content overview.
+ * Shop: membership (Swish)
+ * 
+ * Dynamic loading from page-shop.php
  */
 
 if (!defined('ABSPATH')) {
@@ -15,8 +16,8 @@ if (!defined('ABSPATH')) {
 <p>Här kan du betala ditt medlemskap med Swish.</p>
 
 <div class="wpum-message information">
-<p>⚠ Vi föredrar att du <a href="<?php echo esc_url(home_url('/register-pay'));?>">betalar med kort</a>!</p>
-<p class="small">💡 Swish-betalningar registreras manuellt av vår kassör, vanligtvis inom en timme.</p>
+<p>⚠ Swisha bara om du inte kan <span class="big-link">💳 <a href="<?php echo esc_url(home_url('/register-pay'));?>">Betala med kort</a></span></p>
+<p class="small">💡 Swish-betalning måste registreras manuellt av vår kassör, vanligtvis inom en timme.</p>
 </div>
 
 <?php include_once LOOPIS_THEME_DIR . '/templates/general/swish-membership.php'; ?>

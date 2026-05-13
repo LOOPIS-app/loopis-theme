@@ -69,6 +69,6 @@ $allowed_category_ids = function_exists('loopis_get_search_category_ids')
         </select>
         
         <!-- Submit button -->
-        <input type="submit" value="Sök">
+        <input type="submit" class="green small" value="Sök">
     </form>
 </div>

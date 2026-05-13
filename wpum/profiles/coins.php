@@ -44,8 +44,11 @@ $coins = $profile_economy['coins'];
 <p><span class="label">🌟 <?php echo $stars; ?> guldstjärnor</span></p>
 </div><!-- wrapped -->
 
-<p class="small">💡 Detaljerad lista över din aktivitet finns på nästa flik.<br>
-<a href="<?php echo esc_url(home_url('/faq/hur-funkar-regnbagsmynt')); ?>">📌 Hur funkar regnbågsmynt?</a></p>
+<!--Info-->
+<p class="small">💡 Detaljerad lista över din aktivitet finns på nästa flik.</p>
 
-<!--BUY COINTS-->
-<p><button type="submit"><a href="<?php echo esc_url(add_query_arg('option', 'coins', home_url('/shop/'))); ?>">Köp mynt</a></button></p>
+<!--Buy coins-->
+<p><button type="button" class="green" onclick="window.location.href='<?php echo esc_url(add_query_arg('option', 'coins', home_url('/shop/'))); ?>'">Köp mynt</button></p>
+
+<!--FAQ-->
+<p><span class="link"><a href="<?php echo esc_url(home_url('/faq/hur-funkar-regnbagsmynt')); ?>">📌 Hur funkar regnbågsmynt?</a></span></p>

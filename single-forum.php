@@ -5,7 +5,7 @@
 
 get_header(); ?>
 
-<!-- VARIABLER -->
+<!-- SET VARIABLES -->
 <?php
 wp_reset_postdata(); // added here when removed from functions.php
 $current = get_current_user_id();
@@ -16,6 +16,7 @@ $post_id = get_the_ID();
 $terms = get_the_terms($post_id, 'forum-category');
 $category_name = '';
 
+// Get category name, excluding 'start' if it exists
 if ($terms && !is_wp_error($terms)) {
     foreach ($terms as $term) {
         if ($term->slug !== 'start') {
@@ -26,22 +27,19 @@ if ($terms && !is_wp_error($terms)) {
 }
 ?>
 
-<!-- THE POST  -->
+<!-- POST CONTENT -->
 <div class="content">
     <div class="post-wrapper">
         <div class="post-padding">
+			<p><span class="rounded"><a href="<?php echo get_post_type_archive_link('forum'); ?>">📡 Nyheter</a></span> <span class="rounded"><?php if ($category_name) { echo esc_html($category_name); } ?></span></p>
             <h1 class="wrap"><?php the_title(); ?></h1>
 			<div class="post-meta">
 				<!--span class="rounded">🗨 Forum</span-->
-				<span><?php if ($category_name) { echo esc_html($category_name); } ?></span>
 				<span><i class="fas fa-pen-alt"></i></i> <?php echo get_the_author_posts_link(); ?></span>
 				<span><i class="far fa-clock"></i> <?php echo human_time_diff(get_the_time('U'), current_time('timestamp'))?> sen</span>
 			</div><!--post-meta-->
 
 			<div class="post-content">
-
-<?php if ( current_user_can('member') || current_user_can('administrator') ) { ?>
-
 					<?php the_content(); ?>
 
 <!-- POST OPTIONS -->
@@ -53,40 +51,25 @@ if ($terms && !is_wp_error($terms)) {
 
 <div class="page-padding" style="padding-top: 5px;"> <!-- Logg close to post -->
 
-<!-- POST LOGG -->
+<!-- POST LOG -->
 <div class="logg">
 <p><i class="fas fa-arrow-alt-circle-up"></i><?php echo get_the_author_posts_link(); ?> postade för <?php echo human_time_diff(get_the_time('U'), current_time('timestamp'))?> sen <span><?php the_time('Y-m-d H:i')?></span></p>
-</div><!--LOGG-->	
+</div>	
 
 <!-- POST INTERACTION-->
-<?php if (comments_open()) { comments_template('/comments.php', true); } ?>
+<?php 
+// Access control
+if ( current_user_can('member') || current_user_can('administrator') ) { 
 
-</div><!--page-padding-->
+	// Comments
+	if (comments_open()) { comments_template('/comments.php', true); }
 
-<!-- NO ACCESS MESSAGE -->
-<?php } else { ?>
-			<?php include_once LOOPIS_THEME_DIR . '/templates/access/member-only.php'; ?>
-			</div><!--post-content-->				
-		</div><!--post-padding-->		
-<?php } ?>
+	} else {
+		// Visitor message
+		include_once LOOPIS_THEME_DIR . '/templates/access/no-comments.php'; 
+		} ?>
 
-</div><!--post-wrapper-->				
+	</div><!--page-padding-->				
 </div><!--content-->
-
-<!-- Copy URL -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
-$(document).ready(function(){
-var $temp = $("<input>");
-var $url = $(location).attr('href');
-$('#copy_url').click(function() {
-$("body").append($temp);
-$temp.val($url).select();
-document.execCommand("copy");
-$temp.remove();
-});
-});
-</script>
-
 
 <?php get_footer(); ?>

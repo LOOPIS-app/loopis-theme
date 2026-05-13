@@ -1,8 +1,8 @@
 </div><!--container-->
 <?php get_template_part('templates/general/scroll-to-top'); ?>
 
-<?php if ((current_user_can('member') || current_user_can('administrator'))) : ?>
-    <?php get_template_part('templates/support/create-ticket'); ?>
+<?php if ((current_user_can('member') || current_user_can('loopis_support')) && !is_singular('support')) : ?>
+    <?php get_template_part('templates/post-forms/support-form'); ?>
 <?php endif; ?>
 <?php $site_url = home_url("/"); ?>
 </div><!--wrapper-->

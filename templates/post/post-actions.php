@@ -76,7 +76,7 @@ $locker_code = get_locker_code(LOCKER_ID);
 		<p class="info">Tryck på knappen för att paxa.</p>
 	<?php endif;?>
 
-	<?php if ( current_user_can('loopis_storage_book')) :
+	<?php if ( current_user_can('manager') || ( $current == $author && current_user_can('loopis_storage') ) ) :
 	include_once LOOPIS_THEME_DIR . '/templates/post/storage-booking.php';
 	endif; ?>
 	
@@ -88,10 +88,10 @@ $locker_code = get_locker_code(LOCKER_ID);
 
 	<p>📦 Denna annons ligger i lager. Kan bara paxas och hämtas på ett event.</p>
 
-	<?php if ( current_user_can('loopis_storage_book') || $current == $author ) :
+	<?php if ( current_user_can('loopis_storage') || $current == $author ) :
 	include_once LOOPIS_THEME_DIR . '/templates/post/storage-booking.php';
 	endif; ?>
-
+	
 	<?php if ( current_user_can('administrator') || current_user_can('manager') ) : ?>
 		<?php include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-storage.php'; ?>
 		<?php if(isset($_POST['publish_storage'])) { admin_action_publish_storage ($post_id); } ?>
