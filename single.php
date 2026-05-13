@@ -94,18 +94,21 @@ $pending = get_post_meta($post_id, '_pending_images',true);
                 <div class="post-image">
                     <?php 
                         if ($thumbnail_id){
-                            echo wp_get_attachment_image($thumbnail_id, 'large'); 
+                            $rotation = intval(get_post_meta($thumbnail_id, '_loopis_rotation', true));
+                            echo wp_get_attachment_image($thumbnail_id, 'large', false, ['style' => "transform: rotate({$rotation}deg);"]); 
                         }
                     ?>
                 </div>
                 <div class="extra-image">
                 <?php if ($image_2_id) {
-                    echo wp_get_attachment_image($image_2_id, 'large');
+                    $rotation = intval(get_post_meta($image_2_id, '_loopis_rotation', true));
+                    echo wp_get_attachment_image($image_2_id, 'large', false, ['style' => "transform: rotate({$rotation}deg);"]); 
                 } ?>
                 </div>
                 <div class="extra-image-2">
                 <?php if ($image_3_id) {
-                    echo wp_get_attachment_image($image_3_id, 'large');
+                    $rotation = intval(get_post_meta($image_2_id, '_loopis_rotation', true));
+                    echo wp_get_attachment_image($image_3_id, 'large', false, ['style' => "transform: rotate({$rotation}deg);"]); 
                 } ?>
                 </div>
             </div><!--post-images-->

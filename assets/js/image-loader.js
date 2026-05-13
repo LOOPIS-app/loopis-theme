@@ -12,13 +12,14 @@ async function imageLoader() {
       const images = response.data.images;
       const postImage = document.querySelector('.post-image');
       if (postImage && images[0]) postImage.innerHTML = images[0];
-      if (images.length > 1) {
-        const extra1 = document.querySelector('.extra-image');
-        if (extra1) extra1.innerHTML = images[1];
+      const extra1 = document.querySelector('.extra-image');
+      if (extra1) {
+          extra1.innerHTML = images[1] || '';
       }
-      if (images.length > 2) {
-        const extra2 = document.querySelector('.extra-image-2');
-        if (extra2) extra2.innerHTML = images[2];
+      
+      const extra2 = document.querySelector('.extra-image-2');
+      if (extra2) {
+          extra2.innerHTML = images[2] || '';
       }
     } else {
       console.error('Image processing failed: invalid response', response);

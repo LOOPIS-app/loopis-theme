@@ -207,12 +207,12 @@ h1.wrap { white-space: normal; }
 .post-wrapper { background:#f5f5f5; }
 .post-wrapper-form { background:#f5f5f5; padding:15px; border-radius: 10px; }
 .post-padding { padding: 10px 15px; }
-.post-images { position: relative; }
+.post-images { position: relative;}
 .post-image { margin: 0; padding: 0; }
 .post-image img { width: 100%; height: auto; }
 .extra-image { position: absolute; right: 15px; bottom: -25px; }
 .extra-image img { height: 100px !important; width: 100px !important; object-fit: cover; overflow: hidden; border: 3px solid white; border-radius: 50%; }
-.extra-image-2 { position: absolute; left: 15px; bottom: -25px; }
+.extra-image-2 { position: absolute; right: 125px; bottom: -25px; }
 .extra-image-2 img { height: 100px !important; width: 100px !important; object-fit: cover; overflow: hidden; border: 3px solid white; border-radius: 50%; }
 .post-meta { font-size: 15px; color: #777; margin-bottom: 15px; }
 .post-meta span { font-size: 15px; background: none; padding:0; margin-right: 7px; }
@@ -627,7 +627,7 @@ input[name="submit_registration"].button { display: inline-block !important; }
 }
 .checkbox-row input[type="checkbox"] {
   margin-left: 10px;
-  display: none;
+  visibility: hidden;
 }
 
 #file-label {
@@ -650,22 +650,30 @@ input[name="submit_registration"].button { display: inline-block !important; }
   transition: transform 0.2s;
   flex-wrap: wrap;
   margin-right: 10px;
-  gap:10px; 
-  margin-top:10px;
-}
+  gap:10px;  
+} 
 
-.image-previews img:hover {
+img.image-prev:hover, label.image-prev:hover{
   transform: scale(1.05);
 }
 
-.image-prev{
-  width         : 120px;
-  height        : 120px;
-  object-fit    : cover;
-  border        : 1px solid #ccc;
-  border-radius : 6px;
-}
 
+.image-prev{
+    width:120px;
+    height:120px;
+    border:1px solid #ccc;
+    border-radius:6px;
+    object-fit      : cover;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    vertical-align:top;
+    margin:0;
+    padding:0;
+    line-height:0 !important;
+}
 
 #loopis-form {
     background: #f5f5f5;

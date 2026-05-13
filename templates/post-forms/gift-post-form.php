@@ -1,6 +1,8 @@
 <?php
 /**
  * Form for gift-posts
+ * 
+ * 
  */
 
 if (!defined('ABSPATH')) {
@@ -28,13 +30,9 @@ if (isset($_GET['post_id'])){
         $post_content = $post->post_content;
         $post_terms = wp_get_post_terms( $post_id, 'post_tag', ['fields' => 'ids']);
         $location = get_post_meta($post_id, 'location', true);
-        $post_cat = wp_get_post_terms( $post_id, 'category', ['fields' => 'ids'])[0];
+        $post_cat = wp_get_post_terms($post_id, 'category', ['fields' => 'ids']);
+        $post_cat = !empty($post_cat)   ? $post_cat[0]    : loopis_cat('new');
         $edit = true;
-        ?>
-        <script>
-            
-        </script>
-        <?php
     }else{
         wp_die('You are not allowed to edit this post');
     }
@@ -54,20 +52,32 @@ if ( is_user_logged_in() ) {
                 $image_2_id = get_post_meta($post_id, 'image_2', true);
                 $image_3_id = get_post_meta($post_id, 'image_3', true);
                 ?>
+                <script>
+                window.existingImages = <?php
+                $images = [];
+                
+                $ids = [$thumbnail_id, $image_2_id, $image_3_id];
+                
+                foreach ($ids as $i => $id) {
+                    if (!$id) continue;
+                
+                    $images[] = [
+                        'id' => (int) $id,
+                        'src' => wp_get_attachment_image_url($id, 'large'),
+                        'rotation' => (int) get_post_meta($id, '_loopis_rotation', true),
+                        'thumbnail' => ($id === $thumbnail_id)
+                    ];
+                }
+                
+                echo json_encode($images);
+                ?>;
+                </script>
+                
                 <small>Aktuella bilder:</small>
-                <div class="image-previews" id="current-image-previews">
-                    <?php
-                    
-                    echo wp_get_attachment_image( $thumbnail_id, 'large', false, array('class'=> 'image-prev', 'id' => 'img-0'));
-                    
-                    if ($image_2_id) {
-                        echo wp_get_attachment_image($image_2_id, 'large', false, array('class'=> 'image-prev', 'id' => 'img-1'));
-                    }
-                    if ($image_3_id) {
-                        echo wp_get_attachment_image($image_3_id, 'large', false, array('class'=> 'image-prev', 'id' => 'img-2'));
-                    }
-                    ?>
+                <div class="image-previews" id="image-previews">
                 </div>
+                <label for="images" id="img-label" class="image-prev"><i class="fa-solid fa-camera"></i></label>
+                <input type="file" id="images" name="images[]" accept="image/*" multiple style="display:none;">
                 <?php
             }else{
                 ?>
@@ -122,8 +132,8 @@ if ( is_user_logged_in() ) {
                     <?php
                     $dropdown_settings = array(
                         'taxonomy' => 'category',
-                        'name' => 'post_category',
-                        'id' => 'post_category',
+                        'name' => 'cat',
+                        'id' => 'cat',
                         'class' => 'category-dropdown',
                         'hide_empty' => false,
                         'selected' => isset($post_cat) ? strval($post_cat) : strval(loopis_cat('new')),
@@ -159,14 +169,22 @@ if ( is_user_logged_in() ) {
         $images = [];
         $images['name'] = $_FILES['images']['name'] ?? '';
         $images['tmp_name'] = $_FILES['images']['tmp_name'] ?? '';
-        $images['thumb'] = (int) $_POST['thumb'] ?? 0;
+        $images['thumb'] = isset($_POST['thumb'])? (int) $_POST['thumb'] : 0;
+        $images['error'] = $_FILES['images']['error'] ?? [];
+        $images['type']  = $_FILES['images']['type'] ?? [];
+        $images['size']  = $_FILES['images']['size'] ?? [];
+        $has_existing_changes =
+            !empty($_POST['remove_0']) ||
+            !empty($_POST['remove_1']) ||
+            !empty($_POST['remove_2']) ||
+            isset($_POST['rotation_0']) ||
+            isset($_POST['rotation_1']) ||
+            isset($_POST['rotation_2']);
         if (!current_user_can('publish_posts')) {
             wp_die('Not allowed');
         }
-        if ($images['name'] !== ''){
-            if (count($images['name']) > 3) {
-                wp_die('Max 3 images allowed');
-            }
+        if (!empty($images['name'][0]) && count($images['name']) > 3) {
+        wp_die('Max 3 images allowed');
         }
         if (count($terms) > 3) {
             wp_die('Max 3 categories allowed');
@@ -174,8 +192,42 @@ if ( is_user_logged_in() ) {
         if (!empty($images['error'][0])) {
             error_log(print_r($images['error'], true));
         }
+        $allowed_mimes = [
+            'image/jpeg',
+            'image/png',
+            'image/webp',
+        ];
+        if (!empty($images['error'])){
             
+            foreach ($images['error'] as $index => $error) {
+
+                if ($error !== UPLOAD_ERR_OK) {
+                    wp_die('Image upload failed');
+                }
+
+                if (!in_array($images['type'][$index], $allowed_mimes, true)) {
+                    wp_die('Invalid image type');
+                }
+            }
+        }
+        
         if ($edit){
+
+            if (!empty($_POST['remove_0'])) {
+                wp_delete_attachment(get_post_thumbnail_id($post_id), true);
+                delete_post_thumbnail($post_id);
+            }
+
+            if (!empty($_POST['remove_1'])) {
+                wp_delete_attachment(get_post_meta($post_id, 'image_2', true), true);
+                delete_post_meta($post_id, 'image_2');
+            }
+
+            if (!empty($_POST['remove_2'])) {
+                wp_delete_attachment(get_post_meta($post_id, 'image_3', true), true);
+                delete_post_meta($post_id, 'image_3');
+            }
+
             $post = array(
                 'post_title'   => $post_title,
                 'ID'           => $post_id,
@@ -185,6 +237,75 @@ if ( is_user_logged_in() ) {
                 'post_type'    => 'post',
             );
             wp_update_post($post);
+
+            require_once(ABSPATH . 'wp-admin/includes/file.php');
+            require_once(ABSPATH . 'wp-admin/includes/media.php');
+            require_once(ABSPATH . 'wp-admin/includes/image.php');
+            $uploads_tmp = WP_CONTENT_DIR . '/uploads/tmp/';
+            if (!is_dir($uploads_tmp)) {
+                mkdir($uploads_tmp, 0755, true);
+            }
+            if (!empty($images['name'][0])|| $has_existing_changes) {
+
+                $processed_images = [];
+
+                foreach ($_POST as $key => $value) {
+                        
+                    if (!preg_match('/^rotation_(\d+)$/', $key, $matches)) {
+                        continue;
+                    }
+                        
+                    $index = intval($matches[1]);
+                        
+                    if (!empty($_POST['remove_' . $index])) {
+                        continue;
+                    }
+                        
+                    $rotation = intval($_POST['rotation_' . $index]);
+                        
+                    $processed_images[$index] = [
+                        'rotation' => $rotation,
+                        'is_new'   => isset($_FILES['images']['tmp_name'][$index]) &&
+                                      !empty($_FILES['images']['tmp_name'][$index]),
+                    ];
+                        
+                    if ($processed_images[$index]['is_new']) {
+                        
+                        $tmp = $_FILES['images']['tmp_name'][$index];
+                        
+                        $ext = pathinfo($_FILES['images']['name'][$index], PATHINFO_EXTENSION);
+                        
+                        $file_to = $uploads_tmp . uniqid('loopis_', true) . '.' . $ext;
+                        
+                        if (move_uploaded_file($tmp, $file_to)) {
+                        
+                            $processed_images[$index]['tmp_name'] = $file_to;
+                        
+                            $processed_images[$index]['name'] =
+                                $_FILES['images']['name'][$index];
+                        }
+                    }
+                }
+                        
+                update_post_meta($post_id, '_pending_images', $processed_images);
+            }
+
+            // Upload image and attach to post
+            wp_set_post_terms($post_id, $cat, 'category', false );
+            wp_set_post_terms($post_id, $terms, 'post_tag', false );
+            $new_url = get_permalink($post_id);
+            update_post_meta($post_id, 'link', $new_url );
+            if ($locker===1){
+                update_post_meta($post_id, 'location', 'Skåpet' );
+            }elseif(isset($where) && $where!==''){
+                update_post_meta($post_id, 'location', $where );
+            }else{
+                update_post_meta($post_id, 'location', 'Plats saknas' );
+            }
+            wp_redirect(get_permalink($post_id));
+
+
+            exit;
         } else{
             $new_post = array(
                 'post_title'   => $post_title,
@@ -205,11 +326,14 @@ if ( is_user_logged_in() ) {
                         mkdir($uploads_tmp, 0755, true);
                     }
                     foreach ($images['name'] as $index => $name){
-                        $file_to = $uploads_tmp . basename($new_post . '_image_'. $index);
+                        $ext = pathinfo($name, PATHINFO_EXTENSION);
+
+                        $file_to = $uploads_tmp . uniqid('loopis_', true) . '.' . $ext;
                         if(move_uploaded_file( $images['tmp_name'][$index] , $file_to )){
                             $images['tmp_name'][$index] = $file_to;
                         }
                         $images['rotation'][$index] = $_POST['rotation_'.$index];
+                        $images['is_old'][$index] = false;
                     }
                     update_post_meta($new_post, '_pending_images', $images );
                 }

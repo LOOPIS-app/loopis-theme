@@ -28,6 +28,8 @@ function use_twemoji() {
                     ext: '.svg'
                 });
                 
+                replaceOptionEmojis()
+                
                 // Set up observer for dynamic content
                 if (window.MutationObserver) {
                     var observer = new MutationObserver(function(mutations) {
@@ -61,6 +63,20 @@ function use_twemoji() {
         }
         
     }(window, document);
+    function replaceOptionEmojis() {
+        const options = document.querySelectorAll('select[name="category"] option');
+        options.forEach(function(option) {
+            // Get the current text
+            const text = option.textContent;
+            // Parse and replace emojis in the text
+            const replacedText = twemoji.parse(text, {
+                folder: 'svg',
+                ext: '.svg'
+            });
+            // Set the innerHTML of the option to the parsed SVG
+            option.innerHTML = replacedText;
+        });
+    }
     </script>
     <?php
 }

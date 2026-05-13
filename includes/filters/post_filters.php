@@ -77,11 +77,31 @@ function loopis_image_post_processing(){
     require_once(ABSPATH . 'wp-admin/includes/image.php');
     if(!empty($images['name'][0])){
         foreach ($images['name'] as $index => $name){
+            if ($name==='old'){
+                if ($index === 0){
+                    $attachment_id = get_post_thumbnail_id($postid);
+                } else{
+                    $attachment_id =  get_post_meta($postid, 'image_'.($index+1), true);;
+                }
+
+                $path = get_attached_file($attachment_id);
+                $editor = wp_get_image_editor($path);
+
+                if (!is_wp_error($editor)) {
+
+                    $editor->rotate($images['rotation'][$index]);
+
+                    $saved = $editor->save($path);
+                }
+            }
             $ext = pathinfo($name, PATHINFO_EXTENSION);
             $new_name = 'img-' .$postid. '-' . $index .'.'. $ext;
             $file = [
-                'name'       => $new_name,
-                'tmp_name'   => $images['tmp_name'][$index],
+                'name'     => $new_name,
+                'type'     => mime_content_type($images['tmp_name'][$index]),
+                'tmp_name' => $images['tmp_name'][$index],
+                'error'    => 0,
+                'size'     => filesize($images['tmp_name'][$index]),
             ];
             if ($images['rotation'][$index] != 0){
                 $image = imagecreatefromstring(file_get_contents($images['tmp_name'][$index]));
@@ -97,10 +117,14 @@ function loopis_image_post_processing(){
                 if ($index===$thumb){
                     set_post_thumbnail($postid, $image_id);
                     update_post_meta($postid, 'image_' . (0), $image_id);
-                    unlink($images['tmp_name'][$index]);
+                    if (file_exists($images['tmp_name'][$index])) {
+                        unlink($images['tmp_name'][$index]);
+                    }
                 }else{
                     update_post_meta($postid, 'image_' . ($imagenum), $image_id);
-                    unlink($images['tmp_name'][$index]);
+                    if (file_exists($images['tmp_name'][$index])) {
+                        unlink($images['tmp_name'][$index]);
+                    }
                     $imagenum++;
                 }
             }
