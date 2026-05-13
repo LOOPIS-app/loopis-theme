@@ -3,7 +3,7 @@
  * Reminders page
  * Shows all items in locker + on the way to locker 
  * Includes buttons for sending sms reminders
- * Access restricted to users with loopis_reminder capability
+ * Access restricted to users with loopis_admin capability
  * 
  * (Not yet checked by CoPilot)
  */
@@ -60,7 +60,7 @@ $count = $the_query->found_posts;
         <div class="post-list-post" style="position:relative;" onclick="location.href='<?php the_permalink(); ?>';">
             <div class="post-list-post-thumbnail"><?php the_post_thumbnail('thumbnail'); ?></div>
             
-<?php if (current_user_can('loopis_reminder')) : ?>
+<?php if (current_user_can('loopis_admin')) : ?>
             <!-- Send reminder? -->
             <?php if ($reminder_fetch < 3) : ?>
                 <?php if (($now_time - $locker_time) > ($reminder_fetch + 1) * (24 * 3600)) : ?>
@@ -128,7 +128,7 @@ $count = $the_query->found_posts;
 <div class="post-list-post" style="position:relative;" onclick="location.href='<?php the_permalink(); ?>';">
 	<div class="post-list-post-thumbnail"><?php the_post_thumbnail('thumbnail'); ?></div>
 
-<?php if (current_user_can('loopis_reminder')) : ?>
+<?php if (current_user_can('loopis_admin')) : ?>
 <!-- Send reminder? -->
 <?php if ($reminder_leave < 3) : ?>
 	<?php if (($now_time - $book_time) > ($reminder_leave + 1) * (24 * 3600)) : ?>
@@ -196,7 +196,7 @@ $count = $the_query->found_posts;
 <div class="post-list-post" style="position:relative;" onclick="location.href='<?php the_permalink(); ?>';">
 	<div class="post-list-post-thumbnail"><?php the_post_thumbnail('thumbnail'); ?></div>
 
-<?php if (current_user_can('loopis_reminder')) : ?>
+<?php if (current_user_can('loopis_admin')) : ?>
 <!-- Send reminder? -->					
 <?php if ($reminder_fetch < 3) : ?>
 	<?php if (($now_time - $book_time) > ($reminder_fetch + 1) * (24 * 3600)) : ?>
@@ -233,7 +233,7 @@ $count = $the_query->found_posts;
 
 
 <!--Manual start-->
-<?php if (current_user_can('loopis_reminder')) { ?>
+<?php if (current_user_can('loopis_admin')) { ?>
 <div class="wrapped admin-block">
 		<?php if(isset($_POST['start_reminders'])) { cron_job_reminders(); } ?>
 		<form method="post" class="arb" action=""><button name="start_reminders" type="submit" class="red small" onclick="return confirm('Vill du skicka påminnelser manuellt?')">🤖 Påminn nu...</button></form>
