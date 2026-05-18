@@ -20,10 +20,8 @@ get_header(); ?>
     if (file_exists($php_file)) {
         include $php_file;
     } else {
-      echo '<div class="content"><div class="page-padding">';
         echo '<h1>🛒 Shoppen</h1><hr>';
-        echo '<p>💢 Filen hittades inte: <b>' . esc_html($php_file) . '</b></p>';
-        echo '</div></div>';
+        include LOOPIS_THEME_DIR . '/templates/access/loopis-404.php';
     }  ?>
         <div class="clear"></div>
 

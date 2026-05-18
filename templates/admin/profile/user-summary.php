@@ -15,7 +15,7 @@ wp_enqueue_script('loopis-tabs', get_template_directory_uri() . '/assets/js/tabs
 ?>
 
 <div class="admin-block">
-    <?php include_once LOOPIS_THEME_DIR . '/templates/admin/links/admin-link.php'; ?>
+    <?php include_once LOOPIS_THEME_DIR . '/templates/links/admin-link.php'; ?>
 
     <!-- Tab Navigation -->
     <div class="tab-nav">
@@ -28,7 +28,7 @@ wp_enqueue_script('loopis-tabs', get_template_directory_uri() . '/assets/js/tabs
         </nav>
     </div><!--tab-nav-->
 
-    <div class="tab-content">
+    <div class="tab-content"> 
 
         <!-- Member Info Tab -->
         <div id="tab-info" class="tab-panel">

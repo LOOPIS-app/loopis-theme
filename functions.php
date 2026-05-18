@@ -1,6 +1,6 @@
 <?php
 /**
- * Theme bootstrap.
+ * Theme bootstrap for LOOPIS sub sites (aka. local apps)
  *
  * Loads all frontend core files.
  */
@@ -16,7 +16,7 @@ if (!defined('ABSPATH')) { exit; }
  */
 
 // Define theme version
-define('LOOPIS_THEME_VERSION', '0.84'); // Update version number here + in style.css
+define('LOOPIS_THEME_VERSION', '0.85'); // Update version number here + in style.css
 
 // Define theme folder path constants
 define('LOOPIS_THEME_DIR', get_template_directory());       // Server-side path to /wp-content/themes/loopis-theme/

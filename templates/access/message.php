@@ -45,5 +45,5 @@ if (is_user_logged_in()) {
 
 // Output the message if it exists
 if (!empty($message)) {
-    echo '<div class="wpum-message information">' . $message . '</div>';
+    echo '<div class="loopis-message information">' . $message . '</div>';
 }

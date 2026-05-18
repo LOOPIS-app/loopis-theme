@@ -1,8 +1,9 @@
 <?php
 /**
- * Shop: coins 
+ * Page for buying coins with Stripe
  * 
- * Dynamic loading from page-shop.php (and currently set as the default page)
+ * Dynamic content of page-shop.php
+ * Reached on /shop/?option=coins (+ currently set as the default page)
  */
 
 if (!defined('ABSPATH')) {
@@ -12,11 +13,11 @@ if (!defined('ABSPATH')) {
 
 <h1><img src="<?php echo LOOPIS_THEME_URI; ?>/assets/img/coin.png" alt="coin symbol" style="height:35px; width: auto;"> Köp regnbågsmynt</h1>
 <hr>
+<p class="small">💡 Hämta saker utan att ge bort något själv.</p>
 
-<p>Vill du hämta saker utan att ge bort något själv?</p>
 <p>Här kan du köpa 5 regnbågsmynt för 50 kr.</p>
 
-<div class="wpum-message warning">
+<div class="loopis-message warning">
 <p>⚠ OBS! Du måste ange rätt e-postadress vid betalning: <?php
 if (is_user_logged_in()) {
     $current_user = wp_get_current_user();

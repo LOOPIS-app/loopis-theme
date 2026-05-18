@@ -1,6 +1,6 @@
 /**
  * Theme Name:  LOOPIS Theme
- * Version:     0.84
+ * Version:     0.85
  * Description: Theme providing all frontend design and functionality for LOOPIS.app
  * Author:      The Develoopers
  * Author URI:  https://loopis.org
@@ -552,21 +552,37 @@ li #reply-title { font-size: 0; margin: 0!important; padding: 0; height: 0; bord
 input:is([type="hidden"], [type="image"], [type="file"]) { padding-top: 3px; display: flex; flex-direction: column; align-items: flex-start; } /* snyggar till "ingen fil vald"/filnamn */
 .wpum-form input[name="submit_registration"].waiting { background: #777; } /* publish button */
 
+/* WPUM addon Registration forms (added here because it hides the button on edit post) */
+input[name="submit_registration"].button { display: inline-block !important; }
+
 /* WPUM message */
 .wpum-message { border: 0; border-radius: 10px; text-shadow: none; padding: 7px 7px 1px 7px; font-size: 16px; font-style: normal; }
 .wpum-message p { padding:0; margin:0 0 6px 0; }
 .wpum-message.information { background-color: #D9EDf7; color: #000; }
 .wpum-message.warning { background-color: #FFE5E7; color: #000; }
 .wpum-message.notification { background-color: #FFF1E4; color: #000; }
+.wpum-message.success { background-color: #dff0d8; color: #000; }
 
-/* WPUM addon Registration forms (added here because it hides the button on edit post) */
-input[name="submit_registration"].button { display: inline-block !important; }
+/* LOOPIS message (replacing WPUM version above) */
+.loopis-message { 
+  border-radius: 10px;
+  padding: 7px 7px 1px 7px;
+  margin: 12px 0;
+  font-size: 16px; }
+.loopis-message p { padding: 0; margin: 0 0 6px 0; }
+.loopis-message.information { background-color: #D9EDf7; }
+.loopis-message.warning { background-color: #FFE5E7; }
+.loopis-message.notification { background-color: #FFF1E4; }
+.loopis-message.success { background-color: #dff0d8; }
 
-/* FORMS */
-/* replacing WPUM styles above */
-.loopis-form { padding: 20px; background-color: #f5f5f5; border-radius: 10px; }
+/* LOOPIS forms (replacing WPUM version above) */
+.loopis-form { 
+  padding: 20px; 
+  background-color: #f5f5f5; 
+  border-radius: 10px; 
+}
 
-/* Support form */
+/* Support post form */
 #support { max-width: 300px; margin: 0px auto; text-align: center; }
 #support textarea[name="post_content"] {
   height: 100px;
@@ -575,7 +591,7 @@ input[name="submit_registration"].button { display: inline-block !important; }
   resize: none;
 }
 
-/* Css for gift-post-form*/
+/* Gift post form*/
 #checkbox_container {
   width: 100%;
   height: 150px;
@@ -787,7 +803,8 @@ img.image-prev:hover, label.image-prev:hover{
   transition: opacity 0.3s ease, height 0.3s ease;
 }
 
-.warning{
+/* JH: Added ID (loopis-form) because of conflict with existing warning messages */
+#loopis-form .warning{
   color: red;
   opacity: 1 !important;
   font-size: 22px;

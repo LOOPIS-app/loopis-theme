@@ -10,7 +10,7 @@ get_header(); ?>
 
 <h1>🎉 Bli medlem</h1>
 <hr>
-<p class="small">💡 Betala medlemskapet</p>
+<p class="small">💡 Betala för ditt medlemskap</p>
 
 <h3 style="opacity: 0.5;">1⃣ Fyll i formulär</h3>
 <hr style="opacity: 0.5;">
@@ -20,7 +20,7 @@ get_header(); ?>
 <hr>
 <p>→ Tryck på knappen för att betala 50 kronor.</p>
 
-<div class="wpum-message warning">
+<div class="loopis-message warning">
 <p>⚠ OBS! Du måste ange samma e-postadress i betalningen!</p>
 </div>
 

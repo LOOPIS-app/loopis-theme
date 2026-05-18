@@ -14,7 +14,7 @@ get_header(); ?>
 
 <p>Fyll i formuläret och betala 50 kronor (engångsavgift). Du får 5 regnbågsmynt att paxa saker med.</p>
 
-<div class="wpum-message warning">
+<div class="loopis-message warning">
 <p>⚠ OBS! Du kan bara använda LOOPIS nära Bagarmossen! <span class="link"><a href="<?php echo esc_url( home_url('/faq/varfor-bagis/') ); ?>">📌 Varför måste jag bo i Bagis?</a></span></p>
 </div>
 

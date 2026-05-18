@@ -22,7 +22,7 @@ $edit_wpum = get_permalink() . 'edit';
 ?>
 
 <div class="admin-block">
-<?php include LOOPIS_THEME_DIR . '/templates/admin/links/admin-link.php'; ?>
+<?php include LOOPIS_THEME_DIR . '/templates/links/admin-link.php'; ?>
 
 <!-- QUEUE -->	
 <?php if (!in_category( 'new' )) :

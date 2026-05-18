@@ -7,9 +7,9 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 ?>
-<div class="wpum-message information">
+<div class="loopis-message information">
 	<p>🚧 Du behöver vara medlem för att se något här.</p>
-	<p><a href="javascript:history.back()"><i class="fas fa-chevron-left"></i>Gå tillbaka</a></p>
+	<?php include LOOPIS_THEME_DIR . '/templates/links/go-back.php'; ?>
 </div>
 
 <a href="<?php echo esc_url( wp_login_url(home_url())) ; ?>"><button name="log-in" type="submit" class="green">Logga in</button></a>
