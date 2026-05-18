@@ -22,9 +22,6 @@ define('LOOPIS_THEME_VERSION', '0.84'); // Update version number here + in style
 define('LOOPIS_THEME_DIR', get_template_directory());       // Server-side path to /wp-content/themes/loopis-theme/
 define('LOOPIS_THEME_URI', get_template_directory_uri());   // Client-side path to https://loopis.app/wp-content/themes/loopis-theme/
 
-// Define secret keys from .env file (if not live)
-require_once __DIR__ . '/environment_loader.php';
-
 // Define locker ID for this installation (temporary solution)
 define('LOCKER_ID', '12845-1');
 
