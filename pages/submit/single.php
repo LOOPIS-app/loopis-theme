@@ -29,10 +29,11 @@ if (!defined('ABSPATH')) {
 💡 Lägg inte upp <a href="<?php esc_url( home_url('/faq/restriktioner'));?>">otillåtna annonser</a>
 </p>
 
-<!-- Frontend Posting -->
-<?php 
-get_template_part('templates/post-forms/gift-post-form'); 
-?>
+<!-- WPUM Frontend Posting -->
+<?php echo do_shortcode('[wpum_post_form form_id="1"]'); ?>
+
+<!-- LOOPIS Frontend Posting -->
+<!--?php get_template_part('templates/post-forms/gift-post-form'); ?-->
 
 <!-- No access -->
 <?php } else { 
