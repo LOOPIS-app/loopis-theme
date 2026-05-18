@@ -7,6 +7,9 @@
 	<?php
 	// Set up variables for meta tags and images based on context
 	$blog_name = get_bloginfo('name');
+	$og_locale = str_replace('-', '_', get_locale());
+	$og_image_width = '';
+	$og_image_height = '';
 	if (is_home() || is_front_page()) {
 		$title = $blog_name . '.app';
 		$description = 'Ge & få saker av dina grannar.';
@@ -33,6 +36,8 @@
             if ($thumbnail) {
                 $og_image = $thumbnail[0];
                 $meta_image = $thumbnail[0];
+				$og_image_width = (string) $thumbnail[1];
+				$og_image_height = (string) $thumbnail[2];
             }
         }
         
@@ -91,26 +96,25 @@
 	<?php include_once LOOPIS_THEME_DIR . '/assets/fonts/font-awesome.php'; ?>
 	<!--Favicon-->
 	<link rel="canonical" href="<?php echo esc_url($og_url); ?>">
-	<link rel="manifest" href="/favicon/site.webmanifest">
 	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
-	<link rel="icon" type="image/png" sizes="192x192" href="/favicon/android-chrome-192x192.png">
-	<link rel="icon" type="image/png" sizes="512x512" href="/favicon/android-chrome-512x512.png">
-	<link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#ffffff">
+	<link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png">
+	<link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg">
+	<link rel="shortcut icon" href="/favicon.ico">
+	<link rel="manifest" href="/favicon/site.webmanifest">
 	<meta name="theme-color" content="#ffffff">
-	<!--Microsoft fixes-->
-	<meta name="msapplication-config" content="/favicon/browserconfig.xml">
-	<meta name="msapplication-TileImage" content="/favicon/mstile-150x150.png">
-	<meta name="msapplication-TileColor" content="#00a300">
 	<!--Facebook/Open Graph-->
 	<meta name="facebook-domain-verification" content="o8yh0nqrbcgnedkvjei7g0imjwzen9">
 	<meta property="og:title" content="<?php echo esc_attr($title); ?>">
 	<meta property="og:url" content="<?php echo esc_url($og_url); ?>">
 	<meta property="og:site_name" content="<?php echo get_bloginfo('name'); ?>.app">
 	<meta property="og:type" content="<?php echo esc_attr($og_type); ?>">
+	<meta property="og:locale" content="<?php echo esc_attr($og_locale); ?>">
 	<meta property="og:description" content="<?php echo esc_attr($description); ?>">
 	<meta property="og:image" content="<?php echo esc_url($og_image); ?>">
+	<?php if ($og_image_width !== '' && $og_image_height !== '') : ?>
+	<meta property="og:image:width" content="<?php echo esc_attr($og_image_width); ?>">
+	<meta property="og:image:height" content="<?php echo esc_attr($og_image_height); ?>">
+	<?php endif; ?>
 	<?php wp_head(); ?>
 </head>
 
