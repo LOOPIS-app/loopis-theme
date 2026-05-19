@@ -93,8 +93,7 @@ function loopis_get_posts_query($view_type, $fetcher_id, $author_id, $categories
         
         $params_where = array_merge($params_where,$tags);
     }
-    $default_categories = loopis_cats('new','old','booked','booked_custom');
-    $categories = array_map('intval', !empty($categories) ? (array) $categories : $default_categories);
+    $categories = array_map('intval', !empty($categories) ? (array) $categories :[]);
 
     if (!empty($categories)){
         $categories = array_map('intval', $categories);
