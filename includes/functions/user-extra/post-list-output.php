@@ -17,7 +17,7 @@ function list_header_output($url_slug) {
     $url_slug = sanitize_text_field($url_slug); // Sanitize input
     switch ($url_slug) {
         case 'all':
-            echo '💚 Alla dina annonser';
+            echo '💚 Dina annonser';
             break;
         case 'new':
             echo '⏳ Väntar på lottning';
@@ -52,6 +52,9 @@ function list_header_output($url_slug) {
         case 'others_booked':
             echo '💞 Paxade saker';
             break;
+        case '':
+            echo '💚 Dina annonser';
+            break;
         default:
             echo '💢 Status saknas';
             break;
@@ -69,7 +72,12 @@ function list_instruction_output($url_slug, $count) {
             echo '<p class="small">💡 Här är alla dina upplagda annonser.</p>';
             echo '<p>Tryck på en annons för mer info.<p>';
             break;
-
+        
+        case '':
+            echo '<p class="small">💡 Här är alla dina upplagda annonser.</p>';
+            echo '<p>Tryck på en annons för mer info.<p>';
+            break;
+        
         case 'new':
             echo '<p class="small">💡 Här är dina nya annonser som väntar på lottning.</p>';
             echo '<p>Tryck på en annons för mer info.<p>';

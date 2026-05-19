@@ -42,9 +42,9 @@ if (intval($user_ID)===intval(wp_get_current_user()->ID)){
 
 // Get category slug from the URL (e.g. /?status=paused)
 $url_slug = isset($_GET['status']) ? sanitize_text_field($_GET['status']) : '';
-$search_query = get_search_query();
-$tag_slug = (string) get_query_var('tag');
-$tag = (array) loopis_tag($url_slug);
+//$search_query = get_search_query();
+//$tag_slug = (string) get_query_var('tag');
+//$tag = (array) loopis_tag($tag_slug);
 
 
 /** Set category IDs from URL slug */
@@ -52,7 +52,9 @@ $tag = (array) loopis_tag($url_slug);
 // Set multiple IDs for booked posts
 if ($url_slug === 'booked') {
 	$category_ids = loopis_cats(['booked', 'booked_custom']); 
-} else {
+}else if ($url_slug === 'all') {
+    $category_ids = array();
+}else {
 	// Get the category by slug
 	$category_id = loopis_cat($url_slug);
 	$category_ids = $category_id ? array($category_id) : array();
