@@ -19,6 +19,9 @@ function action_regret(int $post_id) {
 	$fetcher = get_post_meta($post_id, 'fetcher', true);
 	$fetcher_name = get_userdata($fetcher)->display_name; 
 	$author = get_post_field( 'post_author', $post_id );
+
+	// Update ledger
+	loopis_ledger_add('Regret', $fetcher, $get_current_blog_id() , $post_id, current_time('Y-m-d H:i:s'));
 	
 	// Count queue
 	$queue = get_post_meta($post_id, 'queue', true);

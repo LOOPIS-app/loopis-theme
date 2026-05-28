@@ -42,7 +42,13 @@ $count = $the_query->found_posts;
 					<?php the_title(); ?>
 				</div>
 				<div class="post-list-post-meta">
-					<?php echo esc_html(get_the_terms($post_id, 'support-category')[0]->name); ?>
+					<?php 
+					$terms= get_the_terms($post_id, 'support-category');
+					if (!is_wp_error($terms)){
+						echo esc_html($terms[0]->name); 
+					}
+					
+					?>
 					<span class="right"><i class="far fa-clock"></i><?php echo human_time_diff(get_the_time('U'), current_time('timestamp'));?> sen</span>
 				</div>
 			</div>

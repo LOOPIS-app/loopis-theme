@@ -58,7 +58,7 @@ foreach ($meta_values as $row) {
         ? (int) $row['wpum_received_stars'][0]['value'] 
         : 1;
 
-            // Map the reward reason value to its label
+            // Map the reward reason value to its label 
             $reward_reason_label = isset($reward_reason_labels[$reward_reason_value]) ? $reward_reason_labels[$reward_reason_value] : 'Unknown';
 
             // Output the reward

@@ -209,14 +209,6 @@ function loopisPreviewImageRendering(){
         }
         imageInput.value = ''; 
         previewContainer.innerHTML = '';
-        //if ver1
-        imageStore.forEach(i => {
-            i.isRemoved = true;
-            if (!i.old){
-                i.remove()
-            }
-            
-        })
 
         imageWarning.classList.remove('warning');
         imageWarning.classList.add('secret');
@@ -339,6 +331,7 @@ function loopisPImage(index, src, container, old=false, input, file=null,){
     }
     function removeIMG() {        
         state.isRemoved = true;
+        removeInput.value= true;
         wrapper.remove();
         overlay.classList.remove('overlay-visible');
         if (state.isThumbnail) {

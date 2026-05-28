@@ -113,6 +113,7 @@ if ( is_user_logged_in() ) {
                 ?>
             </div>
         </div>
+        
         <div class="form-subcontainer" id="radio-box" >
             <h5 class="required" >5️⃣ Överlämning  <span class='secret right' id='radio_warning'> ⚠️ Välj en plats! </span></h5> 
             <label for="skapet" class="buttons" ><input type="radio" name="locker" id="skapet" value=1 <?php echo (($location==='Skåpet')? 'checked' : '');?>/>  Skåpet </label>
