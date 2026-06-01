@@ -1,6 +1,6 @@
 <?php
 /**
- * Template for displaying WPUM profile tab content.
+ * Copy of user profile template for displaying WPUM profile tab content.
  * 
  * Created by LOOPIS.
  */
@@ -10,8 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-// Get author user iD
+// Set author user ID
 $user_id = get_queried_object_id();
+$first_name = get_user_meta($user_id, 'first_name', true);
 
 // Get profile economy
 $profile_economy = get_economy($user_id);
@@ -30,8 +31,8 @@ $clover_coins = $profile_economy['clover_coins'];
 $coins = $profile_economy['coins'];
 ?>
 
-<p class="small">💡 Här ser du detaljerad information om din aktivitet.</p>
-<div class="columns"><div class="column1"><h7>🧮 Min aktivitet</h7></div>
+<p class="small">💡 <?php echo $first_name; ?>s aktivitet och ekonomi.</p>
+<div class="columns"><div class="column1"><h7>🧮 Aktivitet</h7></div>
 <div class="column2 small bottom"></div></div>
 <hr>
 
@@ -69,7 +70,7 @@ $coins = $profile_economy['coins'];
 <div class="economy wrapped">
 <p>Guldstjärnor<span class="right">🌟</span></p>
 <hr>
-<?php include_once LOOPIS_THEME_DIR . '/templates/user/profile/user-rewards.php'; ?>
+<?php include LOOPIS_THEME_DIR . '/templates/user/profile/user-rewards.php'; ?>
 <hr>
 <p>&nbsp;<span class="right">Totalt: <b><?php echo $stars; ?></b></span></p>
 
@@ -93,7 +94,8 @@ $coins = $profile_economy['coins'];
 
 
 <!--PAYMENTS-->	
-<h3>📒 Mina kvitton</h3>
+<h3>📒 Kvitton</h3>
 <hr>
-<p>Här är dina registrerade betalningar till föreningen:</p>
-<?php include_once LOOPIS_THEME_DIR . '/templates/user/profile/user-payments.php'; ?>
+<p><?php echo $first_name; ?>s betalningar till föreningen:</p>
+<?php include LOOPIS_THEME_DIR . '/templates/user/profile/user-payments.php'; ?>
+

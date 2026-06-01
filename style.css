@@ -1,6 +1,6 @@
 /**
  * Theme Name:  LOOPIS Theme
- * Version:     0.85
+ * Version:     0.86
  * Description: Theme providing all frontend design and functionality for LOOPIS.app
  * Author:      The Develoopers
  * Author URI:  https://loopis.org
@@ -56,7 +56,10 @@ img.wp-smiley, img.emoji { margin: 0 1px 0 0 !important; vertical-align: -0.1em 
 #wrapper { max-width:900px; height:100%; margin: 0 auto; background: #fefefe; margin-bottom: 25px;}
 .container { width:100%; margin-top: 70px; background: #fff; border: 1px solid #f5f5f5; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
 /*.content { }*/
+
+/* Different padding for local/main site */
 .page-padding { padding: 20px 15px; }
+.page-padding-center { padding: 20px 15px; text-align: center; }
 
 /*  Header */
 #header { position: fixed; top: 0px; left: 0px; z-index: 1; padding-top:10px; height: 60px; width: 100%; font-size: 19px; color: #777; background: #fff; border-bottom: 1px solid #e5e5e5; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
@@ -154,7 +157,7 @@ hr, .wp-block-separator {
 .wp-element-caption { font-size: 14px; line-height: 1.2; text-align: center; } /* bildtexter */
 
 /* Special divs */
-.wrapped { display: inline-block; vertical-align: top; background-color: #f5f5f5; padding: 5px 10px; margin: 0 15px 15px 0; }
+.wrapped { display: inline-block; vertical-align: top; background-color: #f5f5f5; padding: 5px 10px; margin: 0 15px 15px 0; text-align: left;}
 .wrapped p { margin: 0; }
 .wrapped hr { margin-bottom: 5px; }
 .link:hover { background: #ebebeb; cursor: pointer; } /* Used when making divs clickable */
@@ -513,7 +516,7 @@ li #reply-title { font-size: 0; margin: 0!important; padding: 0; height: 0; bord
 /* WPUM profile*/
 .wpum-form fieldset label { font-size:14px }
 #header-profile-details { border:0px }
-.profile-navbar { padding-top:20px; border-top: 0px; border-bottom: 5px solid #f5f5f5; }
+.profile-navbar { display: flex; justify-content: flex-start; align-items: flex-end; gap: 5px; padding-top:20px; border-top: 0px; border-bottom: 5px solid #f5f5f5; }
 .profile-navbar>a.active:first-child, 
 .profile-navbar>a:hover:first-child, 
 .profile-navbar>button.active:first-child, 
@@ -560,6 +563,7 @@ input[name="submit_registration"].button { display: inline-block !important; }
 .wpum-message p { padding:0; margin:0 0 6px 0; }
 .wpum-message.information { background-color: #D9EDf7; color: #000; }
 .wpum-message.warning { background-color: #FFE5E7; color: #000; }
+.wpum-message.error { background-color: #FFE5E7; color: #000; }
 .wpum-message.notification { background-color: #FFF1E4; color: #000; }
 .wpum-message.success { background-color: #dff0d8; color: #000; }
 

@@ -16,7 +16,7 @@ if (!defined('ABSPATH')) { exit; }
  */
 
 // Define theme version
-define('LOOPIS_THEME_VERSION', '0.85'); // Update version number here + in style.css
+define('LOOPIS_THEME_VERSION', '0.86'); // Update version number here + in style.css
 
 // Define theme folder path constants
 define('LOOPIS_THEME_DIR', get_template_directory());       // Server-side path to /wp-content/themes/loopis-theme/
@@ -69,6 +69,7 @@ function loopis_theme_load_files() {
     loopis_theme_include_folder('shortcodes');
     loopis_theme_include_folder('filters');
     loopis_theme_include_folder('functions/everyone');
+    loopis_theme_include_folder('functions/payment');
 
     // For user
     if (is_user_logged_in()) { 

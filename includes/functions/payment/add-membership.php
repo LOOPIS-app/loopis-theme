@@ -2,14 +2,14 @@
 /**
  * Automatic activation of new account initiated by Stripe payment.
  * 
- * Setting username, display name, role, adding payment and sending welcome email.
+ * Setting role, adding payment and sending welcome email.
  */
  
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-function activate_account($user_id = null) {
+function add_membership($user_id = null) {
 
     // Get user ID (either passed parameter or current logged-in user)
     if ($user_id === null) {
@@ -19,38 +19,13 @@ function activate_account($user_id = null) {
     // Get user data
     $user = get_userdata($user_id);
     if (!$user) {
-        error_log("LOOPIS: activate_account failed - User {$user_id} not found");
+        error_log("LOOPIS: add_membership failed - User {$user_id} not found");
         return false;
     }
 
-    // Create username
-    $first_name = str_replace(' ', '-', $user->first_name);
-    $last_name = str_replace(' ', '-', $user->last_name);
-    $new_username = sanitize_user($first_name . '-' . $last_name);
-    $new_nicename = sanitize_title($new_username);
-
-    // Add suffix if username is taken
-    $suffix = 2;
-    $original_new_username = $new_username;
-    while (username_exists($new_username) || get_user_by('slug', $new_nicename)) {
-        $new_username = $original_new_username . '-' . $suffix;
-        $new_nicename = sanitize_title($new_username);
-        $suffix++;
-    }
-
-    // Update the user's details using a custom SQL query
-    global $wpdb;
-    $wpdb->update(
-        $wpdb->users,
-        ['user_login' => $new_username],
-        ['ID' => $user_id]
-    );
-
-    // Update the user's role, nicename, and display_name
+    // Update the user's role
     $updated_user = wp_update_user([
         'ID' => $user_id,
-        'user_nicename' => $new_nicename,
-        'display_name' => $new_username,
         'role' => 'member',
     ]);
 

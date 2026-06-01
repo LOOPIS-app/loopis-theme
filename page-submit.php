@@ -5,11 +5,18 @@
 
 get_header(); ?>
 
+<?php 
+// Get current user roles
+$current_user = wp_get_current_user();
+$user_roles = (array) $current_user->roles;
+?>
+
 <div class="content">
     <div class="page-padding">
 
-<?php
-    // Dynamic page loader
+<?php if (in_array('member', $user_roles, true)) : 
+
+    // Member: Dynamic page loader
     $page_dir = get_template_directory() . '/pages/submit/';
 
     // Get the 'option' parameter from URL
@@ -20,10 +27,26 @@ get_header(); ?>
     if (file_exists($php_file)) {
         include $php_file;
     } else {
-      echo '<div class="content"><div class="page-padding">';
         echo '<h1>💚 Ge bort</h1><hr>';
         echo '<p>💢 Filen hittades inte: <b>' . esc_html($php_file) . '</b></p>';
-        echo '</div></div>';
     }
 
-    // Closing divs for content & footer are added in dynamic files.
+    // Pending member
+     elseif (in_array('member_pending', $user_roles, true)) :
+        echo '<h1>💚 Ge bort</h1><hr>';
+        include LOOPIS_THEME_DIR . '/templates/access/member-only.php';
+        include LOOPIS_THEME_DIR . '/templates/faq/questions-visitor.php';
+        echo '</div></div>';
+        get_footer();
+
+    // Not logged in
+    else :
+        echo '<h1>💚 Ge bort</h1><hr>';
+        include LOOPIS_THEME_DIR . '/templates/access/logged-in-only.php';
+        include LOOPIS_THEME_DIR . '/templates/faq/questions-visitor.php';
+        echo '</div></div>';
+        get_footer();
+    
+    endif;
+
+    // Closing divs for content & footer are added in dynamic content to prevent footer menu from showing on pages with submit form.

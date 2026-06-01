@@ -1,10 +1,15 @@
 # 📋 Changelog for "LOOPIS Theme"
 
+## 0.86 (2026-06-01)
+- Changes preparing for multisite migration:
+- Stripe session payments after login instead of payment links on signup
+- Moved the users posts tab from WPUM profile to activity page
+
 ## 0.85 (2026-05-18)
 - Added templates for 404 + go back
 - Adjusted styling for messages and payments
 - Updated favicon code in headers
-- Environment loader moved to "LOOPIS mu-plugins"
+- Environment loader moved from theme to mu-plugins
 
 ## 0.84 (2026-05-06)
 - WPUM post form for support posts replaced with our custom one

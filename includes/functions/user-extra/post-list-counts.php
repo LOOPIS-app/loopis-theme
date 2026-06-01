@@ -2,7 +2,8 @@
 /**
  * Count all posts submitted and booked by user.
  *
- * Included in /profile/posts
+ * Included in:
+ * pages/activity/start-tabs/posts.php
  */
  
 if (!defined('ABSPATH')) {

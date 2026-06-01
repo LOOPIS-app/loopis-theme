@@ -3,7 +3,7 @@
 * Page for buying membership with Swish
  * 
  * Dynamic content of page-shop.php
- * Reached on /shop/?option=swish-membership
+ * Reached on /shop/?option=membership-swish
  */
 
 if (!defined('ABSPATH')) {

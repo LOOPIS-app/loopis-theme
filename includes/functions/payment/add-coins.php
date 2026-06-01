@@ -19,7 +19,7 @@ function add_coins($user_id = null) {
     // Get user data
     $user = get_userdata($user_id);
     if (!$user) {
-        error_log("LOOPIS: activate_account failed - User {$user_id} not found");
+        error_log("LOOPIS: add_membership failed - User {$user_id} not found");
         return false;
     }
 

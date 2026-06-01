@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Extra php functions
-include_once LOOPIS_THEME_DIR . '/includes/functions/admin-extra/admin_action_activate_account.php';
+include_once LOOPIS_THEME_DIR . '/includes/functions/admin-extra/admin_action_add_membership.php';
 ?>
 
 <style>
@@ -97,8 +97,8 @@ $count = count($pending_users);
         <?php foreach ($pending_users as $user) : ?>
             <?php
             $user_id = $user->ID;
-            if (isset($_POST['activate_account' . $user_id])) {
-                admin_action_activate_account($user_id);
+            if (isset($_POST['add_membership' . $user_id])) {
+                admin_action_add_membership($user_id);
             }
             $registered = human_time_diff(strtotime($user->user_registered), current_time('timestamp'));
             
@@ -113,7 +113,7 @@ $count = count($pending_users);
                     <span class="user-card-actions">
                         <span class="big-link"><a href="<?php echo esc_url(admin_url('user-edit.php?user_id=' . $user_id)); ?>" onclick="return confirm('Vill du redigera i användaren i WP Admin?')">🔧</a></span>
                         <form method="post" id="activate_form_<?php echo $user_id; ?>" style="display: none;">
-                            <input type="hidden" name="activate_account<?php echo $user_id; ?>" value="1">
+                            <input type="hidden" name="add_membership<?php echo $user_id; ?>" value="1">
                         </form>
                         <span class="big-link"><a href="#" onclick="if(confirm('Aktivera konto för <?php echo esc_js($user->first_name . ' ' . $user->last_name); ?>?')) { document.getElementById('activate_form_<?php echo $user_id; ?>').submit(); } return false;">✅</a></span>
                     </span>
@@ -136,15 +136,15 @@ $count = count($pending_users);
 </div>
 
 <?php
-// Get recently activated users (last 7 days)
-$seven_days_ago = strtotime('-7 days');
+// Get recently activated users (last X days)
+$time_ago = strtotime('-1 days');
 $args = array(
     'role'       => 'member',
     'orderby'    => 'registered',
     'order'      => 'DESC',
     'date_query' => array(
         array(
-            'after'     => date('Y-m-d', $seven_days_ago),
+            'after'     => date('Y-m-d', $time_ago),
             'before'    => date('Y-m-d'),
             'inclusive' => true,
         ),
@@ -158,7 +158,7 @@ $count = count($new_users);
 <h3>✅ Aktiverade</h3>
 <div class="columns">
     <div class="column1">
-        ↓ <?php echo $count; ?> <?php echo (($count == 1) ? 'ny' : 'nya'); ?> senaste veckan
+        ↓ <?php echo $count; ?> <?php echo (($count == 1) ? 'ny' : 'nya'); ?> senaste dygnet
     </div>
     <div class="column2 small">💡 Senaste överst</div>
 </div>
@@ -217,6 +217,6 @@ $count = count($new_users);
             </div>
         <?php endforeach; ?>
     <?php else : ?>
-        <p>💢 Inga nya konton senaste veckan.</p>
+        <p>💢 Inga nya konton idag.</p>
     <?php endif; ?>
 </div>

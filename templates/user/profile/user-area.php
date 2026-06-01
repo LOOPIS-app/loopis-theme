@@ -27,4 +27,4 @@ $area_key = get_user_meta($user_id, 'wpum_area', true);
 $area_label = isset($area_options[$area_key]) ? $area_options[$area_key] : 'Okänd';
 
 // Output
-echo esc_html('📍 ' . $area_label);
+echo esc_html($area_label);

@@ -12,23 +12,25 @@ get_header(); ?>
 <hr>
 <p class="small">💡 För en glad & hållbar framtid.</p>
 
-<p>Fyll i formuläret och betala 50 kronor (engångsavgift). Du får 5 regnbågsmynt att paxa saker med.</p>
+<p>1⃣ Fyll i formulär.<br>
+<span style="opacity: 0.5;">2⃣ Verifiera e-postadress</span><br>
+<span style="opacity: 0.5;">3⃣ Logga in</span><br>
+<span style="opacity: 0.5;">4⃣ Betala medlemsavgift (50 kr)</span></p>
 
 <div class="loopis-message warning">
-<p>⚠ OBS! Du kan bara använda LOOPIS nära Bagarmossen! <span class="link"><a href="<?php echo esc_url( home_url('/faq/varfor-bagis/') ); ?>">📌 Varför måste jag bo i Bagis?</a></span></p>
+<p>⚠ OBS! Du kan i nuläget bara använda LOOPIS nära Bagarmossen! <span class="link"><a href="<?php echo esc_url( home_url('/faq/varfor-bagis/') ); ?>">📌 Varför måste jag bo i Bagis?</a></span></p>
 </div>
-
-<p style="line-height: 2;">
-<span class="link"><a href="<?php echo esc_url( home_url('/faq/stadgar/') ); ?>">📜 Föreningens stadgar</a></span>&nbsp; 
-<span class="link"><a href="<?php echo esc_url( home_url('/faq/hur-funkar-regnbagsmynt/') ); ?>">📌 Hur funkar regnbågsmynt?</a></span></p>
 
 <h3>1⃣ Formulär</h3>
 <hr>
-<p class="small">💡 Många fält eftersom vi är en förening - men du klarar det!</p>
+<p class="small">💡 Många fält eftersom vi är en förening, men du klarar det!</p>
 
 <?php echo do_shortcode('[wpum_register form_id="1"]'); ?>
 
 <p class="info">💡 Problem eller frågor? Maila <a href="mailto:info@loopis.app">info@loopis.app</a></p>
+<p style="line-height: 2;">
+<span class="link"><a href="<?php echo esc_url( home_url('/faq/stadgar/') ); ?>">📜 Föreningens stadgar</a></span>&nbsp; 
+</p>
     </div><!--page-padding-->
 </div><!--content-->
 
