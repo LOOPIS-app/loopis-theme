@@ -16,9 +16,6 @@ if (!defined('ABSPATH')) {
 <h1>💚 Ge bort</h1>
 <hr>
 
-<!-- Access? -->
-<?php if ( current_user_can('member') || current_user_can('administrator') ) { ?>
-
 <p class="small">💡 Det finns två sätt att ge bort något.</p>
 
 <!-- Create ad -->
@@ -46,12 +43,6 @@ if (!defined('ABSPATH')) {
 
 <!-- FAQ -->
 <?php include LOOPIS_THEME_DIR . '/templates/faq/questions-submit.php'; ?>
-
-<!-- No access -->
-<?php } else { 
-  include LOOPIS_THEME_DIR . '/templates/access/message.php';
-	include LOOPIS_THEME_DIR . '/templates/faq/questions-visitor.php';
- } ?>
 
   </div><!--page-padding-->
 </div><!--content-->

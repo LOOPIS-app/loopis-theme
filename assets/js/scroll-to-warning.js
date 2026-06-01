@@ -4,7 +4,7 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-    const warningElement = document.querySelector('.wpum-message.warning');
+    const warningElement = document.querySelector('.loopis-message.warning');
     if (warningElement) {
         warningElement.scrollIntoView({
             behavior: 'smooth', 

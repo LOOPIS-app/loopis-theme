@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-// Extra php functions (not yet used)
+// Extra php functions (not yet used, for adding unparticipate button)
 include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-participate.php'; 
 
 // Get current user ID

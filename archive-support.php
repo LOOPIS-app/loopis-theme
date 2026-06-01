@@ -7,6 +7,7 @@
  * - Use pagination template
  * - Add filtering by category (active/inactive)
  * - Add search function
+ * – Add list of current admins
  */
 
 get_header(); ?>

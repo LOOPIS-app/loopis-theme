@@ -20,12 +20,12 @@ if (!defined('LOOPIS_STRIPE_WEBHOOK_SECRET_COINS')) {
 /**
  * Coins product identifiers for Stripe Checkout Session matching.
  *
- * Uses WP_TEST to switch between test and live IDs.
+ * Uses LOOPIS_TEST to switch between test and live IDs.
  *
  * @return array{payment_link_id:string,price_id:string}
  */
 function loopis_get_coins_stripe_product_ids() {
-    $is_test_mode = defined('WP_TEST') && WP_TEST;
+    $is_test_mode = defined('LOOPIS_TEST') && LOOPIS_TEST;
 
     if ($is_test_mode) {
         return array(
@@ -67,12 +67,28 @@ function loopis_extract_coins_stripe_session_price_ids($session) {
 }
 
 /**
+ * Return true when session metadata explicitly marks a coins checkout.
+ *
+ * @param array $session Stripe checkout session object
+ * @return bool
+ */
+function loopis_is_coins_checkout_by_metadata($session) {
+    $metadata = isset($session['metadata']) && is_array($session['metadata']) ? $session['metadata'] : array();
+    $type = isset($metadata['loopis_checkout_type']) ? sanitize_key((string) $metadata['loopis_checkout_type']) : '';
+    return 'coins' === $type;
+}
+
+/**
  * Check if this Stripe checkout session belongs to coins product.
  *
  * @param array $session Stripe checkout session object
  * @return bool
  */
 function loopis_is_coins_checkout_session($session) {
+    if (loopis_is_coins_checkout_by_metadata($session)) {
+        return true;
+    }
+
     $ids = loopis_get_coins_stripe_product_ids();
     $payment_link_id = isset($session['payment_link']) ? $session['payment_link'] : '';
 
@@ -82,6 +98,89 @@ function loopis_is_coins_checkout_session($session) {
 
     $price_ids = loopis_extract_coins_stripe_session_price_ids($session);
     return in_array($ids['price_id'], $price_ids, true);
+}
+
+/**
+ * Resolve user ID from checkout session identifiers and metadata.
+ *
+ * Priority: metadata wp_user_id -> metadata wp_user_email -> customer email.
+ *
+ * @param array $session Stripe checkout session object
+ * @return int
+ */
+function loopis_get_coins_user_id_from_session($session) {
+    $metadata = isset($session['metadata']) && is_array($session['metadata']) ? $session['metadata'] : array();
+
+    if (!empty($metadata['wp_user_id'])) {
+        $user_id = absint($metadata['wp_user_id']);
+        if ($user_id > 0 && get_userdata($user_id)) {
+            return $user_id;
+        }
+    }
+
+    if (!empty($metadata['wp_user_email'])) {
+        $meta_email = sanitize_email((string) $metadata['wp_user_email']);
+        if ('' !== $meta_email) {
+            $user_by_meta_email = get_user_by('email', $meta_email);
+            if ($user_by_meta_email) {
+                return (int) $user_by_meta_email->ID;
+            }
+        }
+    }
+
+    $customer_email = isset($session['customer_email']) ? sanitize_email((string) $session['customer_email']) : '';
+    $customer_details_email = isset($session['customer_details']['email']) ? sanitize_email((string) $session['customer_details']['email']) : '';
+    $fallback_email = '' !== $customer_email ? $customer_email : $customer_details_email;
+
+    if ('' === $fallback_email) {
+        return 0;
+    }
+
+    $user = get_user_by('email', $fallback_email);
+    return $user ? (int) $user->ID : 0;
+}
+
+/**
+ * Prevent duplicate processing of the same Stripe checkout session.
+ *
+ * @param int    $user_id    WordPress user ID
+ * @param string $session_id Stripe checkout session ID
+ * @return bool True when already processed
+ */
+function loopis_is_coins_session_already_processed($user_id, $session_id) {
+    if ($user_id <= 0 || '' === $session_id) {
+        return false;
+    }
+
+    $processed_sessions = get_user_meta($user_id, 'loopis_stripe_coins_processed_sessions', true);
+    if (!is_array($processed_sessions)) {
+        return false;
+    }
+
+    return in_array($session_id, $processed_sessions, true);
+}
+
+/**
+ * Persist Stripe checkout session as processed for idempotency.
+ *
+ * @param int    $user_id    WordPress user ID
+ * @param string $session_id Stripe checkout session ID
+ * @return void
+ */
+function loopis_mark_coins_session_processed($user_id, $session_id) {
+    if ($user_id <= 0 || '' === $session_id) {
+        return;
+    }
+
+    $processed_sessions = get_user_meta($user_id, 'loopis_stripe_coins_processed_sessions', true);
+    if (!is_array($processed_sessions)) {
+        $processed_sessions = array();
+    }
+
+    if (!in_array($session_id, $processed_sessions, true)) {
+        $processed_sessions[] = $session_id;
+        update_user_meta($user_id, 'loopis_stripe_coins_processed_sessions', $processed_sessions);
+    }
 }
 
 /**
@@ -139,6 +238,10 @@ function loopis_handle_stripe_coins_webhook($request) {
  */
 function loopis_verify_stripe_coins_webhook($payload, $sig_header) {
     $secret = LOOPIS_STRIPE_WEBHOOK_SECRET_COINS;
+
+    if ('' === $secret) {
+        throw new Exception('Missing webhook secret');
+    }
     
     // Parse signature header
     $elements = explode(',', $sig_header);
@@ -183,7 +286,13 @@ function loopis_verify_stripe_coins_webhook($payload, $sig_header) {
     }
     
     // Decode and return event
-    return json_decode($payload, true);
+    $event = json_decode($payload, true);
+
+    if (!is_array($event) || empty($event['type'])) {
+        throw new Exception('Invalid webhook payload');
+    }
+
+    return $event;
 }
 
 /**
@@ -192,36 +301,39 @@ function loopis_verify_stripe_coins_webhook($payload, $sig_header) {
  * @param array $session Stripe checkout session object
  */
 function loopis_handle_coins_checkout_completed($session) {
+    $session_id = isset($session['id']) ? (string) $session['id'] : '';
+
     if (!loopis_is_coins_checkout_session($session)) {
         $session_id = isset($session['id']) ? $session['id'] : 'unknown';
-        error_log("LOOPIS: Coins webhook ignored session {$session_id} (product mismatch)");
         return;
     }
 
-    // Get customer email from session
-    $customer_email = isset($session['customer_email']) ? $session['customer_email'] : null;
-    $customer_details = isset($session['customer_details']['email']) ? $session['customer_details']['email'] : null;
-    $email = $customer_email ?: $customer_details;
-    
-    if (!$email) {
-        error_log("LOOPIS: Coins checkout completed but no customer email found");
+    $user_id = loopis_get_coins_user_id_from_session($session);
+    if ($user_id <= 0) {
+        $session_id_log = '' !== $session_id ? $session_id : 'unknown';
+        error_log("LOOPIS: Coins checkout completed but user could not be resolved (session {$session_id_log})");
         return;
     }
-    
-    // Find user by email
-    $user = get_user_by('email', $email);
-    
-    if (!$user) {
-        error_log("LOOPIS: No user found with email: {$email}");
+
+    if (loopis_is_coins_session_already_processed($user_id, $session_id)) {
+        error_log("LOOPIS: Coins session already processed ({$session_id}) for user {$user_id}");
         return;
-    } else {
-        $user_ID = $user->ID;
     }
-    
+
     // Add coins to the user's account
     if (function_exists('add_coins')) {
-        add_coins($user_ID);
-        $display_name = $user->display_name;
-        error_log("LOOPIS: add_coins success using Stripe: {$display_name} (ID {$user_ID})");
+        $added = (bool) add_coins($user_id);
+        if (!$added) {
+            error_log("LOOPIS: add_coins failed using Stripe (ID {$user_id})");
+            return;
+        }
+
+        $user = get_userdata($user_id);
+        $display_name = $user ? $user->display_name : 'unknown';
+        error_log("LOOPIS: add_coins success using Stripe: {$display_name} (ID {$user_id})");
+        loopis_mark_coins_session_processed($user_id, $session_id);
+        return;
     }
+
+    error_log("LOOPIS: add_coins function missing for user {$user_id}");
 }

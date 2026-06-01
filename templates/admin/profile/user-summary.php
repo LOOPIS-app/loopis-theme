@@ -15,12 +15,12 @@ wp_enqueue_script('loopis-tabs', get_template_directory_uri() . '/assets/js/tabs
 ?>
 
 <div class="admin-block">
-    <?php include_once LOOPIS_THEME_DIR . '/templates/admin/links/admin-link.php'; ?>
+    <?php include LOOPIS_THEME_DIR . '/templates/links/admin-link.php'; ?>
 
     <!-- Tab Navigation -->
     <div class="tab-nav">
         <nav class="profile-navbar">
-            <a href="#" class="tab-link" data-tab="tab-info">👤</a>
+            <a href="#" class="tab-link" data-tab="tab-info">ℹ</a>
             <a href="#" class="tab-link" data-tab="tab-economy">🧮</a>
             <a href="#" class="tab-link" data-tab="tab-posts">🎁</a>
             <a href="#" class="tab-link" data-tab="tab-support">🛟</a>
@@ -28,92 +28,35 @@ wp_enqueue_script('loopis-tabs', get_template_directory_uri() . '/assets/js/tabs
         </nav>
     </div><!--tab-nav-->
 
-    <div class="tab-content">
+    <div class="tab-content"> 
 
         <!-- Member Info Tab -->
         <div id="tab-info" class="tab-panel">
+        <p class="small">💡 Mer info om <?php echo $first_name; ?>.</p>
 
             <div class="wrapped">
                 <h5>📋 Medlemsregister</h5>
                 <hr>
-                <p><span class="label"><?php include_once LOOPIS_THEME_DIR . '/templates/admin/profile/user-id.php'; ?></span></p>
-                <p><span class="label"><?php include_once LOOPIS_THEME_DIR . '/templates/admin/profile/user-age.php'; ?></span></p>
-                <p><span class="label"><?php include_once LOOPIS_THEME_DIR . '/templates/admin/profile/user-gender.php'; ?></span></p>
-                <p><span class="label"><?php include_once LOOPIS_THEME_DIR . '/templates/admin/profile/user-email.php'; ?></span></p>
-                <p><span class="label"><?php include_once LOOPIS_THEME_DIR . '/templates/admin/profile/user-phone.php'; ?></span></p>
+                <p><span class="label"><?php include LOOPIS_THEME_DIR . '/templates/admin/profile/user-id.php'; ?></span></p>
+                <p><span class="label"><?php include LOOPIS_THEME_DIR . '/templates/admin/profile/user-age.php'; ?></span></p>
+                <p><span class="label"><?php include LOOPIS_THEME_DIR . '/templates/admin/profile/user-gender.php'; ?></span></p>
+                <p><span class="label"><?php include LOOPIS_THEME_DIR . '/templates/admin/profile/user-email.php'; ?></span></p>
+                <p><span class="label"><?php include LOOPIS_THEME_DIR . '/templates/admin/profile/user-phone.php'; ?></span></p>
             </div><!--wrapped-->
 
             <div class="wrapped">
-                <h5>📒 Kvitton</h5>
+                <h5>🎁 Annonser</h5>
                 <hr>
-                <?php include_once LOOPIS_THEME_DIR . '/templates/user/profile/user-payments.php'; ?>
-            </div><!--wrapped-->
-
-            <div class="wrapped">
-                <h5>🎁 Saker att få</h5>
-                <hr>
-                <p><span class="label">⬆ <?php echo $count_submitted; ?> annonser</span> <span class="small">♻ <?php echo $given_percentage; ?>%</span></p>
+                <p><span class="label">💚 <?php echo $count_submitted; ?> skapade</span></p>
+                <p><span class="label">♻ <?php echo $given_percentage; ?>% lämnade</span></p>
                 <p><span class="label">❌ <?php echo $count_deleted; ?> borttagna</span></p>
             </div><!--wrapped-->
 
             <div class="wrapped">
                 <h5>🛟 Support</h5>
                 <hr>
-                <p><span class="label">🗒 <?php include_once LOOPIS_THEME_DIR . '/templates/admin/profile/user-support.php'; ?> ärenden</span></p>
+                <p><span class="label">🗒 <?php include LOOPIS_THEME_DIR . '/templates/admin/profile/user-support.php'; ?> ärenden</span></p>
             </div><!--wrapped-->
-
-            <!-- Activity Section -->
-            <h3>🧮 Aktivitet</h3>
-            <hr>
-
-            <!-- Rainbow Coins -->
-            <div class="economy wrapped">
-                <p>Regnbågsmynt<span class="right"><img src="<?php echo LOOPIS_THEME_URI; ?>/assets/img/coin.png" alt="coin symbol" style="height:15px; width: auto;"></span></p>
-                <hr>
-                <p><b><?php echo $payments_membership; ?></b> köp av medlemskap <span class="plus right">+<?php echo $membership_coins; ?></span></p>
-                <?php if ($payments_coins > 0) : ?>
-                    <p><b><?php echo $payments_coins; ?></b> köp av extra mynt <span class="plus right">+<?php echo $bought_coins; ?></span></p>
-                <?php endif; ?>
-                <!--p><b><?php echo $clovers; ?></b> fyrklöver <span class="plus right">+<?php echo $clover_coins; ?></span></p>
-                <p><b><?php echo $stars; ?></b> stjärnor <span class="plus right">+<?php echo $star_coins; ?></span></p-->
-                <p><b><?php echo $count_given; ?></b> saker lämnade <span class="plus right">+<?php echo $count_given; ?></span></p>
-                <p><b><?php echo $count_booked; ?></b> saker hämtade/paxade <span class="minus right">–<?php echo $count_booked; ?></span></p>
-                <hr>
-                <p>&nbsp;<span class="right">Totalt: <b><?php echo $coins - $clover_coins - $star_coins; ?></b></span></p>
-            </div>
-
-            <!-- Clovers -->
-            <div class="economy wrapped">
-                <p>Fyrklöver<span class="right">🍀</span></p>
-                <hr>
-                <p><b><?php echo $count_submitted; ?></b> annonser skapade <span class="plus right">+<?php echo $count_submitted; ?></span></p>
-                <p><b><?php echo $count_booked; ?></b> saker hämtade <span class="plus right">+<?php echo $count_booked; ?></span></p>
-                <hr>
-                <p>&nbsp;<span class="right">Totalt: <b><?php echo $clovers; ?></b></span></p>
-                <p class="small">
-                    <?php if ($clover_coins > 0) : ?>
-                        → <b><?php echo $clover_coins; ?> mynt</b> i belöning! 🎉
-                    <?php else : ?>
-                        → Inga mynt i belöning.
-                    <?php endif; ?>
-                </p>
-            </div>
-
-            <!-- Stars -->
-            <div class="economy wrapped">
-                <p>Guldstjärnor<span class="right">⭐</span></p>
-                <hr>
-                <?php include_once LOOPIS_THEME_DIR . '/templates/user/profile/user-rewards.php'; ?>
-                <hr>
-                <p>&nbsp;<span class="right">Totalt: <b><?php echo $stars; ?></b></span></p>
-                <p class="small">
-                    <?php if ($star_coins > 0) : ?>
-                        → <b><?php echo $star_coins; ?> mynt</b> i belöning! 🎉
-                    <?php else : ?>
-                        → Inga mynt i belöning.
-                    <?php endif; ?>
-                </p>
-            </div>
 
         </div><!--tab-panel-->
 
@@ -121,19 +64,19 @@ wp_enqueue_script('loopis-tabs', get_template_directory_uri() . '/assets/js/tabs
 
         <!-- Support Tab -->
         <div id="tab-support" class="tab-panel">
-            <?php include_once LOOPIS_THEME_DIR . '/templates/admin/profile/user-posts-support.php'; ?>
+            <?php include LOOPIS_THEME_DIR . '/templates/admin/profile/user-posts-support.php'; ?>
         </div>
         <!-- Economy Tab -->
         <div id="tab-economy" class="tab-panel">
-            <?php include_once LOOPIS_THEME_DIR . '/templates/admin/profile/user-economy.php'; ?>
+            <?php include LOOPIS_THEME_DIR . '/templates/admin/profile/user-economy.php'; ?>
         </div>
         <!-- Posts Tab -->
         <div id="tab-posts" class="tab-panel">
-            <?php include_once LOOPIS_THEME_DIR . '/templates/admin/profile/user-posts.php'; ?>
+            <?php include LOOPIS_THEME_DIR . '/templates/admin/profile/user-posts.php'; ?>
         </div>
         <!-- About Tab -->
         <div id="tab-about" class="tab-panel">
-            <?php include_once LOOPIS_THEME_DIR . '/templates/admin/profile/user-about.php'; ?>
+            <?php include LOOPIS_THEME_DIR . '/templates/admin/profile/user-about.php'; ?>
         </div>
     </div><!--tab-content-->
 

@@ -21,8 +21,7 @@ wp_enqueue_script('loopis-tabs', get_template_directory_uri() . '/assets/js/tabs
   <nav class="profile-navbar">
     <a href="#" class="tab-link" data-tab="tab-activity"><i class="fas fa-walking" style="color:#333;margin-right:0px"></i></a>
     <a href="#" class="tab-link" data-tab="tab-raffles">🎲</a>
-    <a href="#" class="tab-link" data-tab="tab-booked">❤</a>
-    <a href="#" class="tab-link" data-tab="tab-active">💚</a>
+    <a href="#" class="tab-link" data-tab="tab-posts">🎁</a>
     <a href="#" class="tab-link" data-tab="tab-comments">🗨</a>
     <a href="#" class="tab-link" data-tab="tab-settings">⚙</a>
   </nav>
@@ -44,18 +43,10 @@ wp_enqueue_script('loopis-tabs', get_template_directory_uri() . '/assets/js/tabs
     <?php include_once __DIR__ . '/start-tabs/raffle.php'; ?>
   </div>
 
-  <!-- BOOKED -->
-  <div id="tab-booked" class="tab-panel">
-    <p class="small">💡 Här visas saker du just nu har paxat.</p>
-    <h7>❤ Mina paxningar</h7>
-    <?php include_once __DIR__ . '/start-tabs/booked.php'; ?>
-  </div>
-
-  <!-- ACTIVE (POSTS) -->
-  <div id="tab-active" class="tab-panel">
-    <p class="small">💡 Här visas saker du just nu ger bort.</p>
-    <h7>💚 Mina annonser</h7>
-    <?php include_once __DIR__ . '/start-tabs/current.php'; ?>
+  <!-- POSTS -->
+  <div id="tab-posts" class="tab-panel">
+    <p class="small">💡 Här visas alla saker du har loopat.</p>
+    <?php include_once __DIR__ . '/start-tabs/posts.php'; ?>
   </div>
     
   <!-- COMMENTS -->

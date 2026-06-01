@@ -40,7 +40,7 @@ function send_support_notification(int $post_id) {
     $mail_content .= loopis_mail_footer('manager');
 
     // Set mail subject
-    $mail_subject = $post_title;
+    $mail_subject = "🛟 LOOPIS: " . $post_title;
 
     // Set mail headers
     $mail_headers = loopis_mail_headers();

@@ -15,13 +15,9 @@ if (!defined('ABSPATH')) {
 }
 ?>
 
-
 <div class="columns"><div class="column1"><h1>🎁 Skapa annons</h1></div>
 <div class="column2 bottom"><a href="javascript:history.back()" onclick="return confirm('Det du fyllt i försvinner.')"><i class="fas fa-times-circle"></i>Avbryt</a></div></div>
 <hr>
-
-<!-- Access? -->
-<?php if ( current_user_can('member') || current_user_can('administrator') ) { ?>
 
 <p class="small">
 💡 Lägg bara upp <u>en sak i varje annons</u><br>
@@ -32,13 +28,8 @@ if (!defined('ABSPATH')) {
 <!-- WPUM Frontend Posting -->
 <?php echo do_shortcode('[wpum_post_form form_id="1"]'); ?>
 
-<!-- No access -->
-<?php } else { 
-    include LOOPIS_THEME_DIR . '/templates/access/message.php';
-	  include LOOPIS_THEME_DIR . '/templates/faq/questions-visitor.php';
- } ?>
-
-<div class="clear"></div>
+<!-- Work in progress! -->
+<!--?php get_template_part('templates/post-forms/gift-post-form'); ?-->
 
 </div><!--page-padding-->
 </div><!--content-->

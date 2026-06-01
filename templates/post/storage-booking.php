@@ -14,7 +14,7 @@ include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-stor
 ?>
 
 <div class="admin-block">
-    <?php include_once LOOPIS_THEME_DIR . '/templates/admin/links/admin-label.php'; ?>
+    <?php include_once LOOPIS_THEME_DIR . '/templates/links/admin-label.php'; ?>
     <?php $event_name = function_exists('loopis_get_setting') ? loopis_get_setting('event_name', '📍 Inget event angivet') : '📍 Inget event angivet'; ?>
     <p class="small">💡 Du har behörighet att markera hämtning på <span class="small-label"><?php echo $event_name; ?></span></p>
     <?php $member_users = get_users(array('role' => 'member')); ?>	

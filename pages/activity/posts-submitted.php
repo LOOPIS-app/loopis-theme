@@ -1,16 +1,16 @@
 <?php
 /**
- * List of posts in a specific category for the current user.
+ * List of posts submitted by the current user.
  * 
- * Reached on https://loopis.app/activity/?view=posts-submitted&status=category-slug
- * Linked from /profile/user_nicename/posts (WPUM profile page) 
+ * Reached on https://loopis.app/activity/?view=posts-submitted
  * 
- * Uses category slug from URL to filter posts and a function to output labels and content.
+ * Uses post-list-output.php to output title, instructions and buttons.
+ * Uses an optional category slug from URL to filter posts: &status=category-slug
+ * Uses an optional user ID from URL to show posts from that user: &id=user_ID
+ * Shows actions buttons if the user is viewing their own list.
  * 
  * Improvements:
- * – Add search form if more than 20 posts (adaptation of templates/search/search-form.php?)
- * – Add pagination (will templates/post-list/pagination.php work with the URL structure?)
- * – Later: Use a template for post list output? (needs a fix for output of specific button and metadata)
+ * – Use a template for post list output? (needs a fix for outputting different buttons and metadata)
  */
 
 if (!defined('ABSPATH')) {
@@ -20,45 +20,38 @@ if (!defined('ABSPATH')) {
 // Include post list output functions
 include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-list-output.php';
 
-// Include post action functions
-include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-extend.php';
-include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-remove.php';
-include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-pause.php';
 // Include sql-pagination functionality
 include_once LOOPIS_THEME_DIR . '/templates/post-list/pagination-sql.php';
 
 // Get current user ID
-
-
-// Get current user ID
 $user_ID = isset($_GET['id']) ? sanitize_text_field($_GET['id']) : wp_get_current_user()->ID;
-// Set show forward
+
+// Is current user watching their own list?
 if (intval($user_ID)===intval(wp_get_current_user()->ID)){
     $user_has_stuff = true;
-} else{
+    // Include post action functions
+    include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-extend.php';
+    include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-remove.php';
+    include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-pause.php';
+} else {
     $user_has_stuff = false;
 }
 
-
-// Get category slug from the URL (e.g. /?status=paused)
+// Get category IDs from URL slug 
 $url_slug = isset($_GET['status']) ? sanitize_text_field($_GET['status']) : '';
-$search_query = get_search_query();
-$tag_slug = (string) get_query_var('tag');
-$tag = (array) loopis_tag($url_slug);
 
-
-/** Set category IDs from URL slug */
-
-// Set multiple IDs for booked posts
+// Set multiple category IDs if status is booked
 if ($url_slug === 'booked') {
-	$category_ids = loopis_cats(['booked', 'booked_custom']); 
+ 	$category_ids = loopis_cats(['booked', 'booked_custom']); 
+} else if ($url_slug === 'all') {
+    $category_ids = array();
 } else {
 	// Get the category by slug
 	$category_id = loopis_cat($url_slug);
 	$category_ids = $category_id ? array($category_id) : array();
 }
 
-// Set the category (non-existing slug for forwarded posts)
+// Handle search and pagination
 $search = (string)($_GET['search'] ?? false);
 $view = (string) $_GET['view'] ?? '';
 $tags = (array) (!empty($_GET['tag']) ? [loopis_tag($_GET['tag'])] : []);
@@ -96,7 +89,7 @@ $count = count($results);
         $forward_post_id = get_post_meta($post_id, 'forward_post', true);
         if ($forward_post_id) {
             $forward_post_category = get_the_category($forward_post_id);
-            // Later: Fetch category symbol
+            // Later: Fetch category symbol from current status of the forwarded post
         }
         ?>
         <div class="post-list-post" style="position:relative;">
@@ -104,9 +97,7 @@ $count = count($results);
                 <?php echo $thumbnail; ?>
             </div>
             <div class="post-list-post-title"><?php echo esc_html($post_title); ?></div>
-            <?php if ($forward_post_id) { 
-                // Later: Add button to view the forwarded post
-                } else { if ($user_has_stuff){list_button_output($url_slug, $post_id); }} ?>
+            <?php if ($user_has_stuff) { list_button_output($url_slug, $post_id); } ?>
             <div class="notif-meta post-list-post-meta">
 				<span>
 					<?php the_category(' '); ?><?php if (in_category('new')) { echo raffle_time(); } ?> 

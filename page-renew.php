@@ -19,7 +19,7 @@ get_header(); ?>
 <?php if ( current_user_can('member_earlier')) { ?>
 <p>Ditt medlemskap i föreningen LOOPIS behöver förnyas varje år.</p>
 
-<div class="wpum-message information">
+<div class="loopis-message information">
 <h5>⚠ Kontrollera dina uppgifter!</h5>
 <p>Justera om det behövs och tryck sedan på spara.</p>
 </div>
@@ -32,7 +32,7 @@ get_header(); ?>
 
 <!-- ACTIVE MEMBER -->
 <?php } elseif ( current_user_can('member')) { ?>
-<div class="wpum-message information">
+<div class="loopis-message information">
     <p>Ditt medlemskap är redan aktivt.</p>
 </div>
 

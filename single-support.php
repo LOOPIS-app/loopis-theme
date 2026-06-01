@@ -15,6 +15,13 @@ $invited = get_post_meta($post_id, 'invited', true);
 	if (!is_array($invited)) { $invited = array(); }
 $page_title = get_post_meta($post_id, 'title', true);
 $page_link = get_post_meta($post_id, 'link', true);
+$support_terms = get_the_terms($post_id, 'support-category');
+$support_status_label = 'Okategoriserad';
+$status_slug = '';
+if (!is_wp_error($support_terms) && !empty($support_terms)) {
+	$support_status_label = $support_terms[0]->name;
+	$status_slug = $support_terms[0]->slug;
+}
 
 ?>
 
@@ -28,7 +35,7 @@ $page_link = get_post_meta($post_id, 'link', true);
 		<p><span class="rounded">🛠 Support</span></p>
 			<h1><?php the_title(); ?></h1>
 			<div class="post-meta">
-				<span><?php echo esc_html(get_the_terms($post_id, 'support-category')[0]->name); ?></span>
+				<span><?php echo esc_html($support_status_label); ?></span>
 				<span>👤 <?php echo get_the_author_posts_link(); ?></span>
 				<span><i class="far fa-clock"></i> <?php echo human_time_diff(get_the_time('U'), current_time('timestamp'))?> sen</span>
 			</div><!--post-meta-->
@@ -76,7 +83,7 @@ $page_link = get_post_meta($post_id, 'link', true);
 <h6>Status</h6>
 <hr>
 
-<p>Ärendets status är <span class="label"><?php echo esc_html(get_the_terms($post_id, 'support-category')[0]->name); ?></span></p>
+<p>Ärendets status är <span class="label"><?php echo esc_html($support_status_label); ?></span></p>
 
 <!-- Arkivera -->
 <?php if ($status_slug === 'active' && ($current == $author || current_user_can('administrator') || $current == 2)) : ?>
@@ -94,7 +101,7 @@ $page_link = get_post_meta($post_id, 'link', true);
 
 <!-- EJ BEHÖRIG-->
 <?php } else { ?>
-<div class="wpum-message information">
+<div class="loopis-message information">
 <p>Support-ärendet visas endast för skaparen, admin och eventuella andra berörda användare.</p>
 </div>
 

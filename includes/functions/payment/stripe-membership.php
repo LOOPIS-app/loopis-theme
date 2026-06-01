@@ -1,9 +1,9 @@
 <?php
 /**
- * Stripe account activation handler
+ * Stripe membership activation handler
  * 
  * Created by CoPilot
- * Handles account activation after successful Stripe payment via webhook.
+ * Handles membership activation after successful Stripe payment via webhook.
  * This file must be loaded on all requests because Stripe webhooks can fire at any time via REST API callbacks.
  */
 
@@ -20,12 +20,12 @@ if (!defined('LOOPIS_STRIPE_WEBHOOK_SECRET_MEMBERSHIP')) {
 /**
  * Membership product identifiers for Stripe Checkout Session matching.
  *
- * Uses WP_TEST to switch between test and live IDs.
+ * Uses LOOPIS_TEST to switch between test and live IDs.
  *
  * @return array{payment_link_id:string,price_id:string}
  */
 function loopis_get_membership_stripe_product_ids() {
-    $is_test_mode = defined('WP_TEST') && WP_TEST;
+    $is_test_mode = defined('LOOPIS_TEST') && LOOPIS_TEST;
 
     if ($is_test_mode) {
         return array(
@@ -38,6 +38,18 @@ function loopis_get_membership_stripe_product_ids() {
         'payment_link_id' => 'plink_1StnmrDc5PTLJtA3tn6x2iXx',
         'price_id' => 'price_1StmdhDc5PTLJtA3xM2pOAgu',
     );
+}
+
+/**
+ * Return true when session metadata explicitly marks a membership checkout.
+ *
+ * @param array $session Stripe checkout session object
+ * @return bool
+ */
+function loopis_is_membership_checkout_by_metadata($session) {
+    $metadata = isset($session['metadata']) && is_array($session['metadata']) ? $session['metadata'] : array();
+    $type = isset($metadata['loopis_checkout_type']) ? sanitize_key((string) $metadata['loopis_checkout_type']) : '';
+    return 'membership' === $type;
 }
 
 /**
@@ -73,6 +85,10 @@ function loopis_extract_membership_stripe_session_price_ids($session) {
  * @return bool
  */
 function loopis_is_membership_checkout_session($session) {
+    if (loopis_is_membership_checkout_by_metadata($session)) {
+        return true;
+    }
+
     $ids = loopis_get_membership_stripe_product_ids();
     $payment_link_id = isset($session['payment_link']) ? $session['payment_link'] : '';
 
@@ -82,6 +98,89 @@ function loopis_is_membership_checkout_session($session) {
 
     $price_ids = loopis_extract_membership_stripe_session_price_ids($session);
     return in_array($ids['price_id'], $price_ids, true);
+}
+
+/**
+ * Resolve user ID from checkout session identifiers and metadata.
+ *
+ * Priority: metadata wp_user_id -> metadata wp_user_email -> customer email.
+ *
+ * @param array $session Stripe checkout session object
+ * @return int
+ */
+function loopis_get_membership_user_id_from_session($session) {
+    $metadata = isset($session['metadata']) && is_array($session['metadata']) ? $session['metadata'] : array();
+
+    if (!empty($metadata['wp_user_id'])) {
+        $user_id = absint($metadata['wp_user_id']);
+        if ($user_id > 0 && get_userdata($user_id)) {
+            return $user_id;
+        }
+    }
+
+    if (!empty($metadata['wp_user_email'])) {
+        $meta_email = sanitize_email((string) $metadata['wp_user_email']);
+        if ('' !== $meta_email) {
+            $user_by_meta_email = get_user_by('email', $meta_email);
+            if ($user_by_meta_email) {
+                return (int) $user_by_meta_email->ID;
+            }
+        }
+    }
+
+    $customer_email = isset($session['customer_email']) ? sanitize_email((string) $session['customer_email']) : '';
+    $customer_details_email = isset($session['customer_details']['email']) ? sanitize_email((string) $session['customer_details']['email']) : '';
+    $fallback_email = '' !== $customer_email ? $customer_email : $customer_details_email;
+
+    if ('' === $fallback_email) {
+        return 0;
+    }
+
+    $user = get_user_by('email', $fallback_email);
+    return $user ? (int) $user->ID : 0;
+}
+
+/**
+ * Prevent duplicate processing of the same Stripe checkout session.
+ *
+ * @param int    $user_id    WordPress user ID
+ * @param string $session_id Stripe checkout session ID
+ * @return bool True when already processed
+ */
+function loopis_is_membership_session_already_processed($user_id, $session_id) {
+    if ($user_id <= 0 || '' === $session_id) {
+        return false;
+    }
+
+    $processed_sessions = get_user_meta($user_id, 'loopis_stripe_membership_processed_sessions', true);
+    if (!is_array($processed_sessions)) {
+        return false;
+    }
+
+    return in_array($session_id, $processed_sessions, true);
+}
+
+/**
+ * Persist Stripe checkout session as processed for idempotency.
+ *
+ * @param int    $user_id    WordPress user ID
+ * @param string $session_id Stripe checkout session ID
+ * @return void
+ */
+function loopis_mark_membership_session_processed($user_id, $session_id) {
+    if ($user_id <= 0 || '' === $session_id) {
+        return;
+    }
+
+    $processed_sessions = get_user_meta($user_id, 'loopis_stripe_membership_processed_sessions', true);
+    if (!is_array($processed_sessions)) {
+        $processed_sessions = array();
+    }
+
+    if (!in_array($session_id, $processed_sessions, true)) {
+        $processed_sessions[] = $session_id;
+        update_user_meta($user_id, 'loopis_stripe_membership_processed_sessions', $processed_sessions);
+    }
 }
 
 /**
@@ -123,7 +222,7 @@ function loopis_handle_stripe_membership_webhook($request) {
         error_log("LOOPIS ERROR: Membership webhook signature verification failed: " . $e->getMessage());
         return new WP_REST_Response(array('error' => 'Invalid signature'), 400);
     }
-    
+
     // Handle the event based on type
     if ($event['type'] === 'checkout.session.completed') {
         loopis_handle_membership_checkout_completed($event['data']['object']);
@@ -142,6 +241,10 @@ function loopis_handle_stripe_membership_webhook($request) {
  */
 function loopis_verify_stripe_membership_webhook($payload, $sig_header) {
     $secret = LOOPIS_STRIPE_WEBHOOK_SECRET_MEMBERSHIP;
+
+    if ('' === $secret) {
+        throw new Exception('Missing webhook secret');
+    }
     
     // Parse signature header
     $elements = explode(',', $sig_header);
@@ -201,60 +304,66 @@ function loopis_verify_stripe_membership_webhook($payload, $sig_header) {
  * @param array $session Stripe checkout session object
  */
 function loopis_handle_membership_checkout_completed($session) {
+    $session_id = isset($session['id']) ? (string) $session['id'] : 'unknown';
+
     if (!loopis_is_membership_checkout_session($session)) {
-        $session_id = isset($session['id']) ? $session['id'] : 'unknown';
-        error_log("LOOPIS: Membership webhook ignored session {$session_id} (product mismatch)");
         return;
     }
 
-    // Get customer email from session
-    $customer_email = isset($session['customer_email']) ? $session['customer_email'] : null;
-    $customer_details = isset($session['customer_details']['email']) ? $session['customer_details']['email'] : null;
-    $email = $customer_email ?: $customer_details;
-    
-    if (!$email) {
-        error_log("LOOPIS: Membership checkout completed but no customer email found");
+    $user_id = loopis_get_membership_user_id_from_session($session);
+    if ($user_id <= 0) {
+        error_log("LOOPIS: Membership checkout completed but user could not be resolved (session {$session_id})");
         return;
     }
-    
-    // Find user by email
-    $user = get_user_by('email', $email);
-    
-    if (!$user) {
-        error_log("LOOPIS: No user found with email: {$email}");
+
+    $session_id = isset($session['id']) ? (string) $session['id'] : '';
+    if (loopis_is_membership_session_already_processed($user_id, $session_id)) {
+        error_log("LOOPIS: Membership session already processed ({$session_id}) for user {$user_id}");
         return;
     }
-    
-    // Activate the account
-    loopis_activate_membership_account($user->ID, $session);
+
+    // Add membership after successful payment.
+    $membership_added = loopis_add_membership_after_checkout($user_id, $session);
+    if (!$membership_added) {
+        error_log("LOOPIS: Membership checkout completed but add_membership failed for user {$user_id}");
+        return;
+    }
+
+    loopis_mark_membership_session_processed($user_id, $session_id);
 }
 
 /**
- * Activate user account after successful membership payment
+ * Add membership after successful membership payment
  * 
  * @param int $user_id WordPress user ID
  * @param array $stripe_data Stripe event data (for logging)
  */
-function loopis_activate_membership_account($user_id, $stripe_data = array()) {
+function loopis_add_membership_after_checkout($user_id, $stripe_data = array()) {
     $user = get_userdata($user_id);
     
     if (!$user) {
-        return;
-    }
-    
-    // Check if already activated
-    if (in_array('member', (array) $user->roles)) {
-        return;
+        error_log("LOOPIS ERROR: User {$user_id} not found in loopis_add_membership_after_checkout");
+        return false;
     }
     
     // Store payment data in user meta
     update_user_meta($user_id, 'loopis_stripe_payment_completed', current_time('mysql'));
     update_user_meta($user_id, 'loopis_stripe_payment_data', $stripe_data);
+    update_user_meta($user_id, 'loopis_stripe_payment_source', 'checkout_session');
     
-    // Activate the account
-    if (function_exists('activate_account')) {
-        activate_account($user_id);
+    // Add membership role/payment/email updates.
+    if (function_exists('add_membership')) {
+        $membership_added = (bool) add_membership($user_id);
+        if (!$membership_added) {
+            error_log("LOOPIS ERROR: add_membership returned false for user {$user_id}");
+            return false;
+        }
+
         $display_name = $user->display_name;
-        error_log("LOOPIS: activate_account success using Stripe: {$display_name} (ID {$user_id})");
+        error_log("LOOPIS: add_membership success using Stripe: {$display_name} (ID {$user_id})");
+        return true;
     }
+
+    error_log("LOOPIS: add_membership function missing for user {$user_id}");
+    return false;
 }
