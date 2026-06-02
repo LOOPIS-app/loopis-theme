@@ -80,7 +80,7 @@ if ($leave > 0 || $fetch > 0) {
         $full_warning = loopis_get_setting('locker_full_warning', '');
         if (!empty($full_warning)) {
             echo '<h5>⚠ Mycket saker i skåpen!</h5><hr>';
-            echo '<div class="wpum-message warning"><p>' . wp_kses_post(nl2br($full_warning)) . '</p></div>';
+            echo '<div class="loopis-message warning"><p>' . wp_kses_post(nl2br($full_warning)) . '</p></div>';
         }
     }
 }

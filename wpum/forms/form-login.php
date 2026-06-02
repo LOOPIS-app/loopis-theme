@@ -77,7 +77,7 @@ if ( $redirect_to ) {
 		<?php echo esc_html( apply_filters( 'wpum_password_link_label', __( 'Tryck här.', 'wp-user-manager' ) ) ); ?>
 	</a></p>
 
-<div class="wpum-message information">
+<div class="loopis-message information">
 <p>Bara medlemmar i föreningen LOOPIS kan logga in.</p>
 <p><span class="big-link"><a href="<?php echo esc_url(home_url('/register/') ); ?>">📋 Bli medlem</a></span></p>
 <p><span class="link"><a href="<?php echo esc_url(home_url('/faq/varfor-medlemskap/') ); ?>">📌 Varför måste jag vara medlem?</a></span></p>

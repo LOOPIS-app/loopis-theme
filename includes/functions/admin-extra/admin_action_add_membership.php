@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-function admin_action_activate_account(int $user_id) {
+function admin_action_add_membership(int $user_id) {
     if ($user_id === 0) {
         wp_die('Invalid user ID.');
     }
@@ -22,34 +22,9 @@ function admin_action_activate_account(int $user_id) {
         wp_die('User not found.');
     }
 
-    // Create username
-    $first_name = str_replace(' ', '-', $user->first_name);
-    $last_name = str_replace(' ', '-', $user->last_name);
-    $new_username = sanitize_user($first_name . '-' . $last_name);
-    $new_nicename = sanitize_title($new_username);
-
-    // Add suffix if username is taken
-    $suffix = 2;
-    $original_new_username = $new_username;
-    while (username_exists($new_username) || get_user_by('slug', $new_nicename)) {
-        $new_username = $original_new_username . '-' . $suffix;
-        $new_nicename = sanitize_title($new_username);
-        $suffix++;
-    }
-
-    // Update the user's details using a custom SQL query
-    global $wpdb;
-    $wpdb->update(
-        $wpdb->users,
-        ['user_login' => $new_username],
-        ['ID' => $user_id]
-    );
-
     // Update the user's role, nicename, and display_name
     $updated_user = wp_update_user([
         'ID' => $user_id,
-        'user_nicename' => $new_nicename,
-        'display_name' => $new_username,
         'role' => 'member',
     ]);
 
@@ -94,7 +69,7 @@ function admin_action_activate_account(int $user_id) {
     $headers = array('Content-Type: text/html; charset=UTF-8');
     wp_mail($to, $subject, $email_content, $headers);
 
-    error_log("LOOPIS: activate_account success using Swish: {$new_username} (ID {$user_id})");
+    error_log("LOOPIS: add_membership success using Swish: {$new_username} (ID {$user_id})");
 
 	// Refresh page
 	refresh_page();

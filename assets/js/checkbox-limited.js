@@ -1,8 +1,142 @@
 (function() {
 
 let imageStore = [];
+(function() {
+
+let imageStore = [];
 
 document.addEventListener('DOMContentLoaded', () => {
+    imageStore = [];
+    loopisPreviewImageRendering();
+        if (typeof existingImages !== 'undefined') {
+
+        existingImages.forEach((img, index) => {
+
+            loopisPImage(
+                index,
+                img.src,
+                'image-previews',
+                true,
+                null,
+                null
+            );
+            const image = document.getElementById(`img-${index}`);
+                
+
+            // highlight current featured image
+            if (img.thumbnail) {
+
+                if (image) {
+                    image.classList.add('green-border');
+                }
+
+                document.getElementById('thumb').value = index;
+            }
+        });
+    }
+    loopisCheckboxLimit();
+    loopisRadioListener();
+    loopisSubmissionStopper();
+})
+
+
+function loopisSubmissionStopper(){
+    const form = document.getElementById('loopis-form');
+    if (!form) return;
+    const title = document.getElementById('post_title');
+    const content = document.getElementById('post_content');
+    const checkboxes = document.querySelectorAll('.term_checkbox'); 
+    const imageInput = document.getElementById('images');
+    const where = document.getElementById('where');
+    const annan = document.getElementById('annan');
+    const radioboxes = document.querySelectorAll('input[name="locker"]');
+    const categoryWarning = document.getElementById('category_warning');
+    const imageWarning = document.getElementById('image_warning');
+    const radioWarning = document.getElementById('radio_warning');
+    const titleWarning = document.getElementById('title_warning');
+    const contentWarning = document.getElementById('content_warning');
+
+    title.addEventListener('input', ()=>{
+            titleWarning.classList.remove('warning');
+            titleWarning.classList.add('secret');
+    })
+    content.addEventListener('input', ()=>{
+            contentWarning.classList.remove('warning');
+            contentWarning.classList.add('secret');
+    })
+
+    form.addEventListener('submit', (e) => {
+        let valid = true;
+        const imageAmount = imageInput.files.length;
+        if (imageAmount === 0){
+            if (!document.getElementById('img-0')){
+                 valid = false;
+                imageWarning.classList.add('warning');
+                imageWarning.classList.remove('secret');
+            }
+        }
+
+        if (title.value.trim() === ''){
+            valid = false;
+            titleWarning.classList.add('warning');
+            titleWarning.classList.remove('secret');
+        }
+
+        if (content.value.trim() === ''){
+            valid = false;
+            contentWarning.classList.add('warning');
+            contentWarning.classList.remove('secret');
+        }
+
+        let categoryChecked = Array.from(checkboxes).some(check => check.checked);
+        if (!categoryChecked){
+            valid = false;
+            categoryWarning.classList.add('warning');
+            categoryWarning.classList.remove('secret');
+        }
+
+        let radioChecked = Array.from(radioboxes).some(radio => radio.checked);
+        if (!radioChecked){
+            valid = false;
+            radioWarning.classList.add('warning');
+            radioWarning.classList.remove('secret');
+        }else if(where.value.trim() === ''){
+            if (annan.checked){
+                valid = false;
+                radioWarning.classList.add('warning');
+                radioWarning.classList.remove('secret');
+            }
+        }
+
+        if (!valid){
+            e.preventDefault();
+        }
+
+    });
+}
+
+function loopisRadioListener(){
+    const radioBox = document.getElementById('radio-box');
+    const where = document.getElementById('where');
+    const annan = document.getElementById('annan');
+    const radioWarning = document.getElementById('radio_warning');
+    if (!radioBox || !where || !annan || !radioWarning) return;
+    
+    radioBox.addEventListener('change', () => {
+        if (annan.checked){
+            if(where.value !== ""){
+                radioWarning.classList.remove('warning');
+                radioWarning.classList.add('secret');
+            }
+        }else{
+            radioWarning.classList.remove('warning');
+            radioWarning.classList.add('secret');
+        }
+    })
+}
+
+function loopisCheckboxLimit(){
+
     imageStore = [];
     loopisPreviewImageRendering();
         if (typeof existingImages !== 'undefined') {

@@ -1,9 +1,9 @@
 <?php
 /**
- * Functions for outputting lists of posts for LOOPIS user.
+ * Functions for outputting lists of user posts.
  *
- * Included in pages/activity/post-list/category.php
- * Included in pages/activity/post-list/fetched.php
+ * Included in:
+ * pages/activity/posts-booked.php + posts-booked.php + posts-submitted.php
  */
  
 if (!defined('ABSPATH')) {
@@ -17,7 +17,7 @@ function list_header_output($url_slug) {
     $url_slug = sanitize_text_field($url_slug); // Sanitize input
     switch ($url_slug) {
         case 'all':
-            echo '💚 Dina annonser';
+            echo '💚 Mina annonser';
             break;
         case 'new':
             echo '⏳ Väntar på lottning';
@@ -53,7 +53,7 @@ function list_header_output($url_slug) {
             echo '💞 Paxade saker';
             break;
         case '':
-            echo '💚 Dina annonser';
+            echo '💚 Mina annonser';
             break;
         default:
             echo '💢 Status saknas';

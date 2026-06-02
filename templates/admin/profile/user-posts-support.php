@@ -20,6 +20,7 @@ $count = $the_query->found_posts;
 ?>
 
 <!-- OUTPUT -->
+ <p class="small">💡 Support-ärenden skapade av <?php echo $first_name; ?>.</p>
 <h7>🛟 Support</h7>
 <div class="columns"><div class="column1">
 ↓ <?php echo $count; if ( $count == 1 ) { echo ' ärende'; } else { echo ' ärenden'; } ?>
@@ -59,7 +60,7 @@ $count = $the_query->found_posts;
 <!-- Removed because not working with tabs -->
 
 	<?php else : ?>
-		<p>💢 Användaren har inte skapat några support-ärenden ännu.</p>
+		<p>💢 <?php echo $first_name; ?> har inte skapat några support-ärenden ännu.</p>
 	<?php endif; ?>
 		
 </div><!--post-list-->

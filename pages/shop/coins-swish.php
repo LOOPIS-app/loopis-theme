@@ -1,8 +1,9 @@
 <?php
 /**
- * Shop: coins (Swish)
+ * Page for buying coins with Swish
  * 
- * Dynamic loading from page-shop.php
+ * Dynamic content of page-shop.php
+ * Reached on /shop/?option=coins-swish
  */
 
 if (!defined('ABSPATH')) {
@@ -12,12 +13,12 @@ if (!defined('ABSPATH')) {
 
 <h1>💸 Swisha för regnbågsmynt</h1>
 <hr>
+<p class="small">💡 Hämta saker utan att ge bort något själv.</p>
 
-<p>Vill du hämta saker utan att ge bort något själv?</p>
-<p><strong>Här kan du köpa 5 regnbågsmynt för 50 kr.</strong></p>
+<p>Här kan du köpa 5 regnbågsmynt för 50 kr.</p>
 
-<div class="wpum-message information">
-<p>⚠ Swisha bara om du inte kan <span class="big-link">💳 <a href="<?php echo esc_url( add_query_arg(array(['option' => 'coins']), home_url('/shop/')) ); ?>">Betala med kort</a></span></p>
+<div class="loopis-message information">
+<p>⚠ Swisha bara om du inte kan <span class="big-link">💳 <a href="<?php echo esc_url(add_query_arg('option', 'coins-stripe', home_url('/shop/'))); ?>">Betala med kort</a></span></p>
 <p class="small">💡 Swish-betalning måste registreras manuellt av vår kassör, vanligtvis inom en timme.</p>
 </div>
 

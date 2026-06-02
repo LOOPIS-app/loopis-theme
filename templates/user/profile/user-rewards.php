@@ -2,7 +2,7 @@
 /**
  * Output user payments.
  *
- * Used in author.php & wpum/profiles/coins.php
+ * Used in wpum/profile/economy.php and author.php
  * $user_id has to be passed from context!
  */
 
@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-// Uses $user_id passed from author.php
+// Uses $user_id passed from wpum/profile/economy.php or from author.php
 $meta_values = get_user_meta($user_id, 'wpum_rewards', true);
 
     // Check if rewards exist

@@ -3,14 +3,14 @@
  * List of posts fetched by the current user.
  * 
  * Reached on https://loopis.app/activity/?view=posts-fetched
- * Linked from /profile/user_nicename/posts (WPUM profile page) 
  * 
- * Uses non-existent category slug from URL to filter posts and a function to output labels and content.
+ * Uses post-list-output.php to output title, instructions and buttons.
+ * Uses a non-existent category slug: others_fetched
+ * Uses an optional user ID from URL to show posts from that user: &id=user_ID
+ * Shows action button (forward) if the user is viewing their own list and if it hasn't already been forwarded.
  * 
  * Improvements:
- * – Add search form if more than 20 posts (adaptation of templates/search/search-form.php?)
- * – Add pagination (will templates/post-list/pagination.php work with the URL structure?)
- * – Later: Use a template for post list output? (needs a fix for output of specific button and metadata)
+ * – Use a template for post list output? (needs a fix for outputting different buttons and metadata)
  */
 
 if (!defined('ABSPATH')) {
@@ -20,24 +20,26 @@ if (!defined('ABSPATH')) {
 // Include post list output functions
 include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-list-output.php';
 
-// Include post action functions
-include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-forward.php';
-
 // Include sql-pagination functionality
 include_once LOOPIS_THEME_DIR . '/templates/post-list/pagination-sql.php';
 
 // Get current user ID
 $user_ID = isset($_GET['id']) ? sanitize_text_field($_GET['id']) : wp_get_current_user()->ID;
-// Set show forward
+
+// Is current user watching their own list?
 if (intval($user_ID)===intval(wp_get_current_user()->ID)){
     $user_has_stuff = true;
-} else{
+    // Include post action functions
+    include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-forward.php';
+} else {
     $user_has_stuff = false;
 }
 
-// Set the category (non-existing slug for forwarded posts)
+// Set the category (non-existing slug for others posts fetched by user)
 $url_slug = 'others_fetched';
 $category_id = loopis_cat('fetched');
+
+// Handle search and pagination
 $search = (string)($_GET['search'] ?? false);
 $view = (string) $_GET['view'] ?? '';
 $tags = (array) (!empty($_GET['tag']) ? [loopis_tag($_GET['tag'])] : []);
@@ -86,7 +88,7 @@ $count = count($results);
             </div>
             <div class="post-list-post-title"><?php echo esc_html($post_title); ?></div>
             <?php if ($forward_post_id) { 
-                // Later: Add button to view the forwarded post
+                // Later: Add button to view the forwarded post?
                 } else { if ($user_has_stuff){list_button_output($url_slug, $post_id); }} ?>
             <div class="notif-meta post-list-post-meta">
                 <span>

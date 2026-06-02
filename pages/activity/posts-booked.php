@@ -3,14 +3,13 @@
  * List of posts booked by the current user.
  * 
  * Reached on https://loopis.app/activity/?view=posts-booked
- * Linked from /profile/user_nicename/posts (WPUM profile page) 
  * 
- * Uses non-existent category slug from URL to filter posts and a function to output labels and content.
+ * Uses post-list-output.php to output title and instructions.
+ * Uses a non-existent category slug: others_booked
+ * Uses an optional user ID from URL to show posts from that user: &id=user_ID
  * 
  * Improvements:
- * – Add pagination (will templates/post-list/pagination.php work with the URL structure?)
- * – Later: Use a template for post list output? (needs a fix for output of specific button and metadata)
- * – PS. Search form is not needed here.
+ * – Use a template for post list output? (needs a fix for outputting different buttons and metadata)
  */
 
 if (!defined('ABSPATH')) {
@@ -20,27 +19,18 @@ if (!defined('ABSPATH')) {
 // Include post list output functions
 include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-list-output.php';
 
-// Include post action functions
-include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-forward.php';
+// Include sql-pagination functionality
+include_once LOOPIS_THEME_DIR . '/templates/post-list/pagination-sql.php';
 
 // Get current user ID
 $user_ID = isset($_GET['id']) ? sanitize_text_field($_GET['id']) : wp_get_current_user()->ID;
 
-
-include_once LOOPIS_THEME_DIR . '/templates/post-list/pagination-sql.php';
-
-// Set the category (non-existing slug for forwarded posts)
+// Set the category (non-existing slug for others posts booked user)
 $url_slug = 'others_booked';
 $category_ids = loopis_cats(['booked_custom', 'booked', 'locker']); 
 $placeholders = implode(',', $category_ids);
-// Set pagination
-$posts_per_page = 50;
-$max_pages = ceil($total/$posts_per_page);
-$pagenum = loopis_GET_pagenum($max_pages);
-$offset = ($pagenum - 1)*$posts_per_page;
 
-// Set the category (non-existing slug for forwarded posts)
-$url_slug = 'others_fetched';
+// Handle search and pagination
 $search = (string)($_GET['search'] ?? false);
 $view = (string) $_GET['view'] ?? '';
 $tags = (array) (!empty($_GET['tag']) ? [loopis_tag($_GET['tag'])] : []);

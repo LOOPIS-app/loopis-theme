@@ -19,8 +19,8 @@ if (is_user_logged_in()) {
 
     // Member pending
     if (current_user_can('member_pending')) {
-        $message = '<p>🙏 Tack för din ansökan om medlemskap!</p>
-                    <p class="small">När vi har registrerat din medlemsavgift får du ett mail och kan börja loopa.</p>';
+        $message = '<p>⏳ Du har inte betalat din medlemsavgift ännu?</p>
+                    <p><span class="big-link">💳 <a href="'.esc_url(home_url('/shop/?option=membership-stripe')).'">Betala medlemskap</a></span> för att börja loopa.</p>';
     }
 
     // Member earlier
@@ -45,5 +45,5 @@ if (is_user_logged_in()) {
 
 // Output the message if it exists
 if (!empty($message)) {
-    echo '<div class="wpum-message information">' . $message . '</div>';
+    echo '<div class="loopis-message information">' . $message . '</div>';
 }

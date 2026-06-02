@@ -38,13 +38,17 @@ $count_others_fetched = $user_post_count['count_others_fetched'];
 
 //
 $activity_url = home_url('/activity/');
-
 ?>
 
-<p class="small">💡 Här hittar du samtliga annonser du skapat och paxat.</p>
+<!-- OUTPUT -->
+<p class="small">💡 <?php echo $first_name; ?>s annonser och paxningar.</p>
 <h7>💚 Mina annonser</h7>
 <div class="columns"><div class="column1">↓ <?php echo $count_posts_submitted; ?> annons<?php if ($count_posts_submitted !== 1) { echo "er"; } ?></div>
-<div class="column2"></div></div>
+<div class="column2"><a href="<?php echo esc_url( add_query_arg(array([
+	'view' => 'posts-submitted',
+	'id'=>$user_id,
+	'status' => 'all',
+]), $activity_url) ); ?>">→ Visa alla</a></div></div>
 <hr>
 <?php if ($count_posts_submitted > 0) : ?>
 <!--Output list of post types-->
@@ -112,13 +116,16 @@ $activity_url = home_url('/activity/');
 ]), $activity_url) ); ?>"><span class="big-link">💢 <?php echo $count_posts_disappeared; ?> är försvunna</span></a></p>
 <?php endif; ?>
 <?php else : ?>
-		<p>💢 Du har inte skapat några annonser ännu.</p>
-		<p><span class="link"><a href="<?php echo esc_url(home_url( '/submit/')); ?>">💚 Ge bort</a></span> något nu</p>
+		<p>💢 <?php echo $first_name; ?> har inte skapat några annonser ännu.</p>
 <?php endif; ?>
 
 <h3>❤ Mina paxningar</h3>
 <div class="columns"><div class="column1">↓ <?php echo $count_others_claimed; ?> annons<?php if ($count_others_claimed !== 1) { echo "er"; } ?></div>
-<div class="column2"></div></div>
+<div class="column2"><a href="<?php echo esc_url( add_query_arg(array([
+	'view' => 'posts-booked',
+	'id'=>$user_id,
+	'status' => 'all',
+]), $activity_url) ); ?>">→ Visa alla</a></div></div>
 <hr>
 <?php if ($count_others_claimed > 0) : ?>
 <?php if ($count_others_booked > 0) : ?>
@@ -140,7 +147,6 @@ $activity_url = home_url('/activity/');
 </p>
 <?php endif; ?>
 <?php else : ?>
-		<p>💢 Du har inte paxat några annonser ännu.</p>
-		<p>Ta en titt på <span class="link"><a href="<?php echo home_url(); ?>/things">🎁 Saker att få</a></span></p>
+		<p>💢 <?php echo $first_name; ?> har inte paxat några annonser ännu.</p>
 <?php endif; ?>
 <?php wp_reset_postdata(); ?>

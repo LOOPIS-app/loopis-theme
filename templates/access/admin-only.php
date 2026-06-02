@@ -17,9 +17,9 @@ if (!defined('ABSPATH')) {
 	<div class="column2 bottom"></div></div> 
     <hr>
 
-<div class="wpum-message information">
+<div class="loopis-message information">
 	<p>Du har inte behörighet att se denna sida.</p>
-	<p><a href="javascript:history.back()"><i class="fas fa-chevron-left"></i>Gå tillbaka</a></p>
+	<?php include LOOPIS_THEME_DIR . '/templates/links/go-back.php'; ?>
 </div>
 
 	</div><!--page-padding-->
