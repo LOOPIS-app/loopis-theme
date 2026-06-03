@@ -1,6 +1,4 @@
-(function() {
 
-let imageStore = [];
 (function() {
 
 let imageStore = [];
@@ -168,7 +166,7 @@ function loopisCheckboxLimit(){
     loopisCheckboxLimit();
     loopisRadioListener();
     loopisSubmissionStopper();
-})
+}
 
 
 function loopisSubmissionStopper(){
