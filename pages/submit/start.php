@@ -44,7 +44,6 @@ if (!defined('ABSPATH')) {
 <!-- FAQ -->
 <?php include LOOPIS_THEME_DIR . '/templates/faq/questions-submit.php'; ?>
 
-  </div><!--page-padding-->
-</div><!--content-->
+</div><!--page-padding-->
 
 <?php get_footer(); ?>

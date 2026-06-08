@@ -1,0 +1,333 @@
+/* Custom styles for LOOPIS forms
+ * Separated from style.css for clarity */
+
+/* Base tokens */
+:root {
+    --form-bg: #f5f5f5;
+    --form-border: #e5e5e5;
+    --form-border-focus: #d0d0d0;
+    --form-radius: 10px;
+    --form-control-radius: 8px;
+    --form-label-size: 15px;
+    --form-control-size: 22px;
+    --form-pad: 10px;
+    --form-gap: 20px;
+    --form-text: #333;
+    --form-muted: #777;
+}
+
+/* Lightweight reset */
+:where(input, select, textarea, button) {
+    box-sizing: border-box;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    transition: all .2s ease;
+}
+
+:where(input[type="checkbox"], input[type="radio"]) {
+    appearance: auto;
+}
+
+/* Default panel styling for LOOPIS form wrappers. */
+.loopis-form-wrapper {
+    background: var(--form-bg);
+    border-radius: var(--form-radius);
+    padding: var(--form-pad);
+    text-align: inherit;
+}
+
+/* Default shared styling for LOOPIS forms. */
+.loopis-form :where(label, input, select, textarea, button) {
+    margin-bottom: 5px;
+}
+
+.loopis-form label {
+    color: var(--form-text);
+    font-size: var(--form-label-size);
+    font-weight: 600;
+    display: block;
+}
+
+.loopis-form label:has(input[type="radio"]) {
+    font-size: 22px;
+    font-weight: 300;
+}
+
+.loopis-form .description {
+    color: var(--form-muted);
+    font-size: 13px;
+    font-style: italic;
+    margin-top: 0px;
+    opacity: 1;
+    white-space: normal;
+    display: block;
+}
+
+/* Keep field spacing on wrappers so descriptions can sit tight under controls. */
+.loopis-form .form-row {
+    margin: 0 0 var(--form-gap);
+}
+
+.loopis-form .form-row:last-child {
+    margin-bottom: 0;
+}
+
+.loopis-form .form-row :where(input, select, textarea, button) {
+    margin-bottom: 0;
+}
+
+.loopis-form p.description {
+    margin: 0;
+}
+
+label .required {
+    color: #ff969d;
+}
+
+.loopis-form :where(
+    input[type="search"],
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="url"],
+    input[type="tel"],
+    input[type="number"],
+    select,
+    textarea
+) {
+    background: #fff;
+    border: 2px solid var(--form-border);
+    color: var(--form-muted);
+    display: inline-block;
+    width: 100%;
+    outline: none;
+    padding: 7px 8px;
+    font-size: var(--form-control-size);
+    font-weight: 300;
+    text-align: left;
+}
+
+.loopis-form select {
+    border-radius: var(--form-control-radius);
+}
+
+.loopis-form :where(
+    input[type="search"],
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="url"],
+    input[type="tel"],
+    input[type="number"],
+    select,
+    textarea
+):focus {
+    border-color: var(--form-border-focus);
+    color: var(--form-text);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.loopis-form :where(input[type="submit"], button) {
+    font-size: var(--form-control-size);
+}
+
+/* Placeholder text should look softer than entered values */
+:where(input, textarea)::placeholder {
+    color: #b3b3b3;
+    opacity: 1;
+}
+
+/* Comment form */
+.logged-in-as,
+.comment-notes,
+.form-allowed-tags {
+    display: none;
+}
+
+#respond {
+    position: relative;
+}
+
+#reply-title {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+li #reply-title {
+    font-size: 0;
+    margin: 0 !important;
+    padding: 0;
+    height: 0;
+    border-top: 0;
+}
+
+#commentform {
+    margin-bottom: 0px;
+}
+
+#commentform input[type="text"],
+#commentform textarea {
+    height: 55px;
+    font-size: 16px;
+    width: 100%;
+}
+
+#commentform p.comment-form-comment {
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+#commentform p.comment-form-comment label {
+    display: none;
+}
+
+#commentform .comment-form-cookies-consent {
+    padding: 10px 0;
+}
+
+#commentform .comment-form-cookies-consent label {
+    display: inline;
+}
+
+/* Search form tweaks */
+#search-form {
+    margin: 10px 0;
+    display: flex;
+    gap: var(--form-gap);
+    flex-wrap: nowrap;
+    align-items: center;
+    --form-control-size: 15;
+}
+
+#search-form :where(input[type="text"], input[type="search"]) {
+    width: auto;
+    height: 35px;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+#search-form select {
+    width: auto;
+    padding: 6px;
+    height: 35px;
+    min-width: 0;
+    max-width: 150px;
+    flex: 0 1 150px;
+}
+
+#search-form input[type="submit"] {
+    font-size: 16px;
+    width: auto;
+    flex: 0 0 auto;
+    margin-bottom: 10px;
+}
+
+/* Support post form tweaks */
+#support-form {
+    background: var(--form-bg);
+    border-radius: var(--form-radius);
+    padding: var(--form-pad);
+    max-width: 300px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#support-form textarea[name="post_content"] {
+    height: 100px;
+    min-height: 100px;
+    max-height: 100px;
+    resize: none;
+}
+
+/* Gift form tweaks */
+#gift-form #images {
+    display: none !important;
+}
+
+.error {
+    color: #b54b4b;
+    font-style: normal;
+    font-weight: 600;
+}
+
+#image-previews {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+    min-width: 0;
+}
+
+#image-previews .image-preview-item {
+    flex: 0 1 120px;
+    min-width: 0;
+}
+
+#image-previews img {
+    display: block;
+    flex: 1 1 0;
+    min-width: 0;
+    width: 100%;
+    max-width: 120px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border: 3px solid white; 
+}
+
+#image-previews .image-preview-controls {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+#image-previews .image-preview-controls button {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    color: #333;
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    margin: 0;
+    font-size: 14px !important;
+    line-height: 32px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#image-previews .image-preview-controls .feature-button:not(.is-featured) {
+    filter: grayscale(1);
+    opacity: 0.85;
+}
+
+#image-previews .image-preview-controls button:hover {
+    background: #e9e9e9;
+}
+
+.loopis-form-loading {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(1px);
+}
+
+.loopis-form-loading[hidden] {
+    display: none !important;
+}
+
+.loopis-form-loading img {
+    width: 240px;
+    height: auto;
+    max-width: min(240px, 80vw);
+}
+
+body.gift-form-loading-active {
+    overflow: hidden;
+}

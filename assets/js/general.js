@@ -1,31 +1,58 @@
-/*
-    General scripts for LOOPIS theme
-    
-    Loaded on all pages from functions.php
-*/
+/**
+ * General scripts for LOOPIS theme
+ * 
+ * Loaded on all pages from functions.php
+ */
 
 (function($) {
     "use strict";
 
     $(document).ready(function() {
-        /* "Remember me" by Poe */
+
+        /* "Remember me" checked by default for WPUM login form */
         $('#remember').prop('checked', true);
 
-        /* "Scroll to top" by ALX */
+        /* "Up" link in footer.php */
         $('a#back-to-top').on('click', function() {
             $('html, body').animate({ scrollTop: 0 }, 'slow');
             return false;
         });
 
-        /* "Copy URL" by Poe and Copilot */
-        $('#copy_url').on('click', function() {
-            const url = $(location).attr('href'); // Get the current URL
-            navigator.clipboard.writeText(url).then(function() {
-                alert("Länk kopierad."); // Optional: Add a confirmation message
-            }).catch(function(err) {
-                console.error("Ett fel uppstod: ", err);
-            });
+        /* "Copy URL" link on single posts */
+        $('#copy_url').on('click', function(e) {
+            e.preventDefault();
+            const url = window.location.href;
+
+            const fallbackCopy = function(text) {
+                const temp = document.createElement('textarea');
+                temp.value = text;
+                temp.setAttribute('readonly', '');
+                temp.style.position = 'absolute';
+                temp.style.left = '-9999px';
+                document.body.appendChild(temp);
+                temp.select();
+                const ok = document.execCommand('copy');
+                document.body.removeChild(temp);
+                return ok;
+            };
+
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(url).then(function() {
+                    alert("Länk kopierad.");
+                }).catch(function(err) {
+                    if (fallbackCopy(url)) {
+                        alert("Länk kopierad.");
+                    } else {
+                        console.error("Ett fel uppstod: ", err);
+                    }
+                });
+            } else if (fallbackCopy(url)) {
+                alert("Länk kopierad.");
+            } else {
+                console.error("Ett fel uppstod: Kunde inte kopiera länk.");
+            }
         });
+        /* "Copy user info" link for admin */
         $('.copy_user_info').on('click', function() {
             const text = $(this).prev().text().trim(); // Get text of previous element
             navigator.clipboard.writeText(text).then(() => {

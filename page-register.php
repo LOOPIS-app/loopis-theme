@@ -5,15 +5,14 @@
 
 get_header(); ?>
 
-<div class="content">
-    <div class="page-padding">
+<div class="page-padding">
 
 <h1>🎉 Bli medlem</h1>
 <hr>
-<p class="small">💡 För en glad & hållbar framtid.</p>
+<p class="small">💡 Förening för en glad & hållbar framtid.</p>
 
 <p>1⃣ Fyll i formulär.<br>
-<span style="opacity: 0.5;">2⃣ Verifiera e-postadress</span><br>
+<span style="opacity: 0.5;">2⃣ Verifiera e-post</span><br>
 <span style="opacity: 0.5;">3⃣ Logga in</span><br>
 <span style="opacity: 0.5;">4⃣ Betala medlemsavgift (50 kr)</span></p>
 
@@ -25,13 +24,15 @@ get_header(); ?>
 <hr>
 <p class="small">💡 Många fält eftersom vi är en förening, men du klarar det!</p>
 
+<div class="loopis-form">
 <?php echo do_shortcode('[wpum_register form_id="1"]'); ?>
+</div>
 
 <p class="info">💡 Problem eller frågor? Maila <a href="mailto:info@loopis.app">info@loopis.app</a></p>
 <p style="line-height: 2;">
 <span class="link"><a href="<?php echo esc_url( home_url('/faq/stadgar/') ); ?>">📜 Föreningens stadgar</a></span>&nbsp; 
 </p>
-    </div><!--page-padding-->
-</div><!--content-->
+
+</div><!--page-padding-->
 
 <?php get_footer(); ?>

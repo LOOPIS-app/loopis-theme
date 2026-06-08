@@ -1,14 +1,13 @@
 <?php
 /**
  * Archive template
- * 
+ *
  * Displays category, tag, and other archive pages
  */
 
 get_header(); ?>
 
-<div class="content">
-    <div class="page-padding">
+<div class="page-padding">
 
         <?php if (is_category()) : ?>
             <h1><?php single_cat_title(); ?></h1>
@@ -21,7 +20,7 @@ get_header(); ?>
 		<p class="small">💡 Alla annonser i <span class="small-label"><?php if (is_category()) { echo single_cat_title('', false); } elseif (is_tag()) { echo '<i class="fas fa-hashtag"></i>'; echo single_tag_title('', false); } else { echo 'arkivet'; } ?>.</span></p>
 
         <!-- Search Form -->
-        <?php get_template_part('templates/search/search-form'); ?>
+        <?php get_template_part('templates/forms/search-form'); ?>
 
         <?php
         // Post count
@@ -43,15 +42,13 @@ get_header(); ?>
                 <?php endwhile; ?>
         </div><!--post-list-->
 
-        <?php if ($count > 50) {
-            get_template_part('templates/post-list/pagination');
-        } ?>
+        <?php if ($count > 50) { get_template_part('templates/post-list/pagination'); } ?>
 
         <?php else : ?>
             <p>💢 Inga inlägg hittades</p>
         <?php endif; ?>
 
-    </div><!--page-padding-->
-</div><!--content-->
+</div><!--page-padding-->
+
 
 <?php get_footer(); ?>

@@ -164,13 +164,13 @@ echo '</div><!--logg-->';
 <!-- Fetched button -->
 <?php if (in_category( array( 'locker', 'booked_custom' ))) : ?>
         <?php if(isset($_POST['fetched'])) { admin_action_fetched ($post_id); } ?>
-        <form method="post" class="arb" action=""><button name="fetched" type="submit" class="admin-style blue small" onclick="return confirm('Har saken hämtats?')">Hämtat</button></form>
+        <form method="post" class="arb" action=""><button name="fetched" type="submit" class="admin blue small" onclick="return confirm('Har saken hämtats?')">Hämtat</button></form>
         <p class="info">Har hämtaren glömt tryck hämta? Tryck på knappen.</p>
 <?php endif;?>
 
 <!-- Notification button -->
         <?php if(isset($_POST['notif_manual'])) { admin_action_notif_manual ($post_id); } ?>
-        <form method="post" class="arb" action=""><button name="notif_manual" type="submit" class="admin-style orange small" onclick="return confirm('Skicka manuellt?')">Skicka besked</button></form>
+        <form method="post" class="arb" action=""><button name="notif_manual" type="submit" class="admin orange small" onclick="return confirm('Skicka manuellt?')">Skicka besked</button></form>
         <p class="info">Har inga mail skickats? Tryck på knappen.</p>
 
 <!-- Edit & remove -->

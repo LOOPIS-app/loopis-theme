@@ -22,16 +22,15 @@ $allowed_category_ids = function_exists('loopis_get_search_category_ids')
     ? loopis_get_search_category_ids()
     : array();
 ?>
-
-<div class="searchandfilter">
-    <form method="get" action="<?php echo esc_url(home_url('/')); ?>">
+<div>
+    <form class="loopis-form" id="search-form" method="get" action="<?php echo esc_url(home_url('/')); ?>">
         <!-- Search input -->
         <input type="text" 
                name="s" 
                value="<?php echo get_search_query(); ?>" 
                placeholder="🔍 Skriv sökord">
         
-        <!-- Tag/Category filter -->
+        <!-- Tag filter -->
         <select name="tag">
             <option value="">Alla kategorier</option>
             <?php

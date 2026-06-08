@@ -2,7 +2,7 @@
 /**
  * Filters and actions affecting comments.
  * 
- * Migrated from earlier use in Code Snippets plugin.
+ * Always included in functions.php
  * 
  * @package LOOPIS_Theme
  * @subpackage Frontend

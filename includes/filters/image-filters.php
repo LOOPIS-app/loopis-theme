@@ -1,8 +1,8 @@
 <?php
 /**
- * Filters and actions affecting post thumbnails.
+ * Filters and actions affecting post images and thumbnails.
  * 
- * Migrated from earlier use in Code Snippets plugin.
+ * Always included in functions.php
  * 
  * @package LOOPIS_Theme
  * @subpackage Frontend

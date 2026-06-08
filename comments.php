@@ -50,12 +50,13 @@ switch ($post_type) {
 <!-- ADD COMMENT -->
 <h6><i class="far fa-comment"></i></i> Skriv kommentar</h6>
 <hr style="margin:0">
-<p class="small"><?php if ( $current != $author ) { ?><span class="small-link"><a href="#" id="tag-author">🔔 Pinga skaparen</a> (<?php echo $authorname; ?>)</span><br> <?php } ?>💡 Pinga användare för att de ska se din kommentar.</p>
-
+<div class="loopis-form">
+<p class="small">💡 Kom ihåg att pinga användare för att de ska se din kommentar.</p>
 <?php comment_form(array(
     'title_reply' => '',
     'submit_button' => '<button name="submit" type="submit" id="submit" class="grey small">Skicka</button>')); ?>
-
+<p class="small"><?php if ( $current != $author ) { ?><span class="small-link"><a href="#" id="tag-author">🔔 Pinga avsändaren</a> (<?php echo $authorname; ?>)</span><br> <?php } ?></p>
+</div><!-- loopis-form -->
 
 <!-- Mention sctripts -->
 <script>

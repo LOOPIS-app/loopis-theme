@@ -25,9 +25,7 @@ if (!is_wp_error($support_terms) && !empty($support_terms)) {
 
 ?>
 
-<div class="content">
-
-<!-- BEHÖRIG? -->
+<!-- ACCESS? -->
 <?php if ($current == $author || current_user_can('loopis_support') || $current == 2 || in_array($current, $invited)) { ?>
 
 	<div class="post-wrapper">
@@ -65,7 +63,7 @@ if (!is_wp_error($support_terms) && !empty($support_terms)) {
 <?php the_content(); ?>
 
 				<!-- Copy link -->
-                <button type="button" id="copy_url">🔗 Kopiera länk</button>
+                <a href="#" id="copy_url">🔗 Kopiera länk</a>
 			</div><!--post-content-->				
 		</div><!--post-padding-->				
 	</div><!--post-wrapper-->							
@@ -85,7 +83,7 @@ if (!is_wp_error($support_terms) && !empty($support_terms)) {
 
 <p>Ärendets status är <span class="label"><?php echo esc_html($support_status_label); ?></span></p>
 
-<!-- Arkivera -->
+<!-- Archive? -->
 <?php if ($status_slug === 'active' && ($current == $author || current_user_can('administrator') || $current == 2)) : ?>
 <?php if(isset($_POST['inactive'])) { 
 	update_post_meta($post_id,'status', null);
@@ -97,9 +95,7 @@ if (!is_wp_error($support_terms) && !empty($support_terms)) {
 		<p class="info">Tryck på knappen så arkiveras ärendet.</p>
 <?php endif;?>
 
-</div> <!--page-padding-->
-
-<!-- EJ BEHÖRIG-->
+<!-- NO ACCESS-->
 <?php } else { ?>
 <div class="loopis-message information">
 <p>Support-ärendet visas endast för skaparen, admin och eventuella andra berörda användare.</p>
@@ -107,7 +103,6 @@ if (!is_wp_error($support_terms) && !empty($support_terms)) {
 
 <?php } ?>
 
-
-</div> <!--content-->
+</div> <!--page-padding-->
 
 <?php get_footer(); ?>

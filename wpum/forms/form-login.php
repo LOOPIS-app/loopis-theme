@@ -22,7 +22,7 @@ if ( $redirect_to ) {
 <hr>
 
 <?php do_action( 'wpum_before_login_form' ); ?>
-
+<div class="loopis-form">
 	<form action="<?php echo esc_url( $data->action ); ?>" method="post" id="wpum-submit-login-form" enctype="multipart/form-data">
 
 		<?php foreach ( $data->fields as $key => $field ) : ?>
@@ -72,6 +72,7 @@ if ( $redirect_to ) {
 		<input type="submit" name="submit_login" class="button" value="<?php esc_html_e( 'Logga in', 'wp-user-manager' ); ?>" />
 
 	</form>
+</div>
 
 <p class="info">Glömt ditt lösenord?&nbsp;<a href="<?php echo esc_url( get_permalink( wpum_get_core_page_id( 'password' ) ) ); ?>">
 		<?php echo esc_html( apply_filters( 'wpum_password_link_label', __( 'Tryck här.', 'wp-user-manager' ) ) ); ?>

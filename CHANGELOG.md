@@ -1,5 +1,10 @@
 # 📋 Changelog for "LOOPIS Theme"
 
+## 0.87 (2026-06-08)
+- `style.css` cleaned up, with `forms.css` and `wpum.css` separated
+- New template `gift-form.php`, replacing plugin WPUM Frontend Posting 
+- Layout changes for `single.php` with support for three post images
+
 ## 0.86 (2026-06-01)
 - Changes preparing for multisite migration:
 - Stripe session payments after login instead of payment links on signup

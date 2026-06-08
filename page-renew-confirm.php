@@ -5,8 +5,7 @@
 
 get_header(); ?>
 
-<div class="content">
-    <div class="page-padding">
+<div class="page-padding">
 
 <h1>🙏 Tack!</h1>
 <hr>
@@ -32,7 +31,6 @@ get_header(); ?>
 	</form>
 <?php endif; ?>
 
-    </div><!--page-padding-->
-</div><!--content-->
+</div><!--page-padding-->
 
 <?php get_footer(); ?>

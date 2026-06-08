@@ -1,7 +1,13 @@
-<?php get_header(); ?>
+<?php
+/**
+ * Author template
+ *
+ * Displays author profile and stats + extra info for admin.
+ */
 
-<div class="content">		
-	<div class="page-padding">
+get_header(); ?>
+
+<div class="page-padding">
 
 <!-- INLOGGAD? -->
 <?php if (is_user_logged_in()) { 
@@ -70,6 +76,5 @@ if ($count_submitted !== 0) { $given_percentage = round(($count_given / $count_s
 <?php } ?>
 
 </div><!-- page-padding -->
-</div><!-- content -->
 
 <?php get_footer(); ?>

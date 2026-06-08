@@ -11,12 +11,12 @@ if (!defined('ABSPATH')) {
 ?>
 
 <!-- Output post form -->
-<div class="loopis-form" id="support">
-<h5>🛟 Behöver du hjälp?</h5>
-<p class="small">💡 Skriv din fråga på sidan det gäller.</p>
-<form id="support" action="" method="post">
-    <p><textarea id="post_content" name="post_content" placeholder="Jag undrar..." required></textarea></p>
-    <p><input type="submit" class="green small" name="submit_support_post" value="Skicka!"></p>
+<div>
+<form class="loopis-form" id="support-form" action="" method="post">
+    <h5>🛟 Behöver du hjälp?</h5>
+    <p class="small">💡 Skriv din fråga på sidan det gäller.</p>
+    <textarea id="post_content" name="post_content" placeholder="Jag undrar..." required></textarea>
+    <input type="submit" class="green small" name="submit_support_post" value="Skicka!">
 </form>
 </div>
 <?php
