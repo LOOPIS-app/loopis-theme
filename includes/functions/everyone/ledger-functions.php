@@ -1,19 +1,32 @@
 <?php
+/*
+TODO:
+CAST SANITIZE VALIDATE 
+*/
 
+ /**
+ *  ======================= REMOVE ======================
+ */
+
+
+ /**
+ *  Removes entries from loopis ledger
+ *  Only special due to recount necessity
+ *  OBS: does not validate yet use with care
+ *
+ * @return void
+ */
 function loopis_ledger_remove($where){
     global $wpdb;
-    if (!current_user_can('manager')){
+    if (!current_user_can('manage_options')){
         return;
     }
+
     $table_name = $wpdb->base_prefix . 'loopis_ledger';
-
-    if (!isset($where)){
+    
+    if (empty($where) || !is_array($where)){
         return;
     }
-    if (!is_array($where)){
-        return;
-    }
-
 
     $allowed = [
         'id' => '%d',
@@ -45,7 +58,7 @@ function loopis_ledger_remove($where){
     
     foreach($where as $key => $value){
         // skip if not part of allowed arrays
-        if (!in_array($key, $allowed_keys)){
+        if (!isset($allowed[$key])){
             continue;
         }
         if (is_array($value)){
@@ -71,13 +84,21 @@ function loopis_ledger_remove($where){
             $values)
         );
 
+    if ($user_ids === NULL) {
+        error_log($wpdb->last_error);
+        return;
+    }
 
-    $wpdb->query(
+    $result = $wpdb->query(
         $wpdb->prepare("DELETE FROM {$table_name} WHERE " . implode(' AND ', $clauses),
             $values)
         );
 
-    //recount affected users
+    if ($result === false) {
+        error_log($wpdb->last_error);
+        return;
+    }
+
     if (!empty($user_ids)){
         foreach($user_ids as $user_id){
             $user_id = (int) $user_id;
@@ -87,29 +108,15 @@ function loopis_ledger_remove($where){
     return;
 }
 
-function loopis_ledger_recount_user($user_id){
-    global $wpdb;
-    $user_id = (int) $user_id;
-    if ($user_id <= 0){
-        return;
-    }
-
-    $table_name = $wpdb->base_prefix . 'loopis_ledger';
-    $balances = $wpdb->get_row(
-        $wpdb->prepare(
-            "SELECT COALESCE(SUM(coins),0) as balance, COALESCE(SUM(clover),0) as cl_balance FROM {$table_name} WHERE `user_id`= %d",
-            $user_id
-        ), ARRAY_A
-    );
-    if (!is_array($balances)){
-        $balances = ['balance' => 0, 'cl_balance' => 0];
-    }
-    update_user_meta($user_id, 'loopis_clovers', $balances['cl_balance']);
-    update_user_meta($user_id, 'loopis_balance', ($balances['balance']+ floor($balances['cl_balance']/10)));
-    return $balances;
-}
-
-
+ /**
+ *  ======================= FETCH ======================
+ */
+ 
+ /**
+ * Fetches user event information from ledger 
+ *
+ * @return array Of total amount of user events as count_submitted count_given, count_fetched, count_booked, count_regret, count_deleted
+ */
 function loopis_ledger_user_event_counts($user_id){
         global $wpdb;
 
@@ -136,6 +143,11 @@ function loopis_ledger_user_event_counts($user_id){
     return $wpdb->get_row( $sql, ARRAY_A );
 }
 
+ /**
+ * Fetches user payment information from ledger 
+ *
+ * @return array ledger entries as [0] => ['payment' => 50, type => 'mynt' ...
+ */
 function loopis_ledger_user_payments($user_id){
         global $wpdb;
 
@@ -146,7 +158,7 @@ function loopis_ledger_user_payments($user_id){
 
     $table_name = $wpdb->base_prefix . 'loopis_ledger';
     $payments = $wpdb->get_results(
-        $wpdb->prepare("SELECT payment, type, description, coins, timestamp   
+        $wpdb->prepare("SELECT *   
             FROM {$table_name} 
             WHERE `user_id`= %d AND `event` = 'payment'
             ORDER BY timestamp ASC",
@@ -156,7 +168,11 @@ function loopis_ledger_user_payments($user_id){
 
     return $payments;
 }
-
+ /**
+ * Fetches user reward information from ledger 
+ *
+ * @return array ledger entries as [0] => ['coins' => 1, type => 'survey' ...
+ */
 function loopis_ledger_user_rewards($user_id){
     global $wpdb;
 
@@ -166,24 +182,35 @@ function loopis_ledger_user_rewards($user_id){
     }
 
     $table_name = $wpdb->base_prefix . 'loopis_ledger';
-    $payments = $wpdb->get_results(
+    $rewards = $wpdb->get_results(
         $wpdb->prepare(
-                "SELECT type, description, coins, timestamp   
+                "SELECT *   
                 FROM {$table_name} 
                 WHERE `user_id`= %d AND `event` = 'reward'",
             $user_id
         ), ARRAY_A
     );
 
-    return $payments;
+    return $rewards;
 }
 
+ /**
+ * Fetches information previously gotten by get_economy
+ * 
+ * Calculate economy for the specified user.
+ * 
+ *
+ * @return array of economy info ['coins' => 12, clovers => 457 ...
+ */
 function loopis_ledger_economy($user_id){
+    // Fetch the whole ledger in different chunks
     $events = loopis_ledger_user_event_counts($user_id);
     $payments = loopis_ledger_user_payments($user_id);
     $rewards = loopis_ledger_user_rewards($user_id);
+    // Fetch the balances
     $clovers = (int) get_user_meta($user_id, 'loopis_clovers', true);
     $coins = (int) get_user_meta($user_id, 'loopis_balance', true);
+    // Count payments and rewards
     $membership_coins = 0;
     $payments_coins = 0;
     $bought_coins = 0;
@@ -200,30 +227,29 @@ function loopis_ledger_economy($user_id){
             } 
         }
     }else{
-        $join_date = $payments[0]['timestamp'];
+        $join_date = NULL;
     }
     $stars = 0;
     $star_coins = 0;
     if (!empty($rewards)){
         foreach($rewards as $reward){
             $stars++;
-            $star_coins = $reward['coins'];
+            $star_coins += (int) $reward['coins'];
         }
     }
     
-
     return array(
-        //
+        //payments
         'payments_membership' => $payments_membership,
         'payments_coins' => $payments_coins,
         'membership_coins' => $membership_coins,
         'bought_coins' => $bought_coins,
         'joined_date' => $join_date, //membership date
         //event count
-        'count_given' => $count_given,
-        'count_booked' => $count_booked,
-        'count_submitted' => $count_submitted,
-        'count_deleted' => $count_deleted,
+        'count_given' => (int) $events['count_given'],
+        'count_booked' => (int) $events['count_booked'],
+        'count_submitted' => (int) $events['count_submitted'],
+        'count_deleted' => (int) $events['count_deleted'],
         //rewards 
         'stars' => $stars,
         'star_coins' => $star_coins,
@@ -235,10 +261,30 @@ function loopis_ledger_economy($user_id){
 
 }
 
+ /**
+ *  ======================= INSERT ======================
+ */
 
+ /**
+ * Adds a ledger entry for a post event
+ *
+ * @return void
+ */
+function loopis_ledger_add_post($event, $user_id, $post_id, $options=[]){
+    $user_id = (int) $user_id;
+    $post_id = (int) $post_id;
 
-function loopis_ledger_add_post($event, $user_id, $blog_id=0, $post_id,$location,){
-    if (!is_int($user_id)||!is_int($post_id)||!is_int($blog_id)||!is_string($event)){
+    $defaults = [
+        'location' => get_post_meta($post_id,'location',true) ?? 'unknown',
+        'blog_id' => get_current_blog_id(),
+        'timestamp' => current_time('Y-m-d H:i:s'),
+    ];
+
+    $blog_id = (int) ($options['blog_id'] ?? $defaults['blog_id']);
+    $location = (string) ($options['location'] ?? $defaults['location']);
+    $timestamp = (string) ($options['timestamp'] ?? $defaults['timestamp']);
+    
+    if (($user_id<=0)||($post_id<=0)||($blog_id<=0)){
         return;
     }
 
@@ -247,40 +293,33 @@ function loopis_ledger_add_post($event, $user_id, $blog_id=0, $post_id,$location
         case 'submitted':
             $coins = 0;            
             $clovers = 1;
-            $ts = date('Y-m-d H:i:s',  strtotime(get_post_field('post_date', $post_id)));
             break;
         case 'given':
             $coins = 1;
-            $clover = 0;
-            $ts = date('Y-m-d H:i:s',  strtotime(get_post_meta($post_id, 'fetch_date', true)));
+            $clovers = 0;
             break;
         case 'fetched':
             $coins = 0;            
             $clovers = 1;
-            $ts = date('Y-m-d H:i:s',  strtotime(get_post_meta($post_id, 'fetch_date', true)));
             break;
         case 'booked':
             $coins = -1;
             $clovers = 0;
-            $ts = date('Y-m-d H:i:s',  strtotime(get_post_meta($post_id, 'book_date', true)));
             break;
         case 'removed':
             $coins = 0;
             $clovers = 0;
-            $ts = date('Y-m-d H:i:s',  strtotime(get_post_meta($post_id, 'removed_date', true)));
             break;
         case 'regret':
             $coins = 1;
             $clovers = 0;
-            $ts = current_time('Y-m-d H:i:s');
             break;
         default:
-            return false;
+            return;
     }
-    // unless we add a -clover option this logic is enough else fix with a -1 to balance for (clover less than 0) and (current_clover%10 +clover less than 0)
-    loopis_update_coins($user_id, $coins, $clovers);
+    
     $table_name = $wpdb->base_prefix . 'loopis_ledger';
-    $wpdb->query(
+    $result = $wpdb->query(
         $wpdb->prepare(
             "INSERT INTO {$table_name}
             (user_id, post_id, blog_id, location, event, coins, clover, timestamp)
@@ -292,13 +331,24 @@ function loopis_ledger_add_post($event, $user_id, $blog_id=0, $post_id,$location
             $event,
             $coins,
             $clovers,
-            $ts
+            $timestamp
         )
     );
+       
+    if ($result === false) {
+        error_log($wpdb->last_error);
+    }else{
+        loopis_update_coins($user_id, $coins, $clovers);
+    }
 }
 
 
 
+ /**
+ * Adds a ledger entry for a payment event
+ *
+ * @return void
+ */
 function loopis_ledger_add_payment($user_id,$options=[]){
     $user_id = (int) $user_id;
     if ($user_id <= 0){
@@ -308,8 +358,8 @@ function loopis_ledger_add_payment($user_id,$options=[]){
     $defaults = [
         'type' => 'mynt',
         'description' => 'stripe',
-        'location' => '',
-        'blog_id' => 0,
+        'location' => 'digital',
+        'blog_id' => 1,
         'payment' => 50,
         'coins' => 5,
         'clovers'=>0,
@@ -323,10 +373,10 @@ function loopis_ledger_add_payment($user_id,$options=[]){
     $blog_id = isset($options['blog_id']) ? (int)$options['blog_id'] : (int)$defaults['blog_id'];
     $event = 'payment'; 
     $post_id=0;
-    $timestamp = current_time();
+    $timestamp = current_time('Y-m-d H:i:s');
 
     $table_name = $wpdb->base_prefix . 'loopis_ledger';
-    $wpdb->query(
+    $result = $wpdb->query(
         $wpdb->prepare(
             "INSERT INTO {$table_name}
             (user_id, post_id, blog_id, location, event, description, type, coins, clover, payment, timestamp)
@@ -341,15 +391,24 @@ function loopis_ledger_add_payment($user_id,$options=[]){
             $coins,
             $clovers,
             $payment,
-            $ts
+            $timestamp
         )
     );
 
-    loopis_update_coins($user_id,$coins,$clovers);
+    if ($result === false) {
+        error_log($wpdb->last_error);
+    }else{
+        loopis_update_coins($user_id, $coins, $clovers);
+    }
 }
 
 
 
+ /**
+ * Adds a ledger entry for a reward event
+ *
+ * @return void
+ */
 function loopis_ledger_add_reward($user_id, $options=[]){
     $user_id = (int) $user_id;
     if ($user_id <= 0){
@@ -360,9 +419,9 @@ function loopis_ledger_add_reward($user_id, $options=[]){
     $defaults = [
         'type' => 'star',
         'description' => 'Du är en ⭐️',
-        'location' => '',
-        'blog_id' => 0,
-        'coins' => 5,
+        'location' => 'digital',
+        'blog_id' => 1,
+        'coins' => 1,
         'clovers'=>0,
     ];
 
@@ -374,9 +433,10 @@ function loopis_ledger_add_reward($user_id, $options=[]){
     $blog_id = isset($options['blog_id']) ? (int)$options['blog_id'] : (int)$defaults['blog_id'];
     $event= 'reward';
     $post_id=0;
+    $timestamp = current_time('Y-m-d H:i:s');
 
     $table_name = $wpdb->base_prefix . 'loopis_ledger';
-    $wpdb->query(
+    $result = $wpdb->query(
         $wpdb->prepare(
             "INSERT INTO {$table_name}
             (user_id, post_id, blog_id, location, event, description, type, coins, clover, timestamp)
@@ -390,27 +450,82 @@ function loopis_ledger_add_reward($user_id, $options=[]){
             $type,
             $coins,
             $clovers,
-            $ts
+            $timestamp
         )
     );
 
-    loopis_update_coins($user_id,$coins,$clovers);
+    if ($result === false) {
+        error_log($wpdb->last_error);
+    }else{
+        loopis_update_coins($user_id, $coins, $clovers);
+    }
 }
 
+ /**
+ *  ======================= COINS ======================
+ */
 
-
+/**
+ * Coin update helper 
+ * 
+ * @return void
+*/
 function loopis_update_coins($user_id, $coins=0,$clovers=0){
     $user_id = (int) $user_id;
     if ($user_id <= 0){
         return;
     }
     $coins = (int) $coins;
-    $clover = (int) $clovers;
+    $clovers = (int) $clovers;
     $current_balance = (int) get_user_meta($user_id, 'loopis_balance', true);
-    $current_clover  = (int) get_user_meta($user_id, 'loopis_clovers', true);
-    $new_clovers += $current_clovers + $clovers;
-    $overflow = floor($current_clovers/10)-floor(($new_clovers)/10);
+    $current_clovers  = (int) get_user_meta($user_id, 'loopis_clovers', true);
+    $new_clovers = $current_clovers + $clovers;
+    $overflow = floor($new_clovers/10)-floor(($current_clovers)/10); // calculates difference in 10s
     $new_balance = $current_balance + $coins + $overflow;
-    update_user_meta($user_id, 'loopis_clovers', $new_clover);
+    update_user_meta($user_id, 'loopis_clovers', $new_clovers);
     update_user_meta($user_id, 'loopis_balance', $new_balance);
 }
+
+/**
+ *  Recounts user coins 
+ *
+ * @return array Associative array of user [(int) balance, (int) clovers]
+ */
+function loopis_ledger_recount_user($user_id){
+    global $wpdb;
+    $user_id = (int) $user_id;
+    if ($user_id <= 0){
+        return;
+    }
+
+    $table_name = $wpdb->base_prefix . 'loopis_ledger';
+    $balances = $wpdb->get_row(
+        $wpdb->prepare(
+            "SELECT COALESCE(SUM(coins),0) as balance, COALESCE(SUM(clover),0) as clovers FROM {$table_name} WHERE `user_id`= %d",
+            $user_id
+        ), ARRAY_A
+    );
+    if (!is_array($balances)){
+        $balances = ['balance' => 0, 'clovers' => 0];
+    }
+    update_user_meta($user_id, 'loopis_clovers', $balances['clovers']);
+    update_user_meta($user_id, 'loopis_balance', ($balances['balance']+ floor($balances['clovers']/10)));
+    return $balances;
+}
+
+ /**
+ *  ======================= MISC ======================
+ */
+
+ function loopis_ledger_type_output($type){
+    $output_for=[
+        'survey'=>'Enkätsvar',
+        'google_review'=>'Googlerecension',
+        'mynt'=>'Mynt',
+        'medlemskap'=>'Medlemskap',
+        'poster_garbage'=>'Lapp i soprum',
+        'top_user'=>'Mest aktiv',
+        'poster_storage'=>'Lapp i förråd',
+    ];
+    return $output_for[$type];
+ }

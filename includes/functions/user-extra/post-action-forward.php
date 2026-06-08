@@ -31,7 +31,7 @@ function action_forward(int $post_id) {
 	
 	if (!is_wp_error($new_post_id)) {
 
-	loopis_ledger_add('Submitted', $author, $get_current_blog_id(), $new_post_id , current_time('Y-m-d H:i:s'));
+	loopis_ledger_add_post('submitted', $author, $new_post_id ,['timestamp' => current_time('Y-m-d H:i:s')]);
 	
 	// Set the same featured image for new post
 	$featured_image = get_post_thumbnail_id($post_id);

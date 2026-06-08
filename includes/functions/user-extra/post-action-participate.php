@@ -17,8 +17,7 @@ function action_participate(int $post_id) {
 	
 	// Check economy	
 	$user_ID = get_current_user_id();
-	$profile_economy = get_economy($user_ID);
-	$coins = $profile_economy['coins'];
+	$coins = get_option('loopis_balance',$user_ID,true);
 	if ($coins < 1) { 
 		include LOOPIS_THEME_DIR . '/templates/access/no-coins.php'; 
 		echo '<script src="' . LOOPIS_THEME_DIR . '/assets/js/scroll-to-warning.js"></script>';

@@ -23,7 +23,7 @@ $last_name = get_user_meta($user_id, 'last_name', true);
 if (!in_array('administrator', $user->roles)):
 
 // Get profile economy
-$profile_economy = get_economy($user_id);
+$profile_economy = loopis_ledger_economy($user_id);
 $payments_membership = $profile_economy['payments_membership'];
 $payments_coins = $profile_economy['payments_coins'];
 $membership_coins = $profile_economy['membership_coins'];
@@ -37,7 +37,7 @@ $star_coins = $profile_economy['star_coins'];
 $clovers = $profile_economy['clovers'];
 $clover_coins = $profile_economy['clover_coins'];
 $coins = $profile_economy['coins'];
-$joined_date = $profile_economy['joined_date'];
+$joined_date = date('Y-m-d',strtotime($profile_economy['joined_date']));
 if ($count_submitted !== 0) { $given_percentage = round(($count_given / $count_submitted) * 100); } else { $given_percentage = 0; }
 ?>
 
