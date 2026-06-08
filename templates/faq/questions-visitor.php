@@ -13,7 +13,7 @@ $faq_url = home_url( '/faq/' );
 ?>
 
 <div class="columns"><div class="column1"><h3>💡 Vanliga frågor</h3></div>
-<div class="column2 bottom"><a href="<?php echo esc_url($faq_url);?>">Alla frågor & svar →</a></div></div>
+<div class="column2"><a href="<?php echo esc_url($faq_url);?>">Alla frågor & svar →</a></div></div>
 <hr>
 <p><span class="big-link"><a href="<?php echo esc_url($faq_url . 'hur-funkar-loopis/');?>">📌 Hur funkar LOOPIS?</a></span></p>
 <p><span class="big-link"><a href="<?php echo esc_url($faq_url . 'varfor-medlemskap/');?>">📌 Varför måste jag vara medlem?</a></span></p>

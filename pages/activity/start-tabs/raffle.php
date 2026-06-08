@@ -71,7 +71,7 @@ $count = count($matching_posts);
 
 <!--Output-->
 <div class="columns"><div class="column1">↓ <?php echo $count; ?> lottningar</div>
-<div class="column2 bottom"></div></div>
+<div class="column2"></div></div>
 <hr>
 
 <div class="post-list">

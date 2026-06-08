@@ -88,7 +88,7 @@ if ($selected_year === 'all') { $selected_year = "Alla år"; }
 
 <!-- Output the counts -->
 <div class="columns"><div class="column1"><h3>🛟 Support-ärenden</h3></div>
-<div class="column2 bottom"><?php echo $selected_year; ?> (<?php echo $days_passed; ?> dagar)</div></div>
+<div class="column2"><?php echo $selected_year; ?> (<?php echo $days_passed; ?> dagar)</div></div>
 <hr>
 
 <p><span class="big-label">🙋 <?php echo $support_count; ?> skapade</span> = <span class="big-label"><?php echo number_format($support_per_day, 2); ?> per dag</span></p>
@@ -96,7 +96,7 @@ if ($selected_year === 'all') { $selected_year = "Alla år"; }
 
 <!-- Output the counts -->
 <div class="columns"><div class="column1"><h3>❤️‍🩹 Försvunna saker</h3></div>
-<div class="column2 bottom"><?php echo $selected_year; ?> (<?php echo $days_passed; ?> dagar)</div></div>
+<div class="column2"><?php echo $selected_year; ?> (<?php echo $days_passed; ?> dagar)</div></div>
 <hr>
 
 <p><span class="big-label">💢 <?php echo $disappeared_count; ?> försvunna</span> = <span class="big-label"><?php echo number_format($disappeared_per_day, 2); ?> per dag = <span class="big-label"><?php echo $disappeared_percentage; ?>% av alla skapade</span></p> </span></p>

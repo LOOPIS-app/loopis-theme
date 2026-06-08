@@ -224,7 +224,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        loadingOverlay.hidden = false;
+        loadingOverlay.setAttribute('aria-hidden', 'false');
         document.body.classList.add('gift-form-loading-active');
     }
 

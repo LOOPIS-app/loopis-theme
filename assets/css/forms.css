@@ -310,16 +310,20 @@ li #reply-title {
 .loopis-form-loading {
     position: fixed;
     inset: 0;
-    z-index: 9999;
+    z-index: -1;
     display: flex;
     align-items: center;
     justify-content: center;
     background: rgba(255, 255, 255, 0.45);
     backdrop-filter: blur(1px);
+    opacity: 0;
+    pointer-events: none;
 }
 
-.loopis-form-loading[hidden] {
-    display: none !important;
+body.gift-form-loading-active .loopis-form-loading {
+    z-index: 9999;
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .loopis-form-loading img {

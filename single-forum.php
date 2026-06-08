@@ -34,15 +34,16 @@ if ($terms && !is_wp_error($terms)) {
             <h1 class="wrap"><?php the_title(); ?></h1>
 			<div class="post-meta">
 				<!--span class="rounded">🗨 Forum</span-->
-				<span><i class="fas fa-pen-alt"></i></i> <?php echo get_the_author_posts_link(); ?></span>
+				<span class="no-link-styling"><i class="fas fa-pen-alt"></i></i><?php echo get_the_author_posts_link(); ?></span>
 				<span><i class="far fa-clock"></i> <?php echo human_time_diff(get_the_time('U'), current_time('timestamp'))?> sen</span>
 			</div><!--post-meta-->
 
 			<div class="post-content">
 					<?php the_content(); ?>
 
-<!-- POST OPTIONS -->
-<button type="button" id="copy_url">🔗 Kopiera länk</button>
+				<!-- POST OPTIONS -->
+				<!-- Copy link -->
+                <a href="#" id="copy_url" class="option">🔗 Kopiera länk</a>
 
 			</div><!--post-content-->				
 		</div><!--post-padding-->				

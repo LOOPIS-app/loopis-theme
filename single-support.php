@@ -63,7 +63,8 @@ if (!is_wp_error($support_terms) && !empty($support_terms)) {
 <?php the_content(); ?>
 
 				<!-- Copy link -->
-                <a href="#" id="copy_url">🔗 Kopiera länk</a>
+                <a href="#" id="copy_url" class="option">🔗 Kopiera länk</a>
+				
 			</div><!--post-content-->				
 		</div><!--post-padding-->				
 	</div><!--post-wrapper-->							

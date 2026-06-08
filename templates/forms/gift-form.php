@@ -494,6 +494,6 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
     </form>
 </div>
 
-<div id="gift-form-loading" class="loopis-form-loading" hidden aria-hidden="true">
+<div id="gift-form-loading" class="loopis-form-loading" aria-hidden="true">
     <img src="<?php echo esc_url(LOOPIS_THEME_URI . '/assets/img/LOOPIS_icon_snake.gif'); ?>" alt="Laddar">
 </div>

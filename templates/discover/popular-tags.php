@@ -8,16 +8,14 @@ if (!defined('ABSPATH')) {
 }
 ?>
 
-<div class="columns">
-    <div class="column1"><h3><i class="fas fa-hashtag"></i> Populära kategorier</h3></div>
-    <div class="column2 bottom"><a href="<?php echo esc_url(add_query_arg('view', 'categories', home_url('/discover/')) ); ?>">Alla kategorier →</a></div>
-</div>
+<div class="columns"><div class="column1"><h3><i class="fas fa-hashtag"></i> Populära kategorier</h3></div>
+<div class="column2"><a href="<?php echo esc_url(add_query_arg('view', 'categories', home_url('/discover/')) ); ?>">Visa alla →</a></div></div>
 <hr>
 
 <p style="line-height:2.2em">
 <?php
 // Get category IDs for available posts by slugs
-$categories = loopis_cats(['new', 'old', 'booked', 'booked_custom', 'borrow']);
+$categories = loopis_cats(['new', 'old', 'booked', 'booked_custom']);
 
 // Create an array to store the post counts for each tag
 $tag_post_counts = array();

@@ -50,7 +50,7 @@ $unique_users_archive = count($user_ids);
 ?>
 
 <div class="columns"><div class="column1"><h7>🎁 Saker att få</h7></div>
-<div class="column2 bottom"></div></div>
+<div class="column2"></div></div>
 <hr>
 <p>
     <span class="big-label">⭕ <?php echo $archived_count; ?> arkiverade annonser</span> 
@@ -99,7 +99,7 @@ $unique_users_paused = count($user_ids);
 
 
 <div class="columns"><div class="column1"><h3>👤 Topp-20 med flest arkiverade</h3></div>
-<div class="column2 bottom"></div></div>
+<div class="column2"></div></div>
 <hr>
 
 <?php

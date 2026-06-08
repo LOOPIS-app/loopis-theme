@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
 $faq_url = home_url( '/faq/' );
 ?>
 <div class="columns"><div class="column1"><h3><i class="far fa-comment"></i></h3></div>
-<div class="column2 bottom">Senaste överst ↓</div></div>
+<div class="column2">Senaste överst ↓</div></div>
 <hr>
 <div class="loopis-message information">
 	<p>🤐 Du behöver vara medlem för att läsa och skriva kommentarer här.</p>

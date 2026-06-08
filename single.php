@@ -99,7 +99,7 @@ $image_3_id = get_post_meta($post_id, 'image_3', true);
             <!-- INTERACTION -->
                 <div class="columns">
                     <div class="column1"><h3>Dina alternativ</h3></div>
-                    <div class="column2 bottom"><a href="<?php echo get_permalink( get_page_by_path('hur-far-jag-saker') ); ?>">📌 Hur får jag saker?</a></div>
+                    <div class="column2"><a href="<?php echo get_permalink( get_page_by_path('hur-far-jag-saker') ); ?>">📌 Hur får jag saker?</a></div>
                 </div>
                 <hr>
 

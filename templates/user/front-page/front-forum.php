@@ -44,7 +44,7 @@ endif;
 
 <?php if ( $the_query->have_posts() ) : ?>
 <div class="columns"><div class="column1"><h5><?php if ($category) { echo esc_html($category);} ?></h5></div>
-<div class="column2 bottom"><!--a href="/forum">Arkiv →</a--></div></div>
+<div class="column2"><!--a href="/forum">Arkiv →</a--></div></div>
 <hr>
 <style>
 /* Forum-list */

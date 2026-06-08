@@ -161,16 +161,14 @@ h1.wrap { white-space: normal; }
 .collapsed { display: none; overflow: hidden; transition: max-height 0.2s ease-out; }
 .collapser { cursor: pointer; user-select: none; }
 
-/* Columns (clean up!) */
+/* Columns */
 .wp-block-columns { margin-bottom:0px; }
 .wp-block-column p { padding-bottom:5px; }
 .columns { display: flex; }
 .column1 { display: flex; flex: 1 0 50%; line-height: 1.2em; }
-.column2 { display: flex; flex: 1 0 50%; line-height: 1.2em; justify-content: flex-end; margin-bottom: 2px; white-space: nowrap; }
+.column2 { display: flex; flex: 1 0 50%; line-height: 1.2em; margin-bottom: 2px; justify-content: flex-end; align-items: flex-end; white-space: nowrap; }
 .column_half { display: flex; line-height: 1.6em; }
 .column_half > div { flex: 1 0 50%; }
-.top { align-items: flex-start !important; }
-.bottom { align-items: flex-end; }
 
 /* Post: base layout */
 .post-wrapper { background:#f5f5f5; }
@@ -202,10 +200,10 @@ h1.wrap { white-space: normal; }
 .post-images [class^="post-image-"].is-selected { z-index: 4; }
 .post-images [class^="post-image-"].is-selected img { filter: none; }
 
-/* Post: bullet-list */
-.wp-block-list { counter-reset: wp-list-counter; margin: 1.5em 0 ; padding-left: 3em; list-style-type: decimal; font-family: 'Roboto Condensed', sans-serif; font-size: 1rem; line-height: 1.0em; }
-.wp-block-list li { margin-bottom: 0.5em; position: relative; padding-left: 1em; }
-.wp-block-list li::marker { font-weight: bold; font-size: 1.1rem; }
+/* Post: list */
+.wp-block-list { margin: 5px; padding-inline-start: 40px; }
+.wp-block-list li { margin-bottom: 5px; }
+.wp-block-list li::marker { font-weight: bold; }
 
 /* Post: image */
 .wp-block-image { margin-bottom: 15px; }
@@ -270,7 +268,7 @@ a.option:hover { background: none !important; color: #333 !important; }
 #post-pagination a { padding: 8px 12px;  }
 #post-pagination span { padding: 8px 12px; }
 
-/* Post list: thumbnails (not used) */
+/* Post list: thumbnails (not finished/used) */
 .thumb-list { display: flex; flex-wrap: nowrap; overflow-x: auto; }
 .thumb-list-thumb { flex-shrink: 0; margin-right: 10px; width: calc(100% / 5 - 8px); }
 .thumb-list-thumb:last-child { margin-right: 0; }

@@ -16,7 +16,7 @@ if (!defined('ABSPATH')) {
 ?>
 
 <div class="columns"><div class="column1"><h1>📦 Lägg i lager</h1></div>
-<div class="column2 bottom"><a href="javascript:history.back()" onclick="return confirm('Det du fyllt i försvinner.')"><i class="fas fa-times-circle"></i>Avbryt</a></div></div>
+<div class="column2"><a href="javascript:history.back()" onclick="return confirm('Det du fyllt i försvinner.')"><i class="fas fa-times-circle"></i>Avbryt</a></div></div>
 <hr>
 
 <!-- Access? -->

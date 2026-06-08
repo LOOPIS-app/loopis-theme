@@ -275,7 +275,7 @@ $sharing_percentage = ($member_count > 0) ? round(($sharing_members / $member_co
 
 <!-- Output the counts for all members -->
 <div class="columns"><div class="column1"><h7>👩‍👩‍👧‍👦 Alla medlemmar <?php if ($selected_year == 'all' || $selected_year == $current_year ) { echo "just nu"; } else { echo $selected_year; } ?></h7></div>
-<div class="column2 bottom">(<?php echo $days_passed; ?> dagar)</div></div>
+<div class="column2">(<?php echo $days_passed; ?> dagar)</div></div>
 <hr>
 <p><span class="big-label">👤 <?php echo $member_total_count; ?> medlemmar</span> <?php if ($selected_year == 'all' || $selected_year == $current_year ) { echo "just nu"; } else { echo "vid årets slut"; } ?> ( <span class="label">🙂 <?php echo $member_count; ?> kvar</span> + <span class="label">😴 <?php echo $member_earlier_count; ?> avhoppare</span> + <span class="label">🌍 <?php echo $member_outside_count; ?> utsocknes</span> )</p>
 <p><span class="big-label"><i class="fas fa-walking"></i> <?php echo $active_members; ?> aktiva medlemmar</span> = <span class="label"><?php echo $active_percentage; ?>% av medlemmarna</span></p>
@@ -487,7 +487,7 @@ $new_sharing_percentage = ($new_member_count > 0) ? round(($new_sharing_members 
 
 <!-- Output the counts for new members (during selected year) -->
 <div class="columns"><div class="column1"><h7>👶 Nya medlemmar <?php echo $selected_year; ?></h7></div>
-<div class="column2 bottom">(<?php echo $days_passed; ?> dagar)</div></div>
+<div class="column2">(<?php echo $days_passed; ?> dagar)</div></div>
 <hr>
 <p><span class="big-label">👤 <?php echo $new_member_total_count; ?> nya medlemmar</span> under året ( <span class="label">🙂 <?php echo $new_member_count; ?> kvar</span> + <span class="label">😴 <?php echo $new_member_earlier_count; ?> avhoppare</span> + <span class="label">🌍 <?php echo $new_member_outside_count; ?> utsocknes</span> )</p>
 <p><span class="big-label"><i class="fas fa-walking"></i> <?php echo $active_new_members; ?> nya aktiva</span> = <span class="label"><?php echo $active_new_percentage; ?>% av nya medlemmarna</span></p>
