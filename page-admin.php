@@ -8,8 +8,7 @@ if (current_user_can('loopis_admin') || current_user_can('manage_options')) : ?>
 
     <?php include LOOPIS_THEME_DIR . '/templates/admin/header-admin.php'; ?>
 
-    <div class="admin-content">
-        <div class="page-padding">
+        <div class="page-padding admin-content">
 
             <?php
             // Dynamic admin page loader
@@ -47,7 +46,6 @@ if (current_user_can('loopis_admin') || current_user_can('manage_options')) : ?>
             <div class="clear"></div>
 
         </div><!--page-padding-->
-    </div><!--admin-content-->
 
     <?php include LOOPIS_THEME_DIR . '/templates/admin/footer-admin.php'; ?>
 

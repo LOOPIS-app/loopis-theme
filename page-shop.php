@@ -5,8 +5,7 @@
 
 get_header(); ?>
 
-<div class="content">
-    <div class="page-padding">
+<div class="page-padding">
 
     <?php if (is_user_logged_in()) :
 
@@ -30,7 +29,6 @@ get_header(); ?>
         include LOOPIS_THEME_DIR . '/templates/access/logged-in-only.php';
     endif; ?>
 
-    </div><!--page-padding-->
-</div><!--content-->
+</div><!--page-padding-->
 
 <?php get_footer(); ?>

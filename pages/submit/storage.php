@@ -36,33 +36,4 @@ if (!defined('ABSPATH')) {
 
 <div class="clear"></div>
 
-  </div><!--page-padding-->
-</div><!--content-->
-
-<!-- Script for changing submit button -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-$(document).ready(function() {
-  $('input[name="submit_registration"]').on('click', function(event) {
-    var button = $(this);
-    var form = button.closest('form');
-    var requiredFields = form.find('input[required]');
-    var allFieldsFilled = true;
-
-    requiredFields.each(function() {
-      if ($(this).val() === '') {
-        allFieldsFilled = false;
-        $(this).get(0).reportValidity(); // Show browser's validation message
-        return false; // Exit the loop if any required field is empty
-      }
-    });
-
-    if (!allFieldsFilled) {
-      form[0].reset(); // Reset the form
-    } else {
-      button.val('Vänta...');
-      button.addClass('waiting');
-    }
-  });
-});
-</script>
+</div><!--page-padding-->

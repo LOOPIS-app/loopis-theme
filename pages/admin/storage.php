@@ -47,7 +47,7 @@ if (!defined('ABSPATH')) {
     ?>
 
     <!-- Search Box -->
-    <form method="GET" action="/admin/" class="searchandfilter">
+    <form method="GET" action="/admin/" class="searchform">
         <input type="hidden" name="view" value="storage">
         <div style="white-space: nowrap;">
             <input type="text" 

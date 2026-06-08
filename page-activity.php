@@ -7,8 +7,7 @@
 
 get_header(); ?>
 
-<div class="content">
-    <div class="page-padding">
+<div class="page-padding">
 
         <!-- MEMBER ACCESS -->
         <?php if ( current_user_can('member') || current_user_can('administrator') ) {
@@ -41,11 +40,9 @@ get_header(); ?>
 
         <div class="clear"></div>
 
-
 <!-- NO ACCESS MESSAGE -->	
-<?php } else { 
- include_once LOOPIS_THEME_DIR . '/templates/access/member-only.php'; } ?>
+<?php } else { include_once LOOPIS_THEME_DIR . '/templates/access/member-only.php'; } ?>
 
-    </div><!--page-padding-->
-</div><!--content-->
+</div><!--page-padding-->
+
 <?php get_footer(); ?>

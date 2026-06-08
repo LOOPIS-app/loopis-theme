@@ -54,8 +54,8 @@ foreach ($results as $row) {
 }
 
 ?>
-<div class="searchandfilter">
-    <form method="get" action="<?php echo $action; ?>">
+<div>
+    <form class="loopis-form" id="search-form" method="get" action="<?php echo $action; ?>">
         <!-- Search input -->
         <input type="text" 
                name="search" 

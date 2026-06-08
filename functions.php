@@ -8,15 +8,8 @@
 // Prevent direct access
 if (!defined('ABSPATH')) { exit; }
 
-// Only run in frontend (Guard to be enabled when theme functionality is strictly frontend only)
-// if (is_admin()) { return; }
-
-/** 
- * Define constants
- */
-
 // Define theme version
-define('LOOPIS_THEME_VERSION', '0.86'); // Update version number here + in style.css
+define('LOOPIS_THEME_VERSION', '0.87'); // Update version number here + in style.css
 
 // Define theme folder path constants
 define('LOOPIS_THEME_DIR', get_template_directory());       // Server-side path to /wp-content/themes/loopis-theme/
@@ -32,6 +25,8 @@ define('LOCKER_ID', '12845-1');
 function loopis_theme_assets() {
     // Enqueue CSS theme styles
     wp_enqueue_style('loopis-theme-style', get_stylesheet_uri(), array(), LOOPIS_THEME_VERSION);
+    wp_enqueue_style('loopis-theme-forms', LOOPIS_THEME_URI . '/assets/css/forms.css', array('loopis-theme-style'), filemtime(LOOPIS_THEME_DIR . '/assets/css/forms.css'));
+    wp_enqueue_style('loopis-theme-wpum', LOOPIS_THEME_URI . '/assets/css/wpum.css', array('loopis-theme-style'), filemtime(LOOPIS_THEME_DIR . '/assets/css/wpum.css'));
     wp_enqueue_style('loopis-theme-responsive', LOOPIS_THEME_URI . '/assets/css/responsive.css', array(), filemtime(LOOPIS_THEME_DIR . '/assets/css/responsive.css'));
     
     // Enqueue jQuery (default Wordpress version) + theme scripts

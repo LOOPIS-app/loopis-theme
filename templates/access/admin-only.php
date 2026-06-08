@@ -10,8 +10,7 @@ if (!defined('ABSPATH')) {
 
 <?php get_header(); ?>
 
-<div class="content">
-	<div class="page-padding">
+<div class="page-padding">
 
 <div class="columns"><div class="column1"><h1>🚧 Hoppsan!</h1></div>
 	<div class="column2 bottom"></div></div> 
@@ -22,7 +21,6 @@ if (!defined('ABSPATH')) {
 	<?php include LOOPIS_THEME_DIR . '/templates/links/go-back.php'; ?>
 </div>
 
-	</div><!--page-padding-->
-</div><!--content-->
+</div><!--page-padding-->
 
 <?php get_footer(); ?>

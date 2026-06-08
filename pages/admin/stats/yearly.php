@@ -74,7 +74,7 @@ $tag_post_counts_fetched = get_top_tags_fetched($selected_year);
     <div class="column2" style="justify-content: flex-start;">↓ Paxade</div>
 </div>
 <hr>
-<div class="columns_cat">
+<div class="column_half">
     <!-- Column 1: Published Posts -->
     <div>
         <?php

@@ -5,14 +5,12 @@
 
 get_header(); ?>
 
-<div class="content">
-    <div class="page-padding">
+<div class="page-padding">
 
         <h1>🎁 Saker att få</h1>
 
         <?php
         // Check pagination
-
         $paged = get_query_var('paged') ?: 1;
 
         // Get available posts categories
@@ -57,6 +55,5 @@ get_header(); ?>
         ?>
 
     </div><!--page-padding-->
-</div><!--content-->
 
 <?php get_footer(); ?>

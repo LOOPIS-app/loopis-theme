@@ -12,7 +12,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 <div class="wpum-template wpum-form wpum-password-form">
-
 	<h2>Byt lösenord</h2>
 
 	<?php
@@ -25,7 +24,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	?>
 
 	<?php do_action( 'wpum_before_password_form' ); ?>
-
+	
+<div class="loopis-form">
 	<form action="<?php echo esc_url( $data->action ); ?>" method="post" id="wpum-submit-password-form" enctype="multipart/form-data">
 
 		<?php foreach ( $data->fields as $key => $field ) : ?>
@@ -80,5 +80,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</form>
 
 	<?php do_action( 'wpum_after_password_form' ); ?>
-
+</div>
 </div>

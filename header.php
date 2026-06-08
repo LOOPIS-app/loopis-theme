@@ -126,7 +126,14 @@
 	<header id="header">
 		<div class="group">
 			<div class="header-back" onclick="history.back()"><i class="fas fa-chevron-left"></i></div>
+			<!-- Multisite: Show site name below logo -->
+			<?php if ( is_multisite()) : ?>
+			<a href="<?php echo esc_url(home_url('/')); ?>"><img src="<?php echo LOOPIS_THEME_URI; ?>/assets/img/LOOPIS_logo.png" alt="LOOPIS-logo" id="header-logo"></a>
+			<div class="header-area">📍<?php echo get_bloginfo('name'); ?></div>
+			<?php else : ?>
 			<a href="<?php echo esc_url(home_url('/')); ?>"><img src="<?php echo LOOPIS_THEME_URI; ?>/assets/img/LOOPIS_logo.png" alt="LOOPIS-logo" id="header-img"></a>
+			<?php endif; ?>
+			<!-- Back + faq/admin link -->
 			<?php if ( is_front_page() && current_user_can('loopis_admin') && !current_user_can('administrator') ) : ?>
 				<div class="header-faq" onclick="location.href='<?php echo esc_url( home_url('/admin/') ); ?>'">🐙</div>
 			<?php else: ?>
@@ -134,4 +141,5 @@
 			<?php endif; ?>
 			</div>
 		</header>
+		
 	<div class="container">

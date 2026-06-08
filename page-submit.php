@@ -11,10 +11,9 @@ $current_user = wp_get_current_user();
 $user_roles = (array) $current_user->roles;
 ?>
 
-<div class="content">
-    <div class="page-padding">
+<div class="page-padding">
 
-<?php if (in_array('member', $user_roles, true)) : 
+<?php if (in_array('member', $user_roles, true) || in_array('administrator', $user_roles, true)) : 
 
     // Member: Dynamic page loader
     $page_dir = get_template_directory() . '/pages/submit/';
@@ -36,7 +35,6 @@ $user_roles = (array) $current_user->roles;
         echo '<h1>💚 Ge bort</h1><hr>';
         include LOOPIS_THEME_DIR . '/templates/access/member-only.php';
         include LOOPIS_THEME_DIR . '/templates/faq/questions-visitor.php';
-        echo '</div></div>';
         get_footer();
 
     // Not logged in
@@ -44,9 +42,8 @@ $user_roles = (array) $current_user->roles;
         echo '<h1>💚 Ge bort</h1><hr>';
         include LOOPIS_THEME_DIR . '/templates/access/logged-in-only.php';
         include LOOPIS_THEME_DIR . '/templates/faq/questions-visitor.php';
-        echo '</div></div>';
         get_footer();
     
-    endif;
+    endif; ?>
 
-    // Closing divs for content & footer are added in dynamic content to prevent footer menu from showing on pages with submit form.
+<!-- Closing div for page-padding + footer is inserted in the dynamic content files, to avoid footer on gift form. -->

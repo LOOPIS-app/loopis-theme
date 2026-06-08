@@ -1,9 +1,5 @@
 @media only screen and (max-width: 783px) {
 
-/* footer menu */
-.footer-button .emoji { font-size: 30px; }
-.footer-button .text { font-size: 13px; }
-
 /* hide admin bar */
 #wpadminbar { display: none; }
 html { margin-top: 0px !important; }
@@ -12,7 +8,6 @@ html { margin-top: 0px !important; }
 #wrapper { min-width: 320px; }
 #header { margin-top: 0px !important; }
 .container { border: none; }
-#footer { padding-bottom: 20px; } 
 
 /* page */
 .page-title { font-size: 18px; margin-bottom: 0; }
@@ -36,3 +31,5 @@ h1 .symbol .emoji { font-size: 90%; }  /* used for clovers and stars */
 
 /* spans */
 span.recipe { font-size: 13px; }
+
+}

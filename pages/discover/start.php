@@ -15,10 +15,10 @@ if (!defined('ABSPATH')) {
 
 <?php 
 // Output three random posts
-get_template_part('templates/search/random-posts');
+get_template_part('templates/forms/random-posts');
 
 // Insert spacer
 insert_spacer(20);
 
 // Output popular tags
-get_template_part('templates/search/popular-tags');
+get_template_part('templates/forms/popular-tags');

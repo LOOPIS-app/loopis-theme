@@ -83,13 +83,13 @@ function action_regret(int $post_id) {
 	// Get variables
 	$author_name = get_the_author_meta('first_name');
 	$author_phone = get_the_author_meta('wpum_phone');
-	$custom_location = get_post_meta($post_id, 'custom_location', true);
+	$location = get_post_meta($post_id, 'location', true);
 		
 	// Send notification from LOOPIS to fetcher
-	send_admin_notification_email('💔 Mottagaren har ångrat sig och... <br>❤ Du stod först i kön @' . $fetcher_name . '! <br>📲 Du ska nu skicka ett sms till ' .$author_name. ' på ' .$author_phone. ' för att komma överens om hämtning på ' .$custom_location. '.', $post_id, 1, $fetcher);
+	send_admin_notification_email('💔 Mottagaren har ångrat sig och... <br>❤ Du stod först i kön @' . $fetcher_name . '! <br>📲 Du ska nu skicka ett sms till ' .$author_name. ' på ' .$author_phone. ' för att komma överens om hämtning på ' .$location. '.', $post_id, 1, $fetcher);
 	
 	// Send notification from LOOPIS to author	
-	send_admin_notification_email('💔 Mottagaren har ångrat sig men... <br>❤ ' . $fetcher_name . ' stod i kö och har nu paxat! <br>⌛ ' . $fetcher_name . ' ska nu skicka ett sms till dig för att komma överens om hämtning på ' . $custom_location . ' @' . get_the_author() . '.', $post_id, 1, $author); 
+	send_admin_notification_email('💔 Mottagaren har ångrat sig men... <br>❤ ' . $fetcher_name . ' stod i kö och har nu paxat! <br>⌛ ' . $fetcher_name . ' ska nu skicka ett sms till dig för att komma överens om hämtning på ' . $location . ' @' . get_the_author() . '.', $post_id, 1, $author); 
 	
 	// Leave comment by LOOPIS
 	add_admin_comment ('<p class="book">❤ Paxad av <span>🔔' . $fetcher_name . '</span> som stod först i kön. <br>📱 Du ska nu skicka ett sms till <span>🔔'.$author_name.'</span> för att komma överens om hämtning.</p>', $post_id, 11 );

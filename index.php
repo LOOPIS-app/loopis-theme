@@ -9,7 +9,6 @@
 
 get_header(); ?>
 
-<div class="content">
     <div class="page-padding">
 
         <h1>🎁 Saker att få</h1>
@@ -63,6 +62,5 @@ get_header(); ?>
         ?>
 
     </div><!--page-padding-->
-</div><!--content-->
 
 <?php get_footer(); ?>

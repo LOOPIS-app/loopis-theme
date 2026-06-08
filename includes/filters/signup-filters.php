@@ -1,6 +1,10 @@
 <?php
 /**
- * Create a LOOPIS username (firstname-lastname) on signup with WPUM registration form.
+ * Filters and actions affecting user signup and registration.
+ * 
+ * Always included in functions.php
+ * 
+ * Creates a LOOPIS username (firstname-lastname) on signup with WPUM registration form.
  */
  
 if (!defined('ABSPATH')) {

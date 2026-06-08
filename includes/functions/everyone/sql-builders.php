@@ -8,7 +8,7 @@
  * Uses non-existent category slug from URL to filter posts and a function to output labels and content.
  * 
  * Improvements:
- * – Add search form if more than 20 posts (adaptation of templates/search/search-form.php?)
+ * – Add search form if more than 20 posts (adaptation of templates/forms/search-form.php?)
  * – Add pagination (will templates/post-list/pagination.php work with the URL structure?)
  * – Later: Use a template for post list output? (needs a fix for output of specific button and metadata)
  */

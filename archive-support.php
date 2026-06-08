@@ -12,8 +12,8 @@
 
 get_header(); ?>
 
-<div class="content">
-	<div class="page-padding">
+
+<div class="page-padding">
 
 <h1>🛟 Support</h1>
 <hr>
@@ -101,6 +101,5 @@ include LOOPIS_THEME_DIR . '/templates/access/no-access.php';
  } ?>
 
 </div><!--page-padding-->
-</div><!--content-->
 
 <?php get_footer(); ?>

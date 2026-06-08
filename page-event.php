@@ -7,8 +7,7 @@
 
 get_header(); ?>
 
-<div class="content">
-	<div class="page-padding">
+<div class="page-padding">
 
 <h1>🎉 Event</h1>						
 <hr>
@@ -68,6 +67,5 @@ $count = $the_query->found_posts;
 <?php wp_reset_postdata(); ?>
 
 </div><!--page-padding-->
-</div><!--content-->
 
 <?php get_footer(); ?>

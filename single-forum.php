@@ -28,7 +28,6 @@ if ($terms && !is_wp_error($terms)) {
 ?>
 
 <!-- POST CONTENT -->
-<div class="content">
     <div class="post-wrapper">
         <div class="post-padding">
 			<p><span class="rounded"><a href="<?php echo get_post_type_archive_link('forum'); ?>">📡 Nyheter</a></span> <span class="rounded"><?php if ($category_name) { echo esc_html($category_name); } ?></span></p>
@@ -69,7 +68,6 @@ if ( current_user_can('member') || current_user_can('administrator') ) {
 		include_once LOOPIS_THEME_DIR . '/templates/access/no-comments.php'; 
 		} ?>
 
-	</div><!--page-padding-->				
-</div><!--content-->
+</div><!--page-padding-->				
 
 <?php get_footer(); ?>

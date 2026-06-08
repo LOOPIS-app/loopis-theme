@@ -6,8 +6,7 @@
 
 get_header(); ?>
 
-<div class="content">
-    <div class="page-padding">
+<div class="page-padding">
 
         <?php
         // Messages for users and visitors
@@ -49,7 +48,7 @@ get_header(); ?>
         $count_old = $count_total - $count_new;
         ?>
 
-        <h1>🎁 Saker att få</h1>
+        <h1>🎁 Saker i Bagarmossen</h1>
 
         <!-- List header -->
         <div class="columns">
@@ -95,14 +94,10 @@ get_header(); ?>
 
         <?php wp_reset_postdata(); ?>
 
-    </div><!--page-padding-->
-</div><!--content-->
+</div><!--page-padding-->
 
 <?php
 // Add to homescreen prompt for logged-in users
-if (is_user_logged_in()) {
-    get_template_part('templates/user/front-page/add-to-homescreen');
-}
-?>
+if (is_user_logged_in()) { get_template_part('templates/user/front-page/add-to-homescreen'); } ?>
 
 <?php get_footer(); ?>

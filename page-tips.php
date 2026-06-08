@@ -5,8 +5,7 @@
 
 get_header(); ?>
 
-<div class="content">
-    <div class="page-padding">
+<div class="page-padding">
 
         <h1>🧑‍🎄 Tips på julklappar</h1>
 
@@ -52,7 +51,6 @@ get_header(); ?>
 
         <?php wp_reset_postdata(); ?>
 
-    </div><!--page-padding-->
-</div><!--content-->
+</div><!--page-padding-->
 
 <?php get_footer(); ?>

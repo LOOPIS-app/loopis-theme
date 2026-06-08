@@ -25,105 +25,48 @@ $post_date = get_the_time('Y-m-d H:i');
 $extend_date = get_post_meta($post_id, 'extend_date', true);
 $previous_post_id = get_post_meta($post_id, 'previous_post', true);
 $forward_post_id = get_post_meta($post_id, 'forward_post', true);
+$location = get_post_meta(get_the_ID(), 'location', true) ?: 'Plats saknas';
 $fetcher = get_post_meta($post_id, 'fetcher', true);
 if ($fetcher && ($fetcher_data = get_userdata($fetcher))) {
     $fetchername = $fetcher_data->display_name; 
     $fetcherlink = get_author_posts_url($fetcher); 
 } else {
-    $fetchername = 'Okänd';
-    $fetcherlink = 'Okänd';
+    $fetchername = 'Hämtare saknas';
+    $fetcherlink = 'Hämtare saknas';
 } 
-
-wp_enqueue_script(
-    'loopis_image_loader_js', // handle
-    LOOPIS_THEME_URI . '/assets/js/image-loader.js', // URL to JS
-    ['jquery'],
-    filemtime(LOOPIS_THEME_DIR . '/assets/js/image-loader.js'),
-    true // load in footer
-);
-
-wp_localize_script('loopis_image_loader_js', 'loopis_theme_ajax', [
-    'ajax_url'        => admin_url('admin-ajax.php'),
-    'nonce'           => wp_create_nonce('loopis_theme_nonce'),
-    'post_id'         => $post_id,
-]);
-
-
-?>
-
-<!-- Custom location?  -->
-<?php 
-$location = get_post_meta($post_id, 'location', true);
-if ($location == 'Annan adress') { 
-    $location = get_post_meta($post_id, 'custom_location', true); 
-    update_post_meta($post_id, 'location', $location); 
-} 
-?>
- 
-<!-- Extra image? remove when new postform active  -->
-<?php $thumbnail_id = get_post_thumbnail_id($post_id);
+$thumbnail_id = get_post_thumbnail_id($post_id);
 $image_2_id = get_post_meta($post_id, 'image_2', true);
 $image_3_id = get_post_meta($post_id, 'image_3', true);
-if (empty($image_2_id)) {
-    $extra_image_url = get_post_meta($post_id, 'extra_image', true);
-    if ($extra_image_url) {
-        require_once ABSPATH . 'wp-admin/includes/media.php';
-        require_once ABSPATH . 'wp-admin/includes/file.php';
-        require_once ABSPATH . 'wp-admin/includes/image.php';
-        $file_name = basename($extra_image_url);
-        $attachment_id = media_sideload_image($extra_image_url, $post_id, $file_name, 'id');
-        update_post_meta($post_id,'image_2', $attachment_id);
-        delete_post_meta($post_id, 'extra_image');
-        $cache_buster = time();
-        echo '<meta http-equiv="refresh" content="0;url=' . esc_url(add_query_arg('cache_buster', $cache_buster)) . '">';
-        exit; 
-    } 
-} 
-
-$pending = get_post_meta($post_id, '_pending_images',true);
 ?>
 
-<div class="content">
-
         <!-- THE POST -->
-        <div class="post-wrapper">    
+        <div class="post-wrapper">   
+
             <div class="post-images">
-                <div id="loading-indicator" style="display: none; height : 200px; justify-content: center; align-items: center;">
-                    <img src="<?php echo LOOPIS_THEME_URI .'/assets/gif/LOOPIS_icon_snake.gif'; ?>" alt="Loading..." style="height : 100px;"/>
-                </div>
                 <div class="post-image">
-                    <?php 
-                        if ($thumbnail_id){
-                            echo wp_get_attachment_image($thumbnail_id, 'large'); 
-                        }
-                    ?>
+                    <?php if ($thumbnail_id){ echo wp_get_attachment_image($thumbnail_id, 'large'); } ?>
                 </div>
-                <div class="extra-image">
-                <?php if ($image_2_id) {
-                    echo wp_get_attachment_image($image_2_id, 'large');
-                } ?>
+                <div class="post-image-1">
+                    <?php if ($image_2_id){ echo wp_get_attachment_image($thumbnail_id, 'large'); } ?>
                 </div>
-                <div class="extra-image-2">
-                <?php if ($image_3_id) {
-                    echo wp_get_attachment_image($image_3_id, 'large');
-                } ?>
+                <div class="post-image-2">
+                    <?php if ($image_2_id) { echo wp_get_attachment_image($image_2_id, 'large'); } ?>
+                </div>
+                <div class="post-image-3">
+                    <?php if ($image_3_id) { echo wp_get_attachment_image($image_3_id, 'large'); } ?>
                 </div>
             </div><!--post-images-->
 
             <div class="post-padding">
-                <h1 class="wrap"><?php the_title(); ?></h1>
                 <div class="post-meta">
                     <span><?php the_category(' '); if (in_category('new')) { echo raffle_time(); } ?></span>
-                    <span><i class="fas fa-walking"></i><?php if ($location == 'Skåpet') { ?><a href="https://maps.app.goo.gl/bp1v8fSAf7MJqxu88"><?php echo $location; ?></a><?php } else { ?><a href="https://maps.google.com/maps?q=<?php echo urlencode($location); ?>"><?php echo $location ?></a><?php } ?></span>
-                    <?php 
-                    $tags = get_the_tags(); 
-                    if ($tags) { 
-                        foreach ($tags as $tag) { 
-                            echo '<span><a href="' . get_tag_link($tag->term_id) . '"><i class="fas fa-hashtag"></i>' . $tag->name . '</a></span>'; 
-                        }
-                    } 
-                    ?>
-                </div><!--post-meta-->
+                    <span><i class="fas fa-walking"></i><?php if ($location == 'Skåpet') { ?><a class="no-link-styling" href="https://maps.app.goo.gl/h63CFSWVyk52NkbD7"><?php echo $location; ?> i Bagarmossen</a><?php } else { ?><a class="no-link-styling" href="https://maps.google.com/maps?q=<?php echo urlencode($location); ?>"><?php echo $location ?></a><?php } ?></span>
+                </div><!--post-meta-->    
+            
+                <div class="post-title"><h1 class="wrap"><?php the_title(); ?></h1></div>
+            <div class="post-meta">
+                <?php $tags = get_the_tags(); if ($tags) {  foreach ($tags as $tag) { echo '<span class="big-link"><a href="' . get_tag_link($tag->term_id) . '"><i class="fas fa-hashtag"></i>' . $tag->name . '</a></span>'; }} ?>
+                </div><!--post-meta-->    
 
                 <div class="post-content">
                     <?php the_content();?>
@@ -132,22 +75,23 @@ $pending = get_post_meta($post_id, '_pending_images',true);
                     <?php endif; ?>
 
                     <!-- POST OPTIONS -->
-                    <!-- Remove -->
-                    <?php if (($current == $author || current_user_can('administrator')) && !in_category(array('removed', 'fetched', 'locker'))) : ?>
+                    <!-- Edit & remove-->
+                    <?php if (($current == $author && !in_category(array('removed', 'fetched', 'locker'))) || current_user_can('administrator') || current_user_can('manager')) : ?>
                         <?php include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-remove.php'; ?>
                         <?php if (isset($_POST['remove'])) { action_remove(get_the_ID()); } ?>
-                        <button type="submit" form="remove-form" class="option" onclick="return confirm('Ta bort annonsen?')"><i class="fas fa-times"></i>Ta bort</button>
+                        <a href="#" class="option" onclick="if (confirm('Ta bort annonsen?')) { document.getElementById('remove-form').submit(); } return false;"><i class="fas fa-times"></i>Ta bort</a>
                         <form id="remove-form" method="post" action="" style="display:inline; float:left;"><input type="hidden" name="remove" value="1"></form>
+                        <a class="option" href="<?php echo esc_url(home_url('/submit/?option=single&edit_post_id=' . (int) $post_id)); ?>"><i class="fas fa-pen"></i>Redigera</a>
                     <?php endif;?>
                     
                     <!-- Copy link -->
-                    <button type="button" id="copy_url">🔗 Kopiera länk</button>
+                    <a href="#" id="copy_url" class="option">🔗 Kopiera länk</a>
 
                 </div><!--post-content-->				
             </div><!--post-padding-->				
         </div><!--post-wrapper-->							
 
-        <div class="page-padding" style="padding-top: 5px;"> <!-- Logg close to post -->
+<div class="page-padding" style="padding-top: 5px;"> <!-- Logg close to post -->
 
         <!-- User log -->
         <?php include LOOPIS_THEME_DIR . '/templates/post/post-log.php'; ?>
@@ -163,14 +107,13 @@ $pending = get_post_meta($post_id, '_pending_images',true);
                 // Access control
                 if (current_user_can('member') || current_user_can('administrator')) {
 
-                    // User action
+                    // Post actions
                     include LOOPIS_THEME_DIR . '/templates/post/post-actions.php';
 
                     // Comments
-                    if (comments_open()) {
-                        comments_template('/comments.php', true);
-                    }
-                } else {
+                    if (comments_open()) { comments_template('/comments.php', true); }
+
+                    } else {
                     // Visitor message & FAQ
                     include LOOPIS_THEME_DIR . '/templates/access/message.php';
                     include LOOPIS_THEME_DIR . '/templates/faq/questions-visitor.php';
@@ -182,20 +125,9 @@ $pending = get_post_meta($post_id, '_pending_images',true);
                 include LOOPIS_THEME_DIR . '/templates/post/post-log-admin.php'; 
             } ?>
 
-        </div><!--page-padding-->
-    </div><!--content-->
+</div><!--page-padding-->    
 
 <!-- Extra scripts -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="<?php echo LOOPIS_THEME_URI; ?>/assets/js/extra-image-switch.js"></script>
-<script src="<?php echo LOOPIS_THEME_URI; ?>/assets/js/image-loader.js"></script>
+<script src="<?php echo LOOPIS_THEME_URI; ?>/assets/js/post-image-switch.js"></script>
 
-
-<?php get_footer();
-?>
-<script>
-    // loads and processes images see image-loader.js and gift-post-form.php loads
-<?php if (!empty($pending)): ?>
-    imageLoader();
-<?php endif; ?>
-</script>
+<?php get_footer(); ?>
