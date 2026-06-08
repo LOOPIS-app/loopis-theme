@@ -273,7 +273,6 @@ function loopis_ledger_economy($user_id){
 function loopis_ledger_add_post($event, $user_id, $post_id, $options=[]){
     $user_id = (int) $user_id;
     $post_id = (int) $post_id;
-
     $defaults = [
         'location' => get_post_meta($post_id,'location',true) ?? 'unknown',
         'blog_id' => get_current_blog_id(),
@@ -282,11 +281,13 @@ function loopis_ledger_add_post($event, $user_id, $post_id, $options=[]){
 
     $blog_id = (int) ($options['blog_id'] ?? $defaults['blog_id']);
     $location = (string) ($options['location'] ?? $defaults['location']);
-    $timestamp = (string) ($options['timestamp'] ?? $defaults['timestamp']);
-    
+    $timestamp = $options['timestamp'] ?? $defaults['timestamp'];
+
     if (($user_id<=0)||($post_id<=0)||($blog_id<=0)){
+        error_log('LEDGER ERROR AT EVENT:' . $event .', POST ID: '.$post_id. 'USER ID: '. $user_id);
         return;
     }
+    
 
     global $wpdb;
     switch ($event) {
@@ -317,7 +318,7 @@ function loopis_ledger_add_post($event, $user_id, $post_id, $options=[]){
         default:
             return;
     }
-    
+
     $table_name = $wpdb->base_prefix . 'loopis_ledger';
     $result = $wpdb->query(
         $wpdb->prepare(
@@ -334,9 +335,10 @@ function loopis_ledger_add_post($event, $user_id, $post_id, $options=[]){
             $timestamp
         )
     );
-       
+
     if ($result === false) {
         error_log($wpdb->last_error);
+        error_log('LEDGER ERROR AT EVENT:' . $event .', POST ID: '.$post_id. 'USER ID: '. $user_id);
     }else{
         loopis_update_coins($user_id, $coins, $clovers);
     }
@@ -364,9 +366,9 @@ function loopis_ledger_add_payment($user_id,$options=[]){
         'coins' => 5,
         'clovers'=>0,
     ];
-    $type = $options['type'] ?? $defaults['type'];
-    $description = $options['description'] ?? $defaults['description'];
-    $location = $options['location'] ?? $defaults['location'];
+    $type = $wpdb->esc_like((string)($options['type'] ?? $defaults['type']));
+    $description = $wpdb->esc_like((string)($options['description'] ?? $defaults['description']));
+    $location = (string)($options['location'] ?? $defaults['location']);
     $payment = isset($options['payment']) ? (int)$options['payment'] : (int)$defaults['payment'];
     $coins = isset($options['coins']) ? (int)$options['coins'] : (int)$defaults['coins'];
     $clovers = isset($options['clovers']) ? (int)$options['clovers'] : (int)$defaults['clovers'];
@@ -425,9 +427,9 @@ function loopis_ledger_add_reward($user_id, $options=[]){
         'clovers'=>0,
     ];
 
-    $type = $options['type'] ?? $defaults['type'];
-    $description = $options['description'] ?? $defaults['description'];
-    $location = $options['location'] ?? $defaults['location'];
+    $type = $wpdb->esc_like((string)($options['type'] ?? $defaults['type']));
+    $description = $wpdb->esc_like((string)($options['description'] ?? $defaults['description']));
+    $location = $wpdb->esc_like((string)($options['location'] ?? $defaults['location']));
     $coins = isset($options['coins']) ? (int)$options['coins'] : (int)$defaults['coins'];
     $clovers = isset($options['clovers']) ? (int)$options['clovers'] : (int)$defaults['clovers'];
     $blog_id = isset($options['blog_id']) ? (int)$options['blog_id'] : (int)$defaults['blog_id'];
