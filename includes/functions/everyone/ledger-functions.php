@@ -354,6 +354,7 @@ function loopis_ledger_add_post($event, $user_id, $post_id, $options=[]){
 function loopis_ledger_add_payment($user_id,$options=[]){
     $user_id = (int) $user_id;
     if ($user_id <= 0){
+        error_log('LEDGER USER ID ERROR AT REWARD:' . $type .', DESCRIPTION: '.$description);
         return;
     }
     global $wpdb;
@@ -366,8 +367,8 @@ function loopis_ledger_add_payment($user_id,$options=[]){
         'coins' => 5,
         'clovers'=>0,
     ];
-    $type = $wpdb->esc_like((string)($options['type'] ?? $defaults['type']));
-    $description = $wpdb->esc_like((string)($options['description'] ?? $defaults['description']));
+    $type = (string)($options['type'] ?? $defaults['type']);
+    $description = (string)($options['description'] ?? $defaults['description']);
     $location = (string)($options['location'] ?? $defaults['location']);
     $payment = isset($options['payment']) ? (int)$options['payment'] : (int)$defaults['payment'];
     $coins = isset($options['coins']) ? (int)$options['coins'] : (int)$defaults['coins'];
@@ -399,6 +400,7 @@ function loopis_ledger_add_payment($user_id,$options=[]){
 
     if ($result === false) {
         error_log($wpdb->last_error);
+        error_log('LEDGER ERROR AT REWARD:' . $type .', DESCRIPTION: '.$description. 'USER ID: '. $user_id);
     }else{
         loopis_update_coins($user_id, $coins, $clovers);
     }
@@ -427,9 +429,9 @@ function loopis_ledger_add_reward($user_id, $options=[]){
         'clovers'=>0,
     ];
 
-    $type = $wpdb->esc_like((string)($options['type'] ?? $defaults['type']));
-    $description = $wpdb->esc_like((string)($options['description'] ?? $defaults['description']));
-    $location = $wpdb->esc_like((string)($options['location'] ?? $defaults['location']));
+    $type = (string)($options['type'] ?? $defaults['type']);
+    $description = (string)($options['description'] ?? $defaults['description']);
+    $location = (string)($options['location'] ?? $defaults['location']);
     $coins = isset($options['coins']) ? (int)$options['coins'] : (int)$defaults['coins'];
     $clovers = isset($options['clovers']) ? (int)$options['clovers'] : (int)$defaults['clovers'];
     $blog_id = isset($options['blog_id']) ? (int)$options['blog_id'] : (int)$defaults['blog_id'];
