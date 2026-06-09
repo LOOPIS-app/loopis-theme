@@ -32,7 +32,7 @@ wp_enqueue_script('loopis-tabs', get_template_directory_uri() . '/assets/js/tabs
 
         <!-- Member Info Tab -->
         <div id="tab-info" class="tab-panel">
-        <p class="small">💡 Mer info om <?php echo $first_name; ?>.</p>
+        <p class="small">💡 Mer info.</p>
 
             <div class="wrapped">
                 <h5>📋 Medlemsregister</h5>

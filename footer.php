@@ -13,7 +13,7 @@
     <nav>
             <a href="<?php echo $site_url ?>" class="footer-item">
                 <span class="emoji">️🎁️</span>
-                <span class="text">Saker att få</span>
+                <span class="text">Saker</span>
             </a>
             <a href="<?php echo $site_url . '?s=' ?>" class="footer-item">
                 <span class="emoji">🔍️</span>

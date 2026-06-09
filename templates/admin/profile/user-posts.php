@@ -41,8 +41,8 @@ $activity_url = home_url('/activity/');
 ?>
 
 <!-- OUTPUT -->
-<p class="small">💡 <?php echo $first_name; ?>s annonser och paxningar.</p>
-<h7>💚 Mina annonser</h7>
+<p class="small">💡 Annonser och paxningar.</p>
+<h7>💚 Annonser</h7>
 <div class="columns"><div class="column1">↓ <?php echo $count_posts_submitted; ?> annons<?php if ($count_posts_submitted !== 1) { echo "er"; } ?></div>
 <div class="column2"><a href="<?php echo esc_url( add_query_arg(array([
 	'view' => 'posts-submitted',
@@ -116,10 +116,10 @@ $activity_url = home_url('/activity/');
 ]), $activity_url) ); ?>"><span class="big-link">💢 <?php echo $count_posts_disappeared; ?> är försvunna</span></a></p>
 <?php endif; ?>
 <?php else : ?>
-		<p>💢 <?php echo $first_name; ?> har inte skapat några annonser ännu.</p>
+		<p>💢 Inga annonser ännu.</p>
 <?php endif; ?>
 
-<h3>❤ Mina paxningar</h3>
+<h3>❤ Paxningar</h3>
 <div class="columns"><div class="column1">↓ <?php echo $count_others_claimed; ?> annons<?php if ($count_others_claimed !== 1) { echo "er"; } ?></div>
 <div class="column2"><a href="<?php echo esc_url( add_query_arg(array([
 	'view' => 'posts-booked',
@@ -147,6 +147,6 @@ $activity_url = home_url('/activity/');
 </p>
 <?php endif; ?>
 <?php else : ?>
-		<p>💢 <?php echo $first_name; ?> har inte paxat några annonser ännu.</p>
+		<p>💢 Inga paxningar ännu.</p>
 <?php endif; ?>
 <?php wp_reset_postdata(); ?>

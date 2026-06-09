@@ -3,83 +3,67 @@
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<!--Meta tags-->
 	<?php
-	// Set up variables for meta tags and images based on context
+	// Set up default meta tags and images
 	$blog_name = get_bloginfo('name');
+	$title = $blog_name . '.app';
+	$description = 'Ge & få saker av dina grannar.';
+	$og_type = 'website';
 	$og_locale = str_replace('-', '_', get_locale());
 	$og_image_width = '';
 	$og_image_height = '';
+	$og_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_og.png';
+	$meta_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_app.png';
 	if (is_home() || is_front_page()) {
-		$title = $blog_name . '.app';
-		$description = 'Ge & få saker av dina grannar.';
-		$meta_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_app.png';
-		$og_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_og.png';
-		$og_type = 'website';
+		// Frontpage
 		$og_url = home_url('/');
 	} elseif (is_singular()) {
-        $post_id = get_queried_object_id();
-        $title = get_the_title($post_id) . ' - ' . $blog_name;
-        
-        // Get excerpt, fallback to truncated content if no excerpt
-        $description = get_the_excerpt($post_id);
-        if (empty($description)) {
-            $content = get_the_content($post_id);
-            $description = wp_trim_words(wp_strip_all_tags($content), 30, '...');
-        }
-        
-        $meta_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_app.png';
-        $og_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_og.png';
-        
-        if (has_post_thumbnail($post_id)) {
-            $thumbnail = wp_get_attachment_image_src(get_post_thumbnail_id($post_id), 'large');
-            if ($thumbnail) {
-                $og_image = $thumbnail[0];
-                $meta_image = $thumbnail[0];
-				$og_image_width = (string) $thumbnail[1];
-				$og_image_height = (string) $thumbnail[2];
-            }
-        }
-        
-        $og_type = 'article';
-        $og_url = get_permalink($post_id);
+		// Posts and pages
+		$post_id = get_queried_object_id();
+		$title = get_the_title($post_id) . ' - ' . $blog_name;
+		// Featured image?
+		if (has_post_thumbnail($post_id)) {
+			$thumbnail_id = get_post_thumbnail_id($post_id);
+			$thumbnail_url = wp_get_attachment_url($thumbnail_id);
+			if ($thumbnail_url) {
+				$og_image = $thumbnail_url;
+
+				$image_meta = wp_get_attachment_metadata($thumbnail_id);
+				if (is_array($image_meta)) {
+					if (!empty($image_meta['width'])) {
+						$og_image_width = (string) $image_meta['width'];
+					}
+					if (!empty($image_meta['height'])) {
+						$og_image_height = (string) $image_meta['height'];
+					}
+				}
+			}
+		}
+
+		$og_type = 'article';
+		$og_url = get_permalink($post_id);
 	} elseif (is_author()) {
+		// User profiles
 		$author = get_queried_object();
 		$title = esc_html($author->display_name) . ' - ' . $blog_name;
-		$description = esc_html($author->description);
-		$meta_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_app.png';
-		$og_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_og.png';
 		$og_type = 'profile';
 		$og_url = get_author_posts_url($author->ID);
 	} elseif (is_tag()) {
+		// Tags
 		$title = '#' . single_tag_title('', false) . ' - ' . $blog_name;
-		$description = 'Kategorier på LOOPIS.app';
-		$meta_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_app.png';
-		$og_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_og.png';
-		$og_type = 'website';
 		$og_url = get_tag_link(get_queried_object_id());
 	} elseif (is_archive()) {
+		// Archives
 		$title = post_type_archive_title('', false) ?: $blog_name;
-        $description = 'För en glad och hållbar framtid.';
-        $meta_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_app.png';
-        $og_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_og.png';
-        $og_type = 'website';
-        $og_url = home_url('/');
-    } elseif (is_404()) {
-        $title = 'Hoppsan! - ' . $blog_name;
-        $description = 'Sidan kunde inte hittas.';
-        $meta_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_app.png';
-        $og_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_og.png';
-        $og_type = 'website';
-        $og_url = home_url('/');
-    } else {
-        $title = $blog_name;
-        $description = 'För en glad och hållbar framtid.';
-        $meta_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_app.png';
-        $og_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_og.png';
-        $og_type = 'website';
-        $og_url = home_url('/');
-    }
+		$og_url = home_url('/');
+	} elseif (is_404()) {
+		// 404 page
+		$title = 'Hoppsan! - ' . $blog_name;
+		$og_url = home_url('/');
+	} else {
+		// Default
+		$og_url = home_url('/');
+	}
 	?>
 	<title><?php echo esc_html($title); ?></title>
 	<meta name="description" content="<?php echo esc_attr($description); ?>">
@@ -111,10 +95,17 @@
 	<meta property="og:locale" content="<?php echo esc_attr($og_locale); ?>">
 	<meta property="og:description" content="<?php echo esc_attr($description); ?>">
 	<meta property="og:image" content="<?php echo esc_url($og_image); ?>">
+	<meta property="og:image:secure_url" content="<?php echo esc_url($og_image); ?>">
 	<?php if ($og_image_width !== '' && $og_image_height !== '') : ?>
 	<meta property="og:image:width" content="<?php echo esc_attr($og_image_width); ?>">
 	<meta property="og:image:height" content="<?php echo esc_attr($og_image_height); ?>">
 	<?php endif; ?>
+	<!--Twitter/X Cards-->
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="<?php echo esc_attr($title); ?>">
+	<meta name="twitter:description" content="<?php echo esc_attr($description); ?>">
+	<meta name="twitter:image" content="<?php echo esc_url($og_image); ?>">
+	<meta name="twitter:url" content="<?php echo esc_url($og_url); ?>">
 	<?php wp_head(); ?>
 </head>
 

@@ -30,12 +30,11 @@ if ($terms && !is_wp_error($terms)) {
 <!-- POST CONTENT -->
     <div class="post-wrapper">
         <div class="post-padding">
-			<p><span class="rounded"><a href="<?php echo get_post_type_archive_link('forum'); ?>">📡 Nyheter</a></span> <span class="rounded"><?php if ($category_name) { echo esc_html($category_name); } ?></span></p>
+			<p><span class="rounded"><a href="<?php echo get_post_type_archive_link('forum'); ?>">🗨 Forum</a></span> <span class="rounded"><?php if ($category_name) { echo esc_html($category_name); } ?></span></p>
             <h1 class="wrap"><?php the_title(); ?></h1>
 			<div class="post-meta">
-				<!--span class="rounded">🗨 Forum</span-->
-				<span class="no-link-styling"><i class="fas fa-pen-alt"></i></i><?php echo get_the_author_posts_link(); ?></span>
 				<span><i class="far fa-clock"></i> <?php echo human_time_diff(get_the_time('U'), current_time('timestamp'))?> sen</span>
+				<span><i class="fas fa-pen"></i></i><?php echo get_the_author_posts_link(); ?></span>
 			</div><!--post-meta-->
 
 			<div class="post-content">

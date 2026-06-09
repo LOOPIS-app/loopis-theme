@@ -141,14 +141,19 @@ h1 .symbol { height: 30px !important; width: auto; padding-right: 5px; }  /* use
 h1 .symbol .emoji { font-size: 80%; }  /* used for clovers and stars */
 h1.wrap { white-space: normal; }
 
+/* Heading columns */
+.columns { display: flex; }
+.column1 { display: flex; flex: 1 0 50%; line-height: 1.2em; }
+.column2 { display: flex; flex: 0 1 50%; line-height: 1.2em; margin-bottom: 2px; justify-content: flex-end; align-items: flex-end; white-space: nowrap; }
+
+/* Content columns */
+.column_half { display: flex; line-height: 1.6em; }
+.column_half > div { flex: 1 0 50%; }
+
 /* Wrapped div */
 .wrapped { display: inline-block; vertical-align: top; background-color: #f5f5f5; padding: 5px 10px; margin: 0 15px 15px 0; text-align: left;}
 .wrapped p { margin: 0; }
 .wrapped hr { margin-bottom: 5px; }
-
-/* Admin div */
-.admin-block { background: #fff7f7; border: 2px dotted #ff969d; padding: 10px 10px 1px 10px; margin: 10px 0;  }
-.admin-block .logg { padding: 0 0 10px 0; } 
 
 /* Economy div */
 .economy { margin-top: 0px; min-width: 200px;}
@@ -157,18 +162,13 @@ h1.wrap { white-space: normal; }
 .economy b { font-weight: 700; }
 .economy span.right { padding-right: 5px }
 
+/* Admin div */
+.admin-block { background: #fff7f7; border: 2px dotted #ff969d; padding: 10px 10px 1px 10px; margin: 10px 0;  }
+.admin-block .logg { padding: 0 0 10px 0; } 
+
 /* Collapsable div (not finished/used) */
 .collapsed { display: none; overflow: hidden; transition: max-height 0.2s ease-out; }
 .collapser { cursor: pointer; user-select: none; }
-
-/* Columns */
-.wp-block-columns { margin-bottom:0px; }
-.wp-block-column p { padding-bottom:5px; }
-.columns { display: flex; }
-.column1 { display: flex; flex: 1 0 50%; line-height: 1.2em; }
-.column2 { display: flex; flex: 1 0 50%; line-height: 1.2em; margin-bottom: 2px; justify-content: flex-end; align-items: flex-end; white-space: nowrap; }
-.column_half { display: flex; line-height: 1.6em; }
-.column_half > div { flex: 1 0 50%; }
 
 /* Post: base layout */
 .post-wrapper { background:#f5f5f5; }
@@ -193,9 +193,9 @@ h1.wrap { white-space: normal; }
 .post-image { margin: 0; padding: 0; }
 .post-image img { width: 100%; height: auto; }
 .post-images [class^="post-image-"] { position: absolute; }
-.post-image-1 { right: 10px; bottom: -15px; transform: rotate(-2deg); z-index: 3; }
-.post-image-2 { right: 70px; bottom: -20px; transform: rotate(3deg); z-index: 2; }
-.post-image-3 { right: 130px; bottom: -15px; transform: rotate(-4deg); z-index: 1; }
+.post-image-1 { right: 10px; bottom: -10px; transform: rotate(-2deg); z-index: 3; }
+.post-image-2 { right: 70px; bottom: -13px; transform: rotate(3deg); z-index: 2; }
+.post-image-3 { right: 130px; bottom: -10px; transform: rotate(-4deg); z-index: 1; }
 .post-images [class^="post-image-"] img { height: 65px !important; width: 65px !important; object-fit: cover; overflow: hidden; border: 3px solid white; filter: brightness(0.78); cursor: pointer; }
 .post-images [class^="post-image-"].is-selected { z-index: 4; }
 .post-images [class^="post-image-"].is-selected img { filter: none; }
@@ -204,6 +204,10 @@ h1.wrap { white-space: normal; }
 .wp-block-list { margin: 5px; padding-inline-start: 40px; }
 .wp-block-list li { margin-bottom: 5px; }
 .wp-block-list li::marker { font-weight: bold; }
+
+/* Post: columns (used?) */
+.wp-block-columns { margin-bottom:0px; }
+.wp-block-column p { padding-bottom:5px; }
 
 /* Post: image */
 .wp-block-image { margin-bottom: 15px; }

@@ -1,7 +1,10 @@
 
 <?php
 /**
- * Standalone frontend form for gift posts.
+ * Frontend form for creating gift posts.
+ * 
+ * Interactivity handled by gift-form.js
+ * Created by CoPilot, prompted by Johan
  */
 
 if (!defined('ABSPATH')) {
@@ -198,6 +201,8 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
 
         if ('' === trim($content_value)) {
             $gift_form_errors[] = 'Fyll i en beskrivning.';
+        } elseif ((function_exists('mb_strlen') ? mb_strlen(trim($content_value)) : strlen(trim($content_value))) < 10) {
+            $gift_form_errors[] = 'Beskrivningen måste vara minst 10 tecken.';
         }
 
         if (count($selected_terms) < 1) {
@@ -379,12 +384,12 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
 <?php // Success feedback after redirect. ?>
 <?php if (isset($_GET['gift_form_success'])) : ?>
     <div class="loopis-message success">
-        <h5>✅ <?php echo ('edit' === sanitize_key($_GET['gift_form_mode'] ?? '')) ? 'Ändringar sparade!' : 'Klart!'; ?></h5>
+        <h5>✅ Klart!</h5>
         <hr>
-        <p>
-            ⏳ Lottning sker imorgon klockan 12. <?php if ('' !== $gift_form_created_post_url) : ?>
-                → <span class="big-link"><a href="<?php echo esc_url($gift_form_created_post_url); ?>"><?php echo esc_html($gift_form_created_post_title ?: 'Ny annons'); ?></a></span>
+        <p><?php if ('' !== $gift_form_created_post_url) : ?>
+            🎁 Se din annons → <span class="big-link"><a href="<?php echo esc_url($gift_form_created_post_url); ?>"><?php echo esc_html($gift_form_created_post_title ?: 'Ny annons'); ?></a></span>
             <?php endif; ?><br>
+            ⏳ Lottning sker imorgon klockan 12.<br>
             💚 Du kan skapa en till annons direkt.
         </p>
     </div>
@@ -425,21 +430,23 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
 
             <div class="form-row">
                 <label for="post_content">3⃣ Beskrivning</label>
-                <textarea id="post_content" name="post_content" placeholder="Skriv en beskrivning" required><?php echo esc_textarea($content_value); ?></textarea>
+                <textarea id="post_content" name="post_content" placeholder="Skriv en beskrivning" rows="3" minlength="10" required><?php echo esc_textarea($content_value); ?></textarea>
                 <p class="description">Beskriv med mått, märke, färg, skick etc.</p>
             </div>
 
-            <div class="form-row">
-                <label for="terms">4⃣ Kategori</label>
-                <select id="terms" name="terms[]" multiple size="6" required>
+            <div class="form-row" id="gift-terms-row">
+                <label for="terms-search">4⃣ Kategori <span id="terms-count">0/3</span></label>
+                <input type="search" id="terms-search" placeholder="Sök kategori..." autocomplete="off">
+                <div id="terms-options" class="terms-options" role="group" aria-label="Kategorier">
                     <?php if (!empty($post_tags)) : ?>
                         <?php foreach ($post_tags as $tag) : ?>
-                            <option value="<?php echo esc_attr($tag->term_id); ?>" <?php echo in_array((int) $tag->term_id, $selected_terms, true) ? 'selected' : ''; ?>>
-                                <?php echo esc_html($tag->name); ?>
-                            </option>
+                            <label class="term-option" data-term-label="<?php echo esc_attr($tag->name); ?>">
+                                <input type="checkbox" name="terms[]" value="<?php echo esc_attr($tag->term_id); ?>" <?php checked(in_array((int) $tag->term_id, $selected_terms, true)); ?>>
+                                <span><?php echo esc_html($tag->name); ?></span>
+                            </label>
                         <?php endforeach; ?>
                     <?php endif; ?>
-                </select>
+                </div>
                 <p class="description">Välj 1-3 kategorier.</p>
                 <p id="terms-error" class="error" hidden></p>
             </div>
@@ -460,6 +467,7 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
             <div class="form-row" id="gift-location-wrapper" <?php echo 0 === $selected_locker ? '' : 'hidden'; ?>>
                 <label for="custom_location">📍 Ange adress:</label>
                 <input type="text" id="custom_location" name="custom_location" placeholder="Ange adress" maxlength="40" value="<?php echo esc_attr($custom_location_value); ?>">
+                <p id="custom-location-error" class="error" hidden></p>
                 <p class="description">Ange gatuadress eller plats (max 40 tecken).</p>
             </div>
 
@@ -495,5 +503,6 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
 </div>
 
 <div id="gift-form-loading" class="loopis-form-loading" aria-hidden="true">
-    <img src="<?php echo esc_url(LOOPIS_THEME_URI . '/assets/img/LOOPIS_icon_snake.gif'); ?>" alt="Laddar">
+    <img class="loopis-form-loading-icon" src="<?php echo esc_url(LOOPIS_THEME_URI . '/assets/img/heart-green.svg'); ?>" alt="" aria-hidden="true">
+    <span class="loopis-form-loading-text">Laddar...</span>
 </div>

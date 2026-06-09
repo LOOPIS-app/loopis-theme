@@ -1,3 +1,7 @@
+// Frontend behavior for the gift post form:
+// image previews/selection, category search + validation, location validation,
+// and submit-time loading overlay handling.
+// Created by CoPilot, prompted by Johan
 document.addEventListener('DOMContentLoaded', function() {
     // DOM references and local state for the gift form interactions.
     const maxImages = 3;
@@ -9,13 +13,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const existingImagesInput = document.getElementById('gift-existing-images');
     const featuredImageIndexInput = document.getElementById('featured_image_index');
     const previewContainer = document.getElementById('image-previews');
-    let termsSelect = document.getElementById('terms');
+    const termsRow = document.getElementById('gift-terms-row');
+    const termsOptions = document.getElementById('terms-options');
+    const termsSearchInput = document.getElementById('terms-search');
+    const termsCount = document.getElementById('terms-count');
     const termsError = document.getElementById('terms-error');
+    const customLocationInput = document.getElementById('custom_location');
+    const customLocationError = document.getElementById('custom-location-error');
     const loadingOverlay = document.getElementById('gift-form-loading');
     const form = document.getElementById('gift-form');
     const submitButton = form ? form.querySelector('button[type="submit"][name="submit_gift_post"]') : null;
     let selectedImages = [];
     let featuredImageIndex = 0;
+    let applyTermsFilter = function() {};
 
     // Show address input only when "Annan adress" is selected.
     function toggleAddressField() {
@@ -225,28 +235,206 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         loadingOverlay.setAttribute('aria-hidden', 'false');
-        document.body.classList.add('gift-form-loading-active');
+        document.body.classList.add('loopis-form-loading-active');
+    }
+
+    function getTermCheckboxes() {
+        if (!termsOptions) {
+            return [];
+        }
+
+        return Array.from(termsOptions.querySelectorAll('input[type="checkbox"][name="terms[]"]'));
     }
 
     function attachTermsSelectHandlers() {
-        if (!termsSelect) {
+        if (!termsOptions) {
             return;
         }
 
-        termsSelect.addEventListener('change', function() {
+        termsOptions.addEventListener('change', function(event) {
+            const target = event.target;
+            if (!target || target.type !== 'checkbox') {
+                return;
+            }
+
+            const selectedCount = getTermCheckboxes().filter(function(checkbox) {
+                return checkbox.checked;
+            }).length;
+
+            if (selectedCount > 3 && target.checked) {
+                target.checked = false;
+                syncTagCountMessage(true);
+                applyTermsFilter();
+                return;
+            }
+
             syncTagCountMessage(false);
+            applyTermsFilter();
         });
+    }
+
+    function normalizeSearchString(value) {
+        const input = String(value || '').toLowerCase().trim();
+
+        if (typeof input.normalize !== 'function') {
+            return input;
+        }
+
+        return input.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    }
+
+    // Filter visible category checkboxes while always keeping selected items visible.
+    function attachTermsSearchHandler() {
+        if (!termsOptions || !termsSearchInput) {
+            return;
+        }
+
+        const termRows = Array.from(termsOptions.querySelectorAll('.term-option'));
+        // Track whether the options list has been intentionally opened/interacted with.
+        let hasUserInteracted = false;
+        let hasOpenedOptions = getTermCheckboxes().some(function(checkbox) {
+            return checkbox.checked;
+        });
+
+        if (!hasOpenedOptions) {
+            termsOptions.classList.add('is-collapsed');
+        }
+
+        function openTermsOptions() {
+            if (hasOpenedOptions) {
+                return;
+            }
+
+            hasOpenedOptions = true;
+            termsOptions.classList.remove('is-collapsed');
+        }
+
+        function applyTermFilter() {
+            const query = normalizeSearchString(termsSearchInput.value);
+            const selectedCount = getTermCheckboxes().filter(function(checkbox) {
+                return checkbox.checked;
+            }).length;
+            const isAtSelectionLimit = selectedCount >= 3;
+            const showOnlySelectedOnLoad = !hasUserInteracted && selectedCount > 0;
+
+            termRows.forEach(function(row) {
+                const checkbox = row.querySelector('input[type="checkbox"]');
+                const labelNode = row.querySelector('span');
+                const labelSource = row.dataset.termLabel || (labelNode ? labelNode.textContent : '');
+                const labelValue = normalizeSearchString(labelSource);
+                const matches = !query || labelValue.includes(query);
+                const isSelected = !!(checkbox && checkbox.checked);
+                const shouldShow = showOnlySelectedOnLoad
+                    ? isSelected
+                    : (isSelected || (!isAtSelectionLimit && matches));
+
+                // Keep selected items visible even if they do not match the search string.
+                row.classList.toggle('is-filter-hidden', !shouldShow);
+            });
+        }
+
+        function scrollTermsRowIntoView() {
+            // One-time mobile assist when search gains focus so options are not hidden by keyboard.
+            const isLikelyMobile = window.matchMedia('(pointer: coarse)').matches || navigator.maxTouchPoints > 0;
+            if (!isLikelyMobile) {
+                return;
+            }
+
+            const anchorElement = termsRow || termsSearchInput;
+            if (!anchorElement) {
+                return;
+            }
+
+            anchorElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+
+            // Run once more after keyboard animation so options stay visible above iOS keyboard.
+            setTimeout(function() {
+                anchorElement.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+            }, 180);
+        }
+
+        // Keep the shared filter callback in sync for checkbox change handling.
+        applyTermsFilter = applyTermFilter;
+
+        ['input', 'search', 'keyup', 'change'].forEach(function(eventName) {
+            termsSearchInput.addEventListener(eventName, function() {
+                hasUserInteracted = true;
+                openTermsOptions();
+                applyTermFilter();
+            });
+        });
+
+        ['focus', 'click'].forEach(function(eventName) {
+            termsSearchInput.addEventListener(eventName, function() {
+                hasUserInteracted = true;
+                openTermsOptions();
+                applyTermFilter();
+                scrollTermsRowIntoView();
+            });
+        });
+
+        applyTermFilter();
+    }
+
+    // Validate custom location field only when "Annan adress" is selected.
+    function syncLocationMessage(showMessage) {
+        if (!otherRadio || !otherRadio.checked) {
+            if (customLocationError) {
+                customLocationError.hidden = true;
+            }
+            return true;
+        }
+
+        const isEmpty = !customLocationInput || customLocationInput.value.trim() === '';
+
+        if (customLocationError) {
+            customLocationError.textContent = 'Fyll i adressen.';
+            customLocationError.hidden = !showMessage || !isEmpty;
+        }
+
+        if (isEmpty && showMessage) {
+            return false;
+        }
+
+        return true;
     }
 
     // Keep max-tag rule client-side to avoid unnecessary postback/image reset.
     function syncTagCountMessage(showMessage) {
-        if (!termsSelect) {
+        if (!termsOptions) {
             return true;
         }
 
-        const selectedCount = Array.from(termsSelect.selectedOptions || []).length;
+        const selectedCount = getTermCheckboxes().filter(function(checkbox) {
+            return checkbox.checked;
+        }).length;
         const isValid = selectedCount <= 3;
         const message = isValid ? '' : 'Du kan välja högst tre kategorier.';
+
+        if (termsCount) {
+            termsCount.textContent = String(selectedCount) + '/3';
+        }
+
+        if (selectedCount < 1) {
+            if (termsError) {
+                termsError.textContent = '';
+                termsError.hidden = true;
+            }
+
+            if (termsSearchInput) {
+                termsSearchInput.setCustomValidity('Välj minst en kategori.');
+                if (showMessage) {
+                    termsSearchInput.reportValidity();
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        if (termsSearchInput) {
+            termsSearchInput.setCustomValidity('');
+        }
 
         if (termsError) {
             termsError.textContent = message;
@@ -341,8 +529,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Clear stale max-tag validation once the selection becomes valid again.
-    if (termsSelect) {
+    if (termsOptions) {
         attachTermsSelectHandlers();
+        attachTermsSearchHandler();
+        syncTagCountMessage(false);
     }
 
     // Exchange location wiring: keep address field visibility in sync with radios.
@@ -352,10 +542,20 @@ document.addEventListener('DOMContentLoaded', function() {
         toggleAddressField();
     }
 
+    // Clear custom location error as soon as the user starts typing.
+    if (customLocationInput && customLocationError) {
+        customLocationInput.addEventListener('input', function() {
+            syncLocationMessage(false);
+        });
+    }
+
     // Submission guard: show loader once and block accidental double-click submits.
     if (form) {
         form.addEventListener('submit', function(event) {
-            if (!syncTagCountMessage(true)) {
+            const tagValid = syncTagCountMessage(true);
+            const locationValid = syncLocationMessage(true);
+
+            if (!tagValid || !locationValid) {
                 event.preventDefault();
                 return;
             }
