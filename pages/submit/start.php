@@ -26,19 +26,17 @@ if (!defined('ABSPATH')) {
 <p style="margin:0px;"><button type="button" class="blue" onclick="window.location.href='<?php echo esc_url(add_query_arg(array('view' => 'posts-fetched'), home_url('/activity/'))); ?>'">💝 Skicka vidare</button></p>
 <p class="info">Tryck här för att skicka vidare något du fått.</p>
 
-<!-- Extra permissions -->
-<?php if (current_user_can('loopis_storage')) : ?>
+<!-- Storage -->
+<?php if (current_user_can('manage_options') || current_user_can('loopis_storage')) : ?>
 <div class="admin-block">
-<p>💡 Du har extra befogenheter.</p>
+<?php include_once LOOPIS_THEME_DIR . '/templates/links/admin-label.php'; ?>
+<p>💡 Du har behörighet att lägga annonser i lager: välj "Skapa annons" och markera "Lager" längst ner i formuläret.</p>
 
-<!-- Create storage ad -->
-<p style="margin:0px;"><button type="button" class="small orange" onclick="window.location.href='<?php echo esc_url( add_query_arg(array('option' => 'storage'), home_url('/submit/')) ); ?>'">📦 Lägg i lager</button></p>
-<p class="info">Tryck här för att skapa dolda annonser.</p>
-
-<!-- View storage -->
-<p style="margin:0px;"><button type="button" class="small red" onclick="window.location.href='<?php echo esc_url( add_query_arg(array('view' => 'storage'), home_url('/admin/')) ); ?>'">❤ Visa lager</button></p>
-<p class="info">Tryck här för att visa och paxa dolda annonser.</p>
-</div>
+  <?php if (current_user_can('loopis_admin')) : ?>
+  <button type="button" class="orange small" onclick="window.location.href='<?php echo esc_url( add_query_arg(array('view' => 'storage'), home_url('/admin/')) ); ?>'">📦 Visa lager</button>
+  <p class="info">Tryck här för att visa lagret och paxa annonser.</p>
+  </div>
+  <?php endif; ?>
 <?php endif; ?>
 
 <!-- FAQ -->

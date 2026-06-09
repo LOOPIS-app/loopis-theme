@@ -67,6 +67,26 @@ $post_tags = get_tags(array(
     'hide_empty' => false,
 ));
 $is_admin_user = current_user_can('manage_options') || current_user_can('loopis_admin');
+$can_use_storage_category = current_user_can('manage_options') || current_user_can('loopis_storage');
+
+$new_category_id = function_exists('loopis_cat') ? (int) loopis_cat('new') : $default_cat;
+$storage_category_id = function_exists('loopis_cat') ? (int) loopis_cat('storage') : 0;
+
+$storage_category_options = array();
+if ($new_category_id > 0) {
+    $storage_category_options[$new_category_id] = get_cat_name($new_category_id);
+}
+if ($storage_category_id > 0) {
+    $storage_category_options[$storage_category_id] = get_cat_name($storage_category_id);
+}
+
+$storage_category_allowed_ids = array_values(array_keys($storage_category_options));
+$storage_category_default_id = $new_category_id > 0 ? $new_category_id : (int) ($storage_category_allowed_ids[0] ?? $default_cat);
+
+if ($can_use_storage_category && !empty($storage_category_allowed_ids) && !in_array($selected_cat, $storage_category_allowed_ids, true)) {
+    $selected_cat = $storage_category_default_id;
+}
+
 $gift_form_errors = array();
 $gift_form_success = false;
 $gift_form_created_post_id = isset($_GET['gift_post_id']) ? absint($_GET['gift_post_id']) : 0;
@@ -191,8 +211,17 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
         $custom_location_value = sanitize_text_field(wp_unslash($_POST['custom_location'] ?? ''));
         $featured_image_index = isset($_POST['featured_image_index']) ? absint($_POST['featured_image_index']) : 0;
 
-        $selected_cat = $is_admin_user ? (int) ($_POST['cat'] ?? $default_cat) : $default_cat;
-        $selected_cat = $selected_cat > 0 ? $selected_cat : $default_cat;
+        if ($is_admin_user && $gift_form_is_edit_mode) {
+            $selected_cat = (int) ($_POST['cat'] ?? $default_cat);
+            $selected_cat = $selected_cat > 0 ? $selected_cat : $default_cat;
+        } elseif (!$gift_form_is_edit_mode && $can_use_storage_category && !empty($storage_category_allowed_ids)) {
+            $selected_cat = (int) ($_POST['cat'] ?? $storage_category_default_id);
+            if (!in_array($selected_cat, $storage_category_allowed_ids, true)) {
+                $selected_cat = $storage_category_default_id;
+            }
+        } else {
+            $selected_cat = $default_cat;
+        }
 
         // Field-level validation.
         if ('' === trim($title_value)) {
@@ -471,7 +500,7 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
                 <p class="description">Ange gatuadress eller plats (max 40 tecken).</p>
             </div>
 
-            <?php if ($is_admin_user) : ?>
+            <?php if ($is_admin_user && $gift_form_is_edit_mode) : ?>
                 <?php // Admin-only status selector. ?>
                 <div class="admin-block">
                 <div class="form-row">
@@ -490,6 +519,20 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
                     ?>
                     <p class="description">Som admin kan du byta status (kategori) på annonsen.</p>
                 </div>
+                </div>
+            <?php elseif (!$gift_form_is_edit_mode && $can_use_storage_category && count($storage_category_allowed_ids) >= 2) : ?>
+                <?php // Storage users can pick new/storage when creating posts. ?>
+                <div class="admin-block">
+                <div class="form-row">
+                    <label>🐙 Admin</label>
+                    <?php foreach ($storage_category_options as $storage_option_id => $storage_option_label) : ?>
+                        <label for="cat-<?php echo esc_attr($storage_option_id); ?>">
+                            <input type="radio" name="cat" id="cat-<?php echo esc_attr($storage_option_id); ?>" value="<?php echo esc_attr($storage_option_id); ?>" <?php checked($selected_cat, (int) $storage_option_id); ?>>
+                            <?php echo esc_html($storage_option_label); ?>
+                        </label>
+                    <?php endforeach; ?>
+                    <p class="description">Du kan välja mellan att publicera eller lägga i lager.</p>
+                    </div>
                 </div>
             <?php else : ?>
                 <input type="hidden" name="cat" value="<?php echo esc_attr($selected_cat); ?>">
