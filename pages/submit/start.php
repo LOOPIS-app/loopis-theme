@@ -29,12 +29,11 @@ if (!defined('ABSPATH')) {
 <!-- Storage -->
 <?php if (current_user_can('manage_options') || current_user_can('loopis_storage')) : ?>
 <div class="admin-block">
-<?php include_once LOOPIS_THEME_DIR . '/templates/links/admin-label.php'; ?>
-<p>💡 Du har behörighet att lägga annonser i lager: välj "Skapa annons" och markera "Lager" längst ner i formuläret.</p>
+<p>💡 Du har behörighet att lägga annonser i lager.</p>
 
   <?php if (current_user_can('loopis_admin')) : ?>
   <button type="button" class="orange small" onclick="window.location.href='<?php echo esc_url( add_query_arg(array('view' => 'storage'), home_url('/admin/')) ); ?>'">📦 Visa lager</button>
-  <p class="info">Tryck här för att visa lagret och paxa annonser.</p>
+  <p class="info">Tryck här för att visa lager och paxa annonser.</p>
   </div>
   <?php endif; ?>
 <?php endif; ?>
