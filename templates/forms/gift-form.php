@@ -1,7 +1,10 @@
 
 <?php
 /**
- * Standalone frontend form for gift posts.
+ * Frontend form for creating gift posts.
+ * 
+ * Interactivity handled by gift-form.js
+ * Created by CoPilot, prompted by Johan
  */
 
 if (!defined('ABSPATH')) {
@@ -64,6 +67,26 @@ $post_tags = get_tags(array(
     'hide_empty' => false,
 ));
 $is_admin_user = current_user_can('manage_options') || current_user_can('loopis_admin');
+$can_use_storage_category = current_user_can('manage_options') || current_user_can('loopis_storage');
+
+$new_category_id = function_exists('loopis_cat') ? (int) loopis_cat('new') : $default_cat;
+$storage_category_id = function_exists('loopis_cat') ? (int) loopis_cat('storage') : 0;
+
+$storage_category_options = array();
+if ($new_category_id > 0) {
+    $storage_category_options[$new_category_id] = get_cat_name($new_category_id);
+}
+if ($storage_category_id > 0) {
+    $storage_category_options[$storage_category_id] = get_cat_name($storage_category_id);
+}
+
+$storage_category_allowed_ids = array_values(array_keys($storage_category_options));
+$storage_category_default_id = $new_category_id > 0 ? $new_category_id : (int) ($storage_category_allowed_ids[0] ?? $default_cat);
+
+if ($can_use_storage_category && !empty($storage_category_allowed_ids) && !in_array($selected_cat, $storage_category_allowed_ids, true)) {
+    $selected_cat = $storage_category_default_id;
+}
+
 $gift_form_errors = array();
 $gift_form_success = false;
 $gift_form_created_post_id = isset($_GET['gift_post_id']) ? absint($_GET['gift_post_id']) : 0;
@@ -188,8 +211,17 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
         $custom_location_value = sanitize_text_field(wp_unslash($_POST['custom_location'] ?? ''));
         $featured_image_index = isset($_POST['featured_image_index']) ? absint($_POST['featured_image_index']) : 0;
 
-        $selected_cat = $is_admin_user ? (int) ($_POST['cat'] ?? $default_cat) : $default_cat;
-        $selected_cat = $selected_cat > 0 ? $selected_cat : $default_cat;
+        if ($is_admin_user && $gift_form_is_edit_mode) {
+            $selected_cat = (int) ($_POST['cat'] ?? $default_cat);
+            $selected_cat = $selected_cat > 0 ? $selected_cat : $default_cat;
+        } elseif (!$gift_form_is_edit_mode && $can_use_storage_category && !empty($storage_category_allowed_ids)) {
+            $selected_cat = (int) ($_POST['cat'] ?? $storage_category_default_id);
+            if (!in_array($selected_cat, $storage_category_allowed_ids, true)) {
+                $selected_cat = $storage_category_default_id;
+            }
+        } else {
+            $selected_cat = $default_cat;
+        }
 
         // Field-level validation.
         if ('' === trim($title_value)) {
@@ -198,6 +230,8 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
 
         if ('' === trim($content_value)) {
             $gift_form_errors[] = 'Fyll i en beskrivning.';
+        } elseif ((function_exists('mb_strlen') ? mb_strlen(trim($content_value)) : strlen(trim($content_value))) < 10) {
+            $gift_form_errors[] = 'Beskrivningen måste vara minst 10 tecken.';
         }
 
         if (count($selected_terms) < 1) {
@@ -385,12 +419,12 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
 <?php // Success feedback after redirect. ?>
 <?php if (isset($_GET['gift_form_success'])) : ?>
     <div class="loopis-message success">
-        <h5>✅ <?php echo ('edit' === sanitize_key($_GET['gift_form_mode'] ?? '')) ? 'Ändringar sparade!' : 'Klart!'; ?></h5>
+        <h5>✅ Klart!</h5>
         <hr>
-        <p>
-            ⏳ Lottning sker imorgon klockan 12. <?php if ('' !== $gift_form_created_post_url) : ?>
-                → <span class="big-link"><a href="<?php echo esc_url($gift_form_created_post_url); ?>"><?php echo esc_html($gift_form_created_post_title ?: 'Ny annons'); ?></a></span>
+        <p><?php if ('' !== $gift_form_created_post_url) : ?>
+            🎁 Se din annons → <span class="big-link"><a href="<?php echo esc_url($gift_form_created_post_url); ?>"><?php echo esc_html($gift_form_created_post_title ?: 'Ny annons'); ?></a></span>
             <?php endif; ?><br>
+            ⏳ Lottning sker imorgon klockan 12.<br>
             💚 Du kan skapa en till annons direkt.
         </p>
     </div>
@@ -431,21 +465,23 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
 
             <div class="form-row">
                 <label for="post_content">3⃣ Beskrivning</label>
-                <textarea id="post_content" name="post_content" placeholder="Skriv en beskrivning" required><?php echo esc_textarea($content_value); ?></textarea>
+                <textarea id="post_content" name="post_content" placeholder="Skriv en beskrivning" rows="3" minlength="10" required><?php echo esc_textarea($content_value); ?></textarea>
                 <p class="description">Beskriv med mått, märke, färg, skick etc.</p>
             </div>
 
-            <div class="form-row">
-                <label for="terms">4⃣ Kategori</label>
-                <select id="terms" name="terms[]" multiple size="6" required>
+            <div class="form-row" id="gift-terms-row">
+                <label for="terms-search">4⃣ Kategori <span id="terms-count">0/3</span></label>
+                <input type="search" id="terms-search" placeholder="Sök kategori..." autocomplete="off">
+                <div id="terms-options" class="terms-options" role="group" aria-label="Kategorier">
                     <?php if (!empty($post_tags)) : ?>
                         <?php foreach ($post_tags as $tag) : ?>
-                            <option value="<?php echo esc_attr($tag->term_id); ?>" <?php echo in_array((int) $tag->term_id, $selected_terms, true) ? 'selected' : ''; ?>>
-                                <?php echo esc_html($tag->name); ?>
-                            </option>
+                            <label class="term-option" data-term-label="<?php echo esc_attr($tag->name); ?>">
+                                <input type="checkbox" name="terms[]" value="<?php echo esc_attr($tag->term_id); ?>" <?php checked(in_array((int) $tag->term_id, $selected_terms, true)); ?>>
+                                <span><?php echo esc_html($tag->name); ?></span>
+                            </label>
                         <?php endforeach; ?>
                     <?php endif; ?>
-                </select>
+                </div>
                 <p class="description">Välj 1-3 kategorier.</p>
                 <p id="terms-error" class="error" hidden></p>
             </div>
@@ -466,10 +502,11 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
             <div class="form-row" id="gift-location-wrapper" <?php echo 0 === $selected_locker ? '' : 'hidden'; ?>>
                 <label for="custom_location">📍 Ange adress:</label>
                 <input type="text" id="custom_location" name="custom_location" placeholder="Ange adress" maxlength="40" value="<?php echo esc_attr($custom_location_value); ?>">
+                <p id="custom-location-error" class="error" hidden></p>
                 <p class="description">Ange gatuadress eller plats (max 40 tecken).</p>
             </div>
 
-            <?php if ($is_admin_user) : ?>
+            <?php if ($is_admin_user && $gift_form_is_edit_mode) : ?>
                 <?php // Admin-only status selector. ?>
                 <div class="admin-block">
                 <div class="form-row">
@@ -489,6 +526,20 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
                     <p class="description">Som admin kan du byta status (kategori) på annonsen.</p>
                 </div>
                 </div>
+            <?php elseif (!$gift_form_is_edit_mode && $can_use_storage_category && count($storage_category_allowed_ids) >= 2) : ?>
+                <?php // Storage users can pick new/storage when creating posts. ?>
+                <div class="admin-block">
+                <div class="form-row">
+                    <label>🐙 Admin</label>
+                    <?php foreach ($storage_category_options as $storage_option_id => $storage_option_label) : ?>
+                        <label for="cat-<?php echo esc_attr($storage_option_id); ?>">
+                            <input type="radio" name="cat" id="cat-<?php echo esc_attr($storage_option_id); ?>" value="<?php echo esc_attr($storage_option_id); ?>" <?php checked($selected_cat, (int) $storage_option_id); ?>>
+                            <?php echo esc_html($storage_option_label); ?>
+                        </label>
+                    <?php endforeach; ?>
+                    <p class="description">Du kan välja mellan att publicera eller lägga i lager.</p>
+                    </div>
+                </div>
             <?php else : ?>
                 <input type="hidden" name="cat" value="<?php echo esc_attr($selected_cat); ?>">
             <?php endif; ?>
@@ -500,6 +551,7 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
     </form>
 </div>
 
-<div id="gift-form-loading" class="loopis-form-loading" hidden aria-hidden="true">
-    <img src="<?php echo esc_url(LOOPIS_THEME_URI . '/assets/img/LOOPIS_icon_snake.gif'); ?>" al0t="Laddar">
+<div id="gift-form-loading" class="loopis-form-loading" aria-hidden="true">
+    <img class="loopis-form-loading-icon" src="<?php echo esc_url(LOOPIS_THEME_URI . '/assets/img/heart-green.svg'); ?>" alt="" aria-hidden="true">
+    <span class="loopis-form-loading-text">Laddar...</span>
 </div>

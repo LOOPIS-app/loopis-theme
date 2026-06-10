@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
 <div class="page-padding">
 
 <div class="columns"><div class="column1"><h1>🚧 Hoppsan!</h1></div>
-	<div class="column2 bottom"></div></div> 
+	<div class="column2"></div></div> 
     <hr>
 
 <div class="loopis-message information">

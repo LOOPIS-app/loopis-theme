@@ -206,28 +206,28 @@ if ($booked_noboard_count > 0 && $total_noboard_count > 0) { $booked_noboard_per
 <!-- Output the counts -->
 
 <div class="columns"><div class="column1"><h2>📊 Statistik v.<?php echo $selected_week; ?></h2></div>
-<div class="column2 bottom"><?php echo $days_passed; ?> dagar</div></div>
+<div class="column2"><?php echo $days_passed; ?> dagar</div></div>
 <hr>
 <p class="small">💡 Statistik för perioden <?php echo date("Y-m-d", strtotime($start_date->format('Y-m-d'))); ?> till <?php echo date("Y-m-d", strtotime($end_date->format('Y-m-d'))); ?> – utan styrelsens annonser</p>
 
 <div class="columns"><div class="column1"><h3>🎁 Annonser</h3></div>
-<div class="column2 bottom"><?php echo $days_passed; ?> dagar</div></div>
+<div class="column2"><?php echo $days_passed; ?> dagar</div></div>
 <hr>
 <p><span class="big-label">💚 <?php echo $total_noboard_count; ?> skapade</span> = <span class="label"><?php echo number_format($posts_per_day_noboard, 2); ?> per dag</span></p>
 <p><span class="big-label">❤ <?php echo $booked_noboard_count; ?> paxade</span> = <span class="label"><?php echo number_format($booked_per_day_noboard, 2); ?> per dag</span> = <span class="label"><?php echo $booked_noboard_percentage; ?>% av de skapade</span></p>
 <p><span class="big-label">❌ <?php echo $removed_noboard_count; ?> borttagna</span> = <span class="label"><?php echo number_format($removed_per_day_noboard, 2); ?> per dag</span> = <span class="label"><?php echo $removed_noboard_percentage; ?>% av de skapade</span></p>
 
 <div class="columns"><div class="column1"><h3>🗓 Bokningar av lån</h3></div>
-<div class="column2 bottom"><?php echo $days_passed; ?> dagar</div></div>
+<div class="column2"><?php echo $days_passed; ?> dagar</div></div>
 <hr>
 <p><span class="big-label">🔄 <?php echo $booking_count; ?> nya bokningar</span></p>
 
 <div class="columns"><div class="column1"><h3>🛠 Support & feedback</h3></div>
-<div class="column2 bottom"><?php echo $days_passed; ?> dagar</div></div>
+<div class="column2"><?php echo $days_passed; ?> dagar</div></div>
 <hr>
 <p><span class="big-label">⚠ <?php echo $support_count; ?> nya ärenden</span></p>
 
 <div class="columns"><div class="column1"><h3>👤 Medlemmar</h3></div>
-<div class="column2 bottom"><?php echo $days_passed; ?> dagar</div></div>
+<div class="column2"><?php echo $days_passed; ?> dagar</div></div>
 <hr>
 <p><span class="big-label">🎉 <?php echo $new_users_count; ?> nya medlemmar</span></p>

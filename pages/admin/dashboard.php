@@ -15,7 +15,7 @@ $admin_url = home_url('/admin/');
     <div class="column1">
         <h1>🐙 Admin</h1>
     </div>
-    <div class="column2 bottom"></div>
+    <div class="column2"></div>
 </div>
 <hr>
 <p class="small">💡 Visar verktyg tillgängliga för <span class="small-link"><a href="<?php echo esc_url( home_url('/profile/') ); ?>">👤<?php echo wp_get_current_user()->user_login; ?></a></span></p>

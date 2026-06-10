@@ -1,3 +1,8 @@
+/* Responsive styles for LOOPIS
+ *
+ * Separated from style.css for clarity 
+ */
+
 @media only screen and (max-width: 783px) {
 
 /* hide admin bar */

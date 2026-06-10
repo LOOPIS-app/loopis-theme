@@ -18,7 +18,7 @@ $current_year = date('Y');
 ?>
 
 <div class="columns"><div class="column1"><h3>Resultat</h3></div>
-<div class="column2 bottom">2024-<?php echo $current_year; ?></div></div>
+<div class="column2">2024-<?php echo $current_year; ?></div></div>
 <hr>
 <?php
 // Get profile economy

@@ -4,6 +4,8 @@
  *
  * Used in author.php & admin area
  * $user_id has to be passed from context!
+ * 
+ * TODO: Fix generic button styling in style.css
  */
  
 if (!defined('ABSPATH')) exit; // Exit if accessed directly

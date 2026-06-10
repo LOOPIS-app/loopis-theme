@@ -1,6 +1,6 @@
 /**
  * Theme Name:  LOOPIS Theme
- * Version:     0.87
+ * Version:     0.88
  * Description: Theme providing all frontend design and functionality for LOOPIS.app
  * Author:      The Develoopers
  * Author URI:  https://loopis.org
@@ -10,8 +10,7 @@
  */
 
  /**
- * From this point to "STOP" this should be an exact copy of style.css from "LOOPIS Theme".
- * Main/sub-sites will use the same styles except for main using page-padding-center.
+ * From this point style.css for "LOOPIS Theme HQ" and "LOOPIS Theme" should be identical.
  * Extra styles needed for main/sub-sites should be placed in assets/css and included where needed.
  */
 
@@ -51,9 +50,10 @@ b, strong { font-weight: 400; }
 .page-padding { padding: 15px; } /* Add class center for pages on main sites */
 
 /* Header */
-#header { position: fixed; top: 0px; left: 0px; z-index: 9999; padding:10px 0; height: 72px; width: 100%; font-size: 19px; color: #777; background: #fff; border-bottom: 1px solid #e5e5e5; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
+#header { position: fixed; top: 0px; left: 0px; z-index: 9999; padding:10px 0; height: 72px; width: 100%; color: #777; background: #fff; border-bottom: 1px solid #e5e5e5; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
 #header-img { width: 195px; height: 50px; display: block; margin: 0 auto; } /* For current single site + coming main site */
 #header-logo { width: 156px; height: 40px; display: block; margin: 0 auto; } /* For coming local sites, to fit with area name below */
+.header-area { text-align:center; font-size: 14px; }
 .header-back { display: block; line-height: 1; height: 50px; position: absolute; left: 10px; top: 12px; padding: 15px; cursor: pointer; }
 .header-faq { display: block; line-height: 1; height: 50px; position: absolute; right: 10px; top: 12px; padding: 15px; cursor: pointer; }
 .header-back:hover { color: #333; }
@@ -141,14 +141,19 @@ h1 .symbol { height: 30px !important; width: auto; padding-right: 5px; }  /* use
 h1 .symbol .emoji { font-size: 80%; }  /* used for clovers and stars */
 h1.wrap { white-space: normal; }
 
+/* Heading columns */
+.columns { display: flex; }
+.column1 { display: flex; flex: 1 0 50%; line-height: 1.2em; }
+.column2 { display: flex; flex: 0 1 50%; line-height: 1.2em; margin-bottom: 2px; justify-content: flex-end; align-items: flex-end; white-space: nowrap; }
+
+/* Content columns */
+.column_half { display: flex; line-height: 1.6em; }
+.column_half > div { flex: 1 0 50%; }
+
 /* Wrapped div */
 .wrapped { display: inline-block; vertical-align: top; background-color: #f5f5f5; padding: 5px 10px; margin: 0 15px 15px 0; text-align: left;}
 .wrapped p { margin: 0; }
 .wrapped hr { margin-bottom: 5px; }
-
-/* Admin div */
-.admin-block { background: #fff7f7; border: 2px dotted #ff969d; padding: 10px 10px 1px 10px; margin: 10px 0;  }
-.admin-block .logg { padding: 0 0 10px 0; } 
 
 /* Economy div */
 .economy { margin-top: 0px; min-width: 200px;}
@@ -157,20 +162,13 @@ h1.wrap { white-space: normal; }
 .economy b { font-weight: 700; }
 .economy span.right { padding-right: 5px }
 
+/* Admin div */
+.admin-block { background: #fff7f7; border: 2px dotted #ff969d; padding: 10px 10px 1px 10px; margin: 10px 0;  }
+.admin-block .logg { padding: 0 0 10px 0; } 
+
 /* Collapsable div (not finished/used) */
 .collapsed { display: none; overflow: hidden; transition: max-height 0.2s ease-out; }
 .collapser { cursor: pointer; user-select: none; }
-
-/* Columns (clean up!) */
-.wp-block-columns { margin-bottom:0px; }
-.wp-block-column p { padding-bottom:5px; }
-.columns { display: flex; }
-.column1 { display: flex; flex: 1 0 50%; line-height: 1.2em; }
-.column2 { display: flex; flex: 1 0 50%; line-height: 1.2em; justify-content: flex-end; margin-bottom: 2px; white-space: nowrap; }
-.column_half { display: flex; line-height: 1.6em; }
-.column_half > div { flex: 1 0 50%; }
-.top { align-items: flex-start !important; }
-.bottom { align-items: flex-end; }
 
 /* Post: base layout */
 .post-wrapper { background:#f5f5f5; }
@@ -195,17 +193,21 @@ h1.wrap { white-space: normal; }
 .post-image { margin: 0; padding: 0; }
 .post-image img { width: 100%; height: auto; }
 .post-images [class^="post-image-"] { position: absolute; }
-.post-image-1 { right: 10px; bottom: -15px; transform: rotate(-2deg); z-index: 3; }
-.post-image-2 { right: 70px; bottom: -20px; transform: rotate(3deg); z-index: 2; }
-.post-image-3 { right: 130px; bottom: -15px; transform: rotate(-4deg); z-index: 1; }
+.post-image-1 { right: 10px; bottom: -10px; transform: rotate(-2deg); z-index: 3; }
+.post-image-2 { right: 70px; bottom: -13px; transform: rotate(3deg); z-index: 2; }
+.post-image-3 { right: 130px; bottom: -10px; transform: rotate(-4deg); z-index: 1; }
 .post-images [class^="post-image-"] img { height: 65px !important; width: 65px !important; object-fit: cover; overflow: hidden; border: 3px solid white; filter: brightness(0.78); cursor: pointer; }
 .post-images [class^="post-image-"].is-selected { z-index: 4; }
 .post-images [class^="post-image-"].is-selected img { filter: none; }
 
-/* Post: bullet-list */
-.wp-block-list { counter-reset: wp-list-counter; margin: 1.5em 0 ; padding-left: 3em; list-style-type: decimal; font-family: 'Roboto Condensed', sans-serif; font-size: 1rem; line-height: 1.0em; }
-.wp-block-list li { margin-bottom: 0.5em; position: relative; padding-left: 1em; }
-.wp-block-list li::marker { font-weight: bold; font-size: 1.1rem; }
+/* Post: list */
+.wp-block-list { margin: 5px; padding-inline-start: 40px; }
+.wp-block-list li { margin-bottom: 5px; }
+.wp-block-list li::marker { font-weight: bold; }
+
+/* Post: columns (used?) */
+.wp-block-columns { margin-bottom:0px; }
+.wp-block-column p { padding-bottom:5px; }
 
 /* Post: image */
 .wp-block-image { margin-bottom: 15px; }
@@ -270,7 +272,7 @@ a.option:hover { background: none !important; color: #333 !important; }
 #post-pagination a { padding: 8px 12px;  }
 #post-pagination span { padding: 8px 12px; }
 
-/* Post list: thumbnails (not used) */
+/* Post list: thumbnails (not finished/used) */
 .thumb-list { display: flex; flex-wrap: nowrap; overflow-x: auto; }
 .thumb-list-thumb { flex-shrink: 0; margin-right: 10px; width: calc(100% / 5 - 8px); }
 .thumb-list-thumb:last-child { margin-right: 0; }

@@ -17,7 +17,7 @@ $the_query = new WP_Query($args);
 ?>
 
 <div class="columns"><div class="column1"><h3>🤹 Tre tips</h3></div>
-<div class="column2 bottom"><a href="<?php echo esc_url( add_query_arg(array('view' => 'random-posts'), home_url('/discover/')) ); ?>">Fler tips →</a></div></div>
+<div class="column2"><a href="<?php echo esc_url( add_query_arg(array('view' => 'random-posts'), home_url('/discover/')) ); ?>">Visa fler →</a></div></div>
 <hr>
  <!-- Posts output -->
 <div class="post-list">

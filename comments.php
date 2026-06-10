@@ -35,7 +35,7 @@ switch ($post_type) {
 
 <!-- SHOW COMMENTS -->
 <div class="columns"><div class="column1"><h3><i class="far fa-comment"></i> <?php echo $comment_count ?></h3></div>
-<div class="column2 bottom"><?php if ( $comment_count > 1 ) { echo 'Senaste överst ↓'; } ?></div></div>
+<div class="column2"><?php if ( $comment_count > 1 ) { echo 'Senaste överst ↓'; } ?></div></div>
 <hr>
     <div id="commentlist-container" class="comment-tab">			
         <ol class="commentlist">

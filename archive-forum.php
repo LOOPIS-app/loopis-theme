@@ -13,9 +13,9 @@ get_header(); ?>
 
 <div class="page-padding">
 
-<h1>📡 Nyheter</h1>						
+<h1>🗨 Forum</h1>						
 <hr>
-<p class="small">💡 Här hittar du de senaste nyheterna från föreningen</p>
+<p class="small">💡 Nyheter och diskussioner om LOOPIS</p>
 
 <?php
 // Arguments
@@ -30,7 +30,7 @@ $the_query = new WP_Query( $args );
 $count = $the_query->found_posts; ?>
 
 <!--Output-->
-<div class="columns"><div class="column1">↓ <?php echo $count; ?> nyheter</div>
+<div class="columns"><div class="column1">↓ <?php echo $count; ?> inlägg</div>
 <div class="column2 small">💡 Senast överst</div></div>
 <hr>
 <div class="post-list">
@@ -74,7 +74,7 @@ $count = $the_query->found_posts; ?>
 <?php endif; ?>
 
 <?php else : ?>
-    <p>💢 Det finns inga nyheter.</p>
+    <p>💢 Det finns inga inlägg.</p>
 <?php endif; ?>
 
 </div><!--post-list-->

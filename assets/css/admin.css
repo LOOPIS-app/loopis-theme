@@ -1,3 +1,8 @@
+/* Custom styles for admin areas and elements
+ *
+ * Separated from style.css for clarity 
+ */
+
 /*  Admin bar */
 body.admin-bar #header { margin-top: 32px; }
 

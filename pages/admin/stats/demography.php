@@ -154,7 +154,7 @@ foreach ($all_users as $user) {
 <!-- Output the Gender Counts -->
 <div class="columns">
     <div class="column1"><h3>⚧ Kön</h3></div>
-    <div class="column2 bottom"><?php echo $count_all_users; ?> medlemmar (<?php echo ($selected_year === 'all') ? 'Alla år' : $selected_year; ?>)</div>
+    <div class="column2"><?php echo $count_all_users; ?> medlemmar (<?php echo ($selected_year === 'all') ? 'Alla år' : $selected_year; ?>)</div>
 </div>
 <hr>
 
@@ -289,7 +289,7 @@ foreach ($active_members_area as $user_id) {
 <!-- Output the Area Counts -->
 <div class="columns">
     <div class="column1"><h3>📍 Områden</h3></div>
-    <div class="column2 bottom"><?php echo $count_all_users; ?> medlemmar (<?php echo ($selected_year === 'all') ? 'Alla år' : $selected_year; ?>)</div>
+    <div class="column2"><?php echo $count_all_users; ?> medlemmar (<?php echo ($selected_year === 'all') ? 'Alla år' : $selected_year; ?>)</div>
 </div>
 <hr>
 

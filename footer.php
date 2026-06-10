@@ -13,7 +13,7 @@
     <nav>
             <a href="<?php echo $site_url ?>" class="footer-item">
                 <span class="emoji">️🎁️</span>
-                <span class="text">Saker att få</span>
+                <span class="text">Saker</span>
             </a>
             <a href="<?php echo $site_url . '?s=' ?>" class="footer-item">
                 <span class="emoji">🔍️</span>
@@ -37,22 +37,24 @@
                 </a>
             <?php endif; ?>
 
-            <?php if (is_user_logged_in()) : ?>
-                <?php if (current_user_can('administrator')) : ?>
-                    <a href="<?php echo $site_url . 'admin/' ?>" class="footer-item">
-                        <span class="emoji">🐙️</span>
-                        <span class="text">Admin</span>
-                    </a>
-                <?php else : ?>
+            <?php if ( !is_multisite()) : ?>
+                <?php if (is_user_logged_in()) : ?>
                     <a href="<?php echo $site_url . 'profile/' ?>" class="footer-item">
                         <span class="emoji">👤️</span>
                         <span class="text">Min profil</span>
                     </a>
+                <?php else : ?>
+                    <a href="<?php echo $site_url . 'log-in/' ?>" class="footer-item">
+                        <span class="emoji">👤️</span>
+                        <span class="text">Logga in</span>
+                    </a>
                 <?php endif; ?>
-            <?php else : ?>
-                <a href="<?php echo $site_url . 'log-in/' ?>" class="footer-item">
-                    <span class="emoji">👤️</span>
-                    <span class="text">Logga in</span>
+            <?php endif; ?>
+
+            <?php if (current_user_can('loopis_admin') || current_user_can('manage_options')) : ?>
+                <a href="<?php echo esc_url( home_url('/admin/') ); ?>" class="footer-item">
+                    <span class="emoji">🐙</span>
+                    <span class="text"><b>Admin</b></span>
                 </a>
             <?php endif; ?>
     </nav>

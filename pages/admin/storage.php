@@ -17,21 +17,21 @@ if (!defined('ABSPATH')) {
 
 <h1>📦 Lager</h1>
 <hr>
-<p class="small">💡 Här ser du alla saker i kategorierna <span class="small-label">📦 Lager</span> - och ibland <span class="small-label">📌 Tips</span>.</p>
+<p class="small">💡 Här ser du alla saker i kategorin <span class="small-label">📦 Lager</span></p>
 
-<?php if (current_user_can('loopis_storage')) : ?>
+<?php if (current_user_can('manage_options') || current_user_can('loopis_storage')) : ?>
 
     <?php
     // Get search term
     $search_term = isset($_GET['storage_search']) ? sanitize_text_field($_GET['storage_search']) : '';
 
     // Get category IDs
-    $storage_categories = loopis_cats(['storage']);  // Add or remove 'tips' as needed
+    $storage_category = loopis_cat('storage');
 
     // Query arguments
     $args = array(
         'post_type'      => 'post',
-        'cat'            => $storage_categories,
+        'cat'            => $storage_category,
         'posts_per_page' => -1,
         'post_status'    => array('publish', 'draft')
     );
@@ -47,14 +47,12 @@ if (!defined('ABSPATH')) {
     ?>
 
     <!-- Search Box -->
-    <form method="GET" action="/admin/" class="searchform">
+    <form class="loopis-form" id="search-form" method="GET" action="/admin/" novalidate>
         <input type="hidden" name="view" value="storage">
-        <div style="white-space: nowrap;">
             <input type="text" 
                    name="storage_search" 
                    value="<?php echo esc_attr($search_term); ?>" 
-                   placeholder="🔍 Skriv sökord"
-                   style="display: inline-block;">
+                   placeholder="🔍 Skriv sökord">
             <input type="submit" value="Sök">
             <?php if (!empty($search_term)) : ?>
                 <button type="button" 
@@ -63,36 +61,20 @@ if (!defined('ABSPATH')) {
                     Rensa
                 </button>
             <?php endif; ?>
-        </div>
     </form>
 
-    <!-- Items List -->
-    <h7>🎁 Saker att få</h7>
+    <!-- List header -->
     <div class="columns">
-        <div class="column1">
-            ↓ <?php echo $count; ?> sak<?php echo ($count != 1) ? 'er' : ''; ?>
-        </div>
+        <div class="column1">↓ <?php echo $count; ?> sak<?php echo ($count != 1) ? 'er' : ''; ?></div>
         <div class="column2"></div>
     </div>
     <hr>
 
+    <!-- Posts -->
     <div class="post-list">
         <?php if ($the_query->have_posts()) : ?>
             <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
-                <div class="post-list-post" onclick="location.href='<?php the_permalink(); ?>';">
-                    <div class="post-list-post-thumbnail">
-                        <?php the_post_thumbnail('thumbnail'); ?>
-                    </div>
-                    <div class="post-list-post-title">
-                        <?php the_title(); ?>
-                    </div>
-                    <div class="post-list-post-meta">
-                        <span>👤 <?php the_author_posts_link(); ?></span>
-                        <span class="right">
-                            <i class="fas fa-arrow-alt-circle-up"></i><?php echo human_time_diff(get_the_time('U'), current_time('timestamp')); ?> sen
-                        </span>
-                    </div>
-                </div><!--post-list-post-->
+                <?php get_template_part('templates/post-list/small-posts-author'); ?>
             <?php endwhile; ?>
         <?php else : ?>
             <?php if (!empty($search_term)) : ?>

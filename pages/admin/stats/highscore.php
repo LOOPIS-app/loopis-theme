@@ -172,31 +172,31 @@ $top_annonsorer = $top_users_data['top_annonsorer'];
 
 <!-- Output the counts -->
 <div class="columns"><div class="column1"><h3>🌈 Topp-20 loopare</h3></div>
-<div class="column2 bottom"><?php echo $selected_year; ?> (<?php echo $days_passed; ?> dagar)</div></div>
+<div class="column2"><?php echo $selected_year; ?> (<?php echo $days_passed; ?> dagar)</div></div>
 <hr>
 <p class="small">💡 Medlemmar med högst antal hanterade saker (gett+fått).</p>
 <?php display_top_users($top_loopare, '🌈'); ?>
 
 <div class="columns"><div class="column1"><h3>⬆ Topp-20 skapare</h3></div>
-<div class="column2 bottom"><?php echo $selected_year; ?> (<?php echo $days_passed; ?> dagar)</div></div>
+<div class="column2"><?php echo $selected_year; ?> (<?php echo $days_passed; ?> dagar)</div></div>
 <hr>
 <p class="small">💡 Medlemmar med högst antal publicerade annonser.</p>
 <?php display_top_users($top_posters, '⬆'); ?>
 
 <div class="columns"><div class="column1"><h3>♻ Topp-20 annonsörer</h3></div>
-<div class="column2 bottom"><?php echo $selected_year; ?> (<?php echo $days_passed; ?> dagar)</div></div>
+<div class="column2"><?php echo $selected_year; ?> (<?php echo $days_passed; ?> dagar)</div></div>
 <hr>
 <p class="small">💡 Medlemmar med högst andel paxade annonser.</p>
 <?php display_top_users($top_annonsorer, '♻', true); ?>
 
 <div class="columns"><div class="column1"><h3>✅ Topp-20 givare</h3></div>
-<div class="column2 bottom"><?php echo $selected_year; ?> (<?php echo $days_passed; ?> dagar)</div></div>
+<div class="column2"><?php echo $selected_year; ?> (<?php echo $days_passed; ?> dagar)</div></div>
 <hr>
 <p class="small">💡 Medlemmar med högst antal paxade annonser.</p>
 <?php display_top_users($top_givers, '✅'); ?>
 
 <div class="columns"><div class="column1"><h3>☑ Topp-20 hämtare</h3></div>
-<div class="column2 bottom"><?php echo $selected_year; ?> (<?php echo $days_passed; ?> dagar)</div></div>
+<div class="column2"><?php echo $selected_year; ?> (<?php echo $days_passed; ?> dagar)</div></div>
 <hr>
 <p class="small">💡 Medlemmar med högst antal hämtade saker.</p>
 <?php display_top_users($top_fetchers, '☑'); ?>

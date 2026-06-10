@@ -17,7 +17,7 @@ get_header(); ?>
             <h1>Arkiv</h1>
         <?php endif; ?>
 		<hr>
-		<p class="small">💡 Alla annonser i <span class="small-label"><?php if (is_category()) { echo single_cat_title('', false); } elseif (is_tag()) { echo '<i class="fas fa-hashtag"></i>'; echo single_tag_title('', false); } else { echo 'arkivet'; } ?>.</span></p>
+		<p class="small">💡 Alla annonser i <span class="small-label"><?php if (is_category()) { echo single_cat_title('', false); } elseif (is_tag()) { echo '<i class="fas fa-hashtag"></i>'; echo single_tag_title('', false); } else { echo 'arkivet'; } ?></span></p>
 
         <!-- Search Form -->
         <?php get_template_part('templates/forms/search-form'); ?>
@@ -30,7 +30,7 @@ get_header(); ?>
         <!-- List header -->
         <div class="columns">
             <div class="column1">↓ <?php echo $count; ?> aktuella annonser</div>
-            <div class="column2"><a href="<?php echo get_permalink( get_page_by_path('hur-far-jag-saker') ); ?>">📌 Hur får jag saker?</a></div>
+            <div class="column2 small">💡 Senast överst</div>
         </div>
         <hr>
 
