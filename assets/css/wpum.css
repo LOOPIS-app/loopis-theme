@@ -1,4 +1,5 @@
-/* WPUM styles 
+/** 
+ * WPUM styles 
  * To be deprecated when moving to multisite.
  */
 
@@ -50,6 +51,4 @@ input[name="submit_registration"].button { display: inline-block !important; }
 .wpum-message.success { background-color: #dff0d8; color: #000; }
 
 /* WPUM extra */
-a[href$="/edit"] { font-size: 14px; background: none; color: #777; padding: 5px 10px 0 0; }
-a[href$="/edit"]::before { content:"🔧 " }
-a[href$="/edit"]:hover { color: #333; }
+a[href$="/edit"] { display: none; } /* hides the redundant WPUM "Edit" link until migration is complete */
