@@ -5,8 +5,9 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<?php
 	// Set up default meta tags and images
+	$site_name = "LOOPIS";
 	$blog_name = get_bloginfo('name');
-	$title = $blog_name . '.app';
+	$title = $site_name . ' - ' . $blog_name;
 	$description = 'Ge & få saker av dina grannar.';
 	$og_type = 'website';
 	$og_locale = str_replace('-', '_', get_locale());
@@ -20,7 +21,7 @@
 	} elseif (is_singular()) {
 		// Posts and pages
 		$post_id = get_queried_object_id();
-		$title = get_the_title($post_id) . ' - ' . $blog_name;
+		$title = get_the_title($post_id) . ' - ' . $site_name;
 		// Featured image?
 		if (has_post_thumbnail($post_id)) {
 			$thumbnail_id = get_post_thumbnail_id($post_id);
@@ -45,20 +46,20 @@
 	} elseif (is_author()) {
 		// User profiles
 		$author = get_queried_object();
-		$title = esc_html($author->display_name) . ' - ' . $blog_name;
+		$title = esc_html($author->display_name) . ' - ' . $site_name;
 		$og_type = 'profile';
 		$og_url = get_author_posts_url($author->ID);
 	} elseif (is_tag()) {
 		// Tags
-		$title = '#' . single_tag_title('', false) . ' - ' . $blog_name;
+		$title = '#' . single_tag_title('', false) . ' - ' . $site_name;
 		$og_url = get_tag_link(get_queried_object_id());
 	} elseif (is_archive()) {
 		// Archives
-		$title = post_type_archive_title('', false) ?: $blog_name;
+		$title = post_type_archive_title('', false) ?: $site_name;
 		$og_url = home_url('/');
 	} elseif (is_404()) {
 		// 404 page
-		$title = 'Hoppsan! - ' . $blog_name;
+		$title = 'Hoppsan! - ' . $site_name;
 		$og_url = home_url('/');
 	} else {
 		// Default
@@ -90,7 +91,7 @@
 	<meta name="facebook-domain-verification" content="o8yh0nqrbcgnedkvjei7g0imjwzen9">
 	<meta property="og:title" content="<?php echo esc_attr($title); ?>">
 	<meta property="og:url" content="<?php echo esc_url($og_url); ?>">
-	<meta property="og:site_name" content="<?php echo get_bloginfo('name'); ?>.app">
+	<meta property="og:site_name" content="<?php echo esc_attr($site_name); ?>">
 	<meta property="og:type" content="<?php echo esc_attr($og_type); ?>">
 	<meta property="og:locale" content="<?php echo esc_attr($og_locale); ?>">
 	<meta property="og:description" content="<?php echo esc_attr($description); ?>">
@@ -125,8 +126,8 @@
 			<a href="<?php echo esc_url(home_url('/')); ?>"><img src="<?php echo LOOPIS_THEME_URI; ?>/assets/img/LOOPIS_logo.png" alt="LOOPIS-logo" id="header-img"></a>
 			<?php endif; ?>
 			<!-- Back + faq/admin link -->
-			<?php if ( is_front_page() && current_user_can('loopis_admin') && !current_user_can('administrator') ) : ?>
-				<div class="header-faq" onclick="location.href='<?php echo esc_url( home_url('/admin/') ); ?>'">🐙</div>
+			<?php if ( is_multisite() && is_user_logged_in()) : ?>
+				<div class="header-faq" onclick="location.href='<?php echo esc_url( network_home_url('/user/') ); ?>'">👤</div>
 			<?php else: ?>
 				<div class="header-faq" onclick="location.href='<?php echo esc_url( home_url('/faq/') ); ?>'">💡</div>
 			<?php endif; ?>

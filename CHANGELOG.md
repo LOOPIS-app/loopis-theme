@@ -1,5 +1,8 @@
 # 📋 Changelog for "LOOPIS Theme"
 
+## 0.88 (2026-06-10)
+- Preparing for live deployment of multisite
+
 ## 0.87 (2026-06-08)
 - `style.css` cleaned up, with `forms.css` and `wpum.css` separated
 - New template `gift-form.php`, replacing plugin WPUM Frontend Posting 
