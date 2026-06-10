@@ -11,14 +11,14 @@ if (!defined('ABSPATH')) {
 }
 
 // Uses $user_id passed from wpum/profile/economy.php or from author.php
-$meta_values = get_user_meta($user_id, 'wpum_payments', true);
+$payment_info = loopis_ledger_user_payments($user_id);
 
-if (!empty($meta_values)) {
-            foreach ($meta_values as $row) {
-            $payment_date = $row['wpum_payment_date'][0]['value'];
-            $payment_type = $row['wpum_payment_type'][0]['value'];
-            $payment_amount = $row['wpum_payment_amount'][0]['value'];
-            $payment_method = $row['wpum_payment_method'][0]['value'];
+if (!empty($payment_info)) {
+        foreach ($payment_info as $row) {
+            $payment_date = date('Y-m-d',strtotime($row['timestamp']));
+            $payment_type = loopis_ledger_type_output($row['type']);
+            $payment_amount = $row['payment'];
+            $payment_method = $row['description'];
             // Output
             echo '<p><span class="label grey"><i class="fas fa-receipt"></i>' . esc_html($payment_date) . ': ' . esc_html($payment_type) . ' - ' . esc_html($payment_amount) . 'kr (' . esc_html($payment_method) . ')</span></p>';
         }

@@ -17,6 +17,7 @@ function action_forward(int $post_id) {
 	
 	// Retrieve the current post data
 	$current_post = get_post($post_id);
+	$author =  get_current_user_id();
 	
 	// Create a new post with the same content
 	$new_post_args = array(
@@ -24,11 +25,13 @@ function action_forward(int $post_id) {
 	    'post_content' => $current_post->post_content,
 	    'post_status'  => 'publish',
 	    'post_type'    => $current_post->post_type,
-	    'post_author'  => get_current_user_id(),
+	    'post_author'  => $author,
 	);
 	$new_post_id = wp_insert_post($new_post_args);
 	
 	if (!is_wp_error($new_post_id)) {
+
+	loopis_ledger_add_post('submitted', $author, $new_post_id ,['timestamp' => current_time('Y-m-d H:i:s')]);
 	
 	// Set the same featured image for new post
 	$featured_image = get_post_thumbnail_id($post_id);

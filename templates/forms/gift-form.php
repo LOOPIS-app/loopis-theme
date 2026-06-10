@@ -374,6 +374,12 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
                     $location_value = 0 === $selected_locker ? $custom_location_value : 'Skåpet';
                     update_post_meta($post_id, 'location', $location_value);
                     update_post_meta($post_id, 'locker_id', $selected_locker);
+                    if (!$gift_form_is_edit_mode) {
+                        loopis_ledger_add_post('submitted', get_current_user_id(), $post_id ,[
+                            'timestamp' => current_time('Y-m-d H:i:s'),
+                            'location' => $location_value
+                            ]);
+                    }
 
                     // If new images were uploaded in edit mode, clear stale extra image meta.
                     if (!empty($attachment_ids)) {

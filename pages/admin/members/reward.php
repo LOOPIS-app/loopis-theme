@@ -85,6 +85,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email_list'])) {
 
                 // Update the usermeta with the raw array (WordPress will handle serialization)
                 update_user_meta($user_id, 'wpum_rewards', $existing_rewards);
+                loopis_ledger_add_reward($user_id, [
+                    'type' => $reward_reason,
+                    'description' =>  $reward_description,
+                    'coins' => $received_stars,
+                ]);
 
                 echo "<p style='color: green;'>Reward added for user: {$email} (Username: {$username})</p>";
             } else {
