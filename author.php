@@ -29,7 +29,7 @@ $last_name = get_user_meta($user_id, 'last_name', true);
 if (!in_array('administrator', $user->roles)):
 
 // Get profile economy
-$profile_economy = loopis_ledger_economy($user_id);
+$profile_economy = get_economy($user_id);
 $payments_membership = $profile_economy['payments_membership'];
 $payments_coins = $profile_economy['payments_coins'];
 $membership_coins = $profile_economy['membership_coins'];
