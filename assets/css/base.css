@@ -1,0 +1,363 @@
+/**
+ * Base styling for "LOOPIS Theme" and "LOOPIS Theme HQ".
+ *
+ * Complemented with admin.css, forms.css, responsive.css
+ */
+
+
+/* Reset */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+blockquote, q { quotes: none; }
+blockquote::before, blockquote::after, q::before, q::after { content: ''; content: none; }
+table { border-collapse: collapse; border-spacing: 0; }
+
+/* Base */
+body { background:#fff; font-family: 'Roboto Condensed', sans-serif; font-size:16px; line-height:1.5em; color:#333; font-weight:300; }
+::selection { background:#333; color:#fff; }
+::-moz-selection { background:#333; color:#fff; }
+img { max-width:100%; height:auto; }
+address,cite,em { font-style: italic; }
+b, strong { font-weight: 400; }
+
+/* Alignment */
+.left,.alignleft { float:left; }
+.right,.alignright { float:right; }
+.aligncenter { margin-left:auto; margin-right:auto; }
+.center { text-align: center;  }
+
+/* Wrappers */
+#wrapper { max-width:900px; height:100%; margin: 0 auto; background: #fefefe; margin-bottom: 100px;}
+.container { width:100%; margin-top: 70px; margin-bottom: 15px; background: #fff; border: 1px solid #f5f5f5; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
+.page-padding { padding: 15px; } /* Add class center for pages on main sites */
+
+/* Header */
+#header { position: fixed; top: 0px; left: 0px; z-index: 9999; padding:10px 0; height: 72px; width: 100%; color: #777; background: #fff; border-bottom: 1px solid #e5e5e5; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
+#header-img { width: 195px; height: 50px; display: block; margin: 0 auto; } /* For current single site + coming main site */
+#header-logo { width: 156px; height: 40px; display: block; margin: 0 auto; } /* For coming local sites, to fit with area name below */
+.header-area { text-align:center; font-size: 14px; }
+.header-back { display: block; line-height: 1; height: 50px; position: absolute; left: 10px; top: 12px; padding: 15px; cursor: pointer; }
+.header-faq { display: block; line-height: 1; height: 50px; position: absolute; right: 10px; top: 12px; padding: 15px; cursor: pointer; }
+.header-back:hover { color: #333; }
+.header-faq:hover { color: #333; }
+
+/* Footer */
+#footer { display: flex; justify-content: center; align-items: center; position: fixed; z-index: 9998; bottom: 0; left: 0; height: 80px; width: 100%; background-color: #fff; border-top: 1px solid #e5e5e5; padding: 10px 0; text-align: center;  }
+#footer nav { display: flex; justify-content: space-between; align-items: stretch; flex-wrap: wrap; width: 100%; }
+.footer-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 5px; }
+.footer-item:hover { background-color: #e5e5e5; }
+.footer-item .emoji { display: block; font-size: 32px; line-height: 1; margin-bottom: 7px; }
+.footer-item .text { font-size: 14px; line-height: 1; text-decoration: none; color: #333 !important; }
+
+/* Link */
+a { color:#1e73be; text-decoration:none;}
+a:hover { color:#180770; }
+a.no-link-styling,
+a.no-link-styling:hover,
+a.no-link-styling:visited,
+a.no-link-styling:active { color: inherit !important; text-decoration: none !important; }
+.link:hover { background: #ebebeb; cursor: pointer; } /* Used when making divs clickable */
+
+/* Paragraph */
+p { margin:0 0 10px 0; }
+hr, .wp-block-separator { width: 100%; padding: 0; margin: 0 0 9px 0; background-color: #333; height: 0px; border-top: 1px solid #333 !important; }
+
+/* Special style */
+.error { font-size: 14px; line-height: 1.5em; margin:0 0 5px 0; color:#FF969D; font-weight: 600; }
+.small { font-size: 13px; line-height: 1.5em; margin:2px 0 10px 0; }
+.small span { font-size: 13px; padding:2px; font-style:normal; }
+.info { font-size: 13px; line-height: 1.5em; font-style:italic; margin:2px 0 10px 0; }
+.info span { font-size: 13px; padding:2px; font-style:normal; }
+.hidden { visibility: hidden }
+
+/* Emojis */
+img.wp-smiley, img.emoji { margin: 0 1px 0 0 !important; vertical-align: -0.1em !important; }
+
+/* Font Awesome */
+.fa, .fab, .fal, .far, .fas { width:1em; text-align:center; }
+.fas.fa-hashtag { font-weight: 300; }
+i { margin-right: 3px; }
+
+/* Clear */
+.clear { clear:both; display:block; overflow:hidden; width:0; height:0; }  /* removed {visibility: hidden} pga F.U.S.  */
+.group:before, .group:after { content: ""; display: table; }
+.group:after { clear:both; }
+.group { zoom:1; }
+
+/* Span */
+span { white-space: nowrap; }
+span.label { font-size: 14px; padding:5px; background: #f5f5f5; }
+span.small-label { font-size: 13px; padding:3px; background: #f5f5f5; }
+span.big-label { font-size: 16px; padding:5px; background: #f5f5f5; }
+span.mega-label { font-size: 18px; padding:7px; line-height: 35px; background: #f5f5f5; }
+span.link { font-size: 14px; padding:5px; background: #f5f5f5; }
+span.small-link { font-size: 13px; padding:3px; background: #f5f5f5; }
+span.big-link { font-size: 16px; padding:5px; background: #f5f5f5; }
+span.mega-link { font-size: 18px; padding:7px; line-height: 35px; background: #f5f5f5; }
+span.link:hover { background: #ebebeb; }
+span.small-link:hover { background: #ebebeb; }
+span.big-link:hover { background: #ebebeb; }
+span.mega-link:hover { background: #ebebeb; cursor: pointer; }
+span.rounded { font-size: 14px; padding:4px 10px; border-radius: 20px; background: #fff; }
+span.grey { color: #777 !important; }
+span.grey a { color: #777 !important; text-decoration: none; }
+span.code { font-family: 'Courier New', monospace; font-weight: bold; }
+span.unclickable { color: #333; pointer-events: none; color: inherit; text-decoration: none; }
+span.plus { font-weight: 700; color: #73c23d !important; }
+span.minus { font-weight: 700; color: #FF969D !important; }
+span.right { float: right; }
+
+/* Heading  */
+h1, h2, h3, h4, h5, h6, h7 { margin: 0; padding: 0; font-weight: 300; letter-spacing: -0.3px; line-height: 1.3em; white-space: nowrap; }
+
+h1 { font-size: 40px; margin-top: 0px; letter-spacing: -1px; }  /* used only for page- and post-titles */
+h2 { font-size: 34px; margin-top: 25px; }		/* used by WPUM (settings) */
+h3 { font-size: 28px; margin-top: 25px; }		/* used for subheadings on FAQ etc */
+h4 { font-size: 22px; margin-top: 15px;}		/* used on my profile on front page */
+h5 { font-size: 24px; margin-top: 0px; }		/* used in wrapped divs and puff */
+h6 { font-size: 16px; margin-top: 25px; }		/* used for custom comment */
+h7 { font-size: 28px; padding-top: 10px; }		/* added for WPUM tabs */
+
+/* Special heading  */
+h1 .symbol { height: 30px !important; width: auto; padding-right: 5px; }  /* used for coins  */
+h1 .symbol .emoji { font-size: 80%; }  /* used for clovers and stars */
+h1.wrap { white-space: normal; }
+
+/* Heading columns */
+.columns { display: flex; }
+.column1 { display: flex; flex: 1 0 50%; line-height: 1.2em; }
+.column2 { display: flex; flex: 0 1 50%; line-height: 1.2em; margin-bottom: 2px; justify-content: flex-end; align-items: flex-end; white-space: nowrap; }
+
+/* Content columns */
+.column_half { display: flex; line-height: 1.6em; }
+.column_half > div { flex: 1 0 50%; }
+
+/* Wrapped div */
+.wrapped { display: inline-block; vertical-align: top; background-color: #f5f5f5; padding: 5px 10px; margin: 0 15px 15px 0; text-align: left;}
+.wrapped p { margin: 0; }
+.wrapped hr { margin-bottom: 5px; }
+
+/* Economy div */
+.economy { margin-top: 0px; min-width: 200px;}
+.economy p { margin: 0; font-size: 14px; color: #777; line-height: 1.7; text-decoration: none; } 
+.economy hr { margin: 1px 0; background-color: #777; }
+.economy b { font-weight: 700; }
+.economy span.right { padding-right: 5px }
+
+/* Admin div */
+.admin-block { background: #fff7f7; border: 2px dotted #ff969d; padding: 10px 10px 1px 10px; margin: 10px 0;  }
+.admin-block .logg { padding: 0 0 10px 0; } 
+
+/* Collapsable div (not finished/used) */
+.collapsed { display: none; overflow: hidden; transition: max-height 0.2s ease-out; }
+.collapser { cursor: pointer; user-select: none; }
+
+/* Post: base layout */
+.post-wrapper { background:#f5f5f5; }
+.post-wrapper-form { background:#f5f5f5; padding:15px; border-radius: 10px; }
+.post-padding { padding: 10px 15px; }
+.post-content { font-size: 18px; margin-top: 15px; }
+.post-content::after { content: ""; display: block; clear: both; }
+.post-content span { font-size: 16px; padding:5px; background: #fff !important; }
+.post-content .label { font-size: 14px; color: #777; margin-bottom: 0; }
+.post-content .wrapped { background-color: #fff; padding: 8px 10px 5px 10px; margin: 0 15px 15px 0; }
+.post-content .wrapped p { margin: 5px 0; }
+
+/* Post: header */
+.post-title { margin: 5px 0; }
+.post-meta { font-size: 16px; color: #666; }
+.post-meta span { background: none; padding:0 ; margin-right: 10px; }
+.post-meta span.rounded { padding:4px 10px; border-radius: 20px; background: #fff;}
+.post-meta span.big-link { padding:4px 10px; margin-right: 7px; background: #fff;}
+
+/* Post: thumbnails */
+.post-images { position: relative;}
+.post-image { margin: 0; padding: 0; }
+.post-image img { width: 100%; height: auto; }
+.post-images [class^="post-image-"] { position: absolute; }
+.post-image-1 { right: 10px; bottom: -10px; transform: rotate(-2deg); z-index: 3; }
+.post-image-2 { right: 70px; bottom: -13px; transform: rotate(3deg); z-index: 2; }
+.post-image-3 { right: 130px; bottom: -10px; transform: rotate(-4deg); z-index: 1; }
+.post-images [class^="post-image-"] img { height: 65px !important; width: 65px !important; object-fit: cover; overflow: hidden; border: 3px solid white; filter: brightness(0.78); cursor: pointer; }
+.post-images [class^="post-image-"].is-selected { z-index: 4; }
+.post-images [class^="post-image-"].is-selected img { filter: none; }
+
+/* Post: list */
+.wp-block-list { margin: 5px; padding-inline-start: 40px; }
+.wp-block-list li { margin-bottom: 5px; }
+.wp-block-list li::marker { font-weight: bold; }
+
+/* Post: columns (used?) */
+.wp-block-columns { margin-bottom:0px; }
+.wp-block-column p { padding-bottom:5px; }
+
+/* Post: image */
+.wp-block-image { margin-bottom: 15px; }
+.wp-element-caption { font-size: 14px; line-height: 1.2; text-align: center; }
+
+/* Post: video */
+.wp-block-embed__wrapper { display: flex; justify-content: center; }
+.wp-block-embed__wrapper iframe { width: 240px !important; height: auto !important; }
+
+/* Table (used?) */
+.entry table { font-size: 14px; width: 100%; text-align: left; vertical-align: middle;}
+.entry table td { padding-bottom: 10px; }
+
+/* Post: options */
+a.option { display: block; float: left; font-size: 14px; background: none; color: #777 !important; padding: 5px 10px 0 0; }
+a.option:hover { background: none !important; color: #333 !important; }
+#copy_url { display: block; float: right; clear: right; }
+
+/* Post: log */
+.logg { font-size:13px; color:#777; line-height:1.5; text-decoration:none; } 
+.logg p { margin:0; } 
+.logg a { color: #777; }
+.logg a:hover { color:#333; }
+.logg span { float: right; font-size:13px; background:none !important; padding:0; }
+
+/* Post: actions */
+.post-actions { margin-top:15px; } 	
+
+/* Post list */
+.post-list-post { height: 60px; background: #f5f5f5; box-shadow: 2px 2px 5px #eee; margin-bottom: 13px; text-align: left; }
+.post-list-post-big { height: 120px; background: #f5f5f5; box-shadow: 2px 2px 5px #eee; margin-bottom:15px; text-align: left; }
+.post-list > .link:hover { background: #ebebeb; box-shadow: 1px 1px 3px #eee; cursor: pointer; }
+.post-list-post-thumbnail { float: left; width: 60px; height: 60px; margin-right: 8px; }
+.post-list-post-thumbnail-big { float: left; width: 120px; height: 120px; margin-right: 10px; }
+.post-list-post-title { font-size: 22px; color: #333; padding: 4px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.post-list-post-title-big { font-size: 24px; color: #333; letter-spacing: -0.3px; padding: 7px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.post-list-post-excerpt { font-size: 15px; overflow: hidden; text-overflow: ellipsis; }
+.post-list-post-excerpt br { display: none; }
+.post-list-post-excerpt .read-more { font-weight: 400; color: #1e73be; }
+.post-list-post-comment { font-size: 16px; font-style: italic; padding-top: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #333; }
+.post-list-post-comment p { padding: 0; margin: 0; background: none !important; }
+.post-list-post-comment span { padding: 4px; background: #fff; }
+.post-list-post-comment br { display: none; } 
+.post-list-post-meta { color: #777; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.post-list-post-meta span { padding: 0; margin-right: 7px; }
+.post-list-post-meta i { margin: 0 3px 0 1px; }
+.post-list-post-meta p { margin: 2px 0; }
+.post-list-post-meta a { color: #777; }
+.post-list-post-meta a:hover { color: #333; }
+.post-list .right { font-size: 13px; text-align: right; padding-right: 5px; }
+
+/* Post list: forum (should be converted to a generic CPT solution) */
+.post-list-forum { display: flex; align-items: stretch; overflow: hidden; min-height: 60px; background: #f5f5f5; box-shadow: 2px 2px 5px #eee; margin-bottom: 13px; cursor: pointer; }
+.post-list-forum-content { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 5px 8px; }
+.post-list-forum-title { font-size: 22px; color: #333; padding: 3px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.post-list-forum-excerpt .read-more { font-weight: 400; color: #1e73be; }
+.post-list-forum-thumbnail { flex: 0 0 60px; margin-left: auto; }
+.post-list-forum-thumbnail img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Post list: pagination (inspired by WPUM) */
+#post-pagination { display: flex; justify-content: center; background: #f5f5f5; flex-wrap: wrap; margin-top: 30px; font-size: 24px; }
+#post-pagination a { padding: 8px 12px;  }
+#post-pagination span { padding: 8px 12px; }
+
+/* Post list: thumbnails (not finished/used) */
+.thumb-list { display: flex; flex-wrap: nowrap; overflow-x: auto; }
+.thumb-list-thumb { flex-shrink: 0; margin-right: 10px; width: calc(100% / 5 - 8px); }
+.thumb-list-thumb:last-child { margin-right: 0; }
+
+/* Notification stuff (check usage + rename?) */
+.notif { background: #FFF1E4 !important; color: #000; }
+.notif:hover { background: #FFE4CB !important; }
+.notif-button { position:absolute; top:13px; right:10px; } 	
+.notif-meta { position:absolute; top: 30px; left: 67px; }
+
+/* LOOPIS buttons */
+input[type="button"], input[type="reset"], input[type="submit"], button[type="button"], button[type="reset"], button[type="submit"], button, a.button {
+  background: #78b159;
+  color: #FFF;
+  font-size: 22px;
+  padding: 8px 14px;
+  display: inline-block;
+  border: none !important;
+  cursor: pointer;
+  -webkit-border-radius: 10px;
+  border-radius: 10px; }
+input[type="button"]:hover, input[type="reset"]:hover, input[type="submit"]:hover, button[type="button"]:hover, button[type="reset"]:hover, button[type="submit"]:hover, button:hover, a.button:hover {
+  background: #666 !important;
+  color: #FFF !important; }
+a.button, a.button:link, a.button:visited, a.button:hover, a.button:active { color: #FFF !important; text-decoration: none !important; }
+input[disabled] { background: #e3ebdd; color: #333; padding: 8px 14px; display: inline-block; border: none; cursor: pointer; -webkit-border-radius: 10px; border-radius: 10px; }
+
+/* LOOPIS buttons colors */
+button.small, input[type="submit"].small { font-size: 15px !important; padding: 5px 10px; margin: 0; }
+button.green, a.button.green { background: #77b255; }
+button.red, a.button.red { background: #FF969D; }
+button.blue, a.button.blue { background: #69A8D6; }
+button.purple, a.button.purple { background: #E0AADC; }
+button.orange, a.button.orange { background: #FFBC82; }
+button.yellow, a.button.yellow { background: #FFE18C; color: #333 !important; }
+button.grey, a.button.grey { background: #ddd; color: #000 !important; }
+button.black, a.button.black { background: #333; }
+button.admin, a.button.admin { border: 2px dashed #FF969D !important; }
+button.waiting, a.button.waiting { background: #333 !important; color: #FFF !important; } /* Used when submitting forms */
+button.disabled, a.button.disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* Comment list */
+/*#commentlist-container { }*/
+.commentlist { padding: 0; margin: 10px 0; list-style: none; }
+.commentlist li::marker { content: ''; }
+.commentlist li { padding-left: 50px; font-size: 13px; line-height: 22px; }
+.commentlist .comment-body { margin-top: 10px; clear: both; position: relative; }
+.commentlist .comment-author { display: block; float: left; }
+.commentlist .comment-meta { display: block; float: right; }
+.commentlist .fn { color: #333; font-style: normal; font-weight: 600; }
+.commentlist .fn a { color: #333 !important; }  /* author url */
+.commentlist .says { display: none; }
+.commentlist .avatar { position: absolute; left: -50px; top: 0px; width: 45px; height: 45px;}
+.commentlist .comment-meta a, .pinglist .ping-meta { color: #aaa; }
+.commentlist .reply { font-size: 13px; line-height: 16px; }
+.commentlist .reply a { color: #777; }
+.commentlist .reply a:hover { color: #333; }
+
+/* Comment reply */
+/*#respond { }*/
+.commentlist ul.children .comment-body { margin: 0 0 10px 0; }
+.commentlist ul.children .comment-body p { font-size: 14px; line-height: 18px; padding: 6px 8px; }
+/*.commentlist li ul {  }*/
+.commentlist li li { padding-left: 35px; }
+.commentlist li li .avatar { width: 30px; height: 30px; left: -36px; top: 2px; }
+#cancel-comment-reply-link { display: block; position: absolute; bottom: 14px; left: 70px; font-size: 13px; color: #777; }
+#cancel-comment-reply-link:hover { color: #333; }
+
+/* Comment text */
+.commentlist .comment-body p { margin: 0; padding: 8px 10px; font-size: 16px; background: #f5f5f5; border-radius: 10px; clear: both; }
+.commentlist .comment-body p a.comment-mention { text-decoration: none; cursor: default; pointer-events: none; color: inherit; font-size: 15px; padding:3px; background: #fff; white-space: nowrap; }  /* disable + style mentioned user */
+.commentlist .comment-body strong { font-weight: bold; }
+.commentlist .comment-body em { font-style: italic; }
+.commentlist .comment-body ol li { list-style: decimal; margin-left: 2em; padding: 0; }
+.commentlist .comment-body ul li { list-style: square; margin-left: 2em; padding: 0; }
+.commentlist .comment-body p span {font-size: 15px; padding:4px; background: #fff; }
+
+/* Comment background */
+.orange_light, .participate { background: #FFF1E4 !important; }
+.yellow_light, .unparticipate, .queue, .reminder { background: #FFFAEE !important; }
+.red_light, .lotten, .book, .remove .warning { background: #FFEEEE !important; }
+.green_light, .locker, .confirm, .unremove { background: #EFF6EC !important; }
+.blue_light, .fetched, .returned, .unqueue, .regret, .cancel { background: #E4F4FF !important; }
+.purple_light, .forward, .retrieved { background: #FAF2FA !important; }
+
+/* LOOPIS tabs (inspired by WPUM) */
+.tab-navbar { display: flex; justify-content: flex-start; align-items: flex-end; gap: 5px; padding-top:20px; border-top: 0px; border-bottom: 5px solid #f5f5f5; }
+.tab-navbar>a.active:first-child, 
+.tab-navbar>a:hover:first-child, 
+.tab-navbar>button.active:first-child, 
+.tab-navbar>button:hover:first-child { border-top-left-radius: 10px }
+.tab-navbar > a { padding: 8px 16px; margin-right: 5px; border-radius: 10px 10px 0 0; background: #e8e8e8; }
+.tab-navbar>a:hover { background: #f5f5f5}
+.tab-navbar>a.active { background: #f5f5f5 }
+.tab-content { padding: 10px 0; margin-bottom: 10px; }
+/* Prevent flash of all tabs' content? */
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* LOOPIS message (inspired by WPUM) */
+.loopis-message {  border-radius: 10px; padding: 7px 7px 1px 7px; margin: 12px 0; font-size: 16px; }
+.loopis-message p { padding: 0; margin: 0 0 6px 0; }
+.loopis-message.information { background-color: #D9EDf7; }
+.loopis-message.warning { background-color: #FFE5E7; }
+.loopis-message.notification { background-color: #FFF1E4; }
+.loopis-message.success { background-color: #dff0d8; }

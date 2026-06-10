@@ -24,7 +24,7 @@ define('LOCKER_ID', '12845-1');
 
 function loopis_theme_assets() {
     // Enqueue CSS theme styles
-    wp_enqueue_style('loopis-theme-style', get_stylesheet_uri(), array(), filemtime(LOOPIS_THEME_DIR . '/style.css'));
+    wp_enqueue_style('loopis-theme-style', LOOPIS_THEME_URI . '/assets/css/base.css', array(), filemtime(LOOPIS_THEME_DIR . '/assets/css/base.css'));
     wp_enqueue_style('loopis-theme-forms', LOOPIS_THEME_URI . '/assets/css/forms.css', array('loopis-theme-style'), filemtime(LOOPIS_THEME_DIR . '/assets/css/forms.css'));
     wp_enqueue_style('loopis-theme-wpum', LOOPIS_THEME_URI . '/assets/css/wpum.css', array('loopis-theme-style'), filemtime(LOOPIS_THEME_DIR . '/assets/css/wpum.css'));
     wp_enqueue_style('loopis-theme-responsive', LOOPIS_THEME_URI . '/assets/css/responsive.css', array(), filemtime(LOOPIS_THEME_DIR . '/assets/css/responsive.css'));

@@ -1,6 +1,7 @@
-/* Custom styles for admin areas and elements
+/** 
+ * Admin styling for "LOOPIS Theme" and "LOOPIS Theme HQ".
  *
- * Separated from style.css for clarity 
+ * Separated from base.css for clarity 
  */
 
 /*  Admin bar */
@@ -14,7 +15,7 @@ body.admin-bar #header { margin-top: 32px; }
 .admin-block .emoji { filter: grayscale(40%); }
 .footer-admin .emoji { filter: grayscale(40%); }
 
-/* Admin Tables */
+/* Admin tables */
 .admin-table { width: 100%; border-collapse: collapse; }
 .admin-table th,
 .admin-table td { padding: 8px; text-align: left; }
