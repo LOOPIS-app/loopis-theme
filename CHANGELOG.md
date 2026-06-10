@@ -2,6 +2,7 @@
 
 ## 0.88 (2026-06-10)
 - Preparing for live deployment of multisite
+- Now sharing styles to "LOOPIS Theme HQ"
 
 ## 0.87 (2026-06-08)
 - `style.css` cleaned up, with `forms.css` and `wpum.css` separated
