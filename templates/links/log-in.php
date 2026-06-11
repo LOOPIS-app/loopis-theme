@@ -1,6 +1,6 @@
 <?php
 /**
- * Show button to log in.
+ * Output link for main site log in with redirect.
  */
  
 if (!defined('ABSPATH')) {
@@ -8,4 +8,4 @@ if (!defined('ABSPATH')) {
 }
 ?>
 
-<p><span class="big-link"><a href="<?php echo esc_url(home_url('/log-in')); ?>">👤 Logga in</a></span></p>
+<a href="<?php echo esc_url(get_login_url()); ?>">👤 Logga in</a>

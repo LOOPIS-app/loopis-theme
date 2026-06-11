@@ -2,14 +2,13 @@
 /**
  * Dynamic content for pages using url /shop/?option=
  */
+?>
 
-get_header(); ?>
+<?php get_header(); ?>
 
-<div class="page-padding">
-
-    <?php if (is_user_logged_in()) :
-
-    // Member: Dynamic page loader
+<div class="page-padding center">
+<?php if ( is_user_logged_in() ) : 
+    // Dynamic page loader
     $page_dir = get_template_directory() . '/pages/shop/';
 
     // Get the 'option' parameter from URL
@@ -21,14 +20,16 @@ get_header(); ?>
         include $php_file;
     } else {
         echo '<h1>🛒 Shoppen</h1><hr>';
-        echo '<p>💢 Filen hittades inte: <b>' . esc_html($php_file) . '</b></p>';
-    }  ?>
+        include LOOPIS_THEME_HQ_DIR . '/templates/access/loopis-404.php';
+    }
+    ?>
+    <div class="clear"></div>
 
-    <?php else :
-        echo '<h1>🛒 Shoppen</h1><hr>';
-        include LOOPIS_THEME_DIR . '/templates/access/logged-in-only.php';
-    endif; ?>
+<?php else :
+// Not logged in message
+include LOOPIS_THEME_HQ_DIR . '/templates/access/role-message.php';
+endif; ?>
 
-</div><!--page-padding-->
+</div><!--page-padding center-->
 
-<?php get_footer(); ?>
+<?php get_footer();

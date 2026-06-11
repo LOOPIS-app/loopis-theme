@@ -4,6 +4,7 @@
  *
  * Used in author.php & admin area
  * $user_id has to be passed from context!
+ * TODO: A "template" with php logic like this should probably be renamed "partials" or similar?
  */
 
 if (!defined('ABSPATH')) {

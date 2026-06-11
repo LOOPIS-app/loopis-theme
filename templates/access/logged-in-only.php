@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) {
 ?>
 <div class="loopis-message information">
 	<p>🚧 Du behöver vara inloggad för att se något här.</p>
-	<?php include LOOPIS_THEME_DIR . '/templates/links/go-back.php'; ?>
+	<p><span class="big-link"><?php get_template_part('templates/links/go-back'); ?></span></p>
 </div>
 
-<?php include LOOPIS_THEME_DIR . '/templates/links/log-in-button.php'; ?>
+<?php get_template_part('templates/links/log-in-button'); ?>

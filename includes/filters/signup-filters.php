@@ -5,6 +5,8 @@
  * Always included in functions.php
  * 
  * Creates a LOOPIS username (firstname-lastname) on signup with WPUM registration form.
+ * 
+ * TODO: Removed after migration to multisite
  */
  
 if (!defined('ABSPATH')) {

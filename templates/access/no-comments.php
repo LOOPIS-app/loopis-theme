@@ -14,5 +14,5 @@ $faq_url = home_url( '/faq/' );
 <hr>
 <div class="loopis-message information">
 	<p>🤐 Du behöver vara medlem för att läsa och skriva kommentarer här.</p>
-	<p><span class="big-link"><a href="<?php echo esc_url($faq_url . 'varfor-medlemskap/');?>">📌 Varför måste jag vara medlem?</a></span></p>
+	<p><span class="big-link"><a href="<?php echo esc_url(network_home_url( '/faq/varfor-medlemskap/')); ?>">📌 Varför måste jag vara medlem?</a></span></p>
 </div>

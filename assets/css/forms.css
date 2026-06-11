@@ -5,7 +5,7 @@
  */
 
 /* Base tokens */
-:root { --form-bg: #f5f5f5; --form-border: #e5e5e5; --form-border-focus: #d0d0d0; --form-radius: 10px; --form-control-radius: 8px; --form-label-size: 15px; --form-control-size: 22px; --form-pad: 10px; --form-gap: 20px; --form-text: #333; --form-muted: #777; }
+:root { --form-bg: #f5f5f5; --form-border: #e5e5e5; --form-border-focus: #d0d0d0; --form-radius: 10px; --form-control-radius: 8px; --form-label-size: 15px; --form-control-size: 22px; --form-pad: 10px 20px; --form-gap: 20px; --form-text: #333; --form-muted: #777; }
 
 /* Lightweight reset */
 :where(input, select, textarea, button) { box-sizing: border-box; margin: 0; font: inherit; color: inherit; transition: all .2s ease; }
@@ -78,6 +78,9 @@ li #reply-title { font-size: 0; margin: 0 !important; padding: 0; height: 0; bor
 #image-previews .image-preview-controls button { background: #ffffff; border: 1px solid #ddd; border-radius: 50%; color: #333; display: inline-block; width: 32px; height: 32px; padding: 0; margin: 0; font-size: 14px !important; line-height: 32px; text-align: center; vertical-align: middle; }
 #image-previews .image-preview-controls .feature-button:not(.is-featured) { filter: grayscale(1); opacity: 0.85; }
 #image-previews .image-preview-controls button:hover { background: #e9e9e9; }
+
+/* Member-form tweaks */
+#member-form { max-width: 300px; margin: 0 auto; }
 
 /* Form loading overlay */
 .loopis-form-loading { position: fixed; inset: 0; z-index: -1; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.45); opacity: 0; pointer-events: none; transition: opacity 0.1s ease; }

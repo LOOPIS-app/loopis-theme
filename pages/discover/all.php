@@ -28,5 +28,5 @@ loopis_list_php_files($content_dir, 'view');
 
 <!-- NO ACCESS -->
 <?php else : ?>
-    <?php include_once LOOPIS_THEME_DIR . '/templates/access/admin-only.php'; ?>
+    <?php include_once LOOPIS_THEME_DIR . '/templates/access/admin-only-page.php'; ?>
 <?php endif; ?>

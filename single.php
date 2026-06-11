@@ -60,7 +60,7 @@ $image_3_id = get_post_meta($post_id, 'image_3', true);
             <div class="post-padding">
                 <div class="post-meta">
                     <span><?php the_category(' '); if (in_category('new')) { echo raffle_time(); } ?></span>
-                    <span><i class="fas fa-walking"></i><?php if ($location == 'Skåpet') { ?><a class="no-link-styling" href="https://maps.app.goo.gl/h63CFSWVyk52NkbD7"><?php echo $location; ?> i Bagarmossen</a><?php } else { ?><a class="no-link-styling" href="https://maps.google.com/maps?q=<?php echo urlencode($location); ?>"><?php echo $location ?></a><?php } ?></span>
+                    <span><i class="fas fa-walking"></i><?php if ($location == 'Skåpet') { ?><a class="no-link-styling" href="https://maps.app.goo.gl/h63CFSWVyk52NkbD7"><?php echo $location; ?> i <?php echo esc_html(get_bloginfo('name')); ?></a><?php } else { ?><a class="no-link-styling" href="https://maps.google.com/maps?q=<?php echo urlencode($location); ?>"><?php echo $location ?></a><?php } ?></span>
                 </div><!--post-meta-->    
             
                 <div class="post-title"><h1 class="wrap"><?php the_title(); ?></h1></div>
@@ -100,7 +100,7 @@ $image_3_id = get_post_meta($post_id, 'image_3', true);
             <!-- INTERACTION -->
                 <div class="columns">
                     <div class="column1"><h3>Dina alternativ</h3></div>
-                    <div class="column2"><a href="<?php echo get_permalink( get_page_by_path('hur-far-jag-saker') ); ?>">📌 Hur får jag saker?</a></div>
+                    <div class="column2"></div>
                 </div>
                 <hr>
 

@@ -3,6 +3,8 @@
  * Author template
  *
  * Displays author profile and stats + extra info for admin.
+ * 
+ * TODO: Keep author pages on sub sites but make them different on main site? Both can have them.
  */
 
 get_header(); ?>

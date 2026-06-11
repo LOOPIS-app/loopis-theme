@@ -18,7 +18,7 @@ $full_request_url = $scheme . $host . $request_uri;
         <p class="small">💡 Något gick fel...</p>
         <p>Den här sidan finns inte: <span class="link">🔗 <?php echo esc_url($full_request_url); ?></span></p>
 		
-		<?php include LOOPIS_THEME_DIR . '/templates/links/go-back.php'; ?>
+		<p><span class="big-link"><?php get_template_part('templates/links/go-back'); ?></span></p>
         
         <?php if (is_user_logged_in()) : ?>
             <div class="loopis-message information">

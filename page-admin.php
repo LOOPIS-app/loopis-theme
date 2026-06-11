@@ -51,5 +51,5 @@ if (current_user_can('loopis_admin') || current_user_can('manage_options')) : ?>
 
 <!-- NO ACCESS -->
 <?php else : ?>
-    <?php include_once LOOPIS_THEME_DIR . '/templates/access/admin-only.php'; ?>
+    <?php include_once LOOPIS_THEME_DIR . '/templates/access/admin-only-page.php'; ?>
 <?php endif; ?>

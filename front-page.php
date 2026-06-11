@@ -48,7 +48,7 @@ get_header(); ?>
         $count_old = $count_total - $count_new;
         ?>
 
-        <h1>🎁 Saker i Bagarmossen</h1>
+        <h1>🎁 Saker i <?php echo esc_html(get_bloginfo('name')); ?></h1>
 
         <!-- List header -->
         <div class="columns">

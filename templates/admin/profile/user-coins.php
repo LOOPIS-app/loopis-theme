@@ -45,5 +45,5 @@ $coins = $profile_economy['coins'];
 </div><!-- wrapped -->
 
 <p class="small">💡 Detaljerad lista över din aktivitet finns på nästa flik.<br>
-<a href="<?php echo esc_url(home_url('/faq/hur-funkar-regnbagsmynt')); ?>">📌 Hur funkar regnbågsmynt?</a></p>
+<a href="<?php echo esc_url(network_home_url( '/faq/hur-funkar-regnbagsmynt')); ?>">📌 Hur funkar regnbågsmynt?</a></p>
 

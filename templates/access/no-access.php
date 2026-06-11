@@ -9,5 +9,5 @@ if (!defined('ABSPATH')) {
 ?>
 <div class="loopis-message information">
 	<p>🚧 Du har inte behörighet att se denna sida.</p>
-	<?php include LOOPIS_THEME_DIR . '/templates/links/go-back.php'; ?>
+	<p><span class="big-link"><?php get_template_part('templates/links/go-back'); ?></span></p>
 </div>

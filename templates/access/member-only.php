@@ -9,6 +9,7 @@ if (!defined('ABSPATH')) {
 ?>
 <div class="loopis-message information">
 	<p>🚧 Du behöver vara medlem för att se något här.</p>
-	<p><span class="big-link">💳 <a href="<?php echo esc_url(home_url('/shop/?option=membership-stripe')); ?>">Betala medlemskap</a></span></p>
-	<?php include LOOPIS_THEME_DIR . '/templates/links/go-back.php'; ?>
+	<p><span class="big-link"><?php get_template_part('templates/links/go-back'); ?></span></p>
 </div>
+
+<?php get_template_part('templates/links/log-in-button'); ?>
