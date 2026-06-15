@@ -21,10 +21,9 @@ address,cite,em { font-style: italic; }
 b, strong { font-weight: 400; }
 
 /* Alignment */
-.left,.alignleft { float:left; }
-.right,.alignright { float:right; }
-.aligncenter { margin-left:auto; margin-right:auto; }
-.center { text-align: center;  }
+.left { float: left; }
+.right { float: right; }
+.center { text-align: center; }
 
 /* Wrappers */
 #wrapper { max-width:900px; height:100%; margin: 0 auto; background: #fefefe; margin-bottom: 100px;}

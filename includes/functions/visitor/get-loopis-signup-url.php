@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-function get_loopis_signup_url() {
+function get_signup_url() {
         if (is_multisite()) {
             return network_site_url('wp-signup.php', 'login');
         }
