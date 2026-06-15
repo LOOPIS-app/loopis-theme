@@ -1,6 +1,8 @@
 <?php
 /**
  * Template for displaying LOOPIS user tab content.
+ * 
+ * Not yet used, because we need to decide if/how we show areas on sub sites.
  */
 
 // Exit if accessed directly

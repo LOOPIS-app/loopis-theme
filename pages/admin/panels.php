@@ -174,6 +174,6 @@ $admin_url = home_url('/admin/');
     <div class="wrapped">
         <h5>🚧 Vilka har tillgång?</h5>
         <hr>
-        <?php include __DIR__ . '/dashboard-blocks/access.php'; ?>
+        <?php include __DIR__ . '/panels/access.php'; ?>
     </div>
 <?php endif; ?>

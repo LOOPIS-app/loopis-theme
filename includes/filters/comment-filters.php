@@ -45,3 +45,35 @@ function preserve_blank_lines_in_comments($comment_content, $comment) {
     return $comment_content;
 }
 add_filter('comment_text', 'preserve_blank_lines_in_comments', 10, 2);
+
+
+/**
+ * Wrap comment avatars with author links.
+ *
+ * Make avatars link to author page.
+ */
+function loopis_wrap_comment_avatars_with_author_link($avatar, $id_or_email, $size, $default, $alt, $args) {
+    if (is_admin()) {
+        return $avatar;
+    }
+
+    $comment = null;
+
+    if ($id_or_email instanceof WP_Comment) {
+        $comment = $id_or_email;
+    } elseif (is_object($id_or_email) && !empty($id_or_email->comment_ID)) {
+        $comment = get_comment((int) $id_or_email->comment_ID);
+    }
+
+    if (!$comment || empty($comment->user_id)) {
+        return $avatar;
+    }
+
+    $author_url = get_author_posts_url((int) $comment->user_id);
+    if (empty($author_url)) {
+        return $avatar;
+    }
+
+    return '<a href="' . esc_url($author_url) . '" class="avatar-link">' . $avatar . '</a>';
+}
+add_filter('get_avatar', 'loopis_wrap_comment_avatars_with_author_link', 20, 6);

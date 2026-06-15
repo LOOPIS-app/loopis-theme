@@ -18,7 +18,6 @@ $participants = get_post_meta($post_id, 'participants', true);
     if (is_array($participants)) { $count = count($participants); } else { $count = 0; }
 $raffle_date = get_post_meta($post_id, 'raffle_date', true);
 $edit_wpadmin = get_admin_url(null, 'post.php?post=' . $post_id . '&action=edit');
-$edit_wpum = get_permalink() . 'edit';
 ?>
 
 <div class="admin-block">
@@ -176,7 +175,6 @@ echo '</div><!--logg-->';
 <!-- Edit & remove -->
 <div class="logg">
 <p><?php
-echo '<a href="' . $edit_wpum . '">Redigera annons</a> '; 
 echo ' <a href="' . $edit_wpadmin . '">👽 Redigera i WP-admin</a>';
     ?></p>
 </div><!--logg-->

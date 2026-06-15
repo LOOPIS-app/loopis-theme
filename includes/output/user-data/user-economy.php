@@ -31,7 +31,7 @@ $clover_coins = $profile_economy['clover_coins'];
 $coins = $profile_economy['coins'];
 ?>
 
-<p class="small">💡 <?php echo $first_name; ?>s aktivitet och ekonomi.</p>
+<p class="small">💡 Aktivitet och ekonomi.</p>
 <div class="columns"><div class="column1"><h7>🧮 Aktivitet</h7></div>
 <div class="column2 small bottom"></div></div>
 <hr>

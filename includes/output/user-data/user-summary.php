@@ -19,7 +19,7 @@ wp_enqueue_script('loopis-tabs', get_template_directory_uri() . '/assets/js/tabs
 
     <!-- Tab Navigation -->
     <div class="tab-nav">
-        <nav class="profile-navbar">
+        <nav class="tab-navbar">
             <a href="#" class="tab-link" data-tab="tab-info">ℹ</a>
             <a href="#" class="tab-link" data-tab="tab-economy">🧮</a>
             <a href="#" class="tab-link" data-tab="tab-posts">🎁</a>
@@ -32,7 +32,7 @@ wp_enqueue_script('loopis-tabs', get_template_directory_uri() . '/assets/js/tabs
 
         <!-- Member Info Tab -->
         <div id="tab-info" class="tab-panel">
-        <p class="small">💡 Mer info.</p>
+        <p class="small">💡 Översikt användare.</p>
 
             <div class="wrapped">
                 <h5>📋 Medlemsregister</h5>

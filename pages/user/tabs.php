@@ -23,7 +23,7 @@ wp_enqueue_script('loopis-tabs', get_template_directory_uri() . '/assets/js/tabs
   <nav class="tab-navbar">
     <a href="#" class="tab-link" data-tab="tab-coins">👛</a>
     <a href="#" class="tab-link" data-tab="tab-activity">🧮</a>
-    <a href="#" class="tab-link" data-tab="tab-areas">📍</a>
+    <!--a href="#" class="tab-link" data-tab="tab-areas">📍</a-->
     <a href="#" class="tab-link" data-tab="tab-settings">⚙</a>
   </nav>
 </div><!--tab-nav-->
@@ -39,11 +39,6 @@ wp_enqueue_script('loopis-tabs', get_template_directory_uri() . '/assets/js/tabs
   <!-- ACTIVITY -->
   <div id="tab-activity" class="tab-panel">
     <?php include_once __DIR__ . '/tabs/activity.php'; ?>
-  </div>
-
-  <!-- AREAS -->
-  <div id="tab-areas" class="tab-panel">
-    <?php include_once __DIR__ . '/tabs/areas.php'; ?>
   </div>
 
   <!-- SETTINGS -->

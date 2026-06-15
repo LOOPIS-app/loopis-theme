@@ -31,7 +31,7 @@ b, strong { font-weight: 400; }
 .page-padding { padding: 15px; } /* Add class center for pages on main sites */
 
 /* Header */
-#header { position: fixed; top: 0px; left: 0px; z-index: 9999; padding:10px 0; height: 72px; width: 100%; color: #777; background: #fff; border-bottom: 1px solid #e5e5e5; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
+#header { position: fixed; top: 0px; left: 0px; z-index: 9999; padding:10px 0; height: 72px; width: 100%; font-size: 19px; color: #777; background: #fff; border-bottom: 1px solid #e5e5e5; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
 #header-img { width: 195px; height: 50px; display: block; margin: 0 auto; } /* For current single site + coming main site */
 #header-logo { width: 156px; height: 40px; display: block; margin: 0 auto; } /* For coming local sites, to fit with area name below */
 .header-area { text-align:center; font-size: 14px; }
@@ -47,8 +47,8 @@ b, strong { font-weight: 400; }
 .footer-item:hover { background-color: #e5e5e5; }
 .footer-item .emoji { display: block; font-size: 32px; line-height: 1; margin-bottom: 7px; }
 .footer-item .text { font-size: 14px; line-height: 1; text-decoration: none; color: #333 !important; }
-.footer-backdoor { display: block;  background: #ebebeb; line-height: 1; height: 50px; position: absolute; right: 10px; top: -45px; padding: 15px; cursor: pointer; border: 1px solid #D0D0D0; box-shadow: 0 0 10px rgba(0,0,0,0.05); border-radius: 25px; opacity: 0.5; }
-.footer-backdoor:hover { background: #D0D0D0; }
+.footer-backdoor { display: block; font-size: 19px; background: #ebebeb; line-height: 1; height: 60px; position: absolute; right: 5px; top: -45px; padding: 20px; cursor: pointer; border: 1px solid #D0D0D0; box-shadow: 0 0 10px rgba(0,0,0,0.05); border-radius: 50px; opacity: 0.6; }
+.footer-backdoor:hover { opacity: 1; }
 
 /* Link */
 a { color:#1e73be; text-decoration:none;}
