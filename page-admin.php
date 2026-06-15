@@ -14,8 +14,8 @@ if (current_user_can('loopis_admin') || current_user_can('manage_options')) : ?>
             // Dynamic admin page loader
             $content_dir = get_template_directory() . '/pages/admin/';
 
-            // Get 'view' parameter from URL (default to 'start')
-            $content_name = isset($_GET['view']) ? sanitize_text_field($_GET['view']) : 'dashboard';
+            // Get 'view' parameter from URL (default to 'panels' if not set)
+            $content_name = isset($_GET['view']) ? sanitize_text_field($_GET['view']) : 'panels';
             
             // Additional sanitization - only allow alphanumeric, dash, underscore, and forward slash
             $content_name = preg_replace('/[^a-zA-Z0-9_\/-]/', '', $content_name);
@@ -51,5 +51,5 @@ if (current_user_can('loopis_admin') || current_user_can('manage_options')) : ?>
 
 <!-- NO ACCESS -->
 <?php else : ?>
-    <?php include_once LOOPIS_THEME_DIR . '/templates/access/admin-only-page.php'; ?>
+    <?php include LOOPIS_THEME_DIR . '/includes/output/access/only-admin-page.php'; ?>
 <?php endif; ?>

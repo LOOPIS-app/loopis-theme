@@ -9,11 +9,9 @@
 if (!defined('ABSPATH')) { exit; }
 
 // Define theme version
-define('LOOPIS_THEME_VERSION', '0.89'); // Update version number here + in style.css
+define('LOOPIS_THEME_VERSION', '0.90'); // Update version number here + in style.css
 
-// Define theme folder path constants
-define('LOOPIS_THEME_DIR', get_template_directory());       // Server-side path to /wp-content/themes/loopis-theme/
-define('LOOPIS_THEME_URI', get_template_directory_uri());   // Client-side path to https://loopis.app/wp-content/themes/loopis-theme/
+// Theme folder constants are provided by MU plugin: LOOPIS Constants.
 
 // Define locker ID for this installation (temporary solution)
 define('LOCKER_ID', '12845-1');
@@ -66,6 +64,7 @@ function loopis_theme_load_files() {
     // For user
     if (is_user_logged_in()) { 
         loopis_theme_include_folder('functions/user');
+        loopis_theme_include_folder('functions/payment');
     } else {
     // For visitor
         loopis_theme_include_folder('functions/visitor');

@@ -23,7 +23,7 @@ $first_name = get_user_meta($user_id, 'first_name', true);
 $last_name = get_user_meta($user_id, 'last_name', true);
 ?>
 
-<h1>👤 <?php include_once LOOPIS_THEME_DIR . '/templates/user/profile/user-names.php'; ?></h1>
+<h1>👤 <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-names.php'; ?></h1>
 <hr>
 
 <?php
@@ -49,7 +49,7 @@ $joined_date = date('Y-m-d',strtotime($profile_economy['joined_date']));
 if ($count_submitted !== 0) { $given_percentage = round(($count_given / $count_submitted) * 100); } else { $given_percentage = 0; }
 ?>
 
-<p>Bor i <span class="label">📍 <?php include LOOPIS_THEME_DIR . '/templates/user/profile/user-area.php'; ?></span></p>
+<p>Bor i <span class="label">📍 <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-area.php'; ?></span></p>
 <p>Blev loopare <span class="label">🎉 <?php echo $joined_date; ?></span></p>
 <div class="wrapped">
 <h1><img src="<?php echo LOOPIS_THEME_URI; ?>/assets/img/coin.png" alt="Mynt:" class="symbol"><?php echo $coins; ?></h1>
@@ -62,7 +62,7 @@ if ($count_submitted !== 0) { $given_percentage = round(($count_given / $count_s
 </div><!-- wrapped -->
 
 <!--ADMIN LOG-->
-<?php if (current_user_can('manager') || current_user_can('administrator')) { include LOOPIS_THEME_DIR . '/templates/admin/profile/user-summary.php'; } ?>
+<?php if (current_user_can('manager') || current_user_can('administrator')) { include LOOPIS_THEME_DIR . '/includes/output/user-data/user-summary.php'; } ?>
 
 <?php endif; ?>
 

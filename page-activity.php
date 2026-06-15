@@ -41,7 +41,7 @@ get_header(); ?>
         <div class="clear"></div>
 
 <!-- NO ACCESS MESSAGE -->	
-<?php } else { include_once LOOPIS_THEME_DIR . '/templates/access/member-only.php'; } ?>
+<?php } else { include LOOPIS_THEME_DIR . '/includes/output/access/only-member.php'; } ?>
 
 </div><!--page-padding-->
 

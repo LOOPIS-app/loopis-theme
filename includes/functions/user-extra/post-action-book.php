@@ -24,7 +24,7 @@ function action_book_locker(int $post_id) {
     // Check fetcher economy
     $coins = get_option('loopis_balance',$fetcher,true);
     if ($coins < 1) {
-        include LOOPIS_THEME_DIR . '/templates/access/no-coins.php';
+        include LOOPIS_THEME_DIR . '/includes/output/access/no-coins.php';
         echo '<script src="' . LOOPIS_THEME_DIR . '/assets/js/scroll-to-warning.js"></script>';
         return;
     }
@@ -62,7 +62,7 @@ function action_book_custom(int $post_id) {
     $fetcher = get_current_user_id();
     $coins = get_option('loopis_balance',$fetcher,true);
     if ($coins < 1) {
-        include LOOPIS_THEME_DIR . '/templates/access/no-coins.php';
+        include LOOPIS_THEME_DIR . '/includes/output/access/no-coins.php';
         echo '<script src="' . LOOPIS_THEME_DIR . '/assets/js/scroll-to-warning.js"></script>';
         return;
     }

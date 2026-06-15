@@ -29,20 +29,29 @@
                     <span class="emoji">🔔</span>
                     <span class="text">Min aktivitet</span>
                 </a>
+
+                <a href="<?php echo esc_url(home_url('/user/')); ?>" class="footer-item">
+                    <span class="emoji">👤️</span>
+                    <span class="text">Min profil</span>
+                </a>
+                
             <?php else : ?>
                 <a href="<?php echo esc_url(network_home_url( '/faq/' )); ?>" class="footer-item">
                     <span class="emoji">💡</span>
                     <span class="text">Hur funkar det?</span>
                 </a>
-            <?php endif; ?>
 
-            <?php if (current_user_can('loopis_admin') || current_user_can('manage_options')) : ?>
-                <a href="<?php echo esc_url( home_url('/admin/') ); ?>" class="footer-item">
-                    <span class="emoji">🐙</span>
-                    <span class="text"><b>Admin</b></span>
+                <a href="<?php echo esc_url(get_loopis_login_url()); ?>" class="footer-item">
+                    <span class="emoji">👤️</span>
+                    <span class="text">Logga in</span>
                 </a>
             <?php endif; ?>
     </nav>
+
+<?php if (current_user_can('loopis_admin') || current_user_can('manage_options')) : ?>
+    <div class="footer-backdoor" onclick="location.href='<?php echo esc_url(home_url('/admin/')); ?>'">🐙</div>
+<?php endif; ?>
+
 </footer><!--footer-->
 
 <?php wp_footer(); ?>

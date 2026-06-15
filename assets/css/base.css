@@ -48,6 +48,8 @@ b, strong { font-weight: 400; }
 .footer-item:hover { background-color: #e5e5e5; }
 .footer-item .emoji { display: block; font-size: 32px; line-height: 1; margin-bottom: 7px; }
 .footer-item .text { font-size: 14px; line-height: 1; text-decoration: none; color: #333 !important; }
+.footer-backdoor { display: block;  background: #ebebeb; line-height: 1; height: 50px; position: absolute; right: 10px; top: -45px; padding: 15px; cursor: pointer; border: 1px solid #D0D0D0; box-shadow: 0 0 10px rgba(0,0,0,0.05); border-radius: 25px; opacity: 0.5; }
+.footer-backdoor:hover { background: #D0D0D0; }
 
 /* Link */
 a { color:#1e73be; text-decoration:none;}

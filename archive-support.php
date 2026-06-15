@@ -97,7 +97,7 @@ $count = $the_query->found_posts;
 
 
 <?php } else { 
-include LOOPIS_THEME_DIR . '/templates/access/no-access.php';
+include LOOPIS_THEME_DIR . '/includes/output/access/only-user.php';
  } ?>
 
 </div><!--page-padding-->

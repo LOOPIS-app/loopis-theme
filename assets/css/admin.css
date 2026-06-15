@@ -11,9 +11,10 @@ body.admin-bar #header { margin-top: 32px; }
 .admin-content { }
 
 /*  Admin emojis */
-.admin-content .emoji { filter: grayscale(40%); }
+.admin-content .emoji { filter: grayscale(50%); }
 .admin-block .emoji { filter: grayscale(40%); }
 .footer-admin .emoji { filter: grayscale(40%); }
+.header-admin .emoji { filter: grayscale(40%); }
 
 /* Admin tables */
 .admin-table { width: 100%; border-collapse: collapse; }

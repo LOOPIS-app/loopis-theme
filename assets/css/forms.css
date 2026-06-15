@@ -11,8 +11,9 @@
 :where(input, select, textarea, button) { box-sizing: border-box; margin: 0; font: inherit; color: inherit; transition: all .2s ease; }
 :where(input[type="checkbox"], input[type="radio"]) { appearance: auto; }
 
-/* Form panel (optional) */
-.loopis-form-wrapper { background: var(--form-bg); border-radius: var(--form-radius); padding: var(--form-pad); text-align: inherit; }
+/* Form wrapper (optional) */
+.loopis-form-wrapper { background: var(--form-bg); border-radius: var(--form-radius); padding: var(--form-pad); text-align: inherit; margin-bottom: 20px;}
+.loopis-form-wrapper .center { margin: 0 auto; }
 
 /* Form input */
 .loopis-form :where(label, input, select, textarea, button) { margin-bottom: 5px; }
@@ -80,7 +81,7 @@ li #reply-title { font-size: 0; margin: 0 !important; padding: 0; height: 0; bor
 #image-previews .image-preview-controls button:hover { background: #e9e9e9; }
 
 /* Member-form tweaks */
-#member-form { max-width: 300px; margin: 0 auto; }
+#member-form { max-width: 300px; }
 
 /* Form loading overlay */
 .loopis-form-loading { position: fixed; inset: 0; z-index: -1; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.45); opacity: 0; pointer-events: none; transition: opacity 0.1s ease; }

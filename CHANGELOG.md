@@ -1,5 +1,11 @@
 # 📋 Changelog for "LOOPIS Theme"
 
+## 0.90 (2026-06-15)
+- NOT SINGLE SITE COMPATIBLE!
+- Theme constants definition moved to new mu-plugin "LOOPIS Constants"
+- Content of pages /shop and /user are now shared to "LOOPIS Theme HQ"
+- Output with php logic moved from `templates` to `includes/output` and shared to "LOOPIS Theme HQ"
+
 ## 0.89 (2026-06-11)
 - NOT SINGLE SITE COMPATIBLE!
 - Single site stuff placed in folder `deprecated`
