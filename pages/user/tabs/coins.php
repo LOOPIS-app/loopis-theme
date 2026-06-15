@@ -12,9 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 $user_id = get_current_user_id();
 
 
-/*
 // Get profile economy
-$profile_economy = get_economy($user_id);
+$profile_economy = loopis_ledger_economy($user_id);
 $payments_membership = $profile_economy['payments_membership'];
 $payments_coins = $profile_economy['payments_coins'];
 $membership_coins = $profile_economy['membership_coins'];
@@ -28,22 +27,6 @@ $star_coins = $profile_economy['star_coins'];
 $clovers = $profile_economy['clovers'];
 $clover_coins = $profile_economy['clover_coins'];
 $coins = $profile_economy['coins'];
-*/
-
-// Mock data for now
-$payments_membership = array ();
-$payments_coins = array ();
-$membership_coins = 0;
-$bought_coins = 0;
-$count_given = 0;
-$count_booked = 0;
-$count_submitted = 0;
-$count_deleted = 0;
-$stars = 0;
-$star_coins = 0;
-$clovers = 0;
-$clover_coins = 0;
-$coins = 0;
 ?>
 
 <h3>👛 Mina mynt</h3>

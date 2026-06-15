@@ -17,8 +17,6 @@ $user = wp_get_current_user();
 // Enqueue tabs script
 wp_enqueue_script('loopis-tabs', get_template_directory_uri() . '/assets/js/tabs.js', array(), '1.0.0', true);
 ?>
-<!--h1>👤 Min profil</h1-->
-<h1><?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-names.php'; ?></h1>
 
 <!-- Tab Navigation -->
 <div class="tab-nav">
