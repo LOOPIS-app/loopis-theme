@@ -59,12 +59,12 @@ function loopis_theme_load_files() {
     // For everyone
     loopis_theme_include_folder('filters');
     loopis_theme_include_folder('functions/everyone');
+    loopis_theme_include_folder('functions/payment');
     loopis_theme_include_folder('shortcodes');
 
     // For user
     if (is_user_logged_in()) { 
         loopis_theme_include_folder('functions/user');
-        loopis_theme_include_folder('functions/payment');
     } else {
     // For visitor
         loopis_theme_include_folder('functions/visitor');
