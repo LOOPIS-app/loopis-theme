@@ -65,7 +65,7 @@ if ( current_user_can('member') || current_user_can('administrator') ) {
 
 	} else {
 		// Visitor message
-		include_once LOOPIS_THEME_DIR . '/templates/access/no-comments.php'; 
+		include LOOPIS_THEME_DIR . '/includes/output/access/no-comments.php'; 
 		} ?>
 
 </div><!--page-padding-->				

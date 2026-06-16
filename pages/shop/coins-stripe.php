@@ -10,29 +10,23 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$current_user  = wp_get_current_user();
-$user_id       = $current_user->ID;
-$user_roles    = (array) $current_user->roles;
 $checkout_status = isset($_GET['checkout']) ? sanitize_key($_GET['checkout']) : '';
-$is_member         = in_array('member', $user_roles, true);
-$is_member_pending = in_array('member_pending', $user_roles, true);
 ?>
 
-<h1><img src="<?php echo LOOPIS_THEME_URI; ?>/assets/img/coin.png" alt="coin symbol" style="height:35px; width: auto;"> Köp regnbågsmynt</h1>
+<h1><img src="<?php echo LOOPIS_THEME_HQ_URI; ?>/assets/img/coin.png" alt="coin symbol" style="height:35px; width: auto;"> Köp regnbågsmynt</h1>
 <hr>
 <p class="small">💡 Hämta saker utan att ge bort något själv.</p>
 
-<?php if ($is_member) : ?>
-    
 <p>Här kan du köpa 5 regnbågsmynt för 50 kr.</p>
 
 <?php if ('success' === $checkout_status) : ?>
 
 <div class="loopis-message success"><p>✅ Betalning mottagen!</p>
-<p>Du har fått 5 regnbågsmynt att paxa saker för.</p>
+<p>Du har fått fem nya mynt att paxa saker för.</p>
 </div>
-<p><span class="big-link"><a href="<?php echo esc_url(add_query_arg('option', 'coins-stripe', home_url('/shop/'))); ?>">🛒 Köp 5 mynt till</a></span></p>
-<p><span class="big-link"><a href="<?php echo esc_url(home_url('/profile/')); ?>">👛 Mina mynt</a></span></p>
+
+<p><span class="link"><a href="<?php echo esc_url(add_query_arg('option', 'coins-stripe', home_url('/shop/'))); ?>">🛒 Köp 5 mynt till</a></span></p>
+<p><span class="big-link"><a href="<?php echo esc_url(home_url('/user/')); ?>" class="button-primary">👛 Mina mynt</a></span></p>
 
 <?php elseif ('cancelled' === $checkout_status) : ?>
 
@@ -96,16 +90,6 @@ function loopis_start_coins_checkout_payment(event) {
 <?php
 // Develooper info
 if (defined('LOOPIS_TEST') && LOOPIS_TEST) {
-    include_once LOOPIS_THEME_DIR . '/templates/develooper/test-coins.php';  
+    include_once LOOPIS_THEME_HQ_DIR . '/templates/develooper/test-coins.php'; 
     }
 ?>
-
-<?php elseif ($is_member_pending) : ?>
-
-<?php include LOOPIS_THEME_DIR . '/templates/access/member-only.php'; ?>
-
-<?php else : ?>
-
-<?php include LOOPIS_THEME_DIR . '/templates/access/logged-in-only.php'; ?>
-
-<?php endif; ?>

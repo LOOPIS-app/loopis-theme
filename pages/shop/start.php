@@ -4,28 +4,41 @@
  * 
  * Dynamic content of page-shop.php
  * Reached on /shop
- * 
  */
 
 if (!defined('ABSPATH')) {
     exit;
 }
-
-// Get current user roles
-$current_user = wp_get_current_user();
-$user_roles = (array) $current_user->roles;
 ?>
 
 <h1>🛒 Shoppen</h1>
 <hr>
 <p class="small">💡 Vår avdelning för hantering av vanliga pengar</p>
 
-<h3>Dina alternativ</h3>
+<h3>Välj vad du vill köpa</h3>
 <hr>
-<?php if (in_array('member', $user_roles, true)) : ?>
-<p><span class="big-link"><a href="<?php echo esc_url(add_query_arg('option', 'coins-stripe', home_url('/shop/'))); ?>">👛 Köp regnbågsmynt</a></span></p>
-<?php endif; ?>
 
-<?php if (in_array('member_pending', $user_roles, true)) : ?>
-<p><span class="big-link"><a href="<?php echo esc_url(add_query_arg('option', 'membership-stripe', home_url('/shop/'))); ?>">👤 Köp medlemskap</a></span></p>
-<?php endif; ?>
+<?php
+$can_buy_membership = current_user_can('member_pending');
+$can_buy_coins = current_user_can('member');
+
+$membership_href = $can_buy_membership
+    ? add_query_arg('option', 'membership-stripe', home_url('/shop/'))
+    : '#';
+$coins_href = $can_buy_coins
+    ? add_query_arg('option', 'coins-stripe', home_url('/shop/'))
+    : '#';
+
+$disabled_style = 'opacity: 0.5; pointer-events: none;';
+?>
+
+<p>
+    <span class="mega-link">
+        <a href="<?php echo esc_url($membership_href); ?>"<?php echo $can_buy_membership ? '' : ' aria-disabled="true" tabindex="-1" style="' . esc_attr($disabled_style) . '"'; ?>>💳 Medlemskap</a>
+    </span>
+</p>
+<p>
+    <span class="mega-link">
+        <a href="<?php echo esc_url($coins_href); ?>"<?php echo $can_buy_coins ? '' : ' aria-disabled="true" tabindex="-1" style="' . esc_attr($disabled_style) . '"'; ?>>💳 Regnbågsmynt</a>
+    </span>
+</p>

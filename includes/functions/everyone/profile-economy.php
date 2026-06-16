@@ -3,6 +3,9 @@
  * Profile economy for LOOPIS user.
  *
  * Included for everyone in functions.php
+ * 
+ * Deprecated and to be removed.
+ * 
  */
  
 if (!defined('ABSPATH')) {

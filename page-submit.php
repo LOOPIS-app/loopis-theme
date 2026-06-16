@@ -33,14 +33,14 @@ $user_roles = (array) $current_user->roles;
     // Pending member
      elseif (in_array('member_pending', $user_roles, true)) :
         echo '<h1>💚 Ge bort</h1><hr>';
-        include LOOPIS_THEME_DIR . '/templates/access/member-only.php';
+        include LOOPIS_THEME_DIR . '/includes/output/access/only-member.php';
         include LOOPIS_THEME_DIR . '/templates/faq/questions-visitor.php';
         get_footer();
 
     // Not logged in
     else :
         echo '<h1>💚 Ge bort</h1><hr>';
-        include LOOPIS_THEME_DIR . '/templates/access/logged-in-only.php';
+        include LOOPIS_THEME_DIR . '/includes/output/access/only-user.php';
         include LOOPIS_THEME_DIR . '/templates/faq/questions-visitor.php';
         get_footer();
     

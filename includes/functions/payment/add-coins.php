@@ -2,7 +2,7 @@
 /**
  * Automatic additions of coins initiated by Stripe payment.
  * 
- * Adding payment details to the user's account.
+ * Stores payment entry to the user's account.
  */
  
 if (!defined('ABSPATH')) {
@@ -19,7 +19,7 @@ function add_coins($user_id = null) {
     // Get user data
     $user = get_userdata($user_id);
     if (!$user) {
-        error_log("LOOPIS: add_membership failed - User {$user_id} not found");
+        error_log("LOOPIS: add_coins failed - User {$user_id} not found");
         return false;
     }
 
@@ -43,4 +43,6 @@ function add_coins($user_id = null) {
 
     // Update the wpum_payments field with the modified array
     update_user_meta($user_id, 'wpum_payments', $updated_payments);
+
+    return true;
 }

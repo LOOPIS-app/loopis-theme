@@ -490,7 +490,7 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
                 <label>5⃣ Överlämning</label>
                 <label for="gift-exchange-locker">
                     <input type="radio" name="locker" id="gift-exchange-locker" value="1" <?php checked($selected_locker, 1); ?>>
-                    Skåpet i Bagarmossen
+                    Skåpet i <?php echo esc_html(get_bloginfo('name')); ?>
                 </label>
                 <label for="gift-exchange-location">
                     <input type="radio" name="locker" id="gift-exchange-location" value="0" <?php checked($selected_locker, 0); ?>>

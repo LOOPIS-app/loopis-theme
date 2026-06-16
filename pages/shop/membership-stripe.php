@@ -20,18 +20,17 @@ $is_member_pending = in_array('member_pending', $user_roles, true);
 
 <h1>💳 Betala medlemskap</h1>
 <hr>
-<p class="small">💡 Du måste vara medlem för att kunna loopa.</p>
+<p class="small">💡 Du måste vara medlem för att loopa.</p>
 
 <?php if (!is_user_logged_in()) : ?>
 
     <p>Du måste vara inloggad för att betala ditt medlemskap.</p>
-    <?php include LOOPIS_THEME_DIR . '/templates/links/log-in-button.php'; ?>
+    <?php include LOOPIS_THEME_HQ_DIR . '/templates/links/log-in-button.php'; ?>
 
 <?php elseif ('success' === $checkout_status) : ?>
 
     <p><strong>✅ Betalning mottagen!</strong></p>
-    <p>Ditt medlemskap är aktiverat och du har 5 regnbågsmynt.</p>
-    <p>Ta en titt på <span class="link"><a href="<?php echo home_url(); ?>">🎁 Saker att få</a></span></p>
+    <p>Nu är ditt medlemskap aktiverat.</p>
     <script>
     (function() {
         var nonce = <?php echo wp_json_encode(wp_create_nonce('wp_rest')); ?>;
@@ -55,7 +54,7 @@ $is_member_pending = in_array('member_pending', $user_roles, true);
 
 <?php elseif ($is_member) : ?>
 
-    <p>✅ Du är redan medlem.</p>
+    <p>✅ Du är redan medlem – välkommen!</p>
 
 <?php elseif ('cancelled' === $checkout_status) : ?>
 
@@ -64,8 +63,8 @@ $is_member_pending = in_array('member_pending', $user_roles, true);
 
 <?php elseif ($is_member_pending) : ?>
 
-    <p>Betala medlemsavgift (50 kronor) för att aktivera ditt medlemskap.</p>
-    <p>Du får 5 regnbågsmynt att paxa saker för.</p>
+    <p>Tryck på knappen för att betala din medlemsavgift.</p>
+
     <p>
         <button
             type="button"
@@ -76,7 +75,7 @@ $is_member_pending = in_array('member_pending', $user_roles, true);
             💳 Betala 50 kr
         </button>
     </p>
-    <?php include LOOPIS_THEME_DIR . '/templates/links/mail-support.php'; ?>
+    <?php include LOOPIS_THEME_HQ_DIR . '/templates/links/mail-support.php'; ?>
     <p><span class="link"><a href="<?php echo esc_url(home_url('/faq/varför-medlemskap') ); ?>">📌 Varför måste jag vara medlem?</a></span></p>
     <p><span class="link"><a href="<?php echo esc_url(home_url('/faq/hur-funkar-regnbagsmynt') ); ?>">📌 Hur funkar regnbågsmynt?</a></span></p>
     <p><span class="link"><a href="<?php echo esc_url(add_query_arg('option', 'membership-swish', home_url('/shop/'))); ?>">💸 Betala med Swish istället</a></span></p>
@@ -117,7 +116,8 @@ $is_member_pending = in_array('member_pending', $user_roles, true);
 <?php
 // Develooper info
 if (defined('LOOPIS_TEST') && LOOPIS_TEST) { 
-    include LOOPIS_THEME_DIR . '/templates/develooper/test-membership.php'; }
+    include LOOPIS_THEME_HQ_DIR . '/templates/develooper/test-membership.php';
+    }
 ?>
 
 <?php else : ?>

@@ -23,7 +23,7 @@ function admin_action_notif_manual($post_id) {
 	
 	// Send notification from LOTTEN to winner	
 	send_admin_notification_email ('🥳 Grattis @'.$winner_name.' – du har vunnit lottningen! <br>
-	⏳ Du får ett meddelande när du kan hämta i skåpet. <br>💡 PS. Vi hade problem med mailutskick idag, därför kommer detta besked lite sent.', $post_id, 11, $winner_id);
+	⏳ Du får ett meddelande när du kan hämta i skåpet. <br>💡 PS. Vi hade problem med mailutskick idag, därför kommer detta besked lite sent.', $post_id, 3, $winner_id);
 	
 	// Send notification from LOTTEN to author
 	$locker_code = get_locker_code(LOCKER_ID);
@@ -31,7 +31,7 @@ function admin_action_notif_manual($post_id) {
 	⌛ Lämna gärna i skåpet inom 24 timmar. <br>
 	🔓 Kod till skåpet: <b>'.$locker_code.'</b> <br>
 	🙏 Tack för att du loopar! @'.$author_name.' <br>
-	💡 PS. Vi hade problem med mailutskick idag, därför kommer detta besked lite sent.', $post_id, 11, $author);
+	💡 PS. Vi hade problem med mailutskick idag, därför kommer detta besked lite sent.', $post_id, 3, $author);
 	
 	// Send notification to losers
 	foreach ($participants as $user_id) {
@@ -39,11 +39,11 @@ function admin_action_notif_manual($post_id) {
 		$loser_id = get_userdata($user_id);
 		$loser_name = $loser_id->display_name;
 		send_admin_notification_email ('💔 Du vann tyvärr inte lottningen @'.$loser_name.'. <br>
-		🍀 '.$count.' personer deltog. Bättre lycka nästa gång! <br>💡 PS. Vi hade problem med mailutskick idag, därför kommer detta besked lite sent.', $post_id, 11, $user_id); } 
+		🍀 '.$count.' personer deltog. Bättre lycka nästa gång! <br>💡 PS. Vi hade problem med mailutskick idag, därför kommer detta besked lite sent.', $post_id, 3, $user_id); } 
 	
 	// Leave comment by LOOPIS
 	add_admin_comment ('🤖 Idag hade vi problem med mailutskick! <br>
-	💡 Besked om lottning har nu skickats med lite fördröjning.', $post_id, 1);
+	💡 Besked om lottning har nu skickats med lite fördröjning.', $post_id, 2);
 	
 	// Refresh page
 	refresh_page();

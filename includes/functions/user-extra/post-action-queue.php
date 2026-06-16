@@ -19,7 +19,7 @@ function action_queue(int $post_id) {
 	$user_ID = get_current_user_id();
 	$coins = get_option('loopis_balance',$user_ID,true);
 	if ($coins < 1) { 
-		include LOOPIS_THEME_DIR . '/templates/access/no-coins.php'; 
+		include LOOPIS_THEME_DIR . '/includes/output/access/no-coins.php'; 
 		echo '<script src="' . LOOPIS_THEME_DIR . '/assets/js/scroll-to-warning.js"></script>';
 		return; 
 	}

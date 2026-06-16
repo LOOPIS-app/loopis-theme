@@ -1,7 +1,18 @@
 # 📋 Changelog for "LOOPIS Theme"
 
+## 0.90 (2026-06-15)
+- NOT SINGLE SITE COMPATIBLE!
+- Theme constants definition moved to new mu-plugin "LOOPIS Constants"
+- Content of pages /shop and /user are now shared to "LOOPIS Theme HQ"
+- Output with php logic moved from `templates` to `includes/output` and shared to "LOOPIS Theme HQ"
+
+## 0.89 (2026-06-11)
+- NOT SINGLE SITE COMPATIBLE!
+- Single site stuff placed in folder `deprecated`
+- New redirects to mainsite for login, signup and FAQ.
+
 ## 0.88 (2026-06-10)
-- Preparing for live deployment of multisite
+- Now sharing styles to "LOOPIS Theme HQ" (introducing common `base.css`)
 
 ## 0.87 (2026-06-08)
 - `style.css` cleaned up, with `forms.css` and `wpum.css` separated

@@ -1,6 +1,7 @@
-/* Responsive styles for LOOPIS
+/**
+ * Responsive styling for "LOOPIS Theme" and "LOOPIS Theme HQ".
  *
- * Separated from style.css for clarity 
+ * Separated from base.css for clarity 
  */
 
 @media only screen and (max-width: 783px) {

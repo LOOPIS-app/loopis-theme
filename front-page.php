@@ -11,11 +11,12 @@ get_header(); ?>
         <?php
         // Messages for users and visitors
         if (current_user_can('member') || current_user_can('administrator')) {
-            // include_once LOOPIS_THEME_DIR . '/templates/user/front-page/front-tips.php'; // Temporary Christmas tips
-            include_once LOOPIS_THEME_DIR . '/templates/user/front-page/front-alerts.php';
-            include_once LOOPIS_THEME_DIR . '/templates/user/front-page/front-forum.php';
+            // include LOOPIS_THEME_DIR . '/includes/output/front-page/front-tips.php'; // Activate when needed
+            include LOOPIS_THEME_DIR . '/includes/output/front-page/front-alerts.php';
+            include LOOPIS_THEME_DIR . '/includes/output/front-page/front-forum.php';
         } else {
-            include_once LOOPIS_THEME_DIR . '/templates/user/front-page/front-message.php';
+            include LOOPIS_THEME_DIR . '/includes/output/access/role-greeting.php';
+            include LOOPIS_THEME_DIR . '/includes/output/access/role-options.php';
         }
 
         // Count new posts
@@ -48,7 +49,7 @@ get_header(); ?>
         $count_old = $count_total - $count_new;
         ?>
 
-        <h1>🎁 Saker i Bagarmossen</h1>
+        <h1>🎁 Saker i <?php echo esc_html(get_bloginfo('name')); ?></h1>
 
         <!-- List header -->
         <div class="columns">
