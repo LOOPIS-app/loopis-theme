@@ -73,7 +73,7 @@ function admin_action_fetched(int $post_id) {
 	loopis_ledger_add_post('given', $author_id, $post_id,['timestamp'=> $timestamp]);
 		
 	// Leave comment by admin
-	add_admin_comment ('<p class="fetched">☑ Markerar som hämtad, eftersom mottagaren inte gjort det.</p>', $post_id, 1 );
+	add_admin_comment ('<p class="fetched">☑ Markerar som hämtad, eftersom mottagaren inte gjort det.</p>', $post_id, 2 );
 		
 	// Refresh page
 	refresh_page();
