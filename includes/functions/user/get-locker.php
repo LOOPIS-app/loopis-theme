@@ -18,11 +18,9 @@ if (!defined('ABSPATH')) {
 
 function get_locker_data($locker_id, $field, $default = '') {
     global $wpdb;
-    if(is_multisite()){
-        $table = $wpdb->base_prefix . 'loopis_lockers';
-    }else{
-        $table = $wpdb->prefix . 'loopis_lockers';
-    }
+
+    $table = $wpdb->prefix . 'loopis_lockers';
+    
     $value = $wpdb->get_var($wpdb->prepare("SELECT `$field` FROM $table WHERE locker_id = %s", $locker_id));
     return ($value !== null) ? $value : $default;
 }
@@ -36,12 +34,8 @@ function get_locker_data($locker_id, $field, $default = '') {
  */
 function get_locker_code($locker_id) {
     global $wpdb;
-    if(is_multisite()){
-        $table = $wpdb->base_prefix . 'loopis_lockers';
-    }else{
-        $table = $wpdb->prefix . 'loopis_lockers';
-    }
 
+    $table = $wpdb->prefix . 'loopis_lockers';
     $locker_code = $wpdb->get_var(
         $wpdb->prepare(
             "SELECT locker_code FROM $table WHERE locker_id = %s",

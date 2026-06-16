@@ -18,6 +18,7 @@ function action_forward(int $post_id) {
 	// Retrieve the current post data
 	$current_post = get_post($post_id);
 	$author =  get_current_user_id();
+	$location = get_post_meta($post_id,'location',true);
 	
 	// Create a new post with the same content
 	$new_post_args = array(
@@ -31,7 +32,7 @@ function action_forward(int $post_id) {
 	
 	if (!is_wp_error($new_post_id)) {
 
-	loopis_ledger_add_post('submitted', $author, $new_post_id ,['timestamp' => current_time('Y-m-d H:i:s')]);
+	loopis_ledger_add_post('submitted', $author, $new_post_id ,['timestamp' => current_time('Y-m-d H:i:s'), 'location' => $location, 'type' => 'forwarded']);
 	
 	// Set the same featured image for new post
 	$featured_image = get_post_thumbnail_id($post_id);
@@ -92,9 +93,8 @@ function action_forward(int $post_id) {
     add_admin_comment($notification_message, $new_post_id, 1);
 	}
 
-	// Redirect to new post with "/edit" appended to the URL
 	$redirect_script = '<script type="text/javascript">';
-	$redirect_script .= 'window.location.href = "' . esc_url(get_permalink($new_post_id)) . '/edit";';
+	$redirect_script .= 'window.location.href = "' . esc_url(home_url('/submit/?option=single&edit_post_id=' . (int) $new_post_id) . '";';
 	$redirect_script .= '</script>';
 	echo $redirect_script;
 	exit;
