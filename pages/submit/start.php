@@ -34,8 +34,8 @@ if (!defined('ABSPATH')) {
   <?php if (current_user_can('loopis_admin')) : ?>
   <button type="button" class="orange small" onclick="window.location.href='<?php echo esc_url( add_query_arg(array('view' => 'storage'), home_url('/admin/')) ); ?>'">📦 Visa lager</button>
   <p class="info">Tryck här för att visa lager och paxa annonser.</p>
-  </div>
   <?php endif; ?>
+  </div>
 <?php endif; ?>
 
 <!-- FAQ -->

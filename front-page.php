@@ -1,7 +1,8 @@
 <?php
 /**
- * Front page template
- * Displays current posts + messages for users and visitors.
+ * LOOPIS sub site front page page
+ * 
+ * Displays messages for user/visitor + current posts.
  */
 
 get_header(); ?>
@@ -15,8 +16,8 @@ get_header(); ?>
             include LOOPIS_THEME_DIR . '/includes/output/front-page/front-alerts.php';
             include LOOPIS_THEME_DIR . '/includes/output/front-page/front-forum.php';
         } else {
-            include LOOPIS_THEME_DIR . '/includes/output/access/role-greeting.php';
-            include LOOPIS_THEME_DIR . '/includes/output/access/role-options.php';
+            include LOOPIS_THEME_DIR . '/includes/output/access/role-greeting-local.php';
+            include LOOPIS_THEME_DIR . '/includes/output/access/role-options-local.php';
         }
 
         // Count new posts

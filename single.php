@@ -116,7 +116,7 @@ $image_3_id = get_post_meta($post_id, 'image_3', true);
 
                     } else {
                     // Visitor message & FAQ
-                    include LOOPIS_THEME_DIR . '/includes/output/access/role-message.php';
+                    include LOOPIS_THEME_DIR . '/includes/output/access/role-options.php';
                     include LOOPIS_THEME_DIR . '/templates/faq/questions-visitor.php';
                 } 
                 ?>
