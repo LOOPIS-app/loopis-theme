@@ -31,13 +31,13 @@ function action_book_locker(int $post_id) {
     
     // Get locker code
     $locker_code = get_locker_code(LOCKER_ID);
-
+    $timestamp = current_time('Y-m-d H:i:s');
     // Set post meta
     wp_set_object_terms($post_id, null, 'category');
     wp_set_object_terms($post_id, 'booked', 'category');
     update_post_meta($post_id,'fetcher', $fetcher);
-    update_post_meta($post_id,'book_date', current_time('Y-m-d H:i:s'));
-
+    update_post_meta($post_id,'book_date',  $timestamp);
+    loopis_ledger_add_post('booked', $fetcher, $post_id, ['timestamp' => $timestamp]);
     // Send notification from LOOPIS to author
     send_admin_notification_email('
     ❤ ' . $fetcher_name . ' har paxat! <br>
