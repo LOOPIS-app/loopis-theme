@@ -93,32 +93,32 @@ if ($notifications > 0) {
 
 // Time to leave in the locker?
 if ($leave > 0) {
-    echo '<p><span class="mega-link notif" onclick="window.location.href=\'/activity/\'"><i class="fas fa-walking"></i>Du ska lämna ' . $leave . ' sak' . ($leave > 1 ? 'er' : '') . ' i skåpet →</span></p>';
+    echo '<p><span class="mega-link notif" onclick="window.location.href=\'' . esc_url( home_url( '/activity/' ) ) . '\'"><i class="fas fa-walking"></i>Du ska lämna ' . $leave . ' sak' . ($leave > 1 ? 'er' : '') . ' i skåpet →</span></p>';
 }
 
 // Time to fetch in the locker?
 if ($fetch > 0) {
-    echo '<p><span class="mega-link notif" onclick="window.location.href=\'/activity/\'"><i class="fas fa-walking"></i>Du ska hämta ' . $fetch . ' sak' . ($fetch > 1 ? 'er' : '') . ' i skåpet →</span></p>';
+    echo '<p><span class="mega-link notif" onclick="window.location.href=\'' . esc_url( home_url( '/activity/' ) ) . '\'"><i class="fas fa-walking"></i>Du ska hämta ' . $fetch . ' sak' . ($fetch > 1 ? 'er' : '') . ' i skåpet →</span></p>';
 }
 
 // Time to get a visit?
 if ($get_visit > 0) {
-    echo '<p><span class="mega-link notif" onclick="window.location.href=\'/activity/\'">🚪 Någon ska hämta ' . $get_visit . ' sak' . ($get_visit > 1 ? 'er' : '') . ' hos dig →</span></p>';
+    echo '<p><span class="mega-link notif" onclick="window.location.href=\'' . esc_url( home_url( '/activity/' ) ) . '\'">🚪 Någon ska hämta ' . $get_visit . ' sak' . ($get_visit > 1 ? 'er' : '') . ' hos dig →</span></p>';
 }
 
 // Time to make a visit?
 if ($make_visit > 0) {
-    echo '<p><span class="mega-link notif" onclick="window.location.href=\'/activity/\'">📱 Du ska hämta ' . $make_visit . ' sak' . ($make_visit > 1 ? 'er' : '') . ' hos någon →</span></p>';
+    echo '<p><span class="mega-link notif" onclick="window.location.href=\'' . esc_url( home_url( '/activity/' ) ) . '\'">📱 Du ska hämta ' . $make_visit . ' sak' . ($make_visit > 1 ? 'er' : '') . ' hos någon →</span></p>';
 }
 
 // Archived posts?
 if ($archived > 0) {
-    echo '<p><span class="mega-link notif" onclick="window.location.href=\'/activity/?view=posts-submitted&status=archived\'">⭕ Du har ' . $archived . ($archived === 1 ? ' arkiverad annons' : '') . ($archived > 1 ? ' arkiverade annonser' : '') . ' →</span></p>';
+    echo '<p><span class="mega-link notif" onclick="window.location.href=\'' . esc_url( home_url( '/activity/?view=posts-submitted&status=archived' ) ) . '\'">⭕ Du har ' . $archived . ($archived === 1 ? ' arkiverad annons' : '') . ($archived > 1 ? ' arkiverade annonser' : '') . ' →</span></p>';
 }
 
 // Paused posts?
 if ($paused > 0) {
-    echo '<p><span class="mega-link notif" onclick="window.location.href=\'/activity/?view=posts-submitted&status=paused\'">😎 Du har ' . $paused . ($paused === 1 ? ' pausad annons' : '') . ($paused > 1 ? ' pausade annonser' : '') . ' →</span></p>';
+    echo '<p><span class="mega-link notif" onclick="window.location.href=\'' . esc_url( home_url( '/activity/?view=posts-submitted&status=paused' ) ) . '\'">😎 Du har ' . $paused . ($paused === 1 ? ' pausad annons' : '') . ($paused > 1 ? ' pausade annonser' : '') . ' →</span></p>';
 }
 
 // Insert spacer.

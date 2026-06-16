@@ -19,7 +19,7 @@ wp_enqueue_script('loopis-tabs', get_template_directory_uri() . '/assets/js/tabs
 
 <!-- Tab Navigation -->
 <div class="tab-nav">
-    <nav class="profile-navbar">
+    <nav class="tab-navbar">
         <a href="#" class="tab-link" data-tab="tab-active">⚠ Pågående</a>
         <a href="#" class="tab-link" data-tab="tab-resolved">✅ Avslutade</a>
     </nav>

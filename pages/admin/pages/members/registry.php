@@ -20,7 +20,7 @@ wp_enqueue_script('loopis-tabs', get_template_directory_uri() . '/assets/js/tabs
 
 <!-- Tab Navigation -->
 <div class="tab-nav">
-    <nav class="profile-navbar">
+    <nav class="tab-navbar">
         <a href="#" class="tab-link" data-tab="tab-active">👤 Aktiva</a>
         <a href="#" class="tab-link" data-tab="tab-former">👻 Tidigare</a>
         <a href="#" class="tab-link" data-tab="tab-remote">🌝 Utsocknes</a>
