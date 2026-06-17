@@ -37,7 +37,7 @@ function add_coins($user_id = null) {
     'wpum_payment_method' => array(array('value' => 'stripe')),
     'wpum_received_coins' => array(array('value' => '5'))
 );
-
+    loopis_ledger_add_payment($user_id);
     // Add the new payment detail to the existing array
     $updated_payments = array_merge((array) $current_payments, array($new_payment));
 

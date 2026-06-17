@@ -325,7 +325,7 @@ function loopis_ledger_add_post($event, $user_id, $post_id, $options=[]){
         $wpdb->prepare(
             "INSERT INTO {$table_name}
             (user_id, post_id, blog_id, location, event, type, coins, clover, timestamp)
-            VALUES ( %d, %d, %d, %s, %s, %d, %d, %s)",
+            VALUES ( %d, %d, %d, %s, %s, %s, %d, %d, %s)",
             $user_id,
             $post_id,
             $blog_id,

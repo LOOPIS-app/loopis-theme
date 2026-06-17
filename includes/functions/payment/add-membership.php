@@ -89,7 +89,7 @@ function add_membership($user_id = null) {
     );
 
     update_user_meta($user_id, 'wpum_payments', $current_payments);
-
+    loopis_ledger_add_payment($user_id, ['type' => 'medlemskap']);
     // Get the email templates from the options.
     $subject = loopis_get_setting('welcome_email_subject', 'Content missing...');
     $greeting = loopis_get_setting('welcome_email_greeting', 'Content missing...');
