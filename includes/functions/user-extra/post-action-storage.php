@@ -17,15 +17,30 @@ if (!function_exists('admin_action_book_storage')) {
         // Set comment content
         $event_name = function_exists('loopis_get_setting') ? loopis_get_setting('event_name', '📍 Inget event angivet') : '📍 Inget event angivet';
         $fetcher_name = get_userdata($user_id)->display_name;
-        
+        $timestamp = current_time('Y-m-d H:i:s');
         // Set post meta
         wp_set_object_terms($post_id, null, 'category');
         wp_set_object_terms($post_id, 'fetched', 'category'); 
         update_post_meta($post_id,'fetcher', $user_id);
-        update_post_meta($post_id,'book_date', current_time('Y-m-d H:i:s'));
-        update_post_meta($post_id,'fetch_date', current_time('Y-m-d H:i:s'));
+        update_post_meta($post_id,'book_date', $timestamp);
+        update_post_meta($post_id,'fetch_date', $timestamp);
         update_post_meta($post_id,'location', "LOOPIS-bord");
-        
+        loopis_ledger_add_post('submitted', get_post_field ('post_author', $post_id), $post_id ,[
+                    'timestamp' => $timestamp,
+                    'location' => "LOOPIS-bord",
+                    ]);
+        loopis_ledger_add_post('booked', $user_id, $post_id ,[
+                    'timestamp' => $timestamp,
+                    'location' => "LOOPIS-bord",
+                    ]);
+        loopis_ledger_add_post('given', get_post_field ('post_author', $post_id), $post_id ,[
+                    'timestamp' => $timestamp,
+                    'location' => "LOOPIS-bord",
+                    ]);
+        loopis_ledger_add_post('fetched', $user_id, $post_id ,[
+                    'timestamp' => $timestamp,
+                    'location' => "LOOPIS-bord",
+                    ]);
         // Update post
         $post_data = array(
             'ID' => $post_id,
@@ -49,7 +64,11 @@ if (!function_exists('admin_action_publish_storage')) {
         // Set post meta
         wp_set_object_terms($post_id, null, 'category');
         wp_set_object_terms($post_id, 'new', 'category');
-        
+        $timestamp = current_time('Y-m-d H:i:s');
+        loopis_ledger_add_post('submitted', get_post_field ('post_author', $post_id), $post_id ,[
+                            'timestamp' => $timestamp
+                            'location' => get_post_meta($post_id, 'location', true),
+                            ]);
         // Update post
         $now_time = current_time('mysql');
         $post_data = array(

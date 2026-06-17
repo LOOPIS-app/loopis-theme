@@ -21,12 +21,8 @@ $field_id = 35;
 $dropdown_meta_key = 'dropdown_options';
 
 // Query the database to get the dropdown options
-$dropdown_options = $wpdb->get_var(
-    $wpdb->prepare(
-        "SELECT meta_value FROM {$wpdb->prefix}wpum_fieldmeta WHERE wpum_field_id = %d AND meta_key = %s",
-        $field_id,
-        $dropdown_meta_key
-    )
+$dropdown_options = $wpdb->get_results(
+    "SELECT DISTINCT type FROM {$wpdb->base_prefix}loopis_ledger WHERE event = 'payment'", ARRAY_A
 );
 
 // Initialize the mapping array
@@ -34,12 +30,10 @@ $wpum_payment_type_labels = array();
 
 // If dropdown options are found, deserialize and build the mapping
 if (!empty($dropdown_options)) {
-    $options = maybe_unserialize($dropdown_options);
-    if (is_array($options)) {
-        foreach ($options as $option) {
-            if (isset($option['value']) && isset($option['label'])) {
-                $wpum_payment_type_labels[$option['value']] = $option['label'];
-            }
+    //$options = maybe_unserialize($dropdown_options);
+    if (is_array($dropdown_options)) {
+        foreach ($dropdown_options as $option) {
+            $wpum_payment_type_labels[loopis_ledger_type_output( $option['type'])] = loopis_ledger_type_output( $option['type']);
         }
     }
 }

@@ -67,7 +67,7 @@ $count = $the_query->found_posts;
                 <div class="post-list-post-title"><?php the_title(); ?></div>
 
                 <?php if (in_category('new')) : ?>
-                    <?php include LOOPIS_THEME_DIR . '/pages/admin/pages/raffle/raffle-actions.php'; ?>
+                    <?php include LOOPIS_THEME_DIR . '/pages/admin/raffle/raffle-actions.php'; ?>
                 <?php elseif (in_category('removed')) : ?>
                     <?php if (isset($_POST['erase' . $post_id])) {
                         admin_action_erase($post_id);
@@ -114,7 +114,7 @@ $count = $the_query->found_posts;
 <!-- Manual Raffle Start -->
 <?php if (current_user_can('loopis_raffle') && $complete_count > 0) : ?>
     <?php if (isset($_POST['start_raffle'])) {
-        cron_job_raffle();
+        loopis_cronjobs_raffle();
     } ?>
     <form method="post" class="arb" action="">
         <button name="start_raffle" 

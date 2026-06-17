@@ -67,14 +67,14 @@ wp_reset_postdata();
     <!-- Today's Raffle -->
     <div id="tab-today" class="tab-panel">
         <?php
-        include LOOPIS_THEME_DIR . '/pages/admin/pages/raffle/raffle-today.php';
+        include LOOPIS_THEME_DIR . '/pages/admin/raffle/raffle-today.php';
         ?>
     </div>
 
     <!-- Tomorrow's Raffle -->
     <div id="tab-tomorrow" class="tab-panel">
         <?php
-        include LOOPIS_THEME_DIR . '/pages/admin/pages/raffle/raffle-tomorrow.php';
+        include LOOPIS_THEME_DIR . '/pages/admin/raffle/raffle-tomorrow.php';
         ?>
     </div>
 

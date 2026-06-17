@@ -103,6 +103,7 @@ $gift_form_is_edit_mode = false;
 $gift_form_post_to_edit = null;
 $gift_form_existing_images = array();
 
+$old_cats = wp_get_post_terms($gift_form_edit_post_id, 'category', array('fields' => 'ids'));
 // Prefer the current request URL so existing query params (e.g. option=single) survive redirects.
 if (!empty($_SERVER['REQUEST_URI'])) {
     $gift_form_action_url = home_url(wp_unslash($_SERVER['REQUEST_URI']));
@@ -135,7 +136,7 @@ if ($gift_form_is_edit_mode && 'POST' !== strtoupper($_SERVER['REQUEST_METHOD'] 
     $selected_terms = is_array($selected_terms) ? array_map('intval', $selected_terms) : array();
 
     if ($is_admin_user) {
-        $selected_cats = wp_get_post_terms($gift_form_edit_post_id, 'category', array('fields' => 'ids'));
+        $selected_cats = $old_cats;
         if (!empty($selected_cats[0])) {
             $selected_cat = (int) $selected_cats[0];
         }
@@ -220,7 +221,11 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
                 $selected_cat = $storage_category_default_id;
             }
         } else {
-            $selected_cat = $default_cat;
+            if (!empty($old_cats)){
+                $selected_cat = (int) $old_cats[0];
+            }else{
+                $selected_cat = $default_cat;
+            }
         }
 
         // Field-level validation.
@@ -374,7 +379,7 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
                     $location_value = 0 === $selected_locker ? $custom_location_value : 'Skåpet';
                     update_post_meta($post_id, 'location', $location_value);
                     update_post_meta($post_id, 'locker_id', $selected_locker);
-                    if (!$gift_form_is_edit_mode) {
+                    if ( (!$gift_form_is_edit_mode) && ($selected_cat !== loopis_cat('storage'))) {
                         loopis_ledger_add_post('submitted', get_current_user_id(), $post_id ,[
                             'timestamp' => current_time('Y-m-d H:i:s'),
                             'location' => $location_value
