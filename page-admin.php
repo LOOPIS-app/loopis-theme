@@ -12,7 +12,7 @@ if (current_user_can('loopis_admin') || current_user_can('manage_options')) : ?>
 
             <?php
             // Dynamic admin page loader
-            $content_dir = get_template_directory() . '/pages/admin/pages/';
+            $content_dir = get_template_directory() . '/pages/admin/';
 
             // Get 'view' parameter from URL (default to 'panels' if not set)
             $content_name = isset($_GET['view']) ? sanitize_text_field($_GET['view']) : 'panels';

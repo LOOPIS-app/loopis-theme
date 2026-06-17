@@ -31,13 +31,13 @@ wp_enqueue_script('loopis-tabs', get_template_directory_uri() . '/assets/js/tabs
     <!-- Active Cases -->
     <div id="tab-active" class="tab-panel">
         <h7>⚠ Pågående ärenden</h7>
-        <?php include LOOPIS_THEME_DIR . '/pages/admin/pages/support/support-active.php'; ?>
+        <?php include LOOPIS_THEME_DIR . '/pages/admin/support/support-active.php'; ?>
     </div>
 
     <!-- Resolved Cases -->
     <div id="tab-resolved" class="tab-panel">
         <h7>✅ Avslutade ärenden</h7>
-        <?php include LOOPIS_THEME_DIR . '/pages/admin/pages/support/support-solved.php'; ?>
+        <?php include LOOPIS_THEME_DIR . '/pages/admin/support/support-solved.php'; ?>
     </div>
 
 </div>

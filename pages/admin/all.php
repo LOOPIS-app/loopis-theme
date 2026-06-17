@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
 include_once LOOPIS_THEME_DIR . '/includes/functions/admin-extra/list_php_files.php';
 
 // Specify the directory to scan
-$content_dir = LOOPIS_THEME_DIR . '/pages/admin/pages/';
+$content_dir = LOOPIS_THEME_DIR . '/pages/admin/';
 
 // Use the included generic function
 loopis_list_php_files($content_dir, 'view');

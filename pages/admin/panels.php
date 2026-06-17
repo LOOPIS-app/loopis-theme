@@ -23,7 +23,7 @@ $admin_url = home_url('/admin/');
 <!-- Dashboard Cards -->
 
 <!-- Statistics -->
-<div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'pages/stats', $admin_url) ); ?>'">
+<div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'stats', $admin_url) ); ?>'">
     <h5>📊 Statistik</h5>
     <hr>
     <p class="small">
@@ -32,7 +32,7 @@ $admin_url = home_url('/admin/');
 </div>
 
 <!-- Raffle results -->
-<div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'pages/raffle', $admin_url) ); ?>'">
+<div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'raffle', $admin_url) ); ?>'">
     <h5>🎲 Lottning</h5>
     <hr>
     <p class="small">
@@ -41,7 +41,7 @@ $admin_url = home_url('/admin/');
 </div>
 
 <!-- Reminders -->
-<div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'pages/traffic-gifts', $admin_url) ); ?>'">
+<div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'traffic-gifts', $admin_url) ); ?>'">
     <h5>⏰ Påminnelser</h5>
     <hr>
     <p class="small">
@@ -50,7 +50,7 @@ $admin_url = home_url('/admin/');
 </div>
 
 <!-- Locker traffic -->
-<div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'pages/traffic-locker', $admin_url) ); ?>'">
+<div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'traffic-locker', $admin_url) ); ?>'">
     <h5>🔐 Trafik i skåp</h5>
     <hr>
     <p class="small">
@@ -68,7 +68,7 @@ $admin_url = home_url('/admin/');
 </div>
 
 <!-- Archive count -->
-<div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'pages/archive', $admin_url) ); ?>'">
+<div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'archive', $admin_url) ); ?>'">
     <h5>🕸 Arkivet</h5>
     <hr>
     <p class="small">
@@ -77,7 +77,7 @@ $admin_url = home_url('/admin/');
 </div>
 
 <!-- Comment count -->
-<div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'pages/comments', $admin_url) ); ?>'">
+<div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'comments', $admin_url) ); ?>'">
     <h5>🗨 Kommentarer</h5>
     <hr>
     <p class="small">
@@ -87,7 +87,7 @@ $admin_url = home_url('/admin/');
 
 <!-- Pending members count -->
 <?php if (current_user_can('manage_options') || current_user_can('loopis_admin')) : ?>
-    <div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'pages/activation', $admin_url) ); ?>'">
+    <div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'activation', $admin_url) ); ?>'">
         <h5>👥 Nya medlemmar</h5>
         <hr>
         <p class="small">
@@ -109,7 +109,7 @@ $admin_url = home_url('/admin/');
 
 <!-- Settings Section -->
 <?php if (current_user_can('manage_options') || current_user_can('loopis_admin')) : ?>
-    <div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'pages/settings', $admin_url) ); ?>'">
+    <div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'settings', $admin_url) ); ?>'">
         <h5>⚙ Inställningar</h5>
         <hr>
         <p class="small">
@@ -123,8 +123,8 @@ $admin_url = home_url('/admin/');
     <h3>💰 Ekonomi</h3>
     <hr>
     <div>
-        <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'pages/economy/payments', $admin_url) ); ?>">📒 Alla köp</a></span>&nbsp;
-        <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'pages/economy/coins', $admin_url) ); ?>">🪙 Köp av mynt</a></span>&nbsp;
+        <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'economy/payments', $admin_url) ); ?>">📒 Alla köp</a></span>&nbsp;
+        <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'economy/coins', $admin_url) ); ?>">🪙 Köp av mynt</a></span>&nbsp;
     </div>
 <?php endif; ?>
 
@@ -132,8 +132,8 @@ $admin_url = home_url('/admin/');
 <h3>🤓 Admin</h3>
 <hr>
 <div>
-    <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'pages/manager/post-search', $admin_url) ); ?>">🔍 Alla annonser</a></span>&nbsp;
-    <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'pages/manager/inventory', $admin_url) ); ?>">📋 Inventering i skåpet</a></span>&nbsp;
+    <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'manager/post-search', $admin_url) ); ?>">🔍 Alla annonser</a></span>&nbsp;
+    <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'manager/inventory', $admin_url) ); ?>">📋 Inventering i skåpet</a></span>&nbsp;
 </div>
 
 <!-- Member Info Section -->
@@ -141,10 +141,10 @@ $admin_url = home_url('/admin/');
     <h3>👤 Medlemsinfo</h3>
     <hr>
     <div>
-        <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'pages/members/registry', $admin_url) ); ?>">🗃 Medlemsregister</a></span>&nbsp;
-        <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'pages/members/email-list', $admin_url) ); ?>">✉ Epost-adresser</a></span>&nbsp;
-        <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'pages/members/reward', $admin_url) ); ?>">🙏 Belöna</a></span>&nbsp;
-        <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'pages/members/rewards', $admin_url) ); ?>">🌟 Belöningar</a></span>&nbsp;
+        <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'members/registry', $admin_url) ); ?>">🗃 Medlemsregister</a></span>&nbsp;
+        <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'members/email-list', $admin_url) ); ?>">✉ Epost-adresser</a></span>&nbsp;
+        <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'members/reward', $admin_url) ); ?>">🙏 Belöna</a></span>&nbsp;
+        <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'members/rewards', $admin_url) ); ?>">🌟 Belöningar</a></span>&nbsp;
     </div>
 <?php endif; ?>
 
@@ -152,8 +152,8 @@ $admin_url = home_url('/admin/');
 <h3>📡 Special</h3>
 <hr>
 <div>
-    <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'pages/special/collage', $admin_url) ); ?>">🖼 Kollage</a></span>&nbsp;
-    <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'pages/special/uncategorized', $admin_url) ); ?>">❤️‍🩹 Annonser utan kategori</a></span>&nbsp;
+    <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'special/collage', $admin_url) ); ?>">🖼 Kollage</a></span>&nbsp;
+    <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'special/uncategorized', $admin_url) ); ?>">❤️‍🩹 Annonser utan kategori</a></span>&nbsp;
 </div>
 
 <!-- Webmaster Section -->
@@ -161,7 +161,7 @@ $admin_url = home_url('/admin/');
     <h3>👽 WP-admin</h3>
     <hr>
     <div>
-        <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'pages/webmaster/test', $admin_url) ); ?>">💣 Testsida</a></span>&nbsp;
+        <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'webmaster/test', $admin_url) ); ?>">💣 Testsida</a></span>&nbsp;
         <span class="big-link"><a href="<?php echo esc_url( admin_url() )?>">👩‍💻 Gå till WP-admin</a></span>&nbsp;
         <span class="big-link"><a href="<?php echo esc_url( home_url('/profile/') ); ?>">👤 Gå till profilsida</a></span>&nbsp;
         <span class="big-link"><a href="<?php echo esc_url( wp_logout_url( home_url('/') ) ); ?>">🚪 Logga ut</a></span>
