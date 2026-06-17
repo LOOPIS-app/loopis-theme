@@ -85,7 +85,7 @@ if (!is_wp_error($support_terms) && !empty($support_terms)) {
 <p>Ärendets status är <span class="label"><?php echo esc_html($support_status_label); ?></span></p>
 
 <!-- Archive? -->
-<?php if ($status_slug === 'active' && ($current == $author || current_user_can('administrator') || $current == 2)) : ?>
+<?php if ($status_slug === 'active' && ($current == $author || current_user_can('loopis_support') || $current == 2)) : ?>
 <?php if(isset($_POST['inactive'])) { 
 	update_post_meta($post_id,'status', null);
 	update_post_meta($post_id,'status', loopis_support_cat('inactive')); 
