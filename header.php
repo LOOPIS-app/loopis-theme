@@ -4,24 +4,29 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<?php
-	// Set up default meta tags and images
-	$site_name = "LOOPIS";
-	$blog_name = get_bloginfo('name');
-	$title = $site_name . ' - ' . $blog_name;
+	// Set default meta tags and images
+	$area = get_bloginfo('name');  // "Site Title" in WordPress settings
+	$title = 'LOOPIS - ' . $area;
 	$description = 'Ge & få saker av dina grannar.';
+	$meta_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_app.png';
+	$current_request_uri = isset($_SERVER['REQUEST_URI']) ? (string) wp_unslash($_SERVER['REQUEST_URI']) : '/';
+	$current_url = home_url($current_request_uri);
+	
+	// Set Open Graph defaults
 	$og_type = 'website';
 	$og_locale = str_replace('-', '_', get_locale());
 	$og_image_width = '';
 	$og_image_height = '';
 	$og_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_og.png';
-	$meta_image = LOOPIS_THEME_URI . '/assets/img/LOOPIS_app.png';
+	$og_url = $current_url;
+	
 	if (is_home() || is_front_page()) {
-		// Frontpage
+		// Frontpage / posts page should always point to first page
 		$og_url = home_url('/');
 	} elseif (is_singular()) {
 		// Posts and pages
 		$post_id = get_queried_object_id();
-		$title = get_the_title($post_id) . ' - ' . $site_name;
+		$title = get_the_title($post_id) . ' - LOOPIS';
 		// Featured image?
 		if (has_post_thumbnail($post_id)) {
 			$thumbnail_id = get_post_thumbnail_id($post_id);
@@ -40,40 +45,37 @@
 				}
 			}
 		}
-
 		$og_type = 'article';
 		$og_url = get_permalink($post_id);
 	} elseif (is_author()) {
 		// User profiles
 		$author = get_queried_object();
-		$title = esc_html($author->display_name) . ' - ' . $site_name;
+		$title = $author->display_name . ' - LOOPIS';
 		$og_type = 'profile';
 		$og_url = get_author_posts_url($author->ID);
 	} elseif (is_tag()) {
 		// Tags
-		$title = '#' . single_tag_title('', false) . ' - ' . $site_name;
+		$title = '#' . single_tag_title('', false) . ' - LOOPIS';
 		$og_url = get_tag_link(get_queried_object_id());
 	} elseif (is_archive()) {
 		// Archives
-		$title = post_type_archive_title('', false) ?: $site_name;
-		$og_url = home_url('/');
+		$title = post_type_archive_title('', false) ?: 'LOOPIS';
+		$og_url = get_pagenum_link(1);
 	} elseif (is_404()) {
 		// 404 page
-		$title = 'Hoppsan! - ' . $site_name;
-		$og_url = home_url('/');
-	} else {
-		// Default
+		$title = 'Hoppsan! - LOOPIS';
 		$og_url = home_url('/');
 	}
 	?>
 	<title><?php echo esc_html($title); ?></title>
+	<!--Meta tags-->
 	<meta name="description" content="<?php echo esc_attr($description); ?>">
-	<meta name="keywords" content="LOOPIS, app, skåp, Bagis, Bagarmossen, second hand, bortskänkes, skänka, byta, prylar, gratis">
+	<meta name="keywords" content="LOOPIS, loopa, app, skåp, Bagis, Bagarmossen, second hand, bortskänkes, skänka, byta, prylar, gratis, loppis, cirkulera, återbruk, hållbarhet">
 	<meta name="author" content="LOOPIS">
 	<meta name="image" content="<?php echo esc_url($meta_image); ?>">
 	<!--Indexing-->
 	<?php if (is_author()) { echo '<meta name="robots" content="noindex, nofollow">'; } ?>
-	<!--Viewport-->
+	<!--Scalable-->
 	<?php if (is_single()) { echo '<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1">'; }
 	else { echo '<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">'; } ?>
 	<!--Fonts-->
@@ -81,7 +83,7 @@
 	<?php include_once LOOPIS_THEME_DIR . '/assets/fonts/font-awesome.php'; ?>
 	<!--Favicon-->
 	<link rel="canonical" href="<?php echo esc_url($og_url); ?>">
-	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon-v2.png">
 	<link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png">
 	<link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg">
 	<link rel="shortcut icon" href="/favicon.ico">
@@ -91,7 +93,7 @@
 	<meta name="facebook-domain-verification" content="o8yh0nqrbcgnedkvjei7g0imjwzen9">
 	<meta property="og:title" content="<?php echo esc_attr($title); ?>">
 	<meta property="og:url" content="<?php echo esc_url($og_url); ?>">
-	<meta property="og:site_name" content="<?php echo esc_attr($site_name); ?>">
+	<meta property="og:site_name" content="LOOPIS">
 	<meta property="og:type" content="<?php echo esc_attr($og_type); ?>">
 	<meta property="og:locale" content="<?php echo esc_attr($og_locale); ?>">
 	<meta property="og:description" content="<?php echo esc_attr($description); ?>">
@@ -120,7 +122,7 @@
 			<div class="header-back" onclick="history.back()"><i class="fas fa-chevron-left"></i></div>
 			<!-- Multisite: Show site name below logo -->
 			<a href="<?php echo esc_url(home_url('/')); ?>"><img src="<?php echo LOOPIS_THEME_URI; ?>/assets/img/LOOPIS_logo.png" alt="LOOPIS-logo" id="header-logo"></a>
-			<div class="header-area">📍<?php echo get_bloginfo('name'); ?></div>
+			<div class="header-area">📍<?php echo $area ?></div>
 			<div class="header-faq" onclick="location.href='<?php echo esc_url( network_home_url() ); ?>'">🗺</div>
 			</div>
 		</header>

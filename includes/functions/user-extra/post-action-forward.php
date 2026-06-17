@@ -92,11 +92,8 @@ function action_forward(int $post_id) {
     $notification_message = '♻ Denna sak har skickats vidare!<br>⏳ Ni kan delta i lottning igen imorgon klockan 12.<br>💡 Tips till ' . $user_mentions_string;
     add_admin_comment($notification_message, $new_post_id, 1);
 	}
-	$redirect_url = esc_url(add_query_arg(array('option'=> 'single', 'edit_post_id' => $new_post_id), home_url('/submit/')));
-	$redirect_script = '<script type="text/javascript">';
-	$redirect_script .= 'window.location.href = "' . $redirect_url . '";';
-	$redirect_script .= '</script>';
-	echo $redirect_script;
+	$redirect_url = add_query_arg(array('option'=> 'single', 'edit_post_id' => $new_post_id), home_url('/submit/'));
+	wp_safe_redirect($redirect_url);
 	exit;
 		
 	} else {
