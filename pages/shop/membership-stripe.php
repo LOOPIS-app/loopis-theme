@@ -64,6 +64,7 @@ $is_member_pending = in_array('member_pending', $user_roles, true);
 <?php elseif ($is_member_pending) : ?>
 
     <p>Tryck på knappen för att betala din medlemsavgift.</p>
+    <p>Du får fem regnbågsmynt att börja paxa saker med.</p>
 
     <p>
         <button
