@@ -53,16 +53,16 @@ if ($count_submitted !== 0) { $given_percentage = round(($count_given / $count_s
 <p>Blev loopare <span class="label">🎉 <?php echo $joined_date; ?></span></p>
 <div class="wrapped">
 <h1><img src="<?php echo LOOPIS_THEME_URI; ?>/assets/img/coin.png" alt="Mynt:" class="symbol"><?php echo $coins; ?></h1>
-<p class="small"><?php echo $first_name; ?> kan just nu hämta <?php echo $coins; ?> saker.</p>
+<p class="small"><?php echo $first_name; ?> kan just nu paxa och hämta <?php echo $coins; ?> saker.</p>
 <hr>
 <p><span class="label">💚 <?php echo $count_given; ?> saker lämnade</span></p>
-<p><span class="label">❤ <?php echo $count_booked; ?> saker hämtade</span></p>
+<p><span class="label">❤ <?php echo $count_booked; ?> saker paxade</span></p>
 <p><span class="label">🍀 <?php echo $clovers; ?> fyrklöver</span></p>
 <p><span class="label">⭐ <?php echo $stars; ?> guldstjärnor</span></p>
 </div><!-- wrapped -->
 
 <!--ADMIN LOG-->
-<?php if (current_user_can('manager') || current_user_can('administrator')) { include LOOPIS_THEME_DIR . '/includes/output/user-data/user-summary.php'; } ?>
+<?php if (current_user_can('manage_options') || current_user_can('loopis_admin')) { include LOOPIS_THEME_DIR . '/includes/output/user-data/user-summary.php'; } ?>
 
 <?php endif; ?>
 

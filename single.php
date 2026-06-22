@@ -43,18 +43,10 @@ $image_3_id = get_post_meta($post_id, 'image_3', true);
         <div class="post-wrapper">   
 
             <div class="post-images">
-                <div class="post-image">
-                    <?php if ($thumbnail_id){ echo wp_get_attachment_image($thumbnail_id, 'large'); } ?>
-                </div>
-                <div class="post-image-1">
-                    <?php if ($image_2_id){ echo wp_get_attachment_image($thumbnail_id, 'large'); } ?>
-                </div>
-                <div class="post-image-2">
-                    <?php if ($image_2_id) { echo wp_get_attachment_image($image_2_id, 'large'); } ?>
-                </div>
-                <div class="post-image-3">
-                    <?php if ($image_3_id) { echo wp_get_attachment_image($image_3_id, 'large'); } ?>
-                </div>
+                <div class="post-image"><?php if ($thumbnail_id){ echo wp_get_attachment_image($thumbnail_id, 'large'); } ?></div>
+                <div class="post-image-1"><?php if ($image_2_id){ echo wp_get_attachment_image($thumbnail_id, 'large'); } ?></div>
+                <div class="post-image-2"><?php if ($image_2_id) { echo wp_get_attachment_image($image_2_id, 'large'); } ?></div>
+                <div class="post-image-3"><?php if ($image_3_id) { echo wp_get_attachment_image($image_3_id, 'large'); } ?></div>
             </div><!--post-images-->
 
             <div class="post-padding">
@@ -74,7 +66,7 @@ $image_3_id = get_post_meta($post_id, 'image_3', true);
                     <!-- POST OPTIONS -->
                     <!-- Max Murpos? -->
                        <?php if ($author == 66 || $author == 237) : ?>
-                        <a class="option" href="<?php echo esc_url(home_url('/faq/max-murpos')); ?>">💫 Räddad från soprum</a>
+                        <a class="option" href="<?php echo esc_url(network_home_url('/faq/max-murpos')); ?>">💫 Räddad från soprum</a>
                     <?php endif; ?>
                     <!-- Edit & remove-->
                     <?php if (($current == $author && !in_category(array('removed', 'fetched', 'locker'))) || current_user_can('administrator') || current_user_can('loopis_admin')) : ?>
@@ -99,7 +91,7 @@ $image_3_id = get_post_meta($post_id, 'image_3', true);
 
             <!-- INTERACTION -->
                 <div class="columns">
-                    <div class="column1"><h3>Dina alternativ</h3></div>
+                    <div class="column1"><h3>🚦 Dina alternativ</h3></div>
                     <div class="column2"></div>
                 </div>
                 <hr>
@@ -116,7 +108,7 @@ $image_3_id = get_post_meta($post_id, 'image_3', true);
 
                     } else {
                     // Visitor message & FAQ
-                    include LOOPIS_THEME_DIR . '/includes/output/access/role-options.php';
+                    include LOOPIS_THEME_DIR . '/includes/output/access/role-options-local.php';
                     include LOOPIS_THEME_DIR . '/templates/faq/questions-visitor.php';
                 } 
                 ?>

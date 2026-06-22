@@ -1,5 +1,12 @@
 # 📋 Changelog for "LOOPIS Theme"
 
+## 1.01 (2026-06-22)
+- Bugs fixes
+- Page content for /user and /shop moved to "LOOPIS Theme HQ"
+
+## 1.00 (2026-06-16)
+- Deployment on new multisite!
+
 ## 0.90 (2026-06-15)
 - NOT SINGLE SITE COMPATIBLE!
 - Theme constants definition moved to new mu-plugin "LOOPIS Constants"

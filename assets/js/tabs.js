@@ -1,11 +1,11 @@
 /**
  * Tab navigation handler
  * 
- * Handles tab switching for pages with tabs (eg. the users profile and activity pages).
+ * Handles tab switching for pages with tabs (eg. /activity and /user).
  * 
  * Should be improved: 
- * – with possibility to use URL for each tab
- * – with dynamic loading of a tabs content when clicked?
+ * – possibility to use URL for each tab (+ back button support)
+ * – delayed loading of a tabs content until clicked?
  * 
  * Created by CoPilot, inspired by WPUM.
  */
