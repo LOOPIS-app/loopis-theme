@@ -85,13 +85,13 @@ if (!is_wp_error($support_terms) && !empty($support_terms)) {
 <p>Ärendets status är <span class="label"><?php echo esc_html($support_status_label); ?></span></p>
 
 <!-- Archive? -->
-<?php if ($status_slug === 'active' && ($current == $author || current_user_can('loopis_support') || $current == 2)) : ?>
+<?php if ($status_slug === 'active' && current_user_can('loopis_support')) : ?>
 <?php if(isset($_POST['inactive'])) { 
 	update_post_meta($post_id,'status', null);
 	update_post_meta($post_id,'status', loopis_support_cat('inactive')); 
 	wp_set_post_terms($post_id, loopis_support_cat('inactive'), 'support-category', false);
-	add_comment ('<p class="participate">✅ Markerar frågan som besvarad.</p>', $post_id );
-	echo "<meta http-equiv='refresh' content='0'>"; } ?>
+	add_comment ('<p class="confirm">✅ Markerar frågan som besvarad.</p>', $post_id );
+	refresh_page(); } ?>
 		<form method="post" class="arb" action=""><button name="inactive" type="submit" class="green small" onclick="return confirm('Är frågan besvarad?')">Frågan är besvarad</button></form>
 		<p class="info">Tryck på knappen så arkiveras ärendet.</p>
 <?php endif;?>

@@ -72,7 +72,7 @@ hr, .wp-block-separator { width: 100%; padding: 0; margin: 0 0 9px 0; background
 .hidden { visibility: hidden }
 
 /* Emojis */
-img.wp-smiley, img.emoji { margin: 0 1px 0 0 !important; vertical-align: -0.1em !important; }
+img.emoji, img.wp-smiley { width: 1em; height: 1em; vertical-align: -0.1em; margin: 0 1px 0 0 !important; }
 
 /* Font Awesome */
 .fa, .fab, .fal, .far, .fas { width:1em; text-align:center; }
