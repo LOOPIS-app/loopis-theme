@@ -169,7 +169,7 @@ $grid_spacing = 'grid-template-columns: 1.4fr 0.8fr 1.2fr 0.6fr 0.6fr;';
             <div><i class="fa-solid fa-clock"></i> <?php echo esc_html($entry['timestamp']); ?></div>
             <div><i class="fa-solid fa-user"></i> <?php echo esc_html(($user_info->first_name ?? '').' '.($user_info->last_name ?? '')); ?></div>
             <div><i class="fa-regular fa-circle"></i> <?php echo esc_html($entry['coins']); ?></div>
-            <div><i class="fa-solid fa-clover"></i> <?php echo esc_html($entry['clovers']); ?></div>
+            <div><i class="fa-solid fa-clover"></i> <?php echo esc_html($entry['clover']); ?></div>
         </div>
     <?php endforeach; ?>
 </div>
