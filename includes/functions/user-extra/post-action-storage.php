@@ -66,7 +66,7 @@ if (!function_exists('admin_action_publish_storage')) {
         wp_set_object_terms($post_id, 'new', 'category');
         $timestamp = current_time('Y-m-d H:i:s');
         loopis_ledger_add_post('submitted', get_post_field ('post_author', $post_id), $post_id ,[
-                            'timestamp' => $timestamp
+                            'timestamp' => $timestamp,
                             'location' => get_post_meta($post_id, 'location', true),
                             ]);
         // Update post

@@ -269,6 +269,12 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
             $featured_image_index = min($featured_image_index, count($uploaded_files) - 1);
         }
 
+        if ($selected_cat === loopis_cat('storage')) {
+            $status = 'draft';
+        }else{
+            $status = 'publish';
+        }
+
         if (empty($gift_form_errors)) {
             // Bring in WP media/file helpers used by media_handle_sideload.
             require_once ABSPATH . 'wp-admin/includes/file.php';
@@ -290,7 +296,7 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
                 $post_id = wp_insert_post(array(
                     'post_title'   => $title_value,
                     'post_content' => $content_value,
-                    'post_status'  => 'publish',
+                    'post_status'  => $status,
                     'post_author'  => get_current_user_id(),
                     'post_type'    => 'post',
                 ), true);

@@ -81,7 +81,7 @@ function loopis_ledger_remove($where){
 
     $user_ids = $wpdb->get_col(
         $wpdb->prepare("SELECT DISTINCT user_id FROM {$table_name} WHERE " . implode(' AND ', $clauses),
-            $values)
+            ... $values)
         );
 
     if ($user_ids === NULL) {
@@ -91,7 +91,7 @@ function loopis_ledger_remove($where){
 
     $result = $wpdb->query(
         $wpdb->prepare("DELETE FROM {$table_name} WHERE " . implode(' AND ', $clauses),
-            $values)
+            ... $values)
         );
 
     if ($result === false) {
@@ -111,6 +111,103 @@ function loopis_ledger_remove($where){
  /**
  *  ======================= FETCH ======================
  */
+
+  /**
+ * Fetches information from ledger 
+ *
+ * @return array of ledger events
+ */
+function loopis_ledger_fetch($options=[],$order=[]){
+    global $wpdb;
+    $allowed = [
+        'blog_id' => '%d',
+        'user_id' => '%d',
+        'post_id' => '%d',
+        'event' => '%s',
+        'type' => '%s',
+        'description' => '%s',
+        'location' => '%s',
+        'timestamp' => '%s',
+        'coins' => '%d',
+        'clovers'=> '%d',
+    ];
+
+    $defaults = [
+        'orderby' => 'timestamp',
+        'dasc' => 'ASC',
+        'posts_per_page' => 50,
+        'offset' => 0,
+    ];
+
+    $allowed_keys = array_keys($allowed);
+    if (empty($options)) {
+        return null;
+    }
+
+    $clauses = [];
+    $values = [];
+
+    foreach($options as $key => $value){
+        if($key === 'timestamp'){
+            continue;
+        }
+        if(!in_array($key,$allowed_keys, true)){
+            continue;
+        }
+        if (is_array($value)){
+            $count = count($value);
+            if ($count===0){
+                continue;
+            }
+            $value = loopis_validate_array($allowed[$key], $value);
+            if ($value === false){
+                continue;
+            }
+            $clauses[] = "{$key} IN (". implode(',', array_fill(0,$count,$allowed[$key])) .")";
+            $values = array_merge($values,$value);
+        }else{
+            $value = loopis_validate_hash($allowed[$key], $value);
+            if ($value === false){
+                continue;
+            }
+            $clauses[] = "{$key} = ". $allowed[$key] ."";
+            $values[] = $value;
+        }
+        
+    }
+
+    if(empty($clauses)){
+        return;
+    }
+    foreach($defaults as $key => $value){
+        if (!isset($order[$key])){
+            $order[$key] = $value;
+        }
+    }
+
+    $orderby = in_array($order['orderby'], $allowed_keys) ? $order['orderby'] :  $defaults['orderby'];
+    $dasc = in_array(strtoupper($order['dasc']), ['ASC','DESC'], true) ? strtoupper($order['dasc']) :  $defaults['dasc'];
+    $limit = (int) $order['posts_per_page'];
+    $limit = ($limit > 0) ? $limit : $defaults['posts_per_page'];
+    $offset = (int) $order['offset'];
+    $offset = ($offset >= 0) ? $offset : $defaults['offset'];
+
+    $sql_order = " ORDER BY {$orderby} {$dasc} LIMIT {$limit} OFFSET {$offset}";
+
+    $table_name = $wpdb->base_prefix . 'loopis_ledger';
+
+    $result = $wpdb->get_results(
+        $wpdb->prepare("SELECT * FROM {$table_name} WHERE " . implode(' AND ', $clauses) . $sql_order,
+            ...$values
+        ), ARRAY_A
+    );
+
+    if (is_wp_error($result)){
+        error_log($result->get_error_message());
+        return null;
+    }
+    return $result;
+}
  
  /**
  * Fetches user event information from ledger 
@@ -534,4 +631,41 @@ function loopis_ledger_recount_user($user_id){
         'poster_storage'=>'Lapp i förråd',
     ];
     return $output_for[$type];
+ }
+
+/** 
+ * Validate function for sql automation
+ * 
+ * @return $arg casted or false
+ */
+ function loopis_validate_hash($hash,$arg){
+    if ($hash==='%d'){
+        if ($arg === 0){
+            return $arg;
+        }
+        $arg = (int) $arg;
+        if ($arg === 0){
+            return false;
+        }
+        return $arg;
+    }
+    if ($hash==='%s'){
+        $arg = (string) $arg;
+        return $arg;
+    }
+ }
+
+/** 
+ * Validation helper function for arrays
+ * 
+ * @return $array casted or false
+ */
+ function loopis_validate_array($hash,$array){
+    foreach($array as $key => $item){
+        $array[$key] = loopis_validate_hash($hash,$item);
+        if ($array[$key] === false){
+            return false;
+        }
+    }
+    return $array;
  }
