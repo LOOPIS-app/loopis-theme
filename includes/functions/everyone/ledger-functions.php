@@ -208,6 +208,80 @@ function loopis_ledger_fetch($options=[],$order=[]){
     }
     return $result;
 }
+
+function loopis_ledger_fetch_total($options=[]){
+    global $wpdb;
+    $allowed = [
+        'blog_id' => '%d',
+        'user_id' => '%d',
+        'post_id' => '%d',
+        'event' => '%s',
+        'type' => '%s',
+        'description' => '%s',
+        'location' => '%s',
+        'timestamp' => '%s',
+        'coins' => '%d',
+        'clovers'=> '%d',
+    ];
+
+
+
+    $allowed_keys = array_keys($allowed);
+    if (empty($options)) {
+        return null;
+    }
+
+    $clauses = [];
+    $values = [];
+
+    foreach($options as $key => $value){
+        if($key === 'timestamp'){
+            continue;
+        }
+        if(!in_array($key,$allowed_keys, true)){
+            continue;
+        }
+        if (is_array($value)){
+            $count = count($value);
+            if ($count===0){
+                continue;
+            }
+            $value = loopis_validate_array($allowed[$key], $value);
+            if ($value === false){
+                continue;
+            }
+            $clauses[] = "{$key} IN (". implode(',', array_fill(0,$count,$allowed[$key])) .")";
+            $values = array_merge($values,$value);
+        }else{
+            $value = loopis_validate_hash($allowed[$key], $value);
+            if ($value === false){
+                continue;
+            }
+            $clauses[] = "{$key} = ". $allowed[$key] ."";
+            $values[] = $value;
+        }
+        
+    }
+
+    if(empty($clauses)){
+        return;
+    }
+
+    $table_name = $wpdb->base_prefix . 'loopis_ledger';
+
+    $result = $wpdb->get_var(
+        $wpdb->prepare("SELECT COUNT(*) FROM {$table_name} WHERE " . implode(' AND ', $clauses),
+            ...$values
+        )
+    );
+
+    if (is_wp_error($result)){
+        error_log($result->get_error_message());
+        return null;
+    }
+    return $result;
+}
+ 
  
  /**
  * Fetches user event information from ledger 

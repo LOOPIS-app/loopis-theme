@@ -23,6 +23,7 @@ wp_enqueue_script('loopis-tabs', get_template_directory_uri() . '/assets/js/tabs
             <a href="#" class="tab-link" data-tab="tab-info">ℹ</a>
             <a href="#" class="tab-link" data-tab="tab-economy">🧮</a>
             <a href="#" class="tab-link" data-tab="tab-posts">🎁</a>
+            <a href="#" class="tab-link" data-tab="tab-ledger">📕</a>
             <a href="#" class="tab-link" data-tab="tab-support">🛟</a>
             <a href="#" class="tab-link" data-tab="tab-about">⚙️</a>
         </nav>
@@ -73,6 +74,9 @@ wp_enqueue_script('loopis-tabs', get_template_directory_uri() . '/assets/js/tabs
         <!-- Posts Tab -->
         <div id="tab-posts" class="tab-panel">
             <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-posts.php'; ?>
+        </div>
+        <div id="tab-ledger" class="tab-panel">
+            <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-ledger.php'; ?>
         </div>
         <!-- About Tab -->
         <div id="tab-about" class="tab-panel">

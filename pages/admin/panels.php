@@ -125,6 +125,7 @@ $admin_url = home_url('/admin/');
     <div>
         <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'economy/payments', $admin_url) ); ?>">📒 Alla köp</a></span>&nbsp;
         <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'economy/coins', $admin_url) ); ?>">🪙 Köp av mynt</a></span>&nbsp;
+                <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'economy/ledger', $admin_url) ); ?>">📕 Boken</a></span>&nbsp;
     </div>
 <?php endif; ?>
 
