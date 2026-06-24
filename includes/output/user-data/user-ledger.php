@@ -18,7 +18,7 @@ include_once LOOPIS_THEME_DIR .'/templates/post-list/pagination-sql.php';
 
 <!-- OUTPUT -->
 <p class="small"> 💡 Register med användaraktivitet</p>
-<h7>📕 Användarregister</h7>
+<h7>📕 Boken</h7>
 
 
 <?php
@@ -29,11 +29,12 @@ $post_ledger = loopis_ledger_fetch($options,['posts_per_page'=>$posts_per_page, 
 $num = loopis_ledger_fetch_total($options);
 $max_pages= max(1, (int) ceil($num/$posts_per_page));
 $grid_spacing = 'grid-template-columns: 1.2fr 1.6fr 0.8fr 0.8fr;';
+
 ?>
 
 <!--ledger-->
 
-<div class="columns">Aktivitet</div>	
+<div class="columns"><?php echo '↓ ' . ($page-1)*$posts_per_page .' av '. $num ?>  Aktiviteter</div>	
 <hr style="margin-bottom: 2px;">
 <div id="ledger" class="logg">
     <div class="admin-grid" style="<?php echo $grid_spacing ;?>">

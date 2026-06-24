@@ -16,7 +16,7 @@ function loopis_ajax_pagination($max_pages, $page){
 	$range = loopis_get_range($max_pages, $page);
 
 	if ($page > 1){
-		echo '<button type="button" style="background: none;border: none; color = #777;" class="loopis_ajax_button page-numbers" data-page="'.($page-1).'">&lt;</button>';
+		echo '<button type="button" style="background: none;border: none; color = #777!important;" class="loopis_ajax_button page-numbers" data-page="'.($page-1).'">&lt;</button>';
 	}
 
 	foreach($range as $element){
@@ -25,13 +25,13 @@ function loopis_ajax_pagination($max_pages, $page){
 		}elseif ($element === '...'){
 			echo '<span aria-current="page" class="page-numbers">...</span>';
 		}else{
-			echo '<button type="button" style="background: none;border: none; color = #777" class="loopis_ajax_button page-numbers" data-page="'.($element).'">'.$element.'</button>';
+			echo '<button type="button" style="background: none;border: none; color = #777!important" class="loopis_ajax_button page-numbers" data-page="'.($element).'">'.$element.'</button>';
 		}
 	}
 
 
 	if ($page < $max_pages){
-		echo '<button type="button" style="background: none;border: none; color = #777;" class="loopis_ajax_button page-numbers" data-page="'.($page+1).'">&gt;</button>';
+		echo '<button type="button" style="background: none;border: none; color = #777 !important;" class="loopis_ajax_button page-numbers" data-page="'.($page+1).'">&gt;</button>';
 	}
 
 }
