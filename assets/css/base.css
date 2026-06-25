@@ -22,8 +22,11 @@ b, strong { font-weight: 400; }
 
 /* Alignment */
 .left { float: left; }
+.text-left { text-align: left; }
 .right { float: right; }
+.text-right { text-align: right; }
 .center { text-align: center; }
+.text-center { text-align: center; }
 
 /* Wrappers */
 #wrapper { max-width:900px; height:100%; margin: 0 auto; background: #fefefe; margin-bottom: 100px;}
@@ -64,11 +67,11 @@ p { margin:0 0 10px 0; }
 hr, .wp-block-separator { width: 100%; padding: 0; margin: 0 0 9px 0; background-color: #333; height: 0px; border-top: 1px solid #333 !important; }
 
 /* Special style */
-.error { font-size: 14px; line-height: 1.5em; margin:0 0 5px 0; color:#FF969D; font-weight: 600; }
-.small { font-size: 13px; line-height: 1.5em; margin:2px 0 10px 0; }
-.small span { font-size: 13px; padding:2px; font-style:normal; }
-.info { font-size: 13px; line-height: 1.5em; font-style:italic; margin:2px 0 10px 0; }
-.info span { font-size: 13px; padding:2px; font-style:normal; }
+.error { font-size: 14px; margin:0 0 5px 0; font-style:italic; color:#DD2E44;  }
+.small { font-size: 14px; line-height: 1.5em; margin:2px 0 10px 0; }
+.small span { font-size: 14px; padding:2px; font-style:normal; }
+.info { font-size: 14px; line-height: 1.5em; font-style:italic; margin:2px 0 10px 0; }
+.info span { font-size: 14px; padding:2px; font-style:normal; }
 .hidden { visibility: hidden }
 
 /* Emojis */
@@ -99,7 +102,7 @@ span.link:hover { background: #ebebeb; }
 span.small-link:hover { background: #ebebeb; }
 span.big-link:hover { background: #ebebeb; }
 span.mega-link:hover { background: #ebebeb; cursor: pointer; }
-span.rounded { font-size: 14px; padding:4px 10px; border-radius: 20px; background: #fff; }
+span.rounded { font-size: 14px; padding:4px 10px; border-radius: 20px; background: #f5f5f5; }
 span.grey { color: #777 !important; }
 span.grey a { color: #777 !important; text-decoration: none; }
 span.code { font-family: 'Courier New', monospace; font-weight: bold; }
@@ -134,7 +137,7 @@ h1.wrap { white-space: normal; }
 .column_half > div { flex: 1 0 50%; }
 
 /* Wrapped div */
-.wrapped { display: inline-block; vertical-align: top; background-color: #f5f5f5; padding: 5px 10px; margin: 0 15px 15px 0; text-align: left;}
+.wrapped { display: inline-block; vertical-align: top; background-color: #f5f5f5; padding: 5px 10px; margin: 0 15px 15px 0; }
 .wrapped p { margin: 0; }
 .wrapped hr { margin-bottom: 5px; }
 
@@ -166,7 +169,7 @@ h1.wrap { white-space: normal; }
 
 /* Post: header */
 .post-title { margin: 5px 0; }
-.post-meta { font-size: 16px; color: #666; }
+.post-meta { color: #666; }
 .post-meta span { background: none; padding:0 ; margin-right: 10px; }
 .post-meta span.rounded { padding:4px 10px; border-radius: 20px; background: #fff;}
 .post-meta span.big-link { padding:4px 10px; margin-right: 7px; background: #fff;}

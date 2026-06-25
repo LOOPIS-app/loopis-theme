@@ -1,5 +1,10 @@
 # 📋 Changelog for "LOOPIS Theme"
 
+## 1.02 (2026-06-25)
+- Bugs and small fixes
+- Some admin panels moved to "LOOPIS Theme HQ"
+- Privacy page added
+
 ## 1.01 (2026-06-22)
 - Bugs fixes
 - Page content for /user and /shop moved to "LOOPIS Theme HQ"

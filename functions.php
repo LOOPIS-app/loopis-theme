@@ -9,7 +9,7 @@
 if (!defined('ABSPATH')) { exit; }
 
 // Define theme version
-define('LOOPIS_THEME_VERSION', '1.01'); // Update version number here + in style.css
+define('LOOPIS_THEME_VERSION', '1.02'); // Update version number here + in style.css
 
 // Theme folder constants are provided by MU plugin "LOOPIS Constants".
 
@@ -53,12 +53,13 @@ function loopis_theme_include_folder($folder_name) {
         loopis_log_level1("LOOPIS Theme failed to include folder: {$folder_name}");
     }
 }
+
 // Define folders to load
 function loopis_theme_load_files() {
     // For everyone
     loopis_theme_include_folder('filters');
-    loopis_theme_include_folder('functions/everyone');
     loopis_theme_include_folder('shortcodes');
+    loopis_theme_include_folder('functions/everyone');
 
     // For user
     if (is_user_logged_in()) { 

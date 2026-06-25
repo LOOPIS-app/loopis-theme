@@ -22,7 +22,7 @@ if (is_user_logged_in()) {
     // Member pending
     if (in_array('member_pending', $user_roles, true)) {
         $message = '<p>⏳ Du har inte betalat din medlemsavgift ännu?</p>
-                    <p><span class="big-link">💳 <a href="'.esc_url(home_url( '/shop/?option=membership-stripe' )).'">Betala medlemskap</a></span> för att börja loopa.</p>';
+                    <p><span class="big-link">💳 <a href="'.esc_url(network_site_url( '/shop/?option=membership-stripe' )).'">Betala medlemskap</a></span> för att börja loopa.</p>';
     }
 
     // Member earlier
