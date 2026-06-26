@@ -17,90 +17,66 @@ include_once LOOPIS_THEME_DIR .'/templates/post-list/pagination-sql.php';
 ?>
 
 <!-- OUTPUT -->
+<h7>📕 <?php echo $first_name;?>s  bok</h7>
+<hr>
 <p class="small"> 💡 Register med användaraktivitet</p>
-<h7>📕 Boken</h7>
-
 
 <?php
 $posts_per_page = 50;
 $page = 1;
-$options =['user_id'=>$user_id];
-$post_ledger = loopis_ledger_fetch($options,['posts_per_page'=>$posts_per_page, 'offset'=>0, 'dasc' => 'DESC']);
+$offset= ($page-1)*$posts_per_page;
+$options =['blog_id' => get_current_blog_id()];
 $num = loopis_ledger_fetch_total($options);
 $max_pages= max(1, (int) ceil($num/$posts_per_page));
-$grid_spacing = 'grid-template-columns: 1.2fr 1.6fr 0.8fr 0.8fr;';
-
 ?>
 
 <!--ledger-->
 
-<div class="columns"><?php echo '↓ ' . ($page-1)*$posts_per_page .' av '. $num ?>  Aktiviteter</div>	
-<hr style="margin-bottom: 2px;">
-<div id="ledger" class="logg">
-    <div class="admin-grid" style="<?php echo $grid_spacing ;?>">
-        <div>Event</div>
-        <div>Tid</div>
-        <div>Mynt</div>
-        <div>Klöver</div>
-    </div>
+<!-- Sets filters(options for fetching) -->
+<div class="ledger-filters">
+	<input type="hidden" class="ledger-filter" name="user_id" value=<?php echo $user_id ;?>>
+</div>
 
-    <?php foreach ($post_ledger as $entry): 
-        $user_info = get_userdata($entry['user_id']);
-    ?>
-        <div class="admin-grid" style="<?php echo $grid_spacing ;?>">
-            <div><i class="fas fa-info-circle"></i> <?php echo esc_html($entry['event']); ?></div>
-            <div><i class="fa-solid fa-clock"></i> <?php echo esc_html($entry['timestamp']); ?></div>
-            <div><i class="fa-regular fa-circle"></i> <?php echo esc_html($entry['coins']); ?></div>
-            <div><i class="fa-solid fa-clover"></i> <?php echo esc_html($entry['clover']); ?></div>
-        </div>
-    <?php endforeach; ?>
+<!-- Sets generated columns -->
+
+<div class="ledger-hidden">
+	<input type="hidden" class="ledger-column" name="post_id" value="Post">
+	<input type="hidden" class="ledger-column" name="user_id" value="Användare">
+	<input type="hidden" class="ledger-column" name="event" value="Event">
+	<input type="hidden" class="ledger-column" name="type" value="Typ">
+	<input type="hidden" class="ledger-column" name="description" value="Beskrivning">
+	<input type="hidden" class="ledger-column" name="timestamp" value="Tid">
+	<input type="hidden" class="ledger-column" name="coins" value="Mynt">			
+	<input type="hidden" class="ledger-column" name="clover" value="Klöver">
+</div>
+
+<!-- Husks(for customisation reasons) -->
+
+<div id="activity-count" class="columns"></div>	
+<hr style="margin-bottom: 2px;">
+
+<div id="ledger" class="logg">
 </div>
 
 <div id="post-pagination" data-max-pages="<?php echo esc_attr($max_pages); ?>" data-page="<?php echo esc_attr($page); ?>">
-	<?php loopis_ajax_pagination($max_pages, $page); ?>
 </div>
+
+
 <?php
-
-
 $nonce = wp_create_nonce('loopis_ledger_nonce');
 ?>
+<!-- pass important info -->
 <script>
-document.addEventListener('click', function(e){
-	const button = e.target.closest('.loopis_ajax_button');
-
-	if (!button) return;
-	
-	console.log("hello");
-  	const page = parseInt(button.dataset.page, 10);
-  	if (!Number.isFinite(page)) return;
-	const nonce = <?php echo wp_json_encode($nonce); ?>;
-	const options = <?php echo wp_json_encode($options);?>;
-	console.log(options);
-	const log = document.getElementById('ledger');
-	const pagination = document.getElementById('post-pagination');
-	fetch('<?php echo esc_url(admin_url("admin-ajax.php")); ?>', {
-	       	method: 'POST',
-	       	headers: {
-	           	'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-	       	},
-	       	body: new URLSearchParams({
-	           	action: 'loopis_ledger_page',
-	           	options: JSON.stringify(options),
-	           	page: page,
-			   	nonce: nonce
-	       	})
-	   	})
-	   	.then(r => r.json())
-	   	.then(data => {
-	       	if (!data.success) return;
-
-	       	log.innerHTML = data.data.activity;
-	       	pagination.innerHTML = data.data.pagination;
-	       	pagination.dataset.page = data.data.page;
-	       	pagination.dataset.maxPages = data.data.max_pages;
-	   	});
+  window.LoopisLedger = {
+    nonce: <?php echo wp_json_encode($nonce); ?>,
+    ajaxUrl: <?php echo wp_json_encode( admin_url("admin-ajax.php") ); ?>
+  };
+</script>
+<!-- get main script -->
+<script src="<?php echo esc_url( LOOPIS_THEME_URI . '/assets/js/ledger-display.js' ); ?>" defer></script>
+<script>
+	// get first page
+	document.addEventListener('DOMContentLoaded',()=>{
+		loadLedgerPage(1);
 	});
-
-
-
 </script>

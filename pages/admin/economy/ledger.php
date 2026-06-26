@@ -26,14 +26,15 @@ $posts_per_page = 50;
 $page = 1;
 $offset= ($page-1)*$posts_per_page;
 $options =['blog_id' => get_current_blog_id()];
-$post_ledger = loopis_ledger_fetch($options,['posts_per_page'=>$posts_per_page, 'offset'=>0, 'dasc' => 'DESC']);
 $num = loopis_ledger_fetch_total($options);
 $max_pages= max(1, (int) ceil($num/$posts_per_page));
-$grid_spacing = 'grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;';
 ?>
 
 <!--ledger-->
+
+<!-- Sets filters(options for fetching) -->
 <div class="ledger-filters">
+	
 	<select name="event" id="ledger-event" class="ledger-filter">
 		<option value="">Alla event</option>
 		<?php
@@ -76,103 +77,46 @@ $grid_spacing = 'grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;';
 	<button id="ledger-filter-btn" type="button">Filtrera</button>
 </div>
 
+<!-- Sets generated columns -->
 
+<div class="ledger-hidden">
+	<input type="hidden" class="ledger-column" name="post_id" value="Post">
+	<input type="hidden" class="ledger-column" name="user_id" value="Användare">
+	<input type="hidden" class="ledger-column" name="event" value="Event">
+	<input type="hidden" class="ledger-column" name="type" value="Typ">
+	<input type="hidden" class="ledger-column" name="description" value="Beskrivning">
+	<input type="hidden" class="ledger-column" name="location" value="Plats">
+	<input type="hidden" class="ledger-column" name="timestamp" value="Tid">
+	<input type="hidden" class="ledger-column" name="coins" value="Mynt">			
+	<input type="hidden" class="ledger-column" name="clover" value="Klöver">
+</div>
 
-<div class="columns"><?php echo '↓ ' . $offset .' till ' . ($offset+$posts_per_page) .' av '. $num ?>  Aktiviteter</div>	
+<!-- Husks(for customisation reasons) -->
+
+<div id="activity-count" class="columns"></div>	
 <hr style="margin-bottom: 2px;">
-<div id="ledger" class="logg">
-    <div class="admin-grid" style="<?php echo $grid_spacing ;?>">
-		<div>Post</div>
-        <div>Användare</div>
-		<div>Event</div>
-		<div>Typ</div>
-		<div>Beskrivning</div>
-        <div>Tid</div>
-        <div>Mynt</div>
-        <div>Klöver</div>
-    </div>
 
-    <?php foreach ($post_ledger as $entry): 
-        $user_info = get_userdata($entry['user_id']);
-		$post_id = ($entry['post_id'] == 0) ? 'digital': $entry['post_id'];
-    ?>
-        <div class="admin-grid" style="<?php echo $grid_spacing ;?>">
-			<div><i class="fa-solid fa-signs-post"></i> <?php echo $post_id; ?></div>
-			<div><a href="<?php echo get_author_posts_url($entry['user_id']); ?>"><i class="fa-solid fa-user"></i><?php echo esc_html(($user_info->first_name ?? '').' '.($user_info->last_name ?? '')); ?></a></div>
-            <div><i class="fas fa-info-circle"></i> <?php echo esc_html($entry['event']); ?></div>
-			<div><i class="fas fa-info-circle"></i> <?php echo esc_html($entry['type']); ?></div>
-			<div><i class="fas fa-info-circle"></i> <?php echo esc_html($entry['description']); ?></div>
-            <div><i class="fa-solid fa-clock"></i> <?php echo esc_html($entry['timestamp']); ?></div>
-            <div><i class="fa-regular fa-circle"></i> <?php echo esc_html($entry['coins']); ?></div>
-            <div><i class="fa-solid fa-clover"></i> <?php echo esc_html($entry['clover']); ?></div>
-        </div>
-    <?php endforeach; ?>
+<div id="ledger" class="logg">
 </div>
 
 <div id="post-pagination" data-max-pages="<?php echo esc_attr($max_pages); ?>" data-page="<?php echo esc_attr($page); ?>">
-	<?php loopis_ajax_pagination($max_pages, $page); ?>
 </div>
+
 <?php
-
-
 $nonce = wp_create_nonce('loopis_ledger_nonce');
 ?>
+<!-- pass important info -->
 <script>
-
-function getLedgerOptions(){
-	const options = {};
-
-	document.querySelectorAll('.ledger-filter').forEach(element => {
-		if (element.value!=''){
-			options[element.name] = element.value;
-		}
+  window.LoopisLedger = {
+    nonce: <?php echo wp_json_encode($nonce); ?>,
+    ajaxUrl: <?php echo wp_json_encode( admin_url("admin-ajax.php") ); ?>
+  };
+</script>
+<!-- get main script -->
+<script src="<?php echo esc_url( LOOPIS_THEME_URI . '/assets/js/ledger-display.js' ); ?>" defer></script>
+<script>
+	// get first page
+	document.addEventListener('DOMContentLoaded',()=>{
+		loadLedgerPage(1);
 	});
-
-	return options;
-
-}
-
-function loadLedgerPage(page=1){
-	const nonce = <?php echo wp_json_encode($nonce); ?>;
-	const options = getLedgerOptions()
-	const log = document.getElementById('ledger');
-	const pagination = document.getElementById('post-pagination');
-	fetch('<?php echo esc_url(admin_url("admin-ajax.php")); ?>', {
-	       	method: 'POST',
-	       	headers: {
-	           	'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-	       	},
-	       	body: new URLSearchParams({
-	           	action: 'loopis_ledger_page',
-	           	options: JSON.stringify(options),
-	           	page: page,
-			   	nonce: nonce
-	       	})
-	   	})
-	   	.then(r => r.json())
-	   	.then(data => {
-	       	if (!data.success) return;
-
-	       	log.innerHTML = data.data.activity;
-	       	pagination.innerHTML = data.data.pagination;
-	       	pagination.dataset.page = data.data.page;
-	       	pagination.dataset.maxPages = data.data.max_pages;
-	   	});
-}
-document.addEventListener('click', function(e){
-	const button = e.target.closest('.loopis_ajax_button');
-
-	if (!button) return;
-
-  	const page = parseInt(button.dataset.page, 10);
-  	if (!Number.isFinite(page)) return;
-	loadLedgerPage(page);
-
-	});
-
-
-document.getElementById('ledger-filter-btn')?.addEventListener('click', function() {
-	loadLedgerPage(1);
-});
-
 </script>

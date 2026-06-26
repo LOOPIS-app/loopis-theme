@@ -730,7 +730,11 @@ function loopis_ledger_recount_user($user_id){
         'event' => 'Delta på event',
         'forwarded' => 'Vidareskickad'
     ];
-    return $output_for[$type];
+    if (isset($output_for[$type])){
+        return $output_for[$type];
+    }else{
+        return $type;
+    }
  }
 
 /** 
