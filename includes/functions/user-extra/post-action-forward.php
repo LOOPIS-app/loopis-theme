@@ -90,7 +90,7 @@ function action_forward(int $post_id) {
     $user_mentions_string = implode(' + ', $user_mentions);
     // Send notification from LOOPIS to users in queue
     $notification_message = '♻ Denna sak har skickats vidare!<br>⏳ Ni kan delta i lottning igen imorgon klockan 12.<br>💡 Tips till ' . $user_mentions_string;
-    add_admin_comment($notification_message, $new_post_id, 1);
+    add_admin_comment($notification_message, $new_post_id, 2);
 	}
 	$redirect_url = add_query_arg(array('option'=> 'single', 'edit_post_id' => $new_post_id), home_url('/submit/'));
 	wp_safe_redirect($redirect_url);

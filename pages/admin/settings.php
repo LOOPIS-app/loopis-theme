@@ -17,7 +17,7 @@ if (!defined('ABSPATH')) {
 
 <h3>⚠ Varningar</h3>
 <div class="columns">
-    <div class="column1">↓ Fullt skåp?</div>
+    <div class="column1">↓ Skåp i området</div>
     <div class="column2 small">locker_id</div>
 </div>
 <hr>
@@ -36,7 +36,7 @@ if (
 		: array();
 
 	global $wpdb;
-    if(is_multisite()){
+    if(is_main_blog()){
         $table = $wpdb->base_prefix . 'loopis_lockers';
     }else{
         $table = $wpdb->prefix . 'loopis_lockers';
@@ -51,7 +51,7 @@ if (
 
 // Load current locker states
 global $wpdb;
-if(is_multisite()){
+if(is_main_blog()){
     $table = $wpdb->base_prefix . 'loopis_lockers';
 }else{
     $table = $wpdb->prefix . 'loopis_lockers';

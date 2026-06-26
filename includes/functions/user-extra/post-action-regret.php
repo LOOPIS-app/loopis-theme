@@ -94,7 +94,7 @@ function action_regret(int $post_id) {
 	send_admin_notification_email('💔 Mottagaren har ångrat sig men... <br>❤ ' . $fetcher_name . ' stod i kö och har nu paxat! <br>⌛ ' . $fetcher_name . ' ska nu skicka ett sms till dig för att komma överens om hämtning på ' . $location . ' @' . get_the_author() . '.', $post_id, 2, $author); 
 	
 	// Leave comment by LOOPIS
-	add_admin_comment ('<p class="book">❤ Paxad av <span>🔔' . $fetcher_name . '</span> som stod först i kön. <br>📱 Du ska nu skicka ett sms till <span>🔔'.$author_name.'</span> för att komma överens om hämtning.</p>', $post_id, 3 );
+	add_admin_comment ('<p class="book">❤ Paxad av <span>🔔' . $fetcher_name . '</span> som stod först i kön. <br>📱 Du ska nu skicka ett sms till <span>🔔'.$author_name.'</span> för att komma överens om hämtning.</p>', $post_id, 2 );
 	}
 	
 	// Already in locker?

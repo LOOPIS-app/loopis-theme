@@ -4,7 +4,7 @@
  */
 
 global $wpdb;
-if(is_multisite()){
+if(is_main_blog()){
     $table = $wpdb->base_prefix . 'loopis_lockers';
 }else{
     $table = $wpdb->prefix . 'loopis_lockers';

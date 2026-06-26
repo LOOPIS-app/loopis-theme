@@ -57,6 +57,12 @@ li #reply-title { font-size: 0; margin: 0 !important; padding: 0; height: 0; bor
 #search-form select { width: auto; padding: 6px; height: 35px; min-width: 0; max-width: 150px; flex: 0 1 150px; }
 #search-form input[type="submit"] { font-size: 16px; width: auto; flex: 0 0 auto; margin-bottom: 5px; }
 
+/* Filter form tweaks */
+#filter-form { margin: 10px 0; display: flex; gap: 10px; flex-wrap: nowrap; align-items: center; --form-control-size: 15; }
+#filter-form :where(input[type="text"], input[type="search"]) { width: auto; height: 35px; flex: 1 1 auto; min-width: 0; }
+#filter-form select { width: auto; padding: 6px; height: 35px; min-width: 0; max-width: 150px; flex: 0 1 150px; }
+#filter-form input[type="submit"] { font-size: 16px; width: auto; flex: 0 0 auto; margin-bottom: 5px; }
+
 /* Support post form tweaks */
 #support-form { background: var(--form-bg); border-radius: var(--form-radius); padding: var(--form-pad); max-width: 300px; margin: 20px auto; text-align: center; }
 #support-form textarea[name="post_content"] { height: 100px; min-height: 100px; max-height: 100px; resize: none; }
@@ -71,7 +77,6 @@ li #reply-title { font-size: 0; margin: 0 !important; padding: 0; height: 0; bor
 #gift-form .term-option input[type="checkbox"] { margin: 0; border-radius: 0; }
 #gift-form .term-option span { color: var(--form-text); font-size: 18px; line-height: 1.3; }
 #gift-form #terms-count { display: inline-block; font-weight: 600; margin-left: 6px; }
-.error { color: #b54b4b; font-style: normal; font-weight: 600; }
 #image-previews { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; min-width: 0; }
 #image-previews .image-preview-item { flex: 0 1 120px; min-width: 0; }
 #image-previews img { display: block; flex: 1 1 0; min-width: 0; width: 100%; max-width: 120px; aspect-ratio: 1 / 1; object-fit: cover; border: 3px solid white; }
@@ -81,7 +86,7 @@ li #reply-title { font-size: 0; margin: 0 !important; padding: 0; height: 0; bor
 #image-previews .image-preview-controls button:hover { background: #e9e9e9; }
 
 /* Member-form tweaks */
-#member-form { max-width: 300px;  margin: 0 auto; }
+#member-form { max-width: 300px;  margin: 0 auto; margin-bottom: 30px;}
 
 /* Form loading overlay */
 .loopis-form-loading { position: fixed; inset: 0; z-index: -1; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.45); opacity: 0; pointer-events: none; transition: opacity 0.1s ease; }
