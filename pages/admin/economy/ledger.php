@@ -1,12 +1,7 @@
 
 <?php
 /**
- * Template for displaying WPUM profile tab content.
- * 
- * Modified by LOOPIS.
- * 
- * Improvements:
- * – Fade out post types not relevant to the user
+ * First draft of site 
  */
 
 // Exit if accessed directly
@@ -21,19 +16,11 @@ include_once LOOPIS_THEME_DIR .'/templates/post-list/pagination-sql.php';
 <hr>
 <p class="small"> 💡 Register med användaraktivitet</p>
 
-<?php
-$posts_per_page = 50;
-$page = 1;
-$offset= ($page-1)*$posts_per_page;
-$options =['blog_id' => get_current_blog_id()];
-$num = loopis_ledger_fetch_total($options);
-$max_pages= max(1, (int) ceil($num/$posts_per_page));
-?>
-
 <!--ledger-->
 
 <!-- Sets filters(options for fetching) -->
 <div class="ledger-filters">
+	<input type="hidden" class="ledger-filter" name="blog_id" value=<?php echo get_current_blog_id();?>>
 	
 	<select name="event" id="ledger-event" class="ledger-filter">
 		<option value="">Alla event</option>
@@ -99,7 +86,7 @@ $max_pages= max(1, (int) ceil($num/$posts_per_page));
 <div id="ledger" class="logg">
 </div>
 
-<div id="post-pagination" data-max-pages="<?php echo esc_attr($max_pages); ?>" data-page="<?php echo esc_attr($page); ?>">
+<div id="post-pagination" data-max-pages="" data-page="">
 </div>
 
 <?php

@@ -1,7 +1,7 @@
 
 <?php
 /**
- *
+ * Functions to generate ledger page
  */
 
 // Exit if accessed directly
@@ -9,9 +9,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-include_once LOOPIS_THEME_DIR .'/templates/post-list/pagination-sql.php';
-
+/**
+ * 	Pagination for ajax use
+ * 
+ * 	@return void - echoes HTML
+ */
 function loopis_ajax_pagination($max_pages, $page){
+	include_once LOOPIS_THEME_DIR .'/templates/post-list/pagination-sql.php';
 	$max_pages = max(1, (int) $max_pages);
 	$page = max(1, min($max_pages,(int) $page));
 	$range = loopis_get_range($max_pages, $page);
@@ -37,12 +41,16 @@ function loopis_ajax_pagination($max_pages, $page){
 
 }
 
-
 add_action('wp_ajax_loopis_ledger_page', 'loopis_ledger_page');
 
+/**
+ *  Ajaxed ledger page generator called by loadLedgerPage in /assets/js/ledger-display.js
+ * 
+ * 	@return JSON-ed HTML
+ */
 function loopis_ledger_page(){
 	if ( ! isset($_POST['nonce']) || ! wp_verify_nonce(wp_unslash($_POST['nonce']), 'loopis_ledger_nonce') ) {
-	wp_send_json_error('Invalid nonce', 403);
+		wp_send_json_error('Invalid nonce', 403);
 	}	
 	$options_raw = $_POST['options'] ?? '{}';
 	$options = json_decode(wp_unslash($options_raw), true);
@@ -101,7 +109,13 @@ function loopis_ledger_page(){
 	]);
 }
 
-
+/**
+ *  Helper, gets font awesome handles for columns
+ * 
+ * 	Usage example: <i class="<?php echo get_fas('user_id') ;?>">
+ * 
+ * 	@return string i-class e.g. fa-solid fa-user
+ */
 function get_fas($handle){
 	$options = [
 		'user_id' => "fa-solid fa-user",
