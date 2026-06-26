@@ -11,40 +11,24 @@ if (!defined('ABSPATH')) {
 }
 
 // Initialize message
-$message = '';
+$options = '';
 
 if (is_user_logged_in()) { 
 
-
-    $current_user = wp_get_current_user();
-    $user_roles = (array) $current_user->roles;
-
-    // Member pending
-    if (in_array('member_pending', $user_roles, true)) {
-        $message = '<p>⏳ Du har inte betalat din medlemsavgift ännu?</p>
-                    <p><span class="big-link">💳 <a href="'.esc_url(network_site_url( '/shop/?option=membership-stripe' )).'">Betala medlemskap</a></span> för att börja loopa.</p>';
-    }
-
-    // Member earlier
-    elseif (in_array('member_earlier', $user_roles, true)) {
-        $message = '<p>Du behöver förnya ditt medlemskap för att fortsätta använda LOOPIS. ✨</p>';
-    }
-
-    // Member outside
-    elseif (in_array('member_outside', $user_roles, true)) {
-        $message = '<p>🙏 Tack för att du stöttar LOOPIS med ditt medlemskap!</p>
-                    <p>Vi hoppas att du i framtiden kan använda föreningens tjänster där du bor.</p>
-                    <p><span class="link"><a href="'.esc_url(network_site_url('/faq/varfor-bagis/')).'">📌 Varför måste jag bo i Bagarmossen?</a></span></p>';
+    // Member pending, earlier or outside
+    if (current_user_can('member_pending') || current_user_can('member_earlier') || current_user_can('member_outside')) {
+        $options = '<p>⏳ Du behöver komplettera ditt medlemskap.</p>
+                    <p>Gå till <span class="big-link"><a href="'.esc_url(network_site_url('')).'">🗺 LOOPIS startsida</a></span> </p>';
     }
 
 } else {
     // Not logged in
-    $message = '<p><span class="big-link"><a href="'.esc_url(get_loopis_login_url()).'">👤 Logga in</a></span> om du är medlem.</p>
+    $options = '<p><span class="big-link"><a href="'.esc_url(get_loopis_login_url()).'">👤 Logga in</a></span> om du är medlem.</p>
                 <p><span class="big-link"><a href="'.esc_url(get_signup_url()).'">📋 Bli medlem</a></span> för att kunna logga in.</p>
                 <p><span class="big-link"><a href="'.esc_url(network_site_url('/faq/hur-funkar-loopis/')).'">📌 Nyfiken?</a></span> Läs hur LOOPIS funkar.</p>';
 }
 
 // Output the message if it exists
-if (!empty($message)) {
-    echo '<div class="loopis-message information">' . $message . '</div>';
+if (!empty($options)) {
+    echo '<div class="loopis-message information">' . $options . '</div>';
 }

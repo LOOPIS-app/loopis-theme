@@ -1,5 +1,9 @@
 # 📋 Changelog for "LOOPIS Theme"
 
+## 1.03 (2026-06-26)
+- Onboarding improved, redirecting to member_pending to main site.
+- Ledger views added to post log, author log and admin area.
+
 ## 1.02 (2026-06-25)
 - Bugs and small fixes
 - Some admin panels moved to "LOOPIS Theme HQ"
