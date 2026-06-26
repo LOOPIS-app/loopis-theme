@@ -24,6 +24,7 @@ function action_remove(int $post_id) {
 	// Update ledger
 	$author_id = get_post_field( 'post_author', $post_id );
 	loopis_ledger_add_post('removed', $author_id , $post_id, ['timestamp' => $timestamp]);
+	loopis_ledger_add_post('cancelled', $author_id , $post_id, ['timestamp' => $timestamp, 'type' => 'removed']);
 
 	// Leave comment by author
 	add_comment ('<p class="remove">❌ Annons borttagen.</p>', $post_id );

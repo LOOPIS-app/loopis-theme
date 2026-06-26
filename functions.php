@@ -76,14 +76,15 @@ add_action('wp_ajax_loopis_ledger_page', 'loopis_ledger_page');
 
 function loopis_ledger_page(){
     include_once LOOPIS_THEME_DIR .'/includes/functions/everyone/ledger_pagination.php';
-	error_log('loopis_ledger_page hit');
 	if ( ! isset($_POST['nonce']) || ! wp_verify_nonce(wp_unslash($_POST['nonce']), 'loopis_ledger_nonce') ) {
 	wp_send_json_error('Invalid nonce', 403);
 	}	
 	$options_raw = $_POST['options'] ?? '{}';
+	error_log(print_r($options_raw,true));		
 	$options = json_decode(wp_unslash($options_raw), true);
+	error_log(print_r($options,true));	
 	if (!is_array($options)) { $options = []; }
-
+	error_log(print_r($options,true));		
 	$page = isset($_POST['page']) ? (int) $_POST['page'] : 1;
 	$posts_per_page = 50;
 	$num = loopis_ledger_fetch_total($options);

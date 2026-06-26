@@ -69,6 +69,7 @@ document.addEventListener('click', function(e){
 	const button = e.target.closest('.loopis_ajax_button');
 
 	if (!button) return;
+	
 	console.log("hello");
   	const page = parseInt(button.dataset.page, 10);
   	if (!Number.isFinite(page)) return;
