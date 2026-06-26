@@ -105,6 +105,17 @@ $admin_url = home_url('/admin/');
     </div>
 <?php endif; ?>
 
+<!-- Economy Section -->
+<?php if (current_user_can('loopis_economy')) : ?>
+    <h3>💰 Ekonomi</h3>
+    <hr>
+    <div>
+        <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'economy/payments', $admin_url) ); ?>">📒 Alla köp</a></span>&nbsp;
+        <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'economy/coins', $admin_url) ); ?>">🪙 Köp av mynt</a></span>&nbsp;
+                <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'economy/ledger', $admin_url) ); ?>">📕 Boken</a></span>&nbsp;
+    </div>
+<?php endif; ?>
+
 <!-- Manager Section -->
  <?php if (current_user_can('loopis_admin')) : ?>
 <h3>🤓 Admin</h3>

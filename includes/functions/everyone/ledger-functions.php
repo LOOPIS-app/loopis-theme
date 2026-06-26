@@ -140,9 +140,6 @@ function loopis_ledger_fetch($options=[],$order=[]){
     ];
 
     $allowed_keys = array_keys($allowed);
-    if (empty($options)) {
-        return null;
-    }
 
     $clauses = [];
     $values = [];
@@ -176,9 +173,7 @@ function loopis_ledger_fetch($options=[],$order=[]){
         
     }
 
-    if(empty($clauses)){
-        return;
-    }
+  
     foreach($defaults as $key => $value){
         if (!isset($order[$key])){
             $order[$key] = $value;
@@ -195,12 +190,84 @@ function loopis_ledger_fetch($options=[],$order=[]){
     $sql_order = " ORDER BY {$orderby} {$dasc} LIMIT {$limit} OFFSET {$offset}";
 
     $table_name = $wpdb->base_prefix . 'loopis_ledger';
+    if(empty($clauses)){
+        $result = $wpdb->get_results("SELECT * FROM {$table_name}" . $sql_order, ARRAY_A);
+    }else{
+        $result = $wpdb->get_results(
+            $wpdb->prepare("SELECT * FROM {$table_name} WHERE " . implode(' AND ', $clauses) . $sql_order,
+                ...$values
+            ), ARRAY_A
+        );
+    }
+    if (is_wp_error($result)){
+        error_log($result->get_error_message());
+        return null;
+    }
+    return $result;
+}
 
-    $result = $wpdb->get_results(
-        $wpdb->prepare("SELECT * FROM {$table_name} WHERE " . implode(' AND ', $clauses) . $sql_order,
-            ...$values
-        ), ARRAY_A
-    );
+function loopis_ledger_fetch_total($options=[]){
+    global $wpdb;
+    $allowed = [
+        'blog_id' => '%d',
+        'user_id' => '%d',
+        'post_id' => '%d',
+        'event' => '%s',
+        'type' => '%s',
+        'description' => '%s',
+        'location' => '%s',
+        'timestamp' => '%s',
+        'coins' => '%d',
+        'clovers'=> '%d',
+    ];
+
+
+
+    $allowed_keys = array_keys($allowed);
+
+    $clauses = [];
+    $values = [];
+
+    foreach($options as $key => $value){
+        if($key === 'timestamp'){
+            continue;
+        }
+        if(!in_array($key,$allowed_keys, true)){
+            continue;
+        }
+        if (is_array($value)){
+            $count = count($value);
+            if ($count===0){
+                continue;
+            }
+            $value = loopis_validate_array($allowed[$key], $value);
+            if ($value === false){
+                continue;
+            }
+            $clauses[] = "{$key} IN (". implode(',', array_fill(0,$count,$allowed[$key])) .")";
+            $values = array_merge($values,$value);
+        }else{
+            $value = loopis_validate_hash($allowed[$key], $value);
+            if ($value === false){
+                continue;
+            }
+            $clauses[] = "{$key} = ". $allowed[$key] ."";
+            $values[] = $value;
+        }
+        
+    }
+
+    $table_name = $wpdb->base_prefix . 'loopis_ledger';
+
+    if(empty($clauses)){
+        $result = $wpdb->get_var("SELECT COUNT(*) FROM {$table_name}");
+    }else{
+        $result = $wpdb->get_var(
+            $wpdb->prepare("SELECT COUNT(*) FROM {$table_name} WHERE " . implode(' AND ', $clauses),
+                ...$values
+            )
+        );
+    }
 
     if (is_wp_error($result)){
         error_log($result->get_error_message());
@@ -208,6 +275,7 @@ function loopis_ledger_fetch($options=[],$order=[]){
     }
     return $result;
 }
+ 
  
  /**
  * Fetches user event information from ledger 
@@ -290,6 +358,36 @@ function loopis_ledger_user_rewards($user_id){
 
     return $rewards;
 }
+
+ /**
+ * Fetches user reward information from ledger 
+ *
+ * @return array ledger entries as [0] => ['coins' => 1, type => 'survey' ...
+ */
+function loopis_ledger_column_distinct($column){
+    global $wpdb;
+    $allowed = [
+        'blog_id',
+        'user_id',
+        'post_id',
+        'event',
+        'type',
+        'description',
+        'location',
+    ];
+
+    if (!in_array($column,$allowed)){
+        return null;
+    }
+
+    $table_name = $wpdb->base_prefix . 'loopis_ledger';
+    $rewards = $wpdb->get_results(
+        "SELECT DISTINCT {$column} FROM {$table_name}", ARRAY_A
+    );
+
+    return $rewards;
+}
+
 
  /**
  * Fetches information previously gotten by get_economy
@@ -409,7 +507,7 @@ function loopis_ledger_add_post($event, $user_id, $post_id, $options=[]){
             $coins = 0;
             $clovers = 0;
             break;
-        case 'regret':
+        case 'cancelled':
             $coins = 1;
             $clovers = 0;
             break;
@@ -623,14 +721,20 @@ function loopis_ledger_recount_user($user_id){
  function loopis_ledger_type_output($type){
     $output_for=[
         'survey'=>'Enkätsvar',
-        'google_review'=>'Googlerecension',
+        'review_google'=>'Googlerecension',
         'mynt'=>'Mynt',
         'medlemskap'=>'Medlemskap',
         'poster_garbage'=>'Lapp i soprum',
         'top_user'=>'Mest aktiv',
         'poster_storage'=>'Lapp i förråd',
+        'event' => 'Delta på event',
+        'forwarded' => 'Vidareskickad'
     ];
-    return $output_for[$type];
+    if (isset($output_for[$type])){
+        return $output_for[$type];
+    }else{
+        return $type;
+    }
  }
 
 /** 

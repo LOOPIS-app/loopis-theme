@@ -143,7 +143,6 @@ if (in_category('removed')) {
 </div><!--logg-->	
 
 <?php
-include_once LOOPIS_THEME_DIR . '/includes/functions/everyone/ledger-functions.php';
 $post_ledger = loopis_ledger_fetch(['post_id'=>$post_id]);
 $grid_spacing = 'grid-template-columns: 1.4fr 0.8fr 1.2fr 0.6fr 0.6fr;';
 ?>

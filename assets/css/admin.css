@@ -28,3 +28,4 @@ body.admin-bar #header { margin-top: 32px; }
 .admin-grid{align-items: center;}
 .admin-grid{padding: 8px 0;}
 .admin-grid{border-bottom: 1px solid rgba(0,0,0,.1);}
+.admin-grid{grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));}

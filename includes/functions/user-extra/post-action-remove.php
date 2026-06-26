@@ -19,11 +19,16 @@ function action_remove(int $post_id) {
 	$timestamp = current_time('Y-m-d H:i:s');
 	wp_set_object_terms( $post_id, null, 'category' ); 
 	wp_set_object_terms( $post_id, 'removed', 'category' );
+	$fetcher = (int) get_post_meta($post_id,'fetcher', true);
+	if($fetcher>0){
+		loopis_ledger_add_post('cancelled', $author_id , $post_id, ['timestamp' => $timestamp, 'type' => 'removed']);
+	}
 	update_post_meta($post_id,'fetcher', null);
 	update_post_meta($post_id,'remove_date', $timestamp);
 	// Update ledger
 	$author_id = get_post_field( 'post_author', $post_id );
 	loopis_ledger_add_post('removed', $author_id , $post_id, ['timestamp' => $timestamp]);
+	
 
 	// Leave comment by author
 	add_comment ('<p class="remove">❌ Annons borttagen.</p>', $post_id );
