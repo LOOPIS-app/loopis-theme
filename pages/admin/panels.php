@@ -28,6 +28,14 @@ $admin_url = home_url('/admin/');
         <?php include __DIR__ . '/panels/gift-stats.php'; ?>
     </p>
 </div>
+<!-- The book -->
+<div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'ledger', $admin_url) ); ?>'">
+    <h5>📕 Boken</h5>
+    <hr>
+    <p class="small">
+        <?php include __DIR__ . '/panels/ledger.php'; ?>
+    </p>
+</div>
 
 <!-- Raffle results -->
 <div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'raffle', $admin_url) ); ?>'">
