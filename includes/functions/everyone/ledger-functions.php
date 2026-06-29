@@ -302,7 +302,7 @@ function loopis_ledger_user_event_counts($user_id){
             SUM(CASE WHEN event = %s THEN 1 ELSE 0 END) AS count_deleted
          FROM {$table_name}
          WHERE user_id = %d",
-        'submitted', 'given', 'fetched', 'booked', 'regret', 'removed', $user_id
+        'submitted', 'given', 'fetched', 'booked', 'cancelled', 'removed', $user_id
     );
 
     return $wpdb->get_row( $sql, ARRAY_A );
