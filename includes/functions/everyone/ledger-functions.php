@@ -314,7 +314,7 @@ function loopis_ledger_user_event_counts($user_id){
  * @return array ledger entries as [0] => ['payment' => 50, type => 'mynt' ...
  */
 function loopis_ledger_user_payments($user_id){
-        global $wpdb;
+    global $wpdb;
 
     $user_id = (int) $user_id;
     if ( $user_id <= 0 ) {
