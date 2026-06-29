@@ -30,7 +30,7 @@ $admin_url = home_url('/admin/');
 </div>
 <!-- The book -->
 <div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'ledger', $admin_url) ); ?>'">
-    <h5>📕 Boken</h5>
+    <h5>📕 Lokala boken</h5>
     <hr>
     <p class="small">
         <?php include __DIR__ . '/panels/ledger.php'; ?>
@@ -110,15 +110,6 @@ $admin_url = home_url('/admin/');
         <p class="small">
             <?php include __DIR__ . '/panels/settings-status.php'; ?>
         </p>
-    </div>
-<?php endif; ?>
-
-<!-- Economy Section -->
-<?php if (current_user_can('loopis_economy')) : ?>
-    <h3>TBR bokflik</h3>
-    <hr>
-    <div>
-        <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'economy/ledger', $admin_url) ); ?>">📕 Boken</a></span>&nbsp;
     </div>
 <?php endif; ?>
 
