@@ -36,7 +36,7 @@ if (
 		: array();
 
 	global $wpdb;
-    if(is_main_blog()){
+    if(is_main_site()){
         $table = $wpdb->base_prefix . 'loopis_lockers';
     }else{
         $table = $wpdb->prefix . 'loopis_lockers';
@@ -51,7 +51,7 @@ if (
 
 // Load current locker states
 global $wpdb;
-if(is_main_blog()){
+if(is_main_site()){
     $table = $wpdb->base_prefix . 'loopis_lockers';
 }else{
     $table = $wpdb->prefix . 'loopis_lockers';
