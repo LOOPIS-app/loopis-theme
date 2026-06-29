@@ -25,7 +25,7 @@ function action_remove(int $post_id) {
 	// Send notification to fetcher and update ledger
 	if($fetcher_id>0){
 		loopis_ledger_add_post('cancelled', $fetcher_id , $post_id, ['timestamp' => $timestamp, 'type' => 'removed']);
-		send_admin_notification_email('❌ Annonsen har tyvärr tagits bort. <br>❤️‍🩹 Du har fått tillbaka ditt regnbågsmynt.', $post_id, 2, $fetcher);
+		send_admin_notification_email('❌ Annonsen har tyvärr tagits bort. <br>❤️‍🩹 Du har fått tillbaka ditt regnbågsmynt.', $post_id, 2, $fetcher_id);
 	}
 	update_post_meta($post_id,'fetcher', null);
 	update_post_meta($post_id,'remove_date', $timestamp);
