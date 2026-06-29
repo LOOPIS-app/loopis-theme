@@ -19,7 +19,7 @@ include_once LOOPIS_THEME_DIR .'/templates/post-list/pagination-sql.php';
 <!--ledger-->
 
 <!-- Sets filters(options for fetching) -->
-<div class="ledger-filters">
+<div class="loopis-form loopis-filter">
 	<input type="hidden" class="ledger-filter" name="blog_id" value=<?php echo get_current_blog_id();?>>
 	
 	<select name="event" id="ledger-event" class="ledger-filter">
@@ -33,7 +33,7 @@ include_once LOOPIS_THEME_DIR .'/templates/post-list/pagination-sql.php';
 	</select>
 
 	<select name="type" id="ledger-type" class="ledger-filter">
-		<option value="">Alla Underkategorier</option>
+		<option value="">Alla typer</option>
 		<?php
 		$events = loopis_ledger_column_distinct('type');
 		foreach ($events as $event) {
@@ -42,7 +42,7 @@ include_once LOOPIS_THEME_DIR .'/templates/post-list/pagination-sql.php';
 		?>
 	</select>
 	<select name="description" id="ledger-description" class="ledger-filter">
-		<option value="">Alla detaljalternativ</option>
+		<option value="">Alla beskrivningar</option>
 		<?php
 		$events = loopis_ledger_column_distinct('description');
 		foreach ($events as $event) {

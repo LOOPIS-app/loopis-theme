@@ -58,10 +58,10 @@ li #reply-title { font-size: 0; margin: 0 !important; padding: 0; height: 0; bor
 #search-form input[type="submit"] { font-size: 16px; width: auto; flex: 0 0 auto; margin-bottom: 5px; }
 
 /* Filter form tweaks */
-#filter-form { margin: 10px 0; display: flex; gap: 10px; flex-wrap: nowrap; align-items: center; --form-control-size: 15; }
-#filter-form :where(input[type="text"], input[type="search"]) { width: auto; height: 35px; flex: 1 1 auto; min-width: 0; }
-#filter-form select { width: auto; padding: 6px; height: 35px; min-width: 0; max-width: 150px; flex: 0 1 150px; }
-#filter-form input[type="submit"] { font-size: 16px; width: auto; flex: 0 0 auto; margin-bottom: 5px; }
+.loopis-filter { margin: 10px 0; display: flex; gap: 10px; flex-wrap: nowrap; align-items: center; --form-control-size: 15; }
+.loopis-filter :where(input[type="text"], input[type="search"]) { width: auto; height: 35px; flex: 1 1 auto; min-width: 0; }
+.loopis-filter select { width: auto; padding: 6px; height: 35px; min-width: 0; max-width: 150px; flex: 0 1 150px; }
+.loopis-filter :where(button, input[type="submit"], input[type="button"]) { font-size: 15px !important; padding: 5px 10px !important; margin: 0 0 5px 0; width: auto; flex: 0 0 auto; }
 
 /* Support post form tweaks */
 #support-form { background: var(--form-bg); border-radius: var(--form-radius); padding: var(--form-pad); max-width: 300px; margin: 20px auto; text-align: center; }
