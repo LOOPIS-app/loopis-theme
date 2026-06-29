@@ -23,6 +23,7 @@ function action_remove(int $post_id) {
 	$fetcher = (int) get_post_meta($post_id,'fetcher', true);
 	if($fetcher>0){
 		loopis_ledger_add_post('cancelled', $author_id , $post_id, ['timestamp' => $timestamp, 'type' => 'removed']);
+		send_admin_notification_email('Tyvärr har '.get_the_author_meta('display_name', $author_id).' tagit bort denna annons!', $post_id, 2, $fetcher);
 	}
 	update_post_meta($post_id,'fetcher', null);
 	update_post_meta($post_id,'remove_date', $timestamp);

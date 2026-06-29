@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Enqueue tabs script
-wp_enqueue_script('loopis-tabs', get_template_directory_uri() . '/assets/js/tabs.js', array(), '1.0.0', true);
+wp_enqueue_script('loopis-tabs', LOOPIS_THEME_URI . '/assets/js/tabs.js', array(), '1.0.0', true);
 ?>
 
 <div class="admin-block">
