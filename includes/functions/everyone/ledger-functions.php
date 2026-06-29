@@ -537,7 +537,7 @@ function loopis_ledger_add_post($event, $user_id, $post_id, $options=[]){
         error_log($wpdb->last_error);
         error_log('LEDGER ERROR AT EVENT:' . $event .', POST ID: '.$post_id. 'USER ID: '. $user_id);
     }else{
-        loopis_update_coins($user_id, $coins, $clovers);
+        loopis_ledger_recount_user($user_id);
     }
 }
 
@@ -599,7 +599,7 @@ function loopis_ledger_add_payment($user_id,$options=[]){
         error_log($wpdb->last_error);
         error_log('LEDGER ERROR AT REWARD:' . $type .', DESCRIPTION: '.$description. 'USER ID: '. $user_id);
     }else{
-        loopis_update_coins($user_id, $coins, $clovers);
+        loopis_ledger_recount_user($user_id);
     }
 }
 
@@ -658,7 +658,7 @@ function loopis_ledger_add_reward($user_id, $options=[]){
     if ($result === false) {
         error_log($wpdb->last_error);
     }else{
-        loopis_update_coins($user_id, $coins, $clovers);
+        loopis_ledger_recount_user($user_id);
     }
 }
 
