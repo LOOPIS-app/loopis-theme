@@ -15,13 +15,15 @@ if (!defined('ABSPATH')) {
  */
 function action_regret(int $post_id) {
 	
-	// Get user variables
+	// Set variables
 	$fetcher = get_post_meta($post_id, 'fetcher', true);
 	$fetcher_name = get_userdata($fetcher)->display_name; 
 	$author = get_post_field( 'post_author', $post_id );
+	$timestamp = current_time('Y-m-d H:i:s');
 
 	// Update ledger
-	loopis_ledger_add_post('cancelled', $fetcher, $post_id,['timestamp' => current_time('Y-m-d H:i:s'), 'type'=>'regret']);
+	loopis_ledger_add_post('cancelled', $fetcher, $post_id,['timestamp' => $timestamp, 'type'=>'regret']);
+
 	// Count queue
 	$queue = get_post_meta($post_id, 'queue', true);
 	if (!empty($queue)) { $queue_count = count($queue);
@@ -60,10 +62,11 @@ function action_regret(int $post_id) {
 	update_post_meta($post_id, 'queue', $queue); 	// Update queue
 	
 	// Change post meta & variables
-	$timestamp = current_time('Y-m-d H:i:s');
 	update_post_meta($post_id,'fetcher', $fetcher);
 	update_post_meta($post_id,'book_date', $timestamp);
 	$fetcher_name = get_userdata($fetcher)->display_name;
+	
+	// Update ledger
 	loopis_ledger_add_post('booked', $fetcher, $post_id, ['timestamp' => $timestamp]);
 	
 	// Category is 'booked'
