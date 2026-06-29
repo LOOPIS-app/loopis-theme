@@ -13,7 +13,6 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-include_once LOOPIS_THEME_DIR .'/templates/post-list/pagination-sql.php';
 ?>
 
 <!-- OUTPUT -->
