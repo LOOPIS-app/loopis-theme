@@ -20,7 +20,7 @@ function action_locker(int $post_id) {
 	if ($fetcher) { $fetcher_name = get_userdata($fetcher)->display_name; } 
 	
 	// Get locker code
-    $locker_code = get_locker_code(LOCKER_ID);
+    $locker_code = get_locker_code();
 	
 	// Set post meta
 	wp_set_object_terms( $post_id, null, 'category' ); 

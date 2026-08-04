@@ -30,7 +30,7 @@ function action_book_locker(int $post_id) {
     }
     
     // Get locker code
-    $locker_code = get_locker_code(LOCKER_ID);
+    $locker_code = get_locker_code();
     $timestamp = current_time('Y-m-d H:i:s');
     // Set post meta
     wp_set_object_terms($post_id, null, 'category');

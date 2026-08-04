@@ -26,7 +26,7 @@ function admin_action_notif_manual($post_id) {
 	⏳ Du får ett meddelande när du kan hämta i skåpet. <br>💡 PS. Vi hade problem med mailutskick idag, därför kommer detta besked lite sent.', $post_id, 3, $winner_id);
 	
 	// Send notification from LOTTEN to author
-	$locker_code = get_locker_code(LOCKER_ID);
+	$locker_code = get_locker_code();
 	send_admin_notification_email ('❤ '.$winner_name.' har vunnit lottningen! <br>
 	⌛ Lämna gärna i skåpet inom 24 timmar. <br>
 	🔓 Kod till skåpet: <b>'.$locker_code.'</b> <br>
