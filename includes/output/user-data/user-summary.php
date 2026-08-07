@@ -34,9 +34,6 @@ wp_enqueue_script('loopis-tabs', LOOPIS_THEME_URI . '/assets/js/tabs.js', array(
         <div id="tab-info" class="tab-panel">
         <p class="small">💡 Data och statistik.</p>
 
-        <h7>👤 <?php echo $first_name;?>s extradata</h7>
-        <hr>
-
             <div class="wrapped">
                 <h7>📋 Medlemsregister</h7>
                 <hr>
@@ -52,7 +49,7 @@ wp_enqueue_script('loopis-tabs', LOOPIS_THEME_URI . '/assets/js/tabs.js', array(
             <div class="wrapped">
                 <h5>📊 Statistik</h5>
                 <hr>
-                <p>♻ <?php echo $given_percentage; ?>% av <?php echo $count_posts_submitted; ?> annonser lämnade</p>
+                <p>♻ <?php echo $given_percentage; ?>% av <?php echo $count_submitted; ?> annonser lämnade</p>
                 <p>🛟 <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-posts-support-count.php'; ?> supportfrågor skapade</p>
             </div><!--wrapped-->
 
