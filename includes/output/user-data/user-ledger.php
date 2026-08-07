@@ -16,9 +16,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <!-- OUTPUT -->
-<h7>📕 <?php echo $first_name;?>s  bok</h7>
-<hr>
-<p class="small"> 💡 Register med användaraktivitet</p>
+<p class="small">💡 Registrerad aktivitet</p>
+<h7>📕 <?php echo $first_name;?>s bok</h7>
 
 <!--ledger-->
 

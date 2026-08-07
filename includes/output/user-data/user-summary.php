@@ -20,12 +20,11 @@ wp_enqueue_script('loopis-tabs', LOOPIS_THEME_URI . '/assets/js/tabs.js', array(
     <!-- Tab Navigation -->
     <div class="tab-nav">
         <nav class="tab-navbar">
-            <a href="#" class="tab-link" data-tab="tab-info">ℹ</a>
-            <a href="#" class="tab-link" data-tab="tab-economy">🧮</a>
+            <a href="#" class="tab-link" data-tab="tab-info">👤</a>
             <a href="#" class="tab-link" data-tab="tab-posts">🎁</a>
+            <a href="#" class="tab-link" data-tab="tab-economy">🧮</a>
             <a href="#" class="tab-link" data-tab="tab-ledger">📕</a>
             <a href="#" class="tab-link" data-tab="tab-support">🛟</a>
-            <a href="#" class="tab-link" data-tab="tab-about">⚙️</a>
         </nav>
     </div><!--tab-nav-->
 
@@ -33,54 +32,47 @@ wp_enqueue_script('loopis-tabs', LOOPIS_THEME_URI . '/assets/js/tabs.js', array(
 
         <!-- Member Info Tab -->
         <div id="tab-info" class="tab-panel">
-        <p class="small">💡 Översikt användare.</p>
+        <p class="small">💡 Data och statistik.</p>
+
+        <h7>👤 <?php echo $first_name;?>s extradata</h7>
+        <hr>
 
             <div class="wrapped">
-                <h5>📋 Medlemsregister</h5>
+                <h7>📋 Medlemsregister</h7>
                 <hr>
-                <p><span class="label"><?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-id.php'; ?></span></p>
-                <p><span class="label"><?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-age.php'; ?></span></p>
-                <p><span class="label"><?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-gender.php'; ?></span></p>
-                <p><span class="label"><?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-email.php'; ?></span></p>
-                <p><span class="label"><?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-phone.php'; ?></span></p>
+                <p>👤 Användarnamn: <b><?php echo $user->user_login ?></b></p>
+                <p>📍 Område: <b><?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-area.php'; ?></b></p>
+                <p>🚼 Ålder: <b><?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-age.php'; ?></b></p>
+                <p>⚧ Kön: <b><?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-gender.php'; ?></b></p>
+                <p>📧 E-post: <b><?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-email.php'; ?></b></p>
+                <p>📱 Mobilnummer: <b><?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-phone.php'; ?></b></p>
+                <p>🔧 User-ID: <b><?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-id.php'; ?></b></p>
             </div><!--wrapped-->
 
             <div class="wrapped">
-                <h5>🎁 Annonser</h5>
+                <h5>📊 Statistik</h5>
                 <hr>
-                <p><span class="label">💚 <?php echo $count_submitted; ?> skapade</span></p>
-                <p><span class="label">♻ <?php echo $given_percentage; ?>% lämnade</span></p>
-                <p><span class="label">❌ <?php echo $count_deleted; ?> borttagna</span></p>
-            </div><!--wrapped-->
-
-            <div class="wrapped">
-                <h5>🛟 Support</h5>
-                <hr>
-                <p><span class="label">🗒 <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-support.php'; ?> ärenden</span></p>
+                <p>♻ <?php echo $given_percentage; ?>% av <?php echo $count_posts_submitted; ?> annonser lämnade</p>
+                <p>🛟 <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-posts-support-count.php'; ?> supportfrågor skapade</p>
             </div><!--wrapped-->
 
         </div><!--tab-panel-->
 
-
-
-        <!-- Support Tab -->
-        <div id="tab-support" class="tab-panel">
-            <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-posts-support.php'; ?>
+        <!-- Posts Tab -->
+        <div id="tab-posts" class="tab-panel">
+            <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-posts.php'; ?>
         </div>
         <!-- Economy Tab -->
         <div id="tab-economy" class="tab-panel">
             <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-economy.php'; ?>
         </div>
-        <!-- Posts Tab -->
-        <div id="tab-posts" class="tab-panel">
-            <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-posts.php'; ?>
-        </div>
+        <!-- Ledger Tab -->
         <div id="tab-ledger" class="tab-panel">
             <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-ledger.php'; ?>
         </div>
-        <!-- About Tab -->
-        <div id="tab-about" class="tab-panel">
-            <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-about.php'; ?>
+        <!-- Support Tab -->
+        <div id="tab-support" class="tab-panel">
+            <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-posts-support.php'; ?>
         </div>
     </div><!--tab-content-->
 
