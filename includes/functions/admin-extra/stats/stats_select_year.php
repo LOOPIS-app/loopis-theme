@@ -26,6 +26,7 @@ function stats_select_year() {
     // Render the dropdown menu
     ob_start(); // Start output buffering
     ?>
+    <div class="loopis-form loopis-filter">
     <form method="post">
         <select name="selected_year" id="year" style="float:left; font-size:16px;">
             <option value="all" <?php echo ($selected_year === 'all') ? 'selected' : ''; ?>>Alla år</option>
@@ -39,9 +40,9 @@ function stats_select_year() {
         </select>
         <button type="submit" class="small" style="margin:3px 0 0 10px;">Välj år</button>
     </form>
-<div style="clear:both;"></div>
+    
     <?php
     echo ob_get_clean(); // Output the dropdown menu
-
+    echo "</div>";
     return $selected_year; // Return the selected year
 }

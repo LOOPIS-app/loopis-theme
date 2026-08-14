@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-// Uses $user_id passed from wpum/profile/economy.php or from author.php
+// Uses $user_id passed from from author.php
 $payment_info = loopis_ledger_user_payments($user_id);
 
 if (!empty($payment_info)) {

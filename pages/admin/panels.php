@@ -18,7 +18,7 @@ $admin_url = home_url('/admin/');
     <div class="column2"></div>
 </div>
 <hr>
-<p class="small">💡 Visar verktyg tillgängliga för <span class="small-link"><a href="<?php echo esc_url( home_url('/user/') ); ?>">👤<?php echo wp_get_current_user()->user_login; ?></a></span></p>
+<p class="small">💡 Du är inloggad som <span class="small-link"><a href="<?php echo esc_url( home_url('/user/') ); ?>">👤<?php echo wp_get_current_user()->user_login; ?></a></span></p>
 
 <!-- Statistics -->
 <div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'stats', $admin_url) ); ?>'">
@@ -92,7 +92,6 @@ $admin_url = home_url('/admin/');
 </div>
 
 <!-- Active support count -->
-<?php if ( current_user_can('loopis_admin')) : ?>
     <div class="wrapped link" onclick="location.href='<?php echo get_post_type_archive_link('support'); ?>'">
         <h5>🛟 Support</h5>
         <hr>
@@ -100,10 +99,8 @@ $admin_url = home_url('/admin/');
             <?php include __DIR__ . '/panels/support-active.php'; ?>
         </p>
     </div>
-<?php endif; ?>
 
 <!-- Settings Section -->
-<?php if (current_user_can('loopis_admin')) : ?>
     <div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'settings', $admin_url) ); ?>'">
         <h5>⚙ Inställningar</h5>
         <hr>
@@ -111,42 +108,32 @@ $admin_url = home_url('/admin/');
             <?php include __DIR__ . '/panels/settings-status.php'; ?>
         </p>
     </div>
-<?php endif; ?>
 
-<!-- Manager Section -->
- <?php if (current_user_can('loopis_admin')) : ?>
-<h3>🤓 Admin</h3>
+
+<!-- More Section -->
+<h3>🛠 Mer</h3>
 <hr>
 <div>
-    <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'manager/post-search', $admin_url) ); ?>">🔍 Alla annonser</a></span>&nbsp;
-    <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'manager/inventory', $admin_url) ); ?>">📋 Inventering i skåpet</a></span>&nbsp;
-</div>
-<?php endif; ?>
-
-<!-- Special Section -->
-<h3>📡 Special</h3>
-<hr>
-<div>
-    <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'special/collage', $admin_url) ); ?>">🖼 Kollage</a></span>&nbsp;
-    <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'special/uncategorized', $admin_url) ); ?>">❤️‍🩹 Annonser utan kategori</a></span>&nbsp;
+    <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'more/post-search', $admin_url) ); ?>">🔍 Alla annonser</a></span>&nbsp;
+    <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'more/inventory', $admin_url) ); ?>">📋 Inventering i skåpet</a></span>&nbsp;
+    <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'more/collage', $admin_url) ); ?>">🖼 Kollage</a></span>&nbsp;
+    <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'more/uncategorized', $admin_url) ); ?>">❤️‍🩹 Annonser utan kategori</a></span>&nbsp;
+    <span class="big-link"><a href="<?php echo esc_url( admin_url() )?>">👩‍💻 Gå till WP-admin</a></span>&nbsp;
 </div>
 
 <!-- Webmaster Section -->
-<?php if (current_user_can('develooper')) : ?>
-    <h3>👽 WP-admin</h3>
-    <hr>
-    <div>
-        <span class="big-link"><a href="<?php echo esc_url( admin_url() )?>">👩‍💻 Gå till WP-admin</a></span>&nbsp;
-        <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'webmaster/test', $admin_url) ); ?>">💣 Testsida</a></span>&nbsp;
-    </div>
+<?php if ( current_user_can('manage_options') ) : ?>
+<h3>😈 Webmaster</h3>
+<hr>
+<div>
+    <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'webmaster/test', $admin_url) ); ?>">💣 Testsida</a></span>&nbsp;
+</div>
 <?php endif; ?>
 
 <!-- Access List -->
-<?php if (current_user_can('loopis_admin')) : ?>
     <p>&nbsp;</p>
     <div class="wrapped">
         <h5>🚧 Vilka har tillgång?</h5>
         <hr>
         <?php include __DIR__ . '/panels/access.php'; ?>
     </div>
-<?php endif; ?>

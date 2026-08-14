@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-// Uses $user_id passed from author.php
+// Get user area
 $area_key = get_user_meta($user_id, 'wpum_area', true);
 
 // Define an array mapping the option keys to their labels
@@ -24,7 +24,7 @@ $area_options = array(
 );
 
 // Get the label for the selected option
-$area_label = isset($area_options[$area_key]) ? $area_options[$area_key] : 'Okänd';
+$area_label = isset($area_options[$area_key]) ? $area_options[$area_key] : '–';
 
 // Output
 echo esc_html($area_label);

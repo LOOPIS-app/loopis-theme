@@ -32,8 +32,7 @@ $coins = $profile_economy['coins'];
 ?>
 
 <p class="small">💡 Aktivitet och ekonomi.</p>
-<div class="columns"><div class="column1"><h7>🧮 Aktivitet</h7></div>
-<div class="column2 small bottom"></div></div>
+<h7>🧮 <?php echo $first_name;?>s aktivitet</h7>
 <hr>
 
 <div class="economy wrapped">
