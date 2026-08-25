@@ -19,16 +19,32 @@ get_header(); ?>
 <?php get_template_part('templates/forms/search-form-news'); ?>
 
 <?php
-// Arguments
+// Arguments for archive search/filter within this CPT only
 $args = array(
     'post_type' => 'news',
     'posts_per_page' => 50,
-    'paged' => ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1, 
+    'paged' => ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1,
 );
+
+$news_search = ! empty( $_GET['news-search'] ) ? sanitize_text_field( wp_unslash( $_GET['news-search'] ) ) : '';
+if ( $news_search !== '' ) {
+    $args['s'] = $news_search;
+}
+
+if ( ! empty( $_GET['news-category'] ) ) {
+    $args['tax_query'] = array(
+        array(
+            'taxonomy' => 'news-category',
+            'field'    => 'slug',
+            'terms'    => sanitize_text_field( wp_unslash( $_GET['news-category'] ) ),
+        ),
+    );
+}
 
 // Query
 $the_query = new WP_Query( $args );
-$count = $the_query->found_posts; ?>
+$count = $the_query->found_posts;
+?>
 
 <!--Output-->
 <div class="columns"><div class="column1">

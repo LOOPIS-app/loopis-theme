@@ -18,8 +18,8 @@ $terms = get_terms(array(
         <input type="hidden" name="post_type" value="news">
 
         <input type="text"
-               name="s"
-               value="<?php echo esc_attr(get_search_query()); ?>"
+               name="news-search"
+               value="<?php echo esc_attr( sanitize_text_field( wp_unslash( $_GET['news-search'] ?? '' ) ) ); ?>"
                placeholder="🔍 Skriv sökord">
 
         <?php if (!is_wp_error($terms) && !empty($terms)) : ?>

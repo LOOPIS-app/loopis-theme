@@ -26,16 +26,31 @@ get_header(); ?>
 <?php get_template_part('templates/forms/search-form-forum'); ?>
 
 <?php
-// Arguments
+// Arguments for archive search/filter within this CPT only
 $args = array(
     'post_type' => 'forum',
     'posts_per_page' => 50,
-    'paged' => ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1, 
+    'paged' => ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1,
 );
+
+$forum_search = ! empty( $_GET['forum-search'] ) ? sanitize_text_field( wp_unslash( $_GET['forum-search'] ) ) : '';
+if ( $forum_search !== '' ) {
+    $args['s'] = $forum_search;
+}
+
+if ( ! empty( $_GET['forum-category'] ) ) {
+    $args['tax_query'] = array(
+        array(
+            'taxonomy' => 'forum-category',
+            'field'    => 'slug',
+            'terms'    => sanitize_text_field( wp_unslash( $_GET['forum-category'] ) ),
+        ),
+    );
+}
 
 // Query
 $the_query = new WP_Query( $args );
-$count = $the_query->found_posts; 
+$count = $the_query->found_posts;
 ?>
 
 <!--Output-->
