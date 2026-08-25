@@ -50,12 +50,17 @@ get_header(); ?>
         $count_old = $count_total - $count_new;
         ?>
 
-        <h1>🎁 Saker i <?php echo esc_html(get_bloginfo('name')); ?></h1>
+        <h1>🎁 Saker att få</h1>
+        <span class="mega-link"><a href="<?php echo esc_url(home_url('/?s=')); ?>">🔍️ Sök</a></span>
+        <span class="mega-link"><a href="<?php echo esc_url(home_url('/discover/?view=categories')); ?>"><i class="fas fa-hashtag"></i>Bläddra</a></span>
+        <span class="mega-link"><a href="<?php echo esc_url(home_url('/submit/')); ?>">💚 Ge bort</a></span>
+        <!--span class="mega-link"><a href="<?php echo esc_url(home_url('/activity/')); ?>">💚💙 Mina saker</a></span-->
+        
 
         <!-- List header -->
         <div class="columns">
             <div class="column1">↓ <?php echo $count_new; ?> nya och <?php echo $count_old; ?> tidigare</div>
-            <div class="column2"><a href="<?php echo esc_url(add_query_arg('view', 'random-posts', home_url('/discover/')) ); ?>">🤹 Fyndhörnan →</a></div>
+            <div class="column2"><!--a href="/"><i class="fas fa-sliders-h"></i>Filter</a--></div>
         </div>
         <hr>
 
