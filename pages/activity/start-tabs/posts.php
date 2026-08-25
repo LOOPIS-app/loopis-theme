@@ -105,7 +105,7 @@ $activity_url = home_url('/activity/');
 		<p><span class="link"><a href="<?php echo esc_url(home_url( '/submit/')); ?>">💚 Ge bort</a></span> något nu</p>
 <?php endif; ?>
 
-<h3>❤ Mina paxningar</h3>
+<h7>❤ Mina paxningar</h7>
 <div class="columns"><div class="column1">↓ <?php echo $count_others_claimed; ?> annons<?php if ($count_others_claimed !== 1) { echo "er"; } ?></div>
 <div class="column2"><a href="<?php echo esc_url( add_query_arg(array([
 	'view' => 'posts-booked',

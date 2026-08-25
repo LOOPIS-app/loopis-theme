@@ -39,7 +39,6 @@ wp_enqueue_script('loopis-tabs', get_template_directory_uri() . '/assets/js/tabs
   <!-- RAFFLES -->
   <div id="tab-raffles" class="tab-panel">
     <p class="small">💡 Här visas lottningar där du deltar/deltagit.</p>
-    <h7>🎲 Lottningar</h7>
     <?php include_once __DIR__ . '/start-tabs/raffle.php'; ?>
   </div>
 
@@ -52,14 +51,12 @@ wp_enqueue_script('loopis-tabs', get_template_directory_uri() . '/assets/js/tabs
   <!-- COMMENTS -->
   <div id="tab-comments" class="tab-panel">
     <p class="small">💡 Här visas dina senaste 50 kommentarer.</p>
-    <h7>🗨 Mina kommentarer</h7>
     <?php include_once __DIR__ . '/start-tabs/comments.php'; ?>
   </div>
   
   <!-- SETTINGS -->
   <div id="tab-settings" class="tab-panel">
     <p class="small">💡 Här gör du inställningar för din aktivitet.</p>
-    <h7>😎 Pausa annonser</h7>
     <?php include_once __DIR__ . '/start-tabs/settings.php'; ?>
   </div>
 

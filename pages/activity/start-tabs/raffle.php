@@ -70,6 +70,7 @@ $count = count($matching_posts);
 ?>
 
 <!--Output-->
+<h7>🎲 Lottningar</h7>
 <div class="columns"><div class="column1">↓ <?php echo $count; ?> lottningar</div>
 <div class="column2"></div></div>
 <hr>
