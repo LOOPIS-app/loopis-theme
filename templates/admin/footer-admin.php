@@ -3,19 +3,21 @@
 
 </div><!--wrapper-->
 
+<?php $admin_url = home_url('/admin/'); ?>
+
 <footer id="footer" class="footer-admin">
     <nav>
-        <a href="<?php echo  esc_url(home_url('/admin/')); ?>" class="footer-item">
+        <a href="<?php echo  esc_url($admin_url); ?>" class="footer-item">
         <span class="emoji">🦀</span>
         <span class="text">Översikt</span>
         </a>
         
-        <a href="<?php echo esc_url( add_query_arg('view', 'stats', home_url('/admin/')) ); ?>" class="footer-item">
-        <span class="emoji">📊</span>
-        <span class="text">Statistik</span>
+        <a href="<?php echo esc_url( add_query_arg('view', 'more/post-search', $admin_url) ); ?>" class="footer-item">
+        <span class="emoji">🔍</span>
+        <span class="text">Sök</span>
         </a>
                 
-        <a href="<?php echo esc_url( add_query_arg('view', 'storage', home_url('/admin/')) ); ?>" class="footer-item">
+        <a href="<?php echo esc_url( add_query_arg('view', 'storage', $admin_url) ); ?>" class="footer-item">
         <span class="emoji">📦</span>
         <span class="text">Lager</span>
         </a>

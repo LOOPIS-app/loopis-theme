@@ -15,10 +15,8 @@ $admin_url = home_url('/admin/');
 ?>
 
 <div class="columns">
-    <div class="column1">
-        <h1>🦀 Admin - <?php echo esc_html(get_bloginfo('name')); ?></h1>
-    </div>
-    <div class="column2"></div>
+    <div class="column1"><h1>🦀 Admin</h1></div>
+    <div class="column2">📍 <?php echo esc_html(get_bloginfo('name')); ?></div>
 </div>
 <hr>
 <p class="small">💡 Du är inloggad som <span class="small-link"><a href="<?php echo esc_url( home_url('/user/') ); ?>">👤<?php echo wp_get_current_user()->user_login; ?></a></span></p>
