@@ -1,13 +1,17 @@
 <?php
 /**
- * Dynamic content for pages using url /area/?view=
+ * Dynamic content loader for pages using url /area/?view=
  */
+?>
 
-get_header(); ?>
+<?php get_header(); ?>
 
     <div class="page-padding">
+        <?php 
 
-        <?php
+        // Access check (local members + administrator only)
+        if (current_user_can('member') || current_user_can('manage_options')) :
+
         // Dynamic content loader
         $content_dir = get_template_directory() . '/pages/area/';
 
@@ -29,7 +33,7 @@ get_header(); ?>
         if (file_exists($php_file) && is_file($php_file)) {
             include $php_file;
         } else {
-            echo '<h1>♻ Upptäck</h1><hr>';
+            echo '<h1>📍 ' . esc_html(get_bloginfo('name')) . '</h1>';
             echo '<p>💢 Filen hittades inte: <b>' . esc_html($php_file) . '</b></p>';
         }
         ?>
@@ -37,5 +41,14 @@ get_header(); ?>
         <div class="clear"></div>
 
     </div><!--page-padding-->
+
+    <!-- NO ACCESS -->
+<?php else : ?>
+    <h1>📍 <?php echo esc_html(get_bloginfo('name')); ?></h1>
+    <hr>
+    <?php include LOOPIS_THEME_DIR . '/includes/output/access/only-member.php'; ?>
+    <p><span class="big-link"><a href="<?php echo esc_url(network_home_url( '/faq/varfor-bagis/')); ?>">📌 Varför måste jag bo i Bagis?</a></span></p>
+
+<?php endif; ?>
 
 <?php get_footer(); ?>

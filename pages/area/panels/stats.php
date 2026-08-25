@@ -29,5 +29,7 @@ $count_posts = count($posts);
 
 // Output
 ?>
+<p class="small">↓ Just nu</p>
+<hr>
 <p>👤 Medlemmar: <?php echo $count_users; ?></p>
 <p>🎁 Saker cirkulerade: <?php echo $count_posts; ?></p>

@@ -15,13 +15,14 @@ $area = home_url('/area/');
 
 <h1>📍 <?php echo esc_html(get_bloginfo('name')); ?></h1>
 <hr>
-<p class="small">💡 Information och support i ditt område.</p>
-  
+<p class="small">💡 Information för ditt område.</p>
+<p>💞 Tack för att du är med och gör <?php echo esc_html(get_bloginfo('name')); ?> till en lite gladare och mer hållbar plats!</p>
+<p>Här hittar du information och support för ditt område. Tillsammans ser vi till att LOOPIS funkar så bra som möjligt.</p>
 <h3>👇 Hitta rätt</h3>
 <hr>
 <p><span class="bold">1⃣ Problem med annons?</span> → <span class="big-label">🔔 pinga @admin</span> i en kommentar</p>
-<p><span class="bold">2⃣ Frågor om skåpet?</span> → <span class="big-link"><a href="<?php echo home_url( '/locker' ); ?>">⏹ Skåpet</a></span></p>
-<p><span class="bold">3⃣ Frågor om LOOPIS?</span> → <span class="big-link"><a href="<?php echo network_home_url( '/faq' ); ?>">💡 Frågor & svar</a></span></p>
+<p><span class="bold">2⃣ Frågor om LOOPIS?</span> → <span class="big-link"><a href="<?php echo network_home_url( '/faq' ); ?>">💡 Frågor & svar</a></span></p>
+<p><span class="bold">3⃣ Frågor om skåpet?</span> → <span class="big-link"><a href="<?php echo home_url( '/locker' ); ?>">⏹ Skåpet</a></span></p>
 <p><span class="bold">4⃣ Vad är på gång?</span> → <span class="big-link"><a href="<?php echo home_url( '/news' ); ?>">📡 Nyheter</a></span></p>
 <p><span class="bold">5⃣ Övriga frågor och support</span> → <span class="big-link"><a href="<?php echo home_url( '/forum' ); ?>">🗣 Forum</a></span></p>
 <p>&nbsp;</p>
@@ -51,8 +52,10 @@ $area = home_url('/area/');
 </div>
 
 <!-- Statistics -->
-<div class="wrapped small">
-<h5>📊 Statistik</h5>
+<div class="wrapped small"><h5>📊 Statistik</h5>
+<p>↓ Fram till 2025</p>
 <hr>
-<?php include LOOPIS_THEME_DIR . '/pages/area/panels/stats.php'; ?></p>
+<p>👤 Medlemmar: 366 </p>
+<p>🎁 Saker cirkulerade: 11118 </p>
+<?php // include LOOPIS_THEME_DIR . '/pages/area/panels/stats.php'; ?>
 </div>
