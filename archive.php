@@ -2,7 +2,10 @@
 /**
  * Archive template
  *
- * Displays category, tag, and other archive pages
+ * Displays category and tag archives for gift posts
+ * 
+ * Reached at: https://loopis.app/category/x/
+ * Reached at: https://loopis.app/tag/x/
  */
 
 get_header(); ?>
@@ -17,7 +20,7 @@ get_header(); ?>
             <h1>Arkiv</h1>
         <?php endif; ?>
 		<hr>
-		<p class="small">💡 Alla annonser i <span class="small-label"><?php if (is_category()) { echo single_cat_title('', false); } elseif (is_tag()) { echo '<i class="fas fa-hashtag"></i>'; echo single_tag_title('', false); } else { echo 'arkivet'; } ?></span></p>
+		<p class="small">💡 Alla annonser <?php if (is_category()) { echo 'med status <span class="label">'; echo single_cat_title('', false); echo '</span>'; } elseif (is_tag()) { echo 'i kategorin <span class="label"><i class="fas fa-hashtag"></i>'; echo single_tag_title('', false); echo '</span>'; } else { echo 'arkivet'; } ?></p>
 
         <!-- Search Form -->
         <?php get_template_part('templates/forms/search-form'); ?>

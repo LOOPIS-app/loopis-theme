@@ -1,6 +1,6 @@
 <?php
 /**
- * Template for single forum post.
+ * Template for single forum post. (To be renamed to single-news.php when CPT is renamed)
  */
 
 get_header(); ?>
@@ -31,7 +31,7 @@ if ($terms && !is_wp_error($terms)) {
     <div class="post-wrapper">
         <div class="post-padding">
 			<div class="post-meta">
-				<p><span class="rounded"><a href="<?php echo get_post_type_archive_link('forum'); ?>">🗨 Forum</a></span> <span class="rounded"><?php if ($category_name) { echo esc_html($category_name); } ?></span></p>
+				<p><span class="rounded"><a href="<?php echo get_post_type_archive_link('forum'); ?>">📡 Nyheter</a></span> <span class="rounded"><?php if ($category_name) { echo esc_html($category_name); } ?></span></p>
 			</div><!--post-meta-->
 			<h1 class="wrap"><?php the_title(); ?></h1>
 			<div class="post-meta">
