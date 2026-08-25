@@ -1,6 +1,9 @@
 <?php
 /**
- * Discover: three random posts.
+ * Random posts for discover page
+ * 
+ * Dynamic content of page-discover.php
+ * Reached on /discover/?view=random-posts
  */
 
 if (!defined('ABSPATH')) {
@@ -8,7 +11,7 @@ if (!defined('ABSPATH')) {
 }
 ?>
 
-<h1>🤹 Fyndhörnan</h1>
+<h1>🤹 Tips</h1>
 <hr>
 <p class="small">💡 Här visas tre slumpade saker som är <span class="small-label">🟢 Först till kvarn</span></p>
 

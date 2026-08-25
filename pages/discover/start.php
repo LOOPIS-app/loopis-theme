@@ -1,7 +1,9 @@
 <?php
 /**
- * Discover: START (page-discover.php)
- * Content overview.
+ * Overview for discover pages
+ *
+ * Dynamic content of page-discover.php
+ * Reached on /discover (this view is set as default)
  */
 
 if (!defined('ABSPATH')) {
