@@ -51,6 +51,7 @@ wp_enqueue_script('loopis-tabs', LOOPIS_THEME_URI . '/assets/js/tabs.js', array(
                 <hr>
                 <p>♻ <?php echo $given_percentage; ?>% av <?php echo $count_submitted; ?> annonser lämnade</p>
                 <p>🛟 <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-posts-support-count.php'; ?> supportfrågor skapade</p>
+                <p>⏱ Senaste inloggning: <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-last-login.php'; ?></p>
             </div><!--wrapped-->
 
         </div><!--tab-panel-->
