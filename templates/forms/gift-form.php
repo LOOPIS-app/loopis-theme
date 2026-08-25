@@ -515,7 +515,7 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
                 <?php // Admin-only status selector. ?>
                 <div class="admin-block">
                 <div class="form-row">
-                    <label for="cat">🐙 Admin</label>
+                    <label for="cat">🦀 Admin</label>
                     <?php
                     wp_dropdown_categories(array(
                         'taxonomy'          => 'category',
@@ -535,7 +535,7 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
                 <?php // Storage users can pick new/storage when creating posts. ?>
                 <div class="admin-block">
                 <div class="form-row">
-                    <label>🐙 Admin</label>
+                    <label>🦀 Admin</label>
                     <?php foreach ($storage_category_options as $storage_option_id => $storage_option_label) : ?>
                         <label for="cat-<?php echo esc_attr($storage_option_id); ?>">
                             <input type="radio" name="cat" id="cat-<?php echo esc_attr($storage_option_id); ?>" value="<?php echo esc_attr($storage_option_id); ?>" <?php checked($selected_cat, (int) $storage_option_id); ?>>

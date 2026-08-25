@@ -16,7 +16,7 @@ $admin_url = home_url('/admin/');
 
 <div class="columns">
     <div class="column1">
-        <h1>🐙 Admin</h1>
+        <h1>🦀 Admin</h1>
     </div>
     <div class="column2"></div>
 </div>
