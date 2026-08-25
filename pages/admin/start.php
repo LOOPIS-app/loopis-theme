@@ -1,14 +1,17 @@
 <?php
 /**
- * ADMIN DASHBOARD (page-admin.php)
- * Overview with statistics, tools, and quick links
+ * Overview for admin pages
+ *
+ * Dynamic content of page-admin.php
+ * Reached on /admin (this view is set as default)
  */
 
 if (!defined('ABSPATH')) {
     exit;
 }
-$admin_url = home_url('/admin/');
 
+// Set the base URL for admin views
+$admin_url = home_url('/admin/');
 ?>
 
 <div class="columns">
