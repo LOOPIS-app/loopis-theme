@@ -200,7 +200,7 @@ h1.wrap { white-space: normal; }
 
 /* Post & page: list */
 ul, ol,
-.wp-block-list { margin: 5px 0 10px 5px; padding-inline-start: 10px; }
+.wp-block-list { margin: 5px 0 10px 10px; padding-inline-start: 10px; }
 ul li, ol li,
 .wp-block-list li { margin-bottom: 5px; }
 ul li::marker, ol li::marker,

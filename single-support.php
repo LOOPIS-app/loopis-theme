@@ -92,5 +92,6 @@ if ($current == $author || current_user_can('loopis_support')) : ?>
 <?php else : include LOOPIS_THEME_DIR . '/includes/output/access/only-user.php'; endif; ?>
 
 </div> <!--page-padding-->
+</div> <!--content-->
 
 <?php get_footer(); ?>
