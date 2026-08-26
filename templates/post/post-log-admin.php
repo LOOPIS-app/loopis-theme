@@ -23,6 +23,18 @@ $edit_wpadmin = get_admin_url(null, 'post.php?post=' . $post_id . '&action=edit'
 <div class="admin-block">
 <?php include LOOPIS_THEME_DIR . '/templates/links/admin-link.php'; ?>
 
+<?php
+if (in_category('disappeared')) {
+    $fetcher = get_post_meta($post_id, 'fetcher', true); 
+    if(!empty($fetcher) && (int) $fetcher > 0){
+        if (isset($_POST['coin-back'])) {
+            loopis_ledger_add_post('cancelled', $fetcher, $post_id,['timestamp' => $timestamp, 'type'=>'disappeared']);
+            delete_post_meta($post_id, 'fetcher'); 
+        }
+    }
+}
+?>
+
 <!-- QUEUE -->	
 <?php if (!in_category( 'new' )) :
     $queue = get_post_meta($post_id, 'queue', true); 
@@ -202,11 +214,25 @@ echo '</div><!--logg-->';
         <?php if(isset($_POST['notif_manual'])) { admin_action_notif_manual ($post_id); } ?>
         <form method="post" class="arb" action=""><button name="notif_manual" type="submit" class="admin orange small" onclick="return confirm('Skicka manuellt?')">Skicka besked</button></form>
         <p class="info">Har inga mail skickats? Tryck på knappen.</p>
-
+    <?php
+    if (in_category('disappeared')) {
+        $fetcher = get_post_meta($post_id, 'fetcher', true); 
+        if(!empty($fetcher) && (int) $fetcher > 0){
+            if (!isset($_POST['coin-back'])) {
+                echo '
+                <form method="post">
+                    <button type="submit" class="admin orange small" name="coin-back"> Ge mynt tillbaka</button>
+                </form>
+                ';
+                echo '<p class="info">Har hämtaren inte fått sitt mynt tillbaka? Tryck på knappen.</p>';
+            }
+        }
+    }
+    ?>
 <!-- Edit & remove -->
 <div class="logg">
 <p><?php
-echo ' <a href="' . $edit_wpadmin . '">👽 Redigera i WP-admin</a>';
-    ?></p>
+    echo ' <a href="' . $edit_wpadmin . '">👽 Redigera i WP-admin</a>';
+?></p>
 </div><!--logg-->
 </div><!--admin-->

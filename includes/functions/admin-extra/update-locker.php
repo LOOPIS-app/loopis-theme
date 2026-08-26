@@ -25,3 +25,23 @@ function update_locker($locker_id, $field, $value) {
         array('locker_id' => $locker_id)
     );
 }
+
+/**
+ * Update helper for settings
+ * 
+ */
+function update_setting($key, $value){
+    return (bool) $wpdb->update(
+        $table,
+        array($field => $value),
+        array('setting_key' => $key)
+    );
+}
+/**
+ * Update helper for locker settings
+ * 
+ */
+function update_locker_field($field, $value){
+    $key = 'locker_' . $field;
+    return (bool) update_setting($key, $value);
+}

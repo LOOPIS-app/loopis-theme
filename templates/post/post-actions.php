@@ -22,7 +22,7 @@ $queue = get_post_meta($post_id, 'queue', true);
 	$queue_position = array_search($current, $queue) + 1; 
 
 // Get locker code
-$locker_code = get_locker_code(LOCKER_ID);
+$locker_code = get_locker_code();
 ?>
 
 <div class="post-actions">
