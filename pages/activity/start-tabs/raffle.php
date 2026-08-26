@@ -9,13 +9,7 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-// Extra php functions (not yet used, for adding unparticipate button)
-include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-participate.php'; 
-
-// Get current user ID
-$user_id = get_current_user_id();
-
-// Arguments - OPTIMIZED
+// Query 5: Current raffles - OPTIMIZED
 $args = array(
     'date_query' => array(
         array(

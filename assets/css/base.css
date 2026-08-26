@@ -120,7 +120,7 @@ h2 { font-size: 34px; margin-top: 25px; }		/* used by WPUM (settings) */
 h3 { font-size: 28px; margin-top: 25px; }		/* used for subheadings on FAQ etc */
 h4 { font-size: 22px; margin-top: 15px;}		/* used on my profile on front page */
 h5 { font-size: 24px; margin-top: 0px; }		/* used in wrapped divs and puff */
-h6 { font-size: 16px; margin-top: 25px; }		/* used for custom comment */
+h6 { font-size: 20px; margin-top: 0px; font-weight: 400; }		/* used for attention */
 h7 { font-size: 28px; padding-top: 10px; }		/* added for WPUM tabs */
 
 /* Special heading  */
@@ -152,6 +152,9 @@ h1.wrap { white-space: normal; }
 /* Admin div */
 .admin-block { background: #fff7f7; border: 2px dotted #ff969d; padding: 10px 10px 1px 10px; margin: 10px 0;  }
 .admin-block .logg { padding: 0 0 10px 0; } 
+
+/* Attention div */
+.attention-block { background: rgb(253, 243, 243); border-radius: 10px; border: 3px dotted #ff969d; padding: 10px 10px 1px 10px; margin: 10px 0 20px 0; text-align: center; }
 
 /* Collapsable div (not finished/used) */
 .collapsed { display: none; overflow: hidden; transition: max-height 0.2s ease-out; }
@@ -217,11 +220,11 @@ a.option:hover { background: none !important; color: #333 !important; }
 #copy_url { display: block; float: right; clear: right; }
 
 /* Post: log */
-.logg { font-size:13px; color:#777; line-height:1.5; text-decoration:none; } 
-.logg p { margin:0; } 
+.logg { font-size: 13px; color: #777; line-height: 1.5; text-decoration: none; } 
+.logg p { margin: 0; } 
 .logg a { color: #777; }
-.logg a:hover { color:#333; }
-.logg span { float: right; font-size:13px; background:none !important; padding:0; }
+.logg a:hover { color: #333; }
+.logg span { float: right; font-size: 13px; background: none !important; padding: 0; }
 
 /* Post: actions */
 .post-actions { margin-top:15px; } 	
@@ -350,7 +353,7 @@ button.disabled, a.button.disabled { opacity: 0.5; cursor: not-allowed; }
 .purple_light, .forward, .retrieved { background: #FAF2FA !important; }
 
 /* LOOPIS tabs (inspired by WPUM) */
-.tab-navbar { display: flex; justify-content: flex-start; align-items: flex-end; gap: 5px; padding-top:20px; border-top: 0px; border-bottom: 5px solid #f5f5f5; }
+.tab-navbar { display: flex; align-items: flex-end; gap: 5px; padding-top:20px; border-top: 0px; border-bottom: 5px solid #f5f5f5; }
 .tab-navbar>a.active:first-child, 
 .tab-navbar>a:hover:first-child, 
 .tab-navbar>button.active:first-child, 
@@ -359,9 +362,14 @@ button.disabled, a.button.disabled { opacity: 0.5; cursor: not-allowed; }
 .tab-navbar>a:hover { background: #f5f5f5}
 .tab-navbar>a.active { background: #f5f5f5 }
 .tab-content { padding: 10px 0; margin-bottom: 10px; }
+
 /* Prevent flash of all tabs' content? */
 .tab-panel { display: none; }
 .tab-panel.active { display: block; }
+
+/* Tab alignment */
+.page-padding .tab-navbar { justify-content: flex-start; }
+.page-padding.center .tab-navbar { justify-content: center; }
 
 /* LOOPIS message (inspired by WPUM) */
 .loopis-message {  border-radius: 10px; padding: 7px 7px 1px 7px; margin: 12px 0; font-size: 16px; }

@@ -102,10 +102,9 @@ $activity_url = home_url('/activity/');
 <?php endif; ?>
 <?php else : ?>
 		<p>💢 Du har inte skapat några annonser ännu.</p>
-		<p><span class="link"><a href="<?php echo esc_url(home_url( '/submit/')); ?>">💚 Ge bort</a></span> något nu</p>
 <?php endif; ?>
 
-<h7>❤ Mina paxningar</h7>
+<h3>❤ Mina paxningar</h3>
 <div class="columns"><div class="column1">↓ <?php echo $count_others_claimed; ?> annons<?php if ($count_others_claimed !== 1) { echo "er"; } ?></div>
 <div class="column2"><a href="<?php echo esc_url( add_query_arg(array([
 	'view' => 'posts-booked',
@@ -131,6 +130,111 @@ $activity_url = home_url('/activity/');
 <?php endif; ?>
 <?php else : ?>
 		<p>💢 Du har inte paxat några annonser ännu.</p>
-		<p>Ta en titt på <span class="link"><a href="<?php echo home_url(''); ?>">🎁 Saker att få</a></span></p>
 <?php endif; ?>
+
+<?php wp_reset_postdata(); ?>
+
+<?php
+// Query: Current raffles
+$args = array(
+    'date_query' => array(
+        array(
+            'after'     => '3 days ago',
+            'inclusive' => true,
+        ),
+    ),
+    'posts_per_page' => 100, // Limit to prevent massive queries
+    'fields'     => 'ids',
+    'no_found_rows' => true, // Don't calculate total rows
+    'update_post_meta_cache' => false, // Don't load post meta yet
+    'update_post_term_cache' => false, // Don't load categories yet
+    'meta_query' => array(
+        array(
+            'key'     => 'participants',
+            'compare' => 'EXISTS',
+        ),
+    ),
+);
+
+// Query
+$the_query = new WP_Query($args);
+$matching_posts = array();
+
+// Filter posts to check user_id and not index (solution by Poe)
+if ($the_query->have_posts()) {
+    foreach ($the_query->posts as $post_id) {
+        $participants = get_post_meta($post_id, 'participants', true);
+        if (!empty($participants)) {
+            $participants_array = maybe_unserialize($participants);
+            if (is_array($participants_array) && in_array($user_id, $participants_array)) {
+                $matching_posts[] = $post_id;
+            }
+        }
+    }
+}
+
+// Clean up first query
+wp_reset_postdata();
+
+// Now get full post data ONLY for matching posts
+if (!empty($matching_posts)) {
+    $final_query = new WP_Query(array(
+        'post__in' => $matching_posts,
+        'posts_per_page' => -1,
+        'orderby' => 'post__in',
+    ));
+}
+
+// Output
+$count = count($matching_posts);
+?>
+
+<!--Output-->
+<h3>🎲 Aktuella lottningar</h3>
+<div class="columns"><div class="column1">↓ <?php echo $count; ?> lottningar</div>
+<div class="column2"></div></div>
+<hr>
+
+<div class="post-list">
+
+<?php if (!empty($matching_posts) && $final_query->have_posts()): ?>
+
+<?php while ($final_query->have_posts()) : $final_query->the_post(); ?>
+
+    <div class="post-list-post" onclick="location.href='<?php the_permalink(); ?>';">
+        <div class="post-list-post-thumbnail">
+            <?php 
+            if (has_post_thumbnail()) {
+                the_post_thumbnail('thumbnail');
+            }
+            ?>
+        </div>
+        <div class="post-list-post-title">
+            <?php the_title(); ?>
+        </div>
+        <div class="post-list-post-meta">
+            <span><?php 
+            if (in_category('new')) { 
+                the_category(' '); 
+                echo raffle_time(); 
+            } else {
+                $fetcher = get_post_meta(get_the_ID(), 'fetcher', true);
+                if ($fetcher == $user_id) { 
+                    echo '🥳 Du vann!'; 
+                } else { 
+                    echo '💔 Du vann tyvärr inte'; 
+                } 
+            } 
+            ?></span>
+            <span class="right"><i class="fas fa-arrow-alt-circle-up"></i><?php echo human_time_diff(get_the_time('U'), current_time('timestamp')); ?> sen</span>
+        </div>
+    </div>        
+<?php endwhile; ?>
+
+<?php else : ?>
+    <p>💢 Du har inte deltagit i några lottningar nyligen.</p>
+<?php endif; ?>
+
+</div> <!--post-list-->
+
 <?php wp_reset_postdata(); ?>

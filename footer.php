@@ -8,17 +8,23 @@
     <nav>
             <a href="<?php echo esc_url(home_url('/')); ?>" class="footer-item">
                 <span class="emoji">️🎁️</span>
-                <span class="text">Saker att få</span>
+                <span class="text">Saker</span>
             </a>
 
-            <a href="<?php echo esc_url(home_url('/area')); ?>" class="footer-item">
-                <span class="emoji">📍</span>
+            <a href="<?php echo esc_url(home_url('/submit/')); ?>" class="footer-item">
+                <span class="emoji">💚</span>
+                <span class="text">Ge bort</span>
+            </a>
+
+             <a href="<?php echo esc_url(home_url('/area')); ?>" class="footer-item">
+                <span class="emoji">🛟</span>
                 <span class="text"><?php echo get_bloginfo('name'); ?></span>
             </a>
 
             <?php if (is_user_logged_in()) : ?>
+
                 <a href="<?php echo esc_url(home_url('/activity/')); ?>" class="footer-item">
-                    <span class="emoji">🔔</span>
+                    <span class="emoji">👤</span>
                     <span class="text">Min aktivitet</span>
                 </a>
                 

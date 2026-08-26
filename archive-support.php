@@ -1,6 +1,6 @@
 <?php
 /**
- * Archive for custom post type 'forum' reached on URL /forum
+ * Archive for custom post type 'support' reached on URL /support
  * 
  * IMPROVEMENTS:
  * - Use pagination template?
@@ -14,21 +14,21 @@ get_header(); ?>
 
 <div class="page-padding">
 
-<h1>🗣 Forum</h1>
+<h1>🛟 Supportforum</h1>
 <hr>
-<p class="small">💡 Frågor och diskussion i ditt område.</p>
+<p class="small">💡 Supportfrågor i ditt område.</p>
 
 <!-- Access check-->
 <?php if (current_user_can('member') || current_user_can('administrator')) { ?>
 
-<p>Här kan du få support och diskutera med alla medlemmar i området.</p>
+<p>Här kan du få support av admin och andra medlemmar.</p>
 <p>Innan du skapar en ny tråd, sök bland de som finns:</p>
-<?php get_template_part('templates/forms/search-form-forum'); ?>
+<?php get_template_part('templates/forms/search-form-support'); ?>
 
 <?php
 // Arguments for archive search/filter within this CPT only
 $args = array(
-    'post_type' => 'forum',
+    'post_type' => 'support',
     'posts_per_page' => 50,
     'paged' => ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1,
 );
@@ -41,7 +41,7 @@ if ( $forum_search !== '' ) {
 if ( ! empty( $_GET['forum-category'] ) ) {
     $args['tax_query'] = array(
         array(
-            'taxonomy' => 'forum-category',
+            'taxonomy' => 'support-category',
             'field'    => 'slug',
             'terms'    => sanitize_text_field( wp_unslash( $_GET['forum-category'] ) ),
         ),
@@ -73,7 +73,7 @@ $count = $the_query->found_posts;
                 <div class="post-list-cpt-title">🗨 <?php echo esc_html(strip_emoji(get_the_title())); ?></div>
                 <div class="post-list-cpt-excerpt"><?php echo get_the_excerpt(); ?></div>
                 <div class="post-list-cpt-meta">
-					<span><?php echo esc_html(get_the_terms($post_id, 'forum-category')[0]->name); ?></span>
+					<span><?php echo esc_html(get_the_terms($post_id, 'support-category')[0]->name); ?></span>
 					<span><i class="far fa-clock"></i><?php echo human_time_diff(get_the_time('U'), current_time('timestamp'));?> sen</span>
                     <span><i class="far fa-comment"></i><?php echo get_comments_number(); ?></span>
                     <span>👤 <?php echo get_the_author_posts_link(); ?></span>
@@ -104,7 +104,7 @@ $count = $the_query->found_posts;
 <?php endif; ?>
 
 <?php else : ?>
-		<p>💢 Det finns inga forumtrådar.</p>
+		<p>💢 Det finns inga supporttrådar.</p>
 	<?php endif; ?>
 
 </div>

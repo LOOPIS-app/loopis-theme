@@ -20,7 +20,9 @@ $the_query = new WP_Query( $args );
 $count = $the_query->found_posts; ?>
 
 <!--Output-->
-<p class="small">↓ 3 senaste<span class="right blue">Alla →</span></p>
+<div class="wrapped link" style="min-width:250px" onclick="location.href='<?php echo get_home_url( null, '/category/extracted/' ); ?>'">
+<h5>🧹 Bortplockade saker</h5>
+<p class="small">↓ 3 senaste<span class="right blue">Se alla →</span></p>
 <hr>
 <?php if ( $the_query->have_posts() ) : ?>
 <?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
@@ -28,7 +30,8 @@ $count = $the_query->found_posts; ?>
 <?php endwhile; ?>
 
 <?php else : ?>
-    <p class="info">💢 Det finns inga.</p>
+    <p class="info">💢 Inga bortplockade saker.</p>
 <?php endif; ?>
 
 <?php wp_reset_postdata(); ?>
+</div>

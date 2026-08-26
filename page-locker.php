@@ -33,22 +33,7 @@ get_header(); ?>
         <!-- Report problems -->
         <h3>🔥 Problem?</h3>
         <hr>
-        <p>Kolla uppdateringar eller rapportera problem i <span class="big-link"><a href="<?php echo home_url( '/news' ); ?>">📡 Nyheter</a></span> och <span class="big-link"><a href="<?php echo home_url( '/forum' ); ?>">🗣 Forum</a></span></p>
-
-        <!-- Lost items -->
-        <h3>🫨 Saker på vift</h3>
-        <hr>
-        <!-- Things disappeared -->
-        <div class="wrapped link" style="max-width: 500px;" onclick="location.href='<?php echo get_home_url( null, '/category/disappeared/' ); ?>'">
-            <h5>💢 Försvunna saker</h5>
-            <?php include LOOPIS_THEME_DIR . '/pages/area/panels/disappeared-latest.php'; ?>
-        </div>
-
-        <!-- Things cleaned out -->
-        <div class="wrapped link" style="max-width: 500px;" onclick="location.href='<?php echo get_home_url( null, '/category/extracted/' ); ?>'">
-            <h5>🧹 Bortplockade saker</h5>
-            <?php include LOOPIS_THEME_DIR . '/pages/area/panels/extracted-latest.php'; ?>
-        </div>
+        <p>Om du har problem med skåpet, kolla uppdateringar och rapportera problem i <span class="big-link"><a href="<?php echo home_url( '/news' ); ?>">📡 Nyheter</a></span> eller <span class="big-link"><a href="<?php echo home_url( '/support' ); ?>">🛟 Supportforum</a></span></p>
 
     </div><!--page-padding-->
 

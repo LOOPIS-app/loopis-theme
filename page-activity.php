@@ -33,7 +33,7 @@ get_header(); ?>
         if (file_exists($php_file) && is_file($php_file)) {
             include $php_file;
         } else {
-            echo '<h1>♻ Upptäck</h1><hr>';
+            echo '<h1>👤 Min aktivitet</h1><hr>';
             echo '<p>💢 Filen hittades inte: <b>' . esc_html($php_file) . '</b></p>';
         }
         ?>

@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
 ?>
 
 <div id="support-form">
-<h5>🛟 Behöver du hjälp?</h5>
+<h5>🤔 Behöver du hjälp?</h5>
 <hr>
-<p>→ Gå till <span class="big-link white"><a href="<?php echo esc_url(home_url( '/area/' ));?>">📍 <?php echo get_bloginfo('name'); ?></a></span></p>
+<p>→ Gå till <span class="big-link white"><a href="<?php echo esc_url(home_url( '/area/' ));?>">🛟 <?php echo get_bloginfo('name'); ?></a></span></p>
 </div>

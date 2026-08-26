@@ -19,7 +19,9 @@ $the_query = new WP_Query( $args );
 $count = $the_query->found_posts; ?>
 
 <!--Output-->
-<p class="small">↓ 3 senaste<span class="right blue">Alla →</span></p>
+<div class="wrapped link" style="min-width:250px max-width: 500px;" onclick="location.href='<?php echo get_home_url( null, '/news' ); ?>'">
+    <h5>📡 Nyheter</h5>
+<p class="small">↓ 3 senaste<span class="right blue">Se alla →</span></p>
 <hr>
 <?php if ( $the_query->have_posts() ) : ?>
 <?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
@@ -31,3 +33,4 @@ $count = $the_query->found_posts; ?>
 <?php endif; ?>
 
 <?php wp_reset_postdata(); ?>
+</div>
