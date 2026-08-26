@@ -11,5 +11,3 @@ if (!defined('ABSPATH')) {
 	<p>🚧 Du har inte behörighet att se denna sida.</p>
 	<p><span class="big-link"><?php get_template_part('templates/links/go-back'); ?></span></p>
 </div>
-
-<?php get_template_part('templates/links/log-in-button'); ?>
