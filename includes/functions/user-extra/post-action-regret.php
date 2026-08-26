@@ -30,7 +30,7 @@ function action_regret(int $post_id) {
 	} else { $queue_count = 0; }
 
 	// Get locker code
-    $locker_code = get_locker_code(LOCKER_ID);
+    $locker_code = get_locker_code();
 		
 	// Change post meta
 	update_post_meta($post_id,'fetcher', null);

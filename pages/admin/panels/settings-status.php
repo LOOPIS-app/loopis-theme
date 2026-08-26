@@ -4,13 +4,9 @@
  */
 
 global $wpdb;
-if(is_main_blog()){
-    $table = $wpdb->base_prefix . 'loopis_lockers';
-}else{
-    $table = $wpdb->prefix . 'loopis_lockers';
-}
-$total_lockers = (int) $wpdb->get_var("SELECT COUNT(*) FROM $table");
-$active_warnings = (int) $wpdb->get_var("SELECT COUNT(*) FROM $table WHERE locker_full = 1");
+$table = $wpdb->prefix . 'loopis_settings';
+$total_lockers = (int) $wpdb->get_var("SELECT COUNT(*) FROM $table WHERE setting_key LIKE 'locker_full'");
+$active_warnings = (int) $wpdb->get_var("SELECT COUNT(*) FROM $table WHERE setting_key LIKE 'locker_full' AND setting_value = 1");
 
 if ($total_lockers === 0) {
 	echo '💢 Inga skåp finns';
