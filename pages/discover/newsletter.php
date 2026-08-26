@@ -1,13 +1,19 @@
 <?php
 /**
- * Content for page using url /gifts
+ * Newsletter posts for discover page (not used yet)
+ *
+ * Dynamic content of page-discover.php
+ * Reached on /discover/?view=newsletter
  */
 
-get_header(); ?>
+if (!defined('ABSPATH')) {
+    exit;
+}
+?>
 
 <div class="page-padding">
 
-        <h1>🧑‍🎄 Tips på julklappar</h1>
+        <h1>📧 Veckans tips</h1>
 
         <?php
         // Check pagination

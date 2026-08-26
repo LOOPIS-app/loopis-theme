@@ -1,6 +1,9 @@
 <?php
 /**
- * Discover: all LOOPIS tags (called categories in UI)
+ * Categories for discover page
+ *
+ * Dynamic content of page-discover.php
+ * Reached on /discover/?view=categories
  */
 
 if (!defined('ABSPATH')) {

@@ -1,13 +1,15 @@
 <?php
 /**
- * Content for page using url /event
+ * Event information for area (WIP)
  * 
- * Will be dynamically managed later.
+ * Dynamic content of page-area.php
+ * Reached on /area/?view=event
  */
 
-get_header(); ?>
-
-<div class="page-padding">
+if (!defined('ABSPATH')) {
+    exit;
+}
+?>
 
 <h1>🎉 Event</h1>						
 <hr>
@@ -65,7 +67,3 @@ $count = $the_query->found_posts;
 </div><!--post-list-->
 
 <?php wp_reset_postdata(); ?>
-
-</div><!--page-padding-->
-
-<?php get_footer(); ?>

@@ -1,21 +1,22 @@
 <?php
 /**
- * ADMIN DASHBOARD (page-admin.php)
- * Overview with statistics, tools, and quick links
+ * Overview for admin pages
+ *
+ * Dynamic content of page-admin.php
+ * Reached on /admin (this view is set as default)
  */
 
 if (!defined('ABSPATH')) {
     exit;
 }
-$admin_url = home_url('/admin/');
 
+// Set the base URL for admin views
+$admin_url = home_url('/admin/');
 ?>
 
 <div class="columns">
-    <div class="column1">
-        <h1>🐙 Admin</h1>
-    </div>
-    <div class="column2"></div>
+    <div class="column1"><h1>🦀 Admin</h1></div>
+    <div class="column2">📍 <?php echo esc_html(get_bloginfo('name')); ?></div>
 </div>
 <hr>
 <p class="small">💡 Du är inloggad som <span class="small-link"><a href="<?php echo esc_url( home_url('/user/') ); ?>">👤<?php echo wp_get_current_user()->user_login; ?></a></span></p>

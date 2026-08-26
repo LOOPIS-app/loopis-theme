@@ -55,13 +55,15 @@ switch ($post_type) {
 <?php comment_form(array(
     'title_reply' => '',
     'submit_button' => '<button name="submit" type="submit" id="submit" class="grey small">Skicka</button>')); ?>
-<p class="small"><?php if ( $current != $author ) { ?><span class="small-link"><a href="#" id="tag-author">🔔 Pinga avsändaren</a> (<?php echo $authorname; ?>)</span><br> <?php } ?></p>
+<p class="small"><?php if ( $current != $author ) { ?><span class="small-link"><a href="#" id="tag-author">🔔 Pinga avsändaren</a> (<?php echo $authorname; ?>)</span> <?php } ?></p>
+<p class="small"><span class="small-link"><a href="#" id="tag-admin">🔔 Pinga admin</a></span></p>
 </div><!-- loopis-form -->
 
 <!-- Mention sctripts -->
 <script>
     // Pass PHP variable $authorname to JavaScript
     window.authorUsername = '@<?php echo $authorname; ?>';
+    window.adminUsername = '@admin';
 </script>
 <script src="<?php echo LOOPIS_THEME_URI; ?>/assets/js/mentions-add.js"></script>
 <script src="<?php echo LOOPIS_THEME_URI; ?>/assets/js/mentions-show.js"></script>

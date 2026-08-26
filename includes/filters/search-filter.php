@@ -16,7 +16,25 @@ define('LOOPIS_SEARCH_CATEGORY_SLUGS', array('new', 'old', 'booked', 'booked_cus
 
 // Determine if a query is the frontend main search query.
 function loopis_is_frontend_main_search_query($query) {
-    return !is_admin() && $query->is_main_query() && $query->is_search();
+    if (is_admin() || !$query->is_main_query() || !$query->is_search()) {
+        return false;
+    }
+
+    $requested_post_type = isset($_GET['post_type']) ? sanitize_key(wp_unslash((string) $_GET['post_type'])) : '';
+    if ($requested_post_type && $requested_post_type !== 'post') {
+        return false;
+    }
+
+    $query_post_type = $query->get('post_type');
+    if ($query_post_type && is_array($query_post_type)) {
+        $query_post_type = reset($query_post_type);
+    }
+
+    if ($query_post_type && $query_post_type !== 'post') {
+        return false;
+    }
+
+    return true;
 }
 
 // Resolve allowed search category IDs from configured slugs.

@@ -24,8 +24,21 @@ body.admin-bar #header { margin-top: 32px; }
 .admin-table tr:nth-child(even) { background-color: #f5f5f5; }
 .admin-table tr:nth-child(odd) { background-color: #ffffff; }
 
+/* Admin grid */
 .admin-grid{display: grid;}
 .admin-grid{align-items: center;}
 .admin-grid{padding: 8px 0;}
 .admin-grid{border-bottom: 1px solid rgba(0,0,0,.1);}
 .admin-grid{grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));}
+
+/* User cards */
+.user-card { background-color: #f5f5f5; padding: 8px; margin-bottom: 10px; font-size: 0.875rem; }
+.user-card-row { display: flex; gap: 8px; }
+.user-card-row:first-child { font-size: 1.1rem; }
+.user-card-row > span { flex: 1; }
+.user-card-row.header > span { flex: 0 0 auto; font-weight: 400; }
+.user-card-row.header > span:last-child { flex: 0 0 auto; text-align: right; }
+.user-card-row.details { justify-content: flex-start; flex-wrap: wrap; gap: 8px; }
+.user-card-row.details > span { flex: 0 1 auto; }
+.user-card-actions { margin-left: auto; display: flex; gap: 8px; align-items: center; } 
+.user-card-time { font-size: 0.75rem; margin-left: auto; }

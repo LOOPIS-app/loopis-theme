@@ -3,11 +3,10 @@
  * Archive for custom post type 'support' reached on URL /support
  * 
  * IMPROVEMENTS:
- * – Unique post list styling
- * - Use pagination template
- * - Add filtering by category (active/inactive)
- * - Add search function
- * – Add list of current admins
+ * - Use pagination template?
+ * - Add filtering by category
+ * - Fix search function
+ * - Add form for creating new forum threads
  */
 
 get_header(); ?>
@@ -15,32 +14,48 @@ get_header(); ?>
 
 <div class="page-padding">
 
-<h1>🛟 Support</h1>
+<h1>🛟 Supportforum</h1>
 <hr>
-<p class="small">💡 Här visas alla supportfrågor.</p>
+<p class="small">💡 Supportfrågor i ditt område.</p>
 
-<!-- Access check -->
-<?php if (current_user_can('loopis_support')) { ?>
-    
-<p>Alla medlemmar kan delta i LOOPIS support! Om du har ett bra svar; skriv en kommentar.<br>
-Admin hjälper till att svara + markerar frågor som besvarade.</p>
+<!-- Access check-->
+<?php if (current_user_can('member') || current_user_can('administrator')) { ?>
+
+<p>Här kan du få support av admin och andra medlemmar.</p>
+<p>Innan du skapar en ny tråd, sök bland de som finns:</p>
+<?php get_template_part('templates/forms/search-form-support'); ?>
 
 <?php
-// Arguments
+// Arguments for archive search/filter within this CPT only
 $args = array(
     'post_type' => 'support',
     'posts_per_page' => 50,
-    'paged' => ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1, 
+    'paged' => ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1,
 );
+
+$forum_search = ! empty( $_GET['forum-search'] ) ? sanitize_text_field( wp_unslash( $_GET['forum-search'] ) ) : '';
+if ( $forum_search !== '' ) {
+    $args['s'] = $forum_search;
+}
+
+if ( ! empty( $_GET['forum-category'] ) ) {
+    $args['tax_query'] = array(
+        array(
+            'taxonomy' => 'support-category',
+            'field'    => 'slug',
+            'terms'    => sanitize_text_field( wp_unslash( $_GET['forum-category'] ) ),
+        ),
+    );
+}
 
 // Query
 $the_query = new WP_Query( $args );
-$count = $the_query->found_posts; 
+$count = $the_query->found_posts;
 ?>
 
 <!--Output-->
 <div class="columns"><div class="column1">
-↓ <?php echo $count; if ( $count == 1 ) { echo ' ärende'; } else { echo ' ärenden'; } ?>
+↓ <?php echo $count; if ( $count == 1 ) { echo ' tråd'; } else { echo ' trådar'; } ?>
 </div><div class="column2 small">💡 Senaste överst</div></div>
 <hr>
 <div class="post-list">
@@ -49,20 +64,21 @@ $count = $the_query->found_posts;
 <?php if( $the_query->have_posts() ): ?>
     <?php while( $the_query->have_posts() ) : $the_query->the_post(); ?>
 		<?php $post_id = get_the_ID(); ?>
-			<div class="post-list-post" onclick="location.href='<?php the_permalink(); ?>';">
-				<div class="post-list-post-thumbnail"><?php the_post_thumbnail('thumbnail'); ?></div>
-                <div class="post-list-post-title">
-                    <span class="rounded">🛟 <?php echo get_post_field('post_name', $post_id); ?></span>
-					<?php echo esc_html( get_the_title() ); ?>
-				</div>
-				<div class="post-list-post-meta">
+			<div class="post-list-cpt" onclick="location.href='<?php the_permalink(); ?>';">
+                <?php if ( has_post_thumbnail() ) : ?>
+                    <div class="post-list-cpt-thumbnail">
+                        <?php the_post_thumbnail('thumbnail'); // Display the square thumbnail ?>
+                    </div>
+                <?php endif; ?>
+                <div class="post-list-cpt-title">🗨 <?php echo esc_html(strip_emoji(get_the_title())); ?></div>
+                <div class="post-list-cpt-excerpt"><?php echo get_the_excerpt(); ?></div>
+                <div class="post-list-cpt-meta">
 					<span><?php echo esc_html(get_the_terms($post_id, 'support-category')[0]->name); ?></span>
 					<span><i class="far fa-clock"></i><?php echo human_time_diff(get_the_time('U'), current_time('timestamp'));?> sen</span>
                     <span><i class="far fa-comment"></i><?php echo get_comments_number(); ?></span>
-                    <span class="right">👤 <?php echo get_the_author_posts_link(); ?></span>
+                    <span>👤 <?php echo get_the_author_posts_link(); ?></span>
 				</div>
 			</div>
-				
     <?php endwhile; ?>
 
 <?php if ( $the_query->max_num_pages > 1 ) : ?>
@@ -70,25 +86,25 @@ $count = $the_query->found_posts;
         <?php
         echo wp_kses_post( paginate_links( array(
             'base'         => str_replace( 999999999, '%#%', esc_url( get_pagenum_link( 999999999 ) ) ),
-            'total'        => $the_query->max_num_pages,
-            'current'      => max( 1, $paged ),
-            'format'       => '?paged=%#%',
-            'show_all'     => false,
-            'type'         => 'plain',
-            'end_size'     => 2,
-            'mid_size'     => 2,
-            'prev_next'    => true,
-            'prev_text'    => sprintf( '<i></i> %1$s', esc_html__( '<', 'wp-user-manager' ) ),
-            'next_text'    => sprintf( '%1$s <i></i>', esc_html__( '>', 'wp-user-manager' ) ),
-            'add_args'     => false,
-            'add_fragment' => '',
+                    'total'        => $the_query->max_num_pages,
+                    'current'      => max(1, $paged),
+                    'format'       => '%#%',
+                    'show_all'     => false,
+                    'type'         => 'plain',
+                    'end_size'     => 2,
+                    'mid_size'     => 2,
+                    'prev_next'    => true,
+                    'prev_text'    => '<',
+                    'next_text'    => '>',
+                    'add_args'     => false,
+                    'add_fragment' => '',
         ) ) );
         ?>
     </div><!--/.post-pagination-->
 <?php endif; ?>
 
 <?php else : ?>
-		<p>💢 Inga pågående support-ärenden.</p>
+		<p>💢 Det finns inga supporttrådar.</p>
 	<?php endif; ?>
 
 </div>

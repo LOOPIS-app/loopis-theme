@@ -55,10 +55,33 @@ document.addEventListener('DOMContentLoaded', function() {
     if (insertUsernameLink && commentTextArea) {
         insertUsernameLink.addEventListener('click', function(event) {
             event.preventDefault();
-            
+
             // Note: author username is passed from PHP to JavaScript
             var authorUsername = window.authorUsername || '@author'; // Fallback
-            commentTextArea.value += authorUsername;
+            var currentValue = commentTextArea.value.trim();
+
+            if (!currentValue.includes(authorUsername)) {
+                commentTextArea.value = currentValue ? currentValue + ' ' + authorUsername + ' ' : authorUsername + ' ';
+            }
+        });
+    }
+});
+
+// Add "@admin" to comment field
+document.addEventListener('DOMContentLoaded', function() {
+    var insertAdminLink = document.getElementById('tag-admin');
+    var commentTextArea = document.getElementById('comment');
+
+    if (insertAdminLink && commentTextArea) {
+        insertAdminLink.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            var adminUsername = window.adminUsername || '@admin';
+            var currentValue = commentTextArea.value.trim();
+
+            if (!currentValue.includes(adminUsername)) {
+                commentTextArea.value = currentValue ? currentValue + ' ' + adminUsername + ' ' : adminUsername + ' ';
+            }
         });
     }
 });
