@@ -9,12 +9,12 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-// Query to get forum post in category start
+// Query to get 'news' post with category 'start'
 $args = array(
-    'post_type' => 'forum',
+    'post_type' => 'news',
     'tax_query' => array(
         array(
-            'taxonomy' => 'forum-category',
+            'taxonomy' => 'news-category',
             'field' => 'slug',
             'terms' => array('start'),
         ),
@@ -22,7 +22,7 @@ $args = array(
 );
 $the_query = new WP_Query($args);
 if ( $the_query->have_posts() ) : ?>
-<h5>📡 Nyhet</h5>
+<h5>📡 Nyheter</h5>
 <hr>
 <style>
 </style>
@@ -35,7 +35,7 @@ if ( $the_query->have_posts() ) : ?>
                     </div>
                 <?php endif; ?>
                 <div class="post-list-cpt-title"><?php echo esc_html(get_the_title()); ?></div>
-                <div class="post-list-cpt-excerpt"><?php echo get_the_excerpt(); ?> <span class="read-more"> → Läs mer</span></div>
+                <div class="post-list-cpt-excerpt"><?php echo get_the_excerpt(); ?> <span class="blue"> → Läs mer</span></div>
 			</div>
 <?php endwhile; ?>
 </div><!--post-list-->
