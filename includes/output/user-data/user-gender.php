@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-// Uses $user_id passed from author.php
+// Get user gender
 $gender_key = get_user_meta($user_id, 'wpum_gender', true);
 
 // Define an array mapping the option keys to their labels
@@ -23,7 +23,7 @@ $gender_options = array(
 );
 
 // Get the label for the selected option
-$gender_label = isset($gender_options[$gender_key]) ? $gender_options[$gender_key] : 'Okänd';
+$gender_label = isset($gender_options[$gender_key]) ? $gender_options[$gender_key] : '–';
 
 // Output
-echo esc_html('⚧ ' . $gender_label);
+echo esc_html($gender_label);

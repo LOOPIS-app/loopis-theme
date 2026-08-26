@@ -20,8 +20,8 @@ $count = $the_query->found_posts;
 ?>
 
 <!-- OUTPUT -->
- <p class="small">💡 Support-ärenden.</p>
-<h7>🛟 Support</h7>
+ <p class="small">💡 Skapade supportfrågor.</p>
+<h7>🛟 <?php echo $first_name;?>s frågor</h7>
 <div class="columns"><div class="column1">
 ↓ <?php echo $count; if ( $count == 1 ) { echo ' ärende'; } else { echo ' ärenden'; } ?>
 </div>

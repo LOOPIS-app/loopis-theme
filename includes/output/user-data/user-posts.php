@@ -42,7 +42,7 @@ $activity_url = home_url('/activity/');
 
 <!-- OUTPUT -->
 <p class="small">💡 Annonser och paxningar.</p>
-<h7>💚 Annonser</h7>
+<h7>💚 <?php echo $first_name;?>s annonser</h7>
 <div class="columns"><div class="column1">↓ <?php echo $count_posts_submitted; ?> annons<?php if ($count_posts_submitted !== 1) { echo "er"; } ?></div>
 <div class="column2"><a href="<?php echo esc_url( add_query_arg(array([
 	'view' => 'posts-submitted',
@@ -119,7 +119,7 @@ $activity_url = home_url('/activity/');
 		<p>💢 Inga annonser ännu.</p>
 <?php endif; ?>
 
-<h3>❤ Paxningar</h3>
+<h3>❤ <?php echo $first_name;?>s paxningar</h3>
 <div class="columns"><div class="column1">↓ <?php echo $count_others_claimed; ?> annons<?php if ($count_others_claimed !== 1) { echo "er"; } ?></div>
 <div class="column2"><a href="<?php echo esc_url( add_query_arg(array([
 	'view' => 'posts-booked',

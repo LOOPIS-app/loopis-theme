@@ -38,7 +38,7 @@ if (
 	global $wpdb;
     $table = $wpdb->prefix . 'loopis_settings';
 
-	$locker_ids = $wpdb->get_col("SELECT setting_value FROM $table WHERE setting_key LIKE 'locker\_%\_id'");
+	$locker_ids = $wpdb->get_col("SELECT setting_value FROM $table WHERE setting_key LIKE 'locker\_id'");
 
 	foreach ($locker_ids as $locker_id) {
 		$enabled = in_array($locker_id, $locker_full_updates, true) ? 1 : 0;

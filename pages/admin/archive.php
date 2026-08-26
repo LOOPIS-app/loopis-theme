@@ -17,7 +17,7 @@ if (!defined('ABSPATH')) {
 // Function to display top users
 include_once LOOPIS_THEME_DIR . '/includes/functions/admin-extra/stats/display_top_users.php';
 
-// Get the category by slug
+// Category: ARCHIVED
 $category = get_category_by_slug('archived');
 $category_id = $category ? $category->term_id : 0; // Use 0 if the category is invalid
 
@@ -47,19 +47,9 @@ foreach ($post_ids as $post_id) {
 
 // Count unique users
 $unique_users_archive = count($user_ids);
-?>
 
-<div class="columns"><div class="column1"><h7>🎁 Saker att få</h7></div>
-<div class="column2"></div></div>
-<hr>
-<p>
-    <span class="big-label">⭕ <?php echo $archived_count; ?> arkiverade annonser</span> 
-    hos 
-    <span class="big-label">👤 <?php echo $unique_users_archive; ?> medlemmar</span>
-</p>
 
-<?php
-// Get the category by slug
+// Category: PAUSED
 $category = get_category_by_slug('paused');
 $category_id = $category ? $category->term_id : 0; // Use 0 if the category is invalid
 
@@ -89,13 +79,46 @@ foreach ($post_ids as $post_id) {
 
 // Count unique users
 $unique_users_paused = count($user_ids);
+
+
+// Category: STORAGE
+$category = get_category_by_slug('storage');
+$category_id = $category ? $category->term_id : 0; // Use 0 if the category is invalid
+
+// Arguments for WP_Query
+$args = array(
+    'category__in' => array($category_id),
+    'posts_per_page' => -1,
+    'fields' => 'ids',
+);
+
+// Perform the query
+$posts = new WP_Query($args);
+$post_ids = $posts->posts;
+
+// Count all archived ads
+$storage_count = count($post_ids);
+
+// Collect unique user IDs
+$user_ids = array();
+
+foreach ($post_ids as $post_id) {
+    $user_id = get_post_field('post_author', $post_id); // Get the post author ID
+    if ($user_id && !in_array($user_id, $user_ids)) { // Avoid duplicates
+        $user_ids[] = $user_id;
+    }
+}
+
+// Count unique users
+$unique_users_storage = count($user_ids);
 ?>
 
-<p>
-    <span class="big-label">😎 <?php echo $paused_count; ?> arkiverade annonser</span> 
-    hos 
-    <span class="big-label">👤 <?php echo $unique_users_paused; ?> medlemmar</span>
-</p>
+<div class="columns"><div class="column1"><h7>🎁 Saker att få</h7></div>
+<div class="column2"></div></div>
+<hr>
+<p><span class="big-label">⭕ <?php echo $archived_count; ?> arkiverade annonser</span> hos <span class="big-label">👤 <?php echo $unique_users_archive; ?> medlemmar</span></p>
+<p><span class="big-label">😎 <?php echo $paused_count; ?> pausade annonser</span> hos <span class="big-label">👤 <?php echo $unique_users_paused; ?> medlemmar</span>
+<p><span class="big-label">📦 <?php echo $storage_count; ?> lagrade annonser</span> hos <span class="big-label">👤 <?php echo $unique_users_storage; ?> medlemmar</span></p>
 
 
 <div class="columns"><div class="column1"><h3>👤 Topp-20 med flest arkiverade</h3></div>

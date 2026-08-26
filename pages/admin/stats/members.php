@@ -150,7 +150,7 @@ $fetcher_query = "
     SELECT COUNT(DISTINCT pm_fetcher.meta_value)
     FROM {$wpdb->prefix}postmeta pm_fetcher
     JOIN {$wpdb->prefix}postmeta pm_date ON pm_fetcher.post_id = pm_date.post_id
-    JOIN {$wpdb->prefix}users u ON pm_fetcher.meta_value = u.ID
+    JOIN {$wpdb->users} u ON pm_fetcher.meta_value = u.ID
     WHERE pm_fetcher.meta_key = 'fetcher'
     $fetch_date_condition
 ";
@@ -205,13 +205,9 @@ $active_members_query = "
         FROM {$wpdb->prefix}posts p
         JOIN {$wpdb->prefix}term_relationships tr ON p.ID = tr.object_id
         JOIN {$wpdb->prefix}term_taxonomy tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
-        JOIN {$wpdb->prefix}usermeta um 
-            ON p.post_author = um.user_id 
-            AND um.meta_key = '{$wpdb->prefix}capabilities'
         WHERE p.post_type = 'post' 
         AND p.post_status = 'publish'
         AND tt.term_id = {$fetcher_cat} -- Only include posts in category fetched
-        AND (um.meta_value NOT LIKE '%\"administrator\"%') 
         $post_year_condition
 
         UNION
@@ -221,11 +217,7 @@ $active_members_query = "
         FROM {$wpdb->prefix}postmeta pm_fetcher
         JOIN {$wpdb->prefix}postmeta pm_date 
             ON pm_fetcher.post_id = pm_date.post_id
-        JOIN {$wpdb->prefix}usermeta um 
-            ON pm_fetcher.meta_value = um.user_id 
-            AND um.meta_key = '{$wpdb->prefix}capabilities'
         WHERE pm_fetcher.meta_key = 'fetcher'
-        AND (um.meta_value NOT LIKE '%\"administrator\"%') 
         $fetch_date_condition
     ) AS active_users
 ";
@@ -244,14 +236,10 @@ $sharing_members_query = "
         FROM {$wpdb->prefix}posts p
         JOIN {$wpdb->prefix}postmeta pm_book_date 
             ON p.ID = pm_book_date.post_id
-        JOIN {$wpdb->prefix}usermeta um 
-            ON p.post_author = um.user_id 
-            AND um.meta_key = '{$wpdb->prefix}capabilities'
         WHERE p.post_type = 'post' 
         AND p.post_status = 'publish'
         AND pm_book_date.meta_key = 'book_date' -- Meta key for book_date
         $sharing_givers_year_condition
-        AND (um.meta_value NOT LIKE '%\"administrator\"%') 
     ) AS givers
     INNER JOIN (
         -- Fetchers: Users who are fetchers with a fetch_date in the selected year
@@ -259,12 +247,8 @@ $sharing_members_query = "
         FROM {$wpdb->prefix}postmeta pm_fetcher
         JOIN {$wpdb->prefix}postmeta pm_date 
             ON pm_fetcher.post_id = pm_date.post_id
-        JOIN {$wpdb->prefix}usermeta um 
-            ON pm_fetcher.meta_value = um.user_id 
-            AND um.meta_key = '{$wpdb->prefix}capabilities'
         WHERE pm_fetcher.meta_key = 'fetcher'
         $sharing_fetchers_year_condition
-        AND (um.meta_value NOT LIKE '%\"administrator\"%') 
     ) AS fetchers
     ON givers.user_id = fetchers.user_id
 ";
@@ -337,16 +321,15 @@ if ($selected_year !== 'all') {
     $user_registered_condition = $wpdb->prepare('AND YEAR(u.user_registered) = %d', $selected_year);
 }
 
-// Query to count active new members excluding administrators
+// Query to count active new members
 $active_new_members_query = "
     SELECT COUNT(DISTINCT user_id) FROM (
         -- Users who created a post in the selected year and registered in the selected year
         SELECT DISTINCT p.post_author AS user_id
         FROM {$wpdb->prefix}posts p
-        JOIN {$wpdb->prefix}users u ON p.post_author = u.ID
-        LEFT JOIN {$wpdb->prefix}usermeta um ON u.ID = um.user_id AND um.meta_key = '{$wpdb->prefix}capabilities'
+        JOIN {$wpdb->users} u ON p.post_author = u.ID
         WHERE p.post_type = 'post' AND p.post_status = 'publish'
-        AND (um.meta_value NOT LIKE '%\"administrator\"%') $post_year_condition $user_registered_condition
+        $post_year_condition $user_registered_condition
 
         UNION
 
@@ -354,10 +337,9 @@ $active_new_members_query = "
         SELECT DISTINCT pm_fetcher.meta_value AS user_id
         FROM {$wpdb->prefix}postmeta pm_fetcher
         JOIN {$wpdb->prefix}postmeta pm_date ON pm_fetcher.post_id = pm_date.post_id
-        JOIN {$wpdb->prefix}users u ON pm_fetcher.meta_value = u.ID
-        LEFT JOIN {$wpdb->prefix}usermeta um ON u.ID = um.user_id AND um.meta_key = '{$wpdb->prefix}capabilities'
+        JOIN {$wpdb->users} u ON pm_fetcher.meta_value = u.ID
         WHERE pm_fetcher.meta_key = 'fetcher'
-        AND (um.meta_value NOT LIKE '%\"administrator\"%') $fetch_date_condition $user_registered_condition
+        $fetch_date_condition $user_registered_condition
     ) AS active_new_users
 ";
 
@@ -372,7 +354,7 @@ $user_registered_condition = ($selected_year === 'all') ? '' : $wpdb->prepare('A
 $new_poster_query = "
     SELECT COUNT(DISTINCT p.post_author)
     FROM {$wpdb->prefix}posts p
-    JOIN {$wpdb->prefix}users u ON p.post_author = u.ID
+    JOIN {$wpdb->users} u ON p.post_author = u.ID
     WHERE p.post_type = 'post' 
     AND p.post_status = 'publish' 
     $poster_year_condition
@@ -408,7 +390,7 @@ $new_giver_query = "
     JOIN {$wpdb->prefix}term_relationships tr ON p.ID = tr.object_id
     JOIN {$wpdb->prefix}term_taxonomy tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
     JOIN {$wpdb->prefix}postmeta pm ON p.ID = pm.post_id
-    JOIN {$wpdb->prefix}users u ON p.post_author = u.ID
+    JOIN {$wpdb->users} u ON p.post_author = u.ID
     WHERE p.post_type = 'post' 
     AND p.post_status = 'publish'
     AND tt.term_id = {$fetcher_cat}
@@ -435,7 +417,7 @@ $new_fetcher_query = "
     SELECT COUNT(DISTINCT pm_fetcher.meta_value)
     FROM {$wpdb->prefix}postmeta pm_fetcher
     JOIN {$wpdb->prefix}postmeta pm_date ON pm_fetcher.post_id = pm_date.post_id
-    JOIN {$wpdb->prefix}users u ON pm_fetcher.meta_value = u.ID
+    JOIN {$wpdb->users} u ON pm_fetcher.meta_value = u.ID
     WHERE pm_fetcher.meta_key = 'fetcher'
     $fetch_date_condition
     $user_registered_condition
@@ -454,15 +436,11 @@ $new_sharing_members_query = "
         FROM {$wpdb->prefix}posts p
         JOIN {$wpdb->prefix}postmeta pm_book_date 
             ON p.ID = pm_book_date.post_id
-        JOIN {$wpdb->prefix}users u ON p.post_author = u.ID
-        JOIN {$wpdb->prefix}usermeta um 
-            ON p.post_author = um.user_id 
-            AND um.meta_key = '{$wpdb->prefix}capabilities'
+        JOIN {$wpdb->users} u ON p.post_author = u.ID
         WHERE p.post_type = 'post' 
         AND p.post_status = 'publish'
         AND pm_book_date.meta_key = 'book_date' -- Meta key for book_date
         $new_sharing_givers_year_condition
-        AND (um.meta_value NOT LIKE '%\"administrator\"%') 
     ) AS givers
     INNER JOIN (
         -- Fetchers: Users who are fetchers with a fetch_date in the selected year
@@ -470,13 +448,9 @@ $new_sharing_members_query = "
         FROM {$wpdb->prefix}postmeta pm_fetcher
         JOIN {$wpdb->prefix}postmeta pm_date 
             ON pm_fetcher.post_id = pm_date.post_id
-        JOIN {$wpdb->prefix}users u ON pm_fetcher.meta_value = u.ID
-        JOIN {$wpdb->prefix}usermeta um 
-            ON pm_fetcher.meta_value = um.user_id 
-            AND um.meta_key = '{$wpdb->prefix}capabilities'
+        JOIN {$wpdb->users} u ON pm_fetcher.meta_value = u.ID
         WHERE pm_fetcher.meta_key = 'fetcher'
         $new_sharing_fetchers_year_condition
-        AND (um.meta_value NOT LIKE '%\"administrator\"%') 
     ) AS fetchers
     ON givers.user_id = fetchers.user_id
 ";
