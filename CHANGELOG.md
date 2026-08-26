@@ -2,7 +2,8 @@
 
 ## 1.04 (2026-08-26)
 - UI revision and addition of page-area.php
-- CPT revision: 'forum' renamed to 'news'
+- Former CPT 'forum' renamed to 'news'
+- Former CPT 'support' replaced by 'forum'
 
 ## 1.03 (2026-06-26)
 - Onboarding improved, redirecting to member_pending to main site.

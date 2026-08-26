@@ -5,6 +5,7 @@
  * IMPROVEMENTS:
  * - Use pagination template?
  * - Add filtering by category
+ * - Fix search function
  * - Add form for creating new forum threads
  */
 
@@ -18,9 +19,9 @@ get_header(); ?>
 <p class="small">💡 Supportfrågor i ditt område.</p>
 
 <!-- Access check-->
-<?php if ( current_user_can('administrator') ) { ?>
+<?php if (current_user_can('member') || current_user_can('administrator')) { ?>
 
-<p>Här kan du få support av admin och andra medlemmar: <button type="button" class="orange small" onclick="window.location.href='<?php echo esc_url(add_query_arg('option', 'coins-stripe', network_home_url('/shop/'))); ?>'">Skapa tråd</button></p>
+<p>Här kan du få support av admin och andra medlemmar.</p>
 <p>Innan du skapar en ny tråd, sök bland de som finns:</p>
 <?php get_template_part('templates/forms/search-form-support'); ?>
 
@@ -75,7 +76,7 @@ $count = $the_query->found_posts;
 					<span><?php echo esc_html(get_the_terms($post_id, 'support-category')[0]->name); ?></span>
 					<span><i class="far fa-clock"></i><?php echo human_time_diff(get_the_time('U'), current_time('timestamp'));?> sen</span>
                     <span><i class="far fa-comment"></i><?php echo get_comments_number(); ?></span>
-                    <!--span>👤 php echo get_the_author_posts_link(); </span-->
+                    <span>👤 <?php echo get_the_author_posts_link(); ?></span>
 				</div>
 			</div>
     <?php endwhile; ?>
@@ -85,18 +86,18 @@ $count = $the_query->found_posts;
         <?php
         echo wp_kses_post( paginate_links( array(
             'base'         => str_replace( 999999999, '%#%', esc_url( get_pagenum_link( 999999999 ) ) ),
-                    'total'        => $the_query->max_num_pages,
-                    'current'      => max(1, $paged),
-                    'format'       => '%#%',
-                    'show_all'     => false,
-                    'type'         => 'plain',
-                    'end_size'     => 2,
-                    'mid_size'     => 2,
-                    'prev_next'    => true,
-                    'prev_text'    => '<',
-                    'next_text'    => '>',
-                    'add_args'     => false,
-                    'add_fragment' => '',
+            'total'        => $the_query->max_num_pages,
+            'current'      => max( 1, get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1 ),
+            'format'       => '?paged=%#%',
+            'show_all'     => false,
+            'type'         => 'plain',
+            'end_size'     => 2,
+            'mid_size'     => 2,
+            'prev_next'    => true,
+            'prev_text'    => '<',
+            'next_text'    => '>',
+            'add_args'     => false,
+            'add_fragment' => '',
         ) ) );
         ?>
     </div><!--/.post-pagination-->

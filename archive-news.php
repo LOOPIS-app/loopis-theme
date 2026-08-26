@@ -5,6 +5,7 @@
  * IMPROVEMENTS:
  * - Use pagination template
  * - Add filtering by category
+ * - Fix search function
  */
 
 get_header(); ?>
@@ -62,7 +63,7 @@ $count = $the_query->found_posts;
                         <?php the_post_thumbnail('thumbnail'); ?>
                     </div>
                 <?php endif; ?>
-                <div class="post-list-cpt-title"><?php echo esc_html(strip_emoji(get_the_title())); ?></div>
+                <div class="post-list-cpt-title">📄 <?php echo esc_html(strip_emoji(get_the_title())); ?></div>
                 <div class="post-list-cpt-excerpt"><?php echo esc_html(strip_emoji(get_the_excerpt())); ?></div>
                 <div class="post-list-cpt-meta">
 					<?php
@@ -72,7 +73,7 @@ $count = $the_query->found_posts;
 					<span><?php echo esc_html($news_category_name); ?></span>
 					<span><i class="far fa-clock"></i><?php echo human_time_diff(get_the_time('U'), current_time('timestamp'));?> sen</span>
                     <span><i class="far fa-comment"></i><?php echo get_comments_number(); ?></span>
-                    <!--span>👤 echo get_the_author_posts_link(); </span-->
+                    <span>👤 <?php echo get_the_author_posts_link(); ?></span>
 				</div>
 			</div>
     <?php endwhile; ?>

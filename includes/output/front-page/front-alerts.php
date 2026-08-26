@@ -75,8 +75,8 @@ $notifications = $leave + $fetch + $get_visit + $make_visit + $paused + $archive
 
 // Show warning if locker is full and user has things to leave or fetch
 if ($leave > 0 || $fetch > 0) {
-    $warning_enabled = get_locker_data('full', 0);
-    if ($warning_enabled) {
+    $warning_enabled = (int) get_locker_data('full', 0);
+    if ($warning_enabled === 1) {
         $full_warning = loopis_get_setting('locker_full_warning', '');
         if (!empty($full_warning)) {
             echo '<h5>⚠ Mycket saker i skåpen!</h5><hr>';
