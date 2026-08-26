@@ -27,6 +27,7 @@ if (!defined('ABSPATH')) {
 include_once LOOPIS_THEME_DIR . '/includes/functions/admin-extra/update-locker.php';
 
 // Persist locker full toggles
+//TBF
 if (
 	isset($_POST['locker_full_toggle_nonce'])
 	&& wp_verify_nonce($_POST['locker_full_toggle_nonce'], 'locker_full_toggle')
@@ -38,12 +39,9 @@ if (
 	global $wpdb;
     $table = $wpdb->prefix . 'loopis_settings';
 
-	$locker_ids = $wpdb->get_col("SELECT setting_value FROM $table WHERE setting_key LIKE 'locker\_id'");
-
-	foreach ($locker_ids as $locker_id) {
-		$enabled = in_array($locker_id, $locker_full_updates, true) ? 1 : 0;
-		update_locker($locker_id, 'locker_full', $enabled);
-	}
+	$locker_id = $wpdb->get_col("SELECT setting_value FROM $table WHERE setting_key LIKE 'locker\_id'");
+	$enabled = in_array($locker_id, $locker_full_updates, true) ? 1 : 0;
+	update_locker_field('full', $enabled);
 }
 
 // Load current locker states
