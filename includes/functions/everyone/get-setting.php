@@ -7,6 +7,14 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
+/**
+ * Get settings.
+ *
+ * @param string $key The setting key.
+ * @param mixed $default The default value if the setting is not found.
+ * @return mixed The setting value or the default if not found.
+ */
+
 function loopis_get_setting($key, $default = '') {
     global $wpdb;
     $table = $wpdb->prefix . 'loopis_settings';
