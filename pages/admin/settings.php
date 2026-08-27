@@ -1,88 +1,217 @@
 <?php
 /**
- * Settings page
- * Settings available for roles administrator and manager.
+ * Settings page for area
  */
 
 if (!defined('ABSPATH')) {
     exit;
 }
+
+// Include settings update helper on this page
+require_once LOOPIS_THEME_DIR . '/includes/functions/admin-extra/update-setting.php';
+
+$can_manage_options = current_user_can('manage_options');
+$can_loopis_admin = $can_manage_options || current_user_can('loopis_admin');
+$settings_notice = '';
+$settings_notice_type = 'success';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $submitted_form = isset($_POST['loopis_settings_form']) ? sanitize_key(wp_unslash($_POST['loopis_settings_form'])) : '';
+
+    if ($submitted_form === 'manage_options' && $can_manage_options) {
+        check_admin_referer('loopis_settings_manage_options');
+
+        $area_privacy = isset($_POST['area_privacy']) ? 'true' : 'false';
+        $locker_id = isset($_POST['locker_id']) ? sanitize_text_field(wp_unslash($_POST['locker_id'])) : '00000';
+        $locker_name = isset($_POST['locker_name']) ? sanitize_text_field(wp_unslash($_POST['locker_name'])) : 'locker';
+        $locker_postal_code = isset($_POST['locker_postal_code']) ? sanitize_text_field(wp_unslash($_POST['locker_postal_code'])) : '00000';
+
+        $ok = true;
+        $ok = $ok && loopis_update_setting('area_privacy', $area_privacy);
+        $ok = $ok && loopis_update_setting('locker_id', $locker_id);
+        $ok = $ok && loopis_update_setting('locker_name', $locker_name);
+        $ok = $ok && loopis_update_setting('locker_postal_code', $locker_postal_code);
+
+        $settings_notice = $ok ? '✅ Inställningar sparade.' : '💢 Kunde inte spara alla inställningar.';
+        $settings_notice_type = $ok ? 'success' : 'error';
+    }
+
+    if ($submitted_form === 'loopis_admin' && $can_loopis_admin) {
+        check_admin_referer('loopis_settings_loopis_admin');
+
+        $locker_code = isset($_POST['locker_code']) ? sanitize_text_field(wp_unslash($_POST['locker_code'])) : '0000';
+        $locker_warning = isset($_POST['locker_warning']) ? '1' : '0';
+        $locker_warning_info_raw = isset($_POST['locker_warning_info']) ? sanitize_textarea_field(wp_unslash($_POST['locker_warning_info'])) : '';
+        $locker_warning_info = loopis_setting_textarea_to_br($locker_warning_info_raw);
+        $locker_warning_header = isset($_POST['locker_warning_header']) ? sanitize_text_field(wp_unslash($_POST['locker_warning_header'])) : '';
+        $event_name = isset($_POST['event_name']) ? sanitize_text_field(wp_unslash($_POST['event_name'])) : '';
+
+        $event_name_history = maybe_unserialize(loopis_get_setting('event_name_history', serialize(array())));
+        if (!is_array($event_name_history)) {
+            $event_name_history = array();
+        }
+
+        $previous_event_name = loopis_get_setting('event_name', '🛸 LOOPIS HQ');
+        if ($event_name !== '' && $event_name !== $previous_event_name) {
+            if ($previous_event_name !== '') {
+                array_unshift($event_name_history, $previous_event_name);
+            }
+            $event_name_history = array_values(array_unique(array_filter($event_name_history)));
+        }
+
+        $ok = true;
+        $ok = $ok && loopis_update_setting('locker_code', $locker_code);
+        $ok = $ok && loopis_update_setting('locker_warning', $locker_warning);
+        $ok = $ok && loopis_update_setting('locker_warning_info', $locker_warning_info);
+        $ok = $ok && loopis_update_setting('locker_warning_header', $locker_warning_header);
+        $ok = $ok && loopis_update_setting('event_name', $event_name);
+        $ok = $ok && loopis_update_setting('event_name_history', serialize($event_name_history));
+
+        $settings_notice = $ok ? '✅ Inställningar sparade.' : '💢 Kunde inte spara alla inställningar.';
+        $settings_notice_type = $ok ? 'success' : 'error';
+    }
+}
+
+$area_privacy_value = loopis_get_setting('area_privacy', 'false');
+$locker_id_value = loopis_get_setting('locker_id', '00000');
+$locker_name_value = loopis_get_setting('locker_name', 'locker');
+
+$locker_code_value = loopis_get_setting('locker_code', '0000');
+$locker_warning_value = loopis_get_setting('locker_warning', '0');
+$locker_warning_info_stored = loopis_get_setting('locker_warning_info', '⚠ Det är mycket saker i skåpen just nu! <br>🐎 Hämta dina saker så snabbt som möjligt.<br> 🐌 Vänta någon dag med att lämna stora saker.');
+$locker_warning_info_value = loopis_setting_textarea_from_br($locker_warning_info_stored);
+$locker_warning_header_value = loopis_get_setting('locker_warning_header', '⚠ Mycket saker i skåpen!');
+$locker_postal_code_value = loopis_get_setting('locker_postal_code', '00000');
+$event_name_value = loopis_get_setting('event_name', 'saknas');
+
+$event_name_history_value = maybe_unserialize(loopis_get_setting('event_name_history', serialize(array('🌳 LOOPIS på torget', '🛸 LOOPIS HQ'))));
+if (!is_array($event_name_history_value)) {
+    $event_name_history_value = array();
+}
 ?>
 
-<h1>⚙ Inställningar</h1>
+<h1>⚙ <?php echo get_bloginfo('name'); ?></h1>
 <hr>
-<p class="small">💡 Här gör du inställningar.</p>
+<p class="small">💡 Här gör du inställningar för området.</p>
 
-<p>Om skåpet är fullt kan en varning visas överst på startsidan för alla användare som ska hämta/lämna saker.</p>
+<?php if (!empty($settings_notice)) : ?>
+    <div class="loopis-message <?php echo esc_attr($settings_notice_type); ?>">
+        <p><?php echo esc_html($settings_notice); ?></p>
+    </div>
+<?php endif; ?>
 
-<h3>⚠ Varningar</h3>
-<div class="columns">
-    <div class="column1">↓ Skåp i området</div>
-    <div class="column2 small">locker_id</div>
-</div>
-<hr>
+<?php if ($can_loopis_admin) : ?>
+    <h3>🦀 Admin</h3>
+	<hr>
+	<div class="loopis-form-wrapper">
+    <form class="loopis-form" method="post" action="">
+        <?php wp_nonce_field('loopis_settings_loopis_admin'); ?>
+        <input type="hidden" name="loopis_settings_form" value="loopis_admin">
+
+        <p>
+            <label for="locker_code">Kod till skåpet</label>
+            <input id="locker_code" type="text" name="locker_code" value="<?php echo esc_attr($locker_code_value); ?>">
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" name="locker_warning" value="1" <?php checked($locker_warning_value, '1'); ?>>
+                Visa varning för skåp?
+            </label>
+        </p>
+        <p>
+            <label for="locker_warning_header">Varning rubrik</label>
+            <input id="locker_warning_header" type="text" name="locker_warning_header" value="<?php echo esc_attr($locker_warning_header_value); ?>">
+        </p>
+        <p>
+            <label for="locker_warning_info">Varning info</label>
+            <textarea id="locker_warning_info" name="locker_warning_info" rows="3"><?php echo esc_textarea($locker_warning_info_value); ?></textarea>
+        </p>
+        <p>
+            <label for="event_name">Event</label>
+            <input id="event_name" type="text" name="event_name" value="<?php echo esc_attr($event_name_value); ?>">
+        </p>
+
+        <?php if (!empty($event_name_history_value)) : ?>
+            <p class="small">Tidigare event:</p>
+            <p>
+                <?php foreach ($event_name_history_value as $historic_name) : ?>
+                    <span class="big-link white">
+                        <a href="#" class="loopis-event-name-option" data-event-name="<?php echo esc_attr($historic_name); ?>"><?php echo esc_html($historic_name); ?></a>
+                    </span>&nbsp;
+                <?php endforeach; ?>
+            </p>
+        <?php endif; ?>
+
+        <p><input type="submit" value="Spara"></p>
+    </form>
+	</div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var eventNameInput = document.getElementById('event_name');
+        if (!eventNameInput) {
+            return;
+        }
+
+        var options = document.querySelectorAll('.loopis-event-name-option');
+        options.forEach(function (button) {
+            button.addEventListener('click', function (event) {
+                event.preventDefault();
+                eventNameInput.value = this.getAttribute('data-event-name') || '';
+                eventNameInput.focus();
+            });
+        });
+    });
+    </script>
+<?php endif; ?>
 
 <?php
-// Extra php functions?
-include_once LOOPIS_THEME_DIR . '/includes/functions/admin-extra/update-locker.php';
+// Locker warning preview
+$locker_warning_status = $locker_warning_value === '1' ? 'aktiv' : 'ej aktiv';
+?>
 
-// Persist locker full toggles
-//TBF
-if (
-	isset($_POST['locker_full_toggle_nonce'])
-	&& wp_verify_nonce($_POST['locker_full_toggle_nonce'], 'locker_full_toggle')
-) {
-	$locker_full_updates = isset($_POST['locker_full']) && is_array($_POST['locker_full'])
-		? array_map('sanitize_text_field', $_POST['locker_full'])
-		: array();
-
-	global $wpdb;
-    $table = $wpdb->prefix . 'loopis_settings';
-
-	$locker_id = $wpdb->get_col("SELECT setting_value FROM $table WHERE setting_key LIKE 'locker\_id'");
-	$enabled = in_array($locker_id, $locker_full_updates, true) ? 1 : 0;
-	update_locker_field('full', $enabled);
-}
-
-// Load current locker states
-global $wpdb;
-if(is_main_site()){
-    $table = $wpdb->base_prefix . 'loopis_lockers';
-}else{
-    $table = $wpdb->prefix . 'loopis_lockers';
-}
-$lockers = $wpdb->get_results("SELECT locker_id, locker_name, locker_full FROM $table ORDER BY locker_id");
-
-// Render table of lockers with inline toggle
-echo '<form method="post">';
-wp_nonce_field('locker_full_toggle', 'locker_full_toggle_nonce');
-
-if (!empty($lockers)) {
-	echo '<table class="admin-table">';
-	echo '<tbody>';
-	foreach ($lockers as $locker) {
-		echo '<tr>';
-		echo '<td style="width:1%; white-space:nowrap;">';
-		echo '<input type="checkbox" name="locker_full[]" value="' . esc_attr($locker->locker_id) . '" ' . checked((int) $locker->locker_full, 1, false) . ' onclick="if(!confirm(\'Vill du aktivera/deaktivera varningen för fullt skåp?\')){this.checked=!this.checked;return false;} this.form.submit();">';
-		echo '</td>';
-		echo '<td style="padding-left:6px;">' . esc_html($locker->locker_name ?: '—') . '</td>';
-		echo '<td style="text-align:right;">' . esc_html($locker->locker_id) . '</td>';
-		echo '</tr>';
+<div class="admin-block">
+<p>💡 Varning för skåp är <b><u><?php echo esc_html($locker_warning_status); ?></u></b>. Här nedanför är en förhandsvisning.</p>
+</div> <!-- .admin-block -->
+<div style="max-width: 400px;">
+<?php
+if (!empty($locker_warning_header_value)) {
+	echo '<h5>' . esc_html($locker_warning_header_value) . '</h5><hr>';
+    if (!empty($locker_warning_info_stored)) {
+        echo '<div class="loopis-message warning"><p>' . wp_kses($locker_warning_info_stored, array('br' => array())) . '</p></div>';
 	}
-	echo '</tbody></table>';
-} else {
-	echo '<p>💢 Inga skåp finns.</p>';
 }
+?>
+</div> <!-- max-width: 500px -->
 
-echo '</form>';
+<?php if ($can_manage_options) : ?>
+    <h3>👽 Webmaster</h3>
+	<hr>
+	<div class="loopis-form-wrapper">
+    <form class="loopis-form" method="post" action="">
+        <?php wp_nonce_field('loopis_settings_manage_options'); ?>
+        <input type="hidden" name="loopis_settings_form" value="manage_options">
 
-insert_spacer(20);
+        <p>
+            <label>
+                <input type="checkbox" name="area_privacy" value="1" <?php checked($area_privacy_value, 'true'); ?>>
+                Private area?
+            </label>
+        </p>
+        <p>
+            <label for="locker_id">Locker ID</label>
+            <input id="locker_id" type="text" name="locker_id" value="<?php echo esc_attr($locker_id_value); ?>">
+        </p>
+        <p>
+            <label for="locker_name">Locker name</label>
+            <input id="locker_name" type="text" name="locker_name" value="<?php echo esc_attr($locker_name_value); ?>">
+        </p>
+        <p>
+            <label for="locker_postal_code">Locker postal code</label>
+            <input id="locker_postal_code" type="text" name="locker_postal_code" value="<?php echo esc_attr($locker_postal_code_value); ?>">
+        </p>
 
-// Preview the warning shown to end users
-echo '<p class="info">💡 Så här ser varningen ut:</p>';
-
-$full_warning = loopis_get_setting('locker_full_warning', '');
-if (!empty($full_warning)) {
-	echo '<h5>⚠ Mycket saker i skåpen!</h5><hr>';
-	echo '<div class="loopis-message warning"><p>' . wp_kses_post(nl2br($full_warning)) . '</p></div>';
-}
+        <p><input type="submit" value="Spara"></p>
+    </form>
+	</div>
+<?php endif; ?>

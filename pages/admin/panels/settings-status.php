@@ -1,17 +1,28 @@
 <?php
 /**
- * Show summary of active locker full warnings
+ * Show status of area settings
  */
 
 global $wpdb;
-$table = $wpdb->prefix . 'loopis_settings';
-$total_lockers = (int) $wpdb->get_var("SELECT COUNT(*) FROM $table WHERE setting_key LIKE 'locker_full'");
-$active_warnings = (int) $wpdb->get_var("SELECT COUNT(*) FROM $table WHERE setting_key LIKE 'locker_full' AND setting_value = 1");
 
-if ($total_lockers === 0) {
-	echo '💢 Inga skåp finns';
-} elseif ($active_warnings === 0) {
-	echo '✅ 0 varningar aktiva';
+// Check locker warning status
+$locker_warning_value = loopis_get_setting('locker_warning', '0');
+
+if ($locker_warning_value === '0') {
+	echo '✅ Varning för skåp är inaktiv<br>';
 } else {
-	echo '⚠ ' . esc_html($active_warnings) . ' varning' . ($active_warnings === 1 ? '' : 'ar') . ' aktiva';
+	echo '<b>⚠ Varning för skåp är aktiv!</b><br>';
 }
+$area_privacy_value = loopis_get_setting('area_privacy', 'false');
+
+// Check area locker code
+$locker_code_value = loopis_get_setting('locker_code', '0000');
+echo '🔒 Kod för skåpet: ' . $locker_code_value . '<br>';
+
+// Check area privacy status
+if ($area_privacy_value === 'false') {
+	echo '💚 Området är offentligt';
+} else {
+	echo '⛔️ Området är privat';
+}
+$area_privacy_value = loopis_get_setting('area_privacy', 'false');
