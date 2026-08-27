@@ -99,6 +99,6 @@ get_header(); ?>
 
 <?php
 // Add to homescreen prompt for logged-in users
-if (is_user_logged_in()) { get_template_part('templates/user/front-page/add-to-homescreen'); } ?>
+if (is_user_logged_in()) {include LOOPIS_THEME_DIR . '/includes/output/front-page/add-to-homescreen.php'; } ?>
 
 <?php get_footer(); ?>
