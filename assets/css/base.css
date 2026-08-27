@@ -112,18 +112,26 @@ span.plus { font-weight: 700; color: #73c23d !important; }
 span.minus { font-weight: 700; color: #FF969D !important; }
 span.right { float: right; }
 
+/* Post and page spans */
+.post-label,
+span.post-label,
+.is-style-post-label { font-size: 14px; padding:5px; background: #fff; color: #333; }
+.big-post-label,
+span.big-post-label,
+.is-style-big-post-label { font-size: 16px; padding:5px; background: #fff; color: #333; }
+
 /* Heading  */
 h1, h2, h3, h4, h5, h6, h7 { margin: 0; padding: 0; font-weight: 300; letter-spacing: -0.3px; line-height: 1.3em; white-space: nowrap; }
 
 h1 { font-size: 40px; margin-top: 0px; letter-spacing: -1px; }  /* used only for page- and post-titles */
-h2 { font-size: 34px; margin-top: 25px; }		/* used by WPUM (settings) */
-h3 { font-size: 28px; margin-top: 25px; }		/* used for subheadings on FAQ etc */
-h4 { font-size: 22px; margin-top: 15px;}		/* used on my profile on front page */
-h5 { font-size: 24px; margin-top: 0px; }		/* used in wrapped divs and puff */
-h6 { font-size: 20px; margin-top: 0px; font-weight: 400; }		/* used for attention */
-h7 { font-size: 28px; padding-top: 10px; }		/* added for WPUM tabs */
+h2 { font-size: 34px; margin-top: 25px; }		                    /* not used */
+h3 { font-size: 28px; margin-top: 25px; }		                    /* subheadings */
+h7 { font-size: 28px; padding-top: 10px; }		                  /* subheadings with less margin */
+h4 { font-size: 24px; margin-top: 15px;}		                    /* not used */
+h5 { font-size: 24px; margin-top: 0px; }		                    /* wrapped divs  */
+h6 { font-size: 20px; margin-top: 0px; }		                    /* some custom headings */
 
-/* Special heading  */
+/* Special heading */
 h1 .symbol { height: 30px !important; width: auto; padding-right: 5px; }  /* used for coins  */
 h1 .symbol .emoji { font-size: 80%; }  /* used for clovers and stars */
 h1.wrap { white-space: normal; }
@@ -167,7 +175,7 @@ h1.wrap { white-space: normal; }
 .post-content { font-size: 18px; margin-top: 15px; }
 .post-content::after { content: ""; display: block; clear: both; }
 .post-content span { font-size: 16px; padding:5px; background: #fff !important; }
-.post-content .label { font-size: 14px; color: #777; margin-bottom: 0; }
+.post-content .label { font-size: 14px; background: #fff; margin-bottom: 0; }
 .post-content .wrapped { background-color: #fff; padding: 8px 10px 5px 10px; margin: 0 15px 15px 0; }
 .post-content .wrapped p { margin: 5px 0; }
 
@@ -192,7 +200,7 @@ h1.wrap { white-space: normal; }
 
 /* Post & page: list */
 ul, ol,
-.wp-block-list { margin: 5px; padding-inline-start: 10px; }
+.wp-block-list { margin: 5px 0 10px 10px; padding-inline-start: 10px; }
 ul li, ol li,
 .wp-block-list li { margin-bottom: 5px; }
 ul li::marker, ol li::marker,

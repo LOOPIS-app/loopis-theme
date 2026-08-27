@@ -23,26 +23,27 @@ $category_name = $category_id ? $category_id[0]->name : 'Okänd';
 <?php 
 $author = get_the_author_meta('ID');
 $current = get_current_user_id();
-if ($current == $author || current_user_can('loopis_support')) { ?>
+if ($current == $author || current_user_can('loopis_support')) : ?>
 
-<div class="content">
+<!-- Post output -->
 		<div class="post-padding">
-		<p><span class="rounded"><a href="<?php echo get_post_type_archive_link('support'); ?>">🗣 Forum</a></span>
+		<p><span class="rounded"><a href="<?php echo get_post_type_archive_link('support'); ?>">🛟 Support</a></span>
 		<span style="float:right"><a href="#" id="copy_url" class="option">🔗 Kopiera länk</a></span></p>
 			<h1><?php the_title(); ?></h1>
 			<div class="post-meta">
 				<span><?php echo $category_name; ?></span>
 				<span><i class="far fa-clock"></i> <?php echo human_time_diff(get_the_time('U'), current_time('timestamp'))?> sen</span>
 			</div><!--post-meta-->
+		</div><!--post-padding-->									
 
-			<div class="post-content">
-                
-			</div><!--post-content-->				
-		</div><!--post-padding-->							
+		<div class="page-padding">
 
-<div class="page-padding">
+<!-- SOURCE?-->	
+<?php if ($source_link) : ?>
+<p>Tråden gäller: <span class="link"><a href="<?php echo $source_link; ?>"><?php echo $source_title; ?></a></span></p>
+<?php endif; ?>
 
-<!-- Support post content -->
+<!-- Mimic comment layout -->
 <div id="commentlist-container" class="comment-tab">			
 		<ol class="commentlist" style="margin-bottom:0">
 			<li class="comment byuser">
@@ -69,11 +70,6 @@ if ($current == $author || current_user_can('loopis_support')) { ?>
 		</ol>	
     </div>	
 
-<!-- SOURCE?-->	
-<?php if ($source_link) : ?>
-<p>Tråden gäller: <span class="link"><a href="<?php echo $source_link; ?>"><?php echo $source_title; ?></a></span></p>
-<?php endif; ?>
-
 <!-- INTERACTION-->
 <?php if (comments_open()) { comments_template('/comments.php', true); } ?>
 
@@ -93,9 +89,7 @@ if ($current == $author || current_user_can('loopis_support')) { ?>
 		<?php endif;?>
 
 <!-- No access-->
-<?php } else { 
-include LOOPIS_THEME_DIR . '/templates/access/only-user.php';
- } ?>
+<?php else : include LOOPIS_THEME_DIR . '/includes/output/access/only-user.php'; endif; ?>
 
 </div> <!--page-padding-->
 </div> <!--content-->

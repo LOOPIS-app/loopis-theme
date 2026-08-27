@@ -19,7 +19,7 @@ $the_query = new WP_Query( $args );
 $count = $the_query->found_posts; ?>
 
 <!--Output-->
-<div class="wrapped link" style="min-width:250px max-width: 500px;" onclick="location.href='<?php echo get_home_url( null, '/news' ); ?>'">
+<div class="wrapped link" style="min-width:250px; max-width: 500px;" onclick="location.href='<?php echo get_home_url( null, '/news' ); ?>'">
     <h5>📡 Nyheter</h5>
 <p class="small">↓ 3 senaste<span class="right blue">Se alla →</span></p>
 <hr>

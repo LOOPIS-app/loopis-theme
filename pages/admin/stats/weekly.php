@@ -205,7 +205,7 @@ if ($booked_noboard_count > 0 && $total_noboard_count > 0) { $booked_noboard_per
 
 <!-- Output the counts -->
 
-<div class="columns"><div class="column1"><h2>📊 Statistik v.<?php echo $selected_week; ?></h2></div>
+<div class="columns"><div class="column1"><h3>📊 Statistik v.<?php echo $selected_week; ?></h3></div>
 <div class="column2"><?php echo $days_passed; ?> dagar</div></div>
 <hr>
 <p class="small">💡 Statistik för perioden <?php echo date("Y-m-d", strtotime($start_date->format('Y-m-d'))); ?> till <?php echo date("Y-m-d", strtotime($end_date->format('Y-m-d'))); ?> – utan styrelsens annonser</p>

@@ -1,19 +1,16 @@
 <?php
 /**
- * Template for single forum post. (To be renamed to single-news.php when CPT is renamed)
+ * Template for single news post.
  */
 
-get_header(); ?>
+get_header();
 
-<!-- SET VARIABLES -->
-<?php
+// SET VARIABLES
 wp_reset_postdata(); // added here when removed from functions.php
-$current = get_current_user_id();
-$author = get_the_author_meta('ID');
 $post_id = get_the_ID();
 
 // Get category of the post
-$terms = get_the_terms($post_id, 'forum-category');
+$terms = get_the_terms($post_id, 'news-category');
 $category_name = '';
 
 // Get category name, excluding 'start' if it exists
@@ -31,7 +28,7 @@ if ($terms && !is_wp_error($terms)) {
     <div class="post-wrapper">
         <div class="post-padding">
 			<div class="post-meta">
-				<p><span class="rounded"><a href="<?php echo get_post_type_archive_link('forum'); ?>">📡 Nyheter</a></span> <span class="rounded"><?php if ($category_name) { echo esc_html($category_name); } ?></span></p>
+				<p><span class="rounded"><a href="<?php echo get_post_type_archive_link('news'); ?>">📡 Nyheter</a></span> <span class="rounded"><?php if ($category_name) { echo esc_html($category_name); } ?></span></p>
 			</div><!--post-meta-->
 			<h1 class="wrap"><?php the_title(); ?></h1>
 			<div class="post-meta">

@@ -14,7 +14,7 @@ get_header(); ?>
         if (current_user_can('member') || current_user_can('administrator')) {
             // include LOOPIS_THEME_DIR . '/includes/output/front-page/front-tips.php'; // Activate when needed
             include LOOPIS_THEME_DIR . '/includes/output/front-page/front-alerts.php';
-            include LOOPIS_THEME_DIR . '/includes/output/front-page/front-forum.php';
+            include LOOPIS_THEME_DIR . '/includes/output/front-page/front-news.php';
         } else {
             include LOOPIS_THEME_DIR . '/includes/output/access/role-greeting-local.php';
             include LOOPIS_THEME_DIR . '/includes/output/access/role-options-local.php';
