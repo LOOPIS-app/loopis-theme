@@ -70,6 +70,8 @@ function send_admin_notification_email(string $email_content, int $post_id, int 
     $recipient = get_userdata($recipient_id);
     $to = $recipient ? $recipient->user_email : '';
     $post_link = get_permalink( $post_id );
+    $location_name = get_post_meta($post_id, 'location', true );
+    $location_name = ($location_name === 'Skåpet') ? get_locker_data('name') : $location_name;
     $post_title = html_entity_decode(
         html_entity_decode(get_the_title($post_id), ENT_QUOTES | ENT_HTML5, 'UTF-8'),
         ENT_QUOTES | ENT_HTML5,
@@ -83,10 +85,11 @@ function send_admin_notification_email(string $email_content, int $post_id, int 
     $email_content = preg_replace('/\t+/', '', $email_content); // Remove all tabs
     $email_content = preg_replace('/\n\s+/', "\n", $email_content); // Remove leading spaces on new lines
     $subject = "🔔 {$post_title}";
+    $place_info = '📍 Plats för hämtning: ' . $location_name;
     // Set content in email form
-    $the_email = '<div style="padding: 10px;font-size: 18px;font-style: italic;background: #f5f5f5;border-radius: 10px">'.$email_content.'</div>
+  $the_email = '<div style="padding: 10px;font-size: 18px;font-style: italic;background: #f5f5f5;border-radius: 10px">'.$email_content.'</div>
         <p style="font-size: 14px"><strong>'.$admin_name.'</strong> pingade dig → <a href="'.$post_link.'">'.$post_title.'</a></p>
-
+        <p style="font-size: 14px"> '.$place_info.'</p>
         <table style="border-collapse: collapse;border-top: 1px solid">
         <tbody>
         <tr>
