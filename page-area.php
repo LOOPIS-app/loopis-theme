@@ -40,15 +40,14 @@
 
         <div class="clear"></div>
 
-    </div><!--page-padding-->
-
     <!-- NO ACCESS -->
 <?php else : ?>
     <h1>📍 <?php echo esc_html(get_bloginfo('name')); ?></h1>
     <hr>
     <?php include LOOPIS_THEME_DIR . '/includes/output/access/only-member.php'; ?>
-    <p><span class="big-link"><a href="<?php echo esc_url(network_home_url( '/faq/varfor-bagis/')); ?>">📌 Varför måste jag bo i Bagis?</a></span></p>
 
 <?php endif; ?>
+
+</div><!--page-padding-->
 
 <?php get_footer(); ?>
