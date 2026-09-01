@@ -1,6 +1,9 @@
 <?php
 /**
  * Reminders page
+ * 
+ * Reached on admin/?view=traffic-gifts.php
+ * 
  * Shows all items in locker + on the way to locker 
  * Includes buttons for sending sms reminders
  * Access restricted to users with loopis_admin capability
