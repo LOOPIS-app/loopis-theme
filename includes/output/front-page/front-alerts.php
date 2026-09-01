@@ -73,14 +73,15 @@ $archived = count(get_posts(array(
 // Summarize
 $notifications = $leave + $fetch + $get_visit + $make_visit + $paused + $archived;
 
-// Show warning if locker is full and user has things to leave or fetch
+// If enabled, show locker warning for user with things to leave/fetch
 if ($leave > 0 || $fetch > 0) {
-    $warning_enabled = (int) get_locker_data('full', 0);
+    $warning_enabled = (int) loopis_get_setting('locker_warning', 0);
     if ($warning_enabled === 1) {
-        $full_warning = loopis_get_setting('locker_full_warning', '');
-        if (!empty($full_warning)) {
-            echo '<h5>⚠ Mycket saker i skåpen!</h5><hr>';
-            echo '<div class="loopis-message warning"><p>' . wp_kses_post(nl2br($full_warning)) . '</p></div>';
+        $locker_warning_header = loopis_get_setting('locker_warning_header', '');
+        $locker_warning_info = loopis_get_setting('locker_warning_info', '');
+        if (!empty($locker_warning_header) && !empty($locker_warning_info)) {
+            echo '<h5>' . wp_kses_post(nl2br($locker_warning_header)) . '</h5><hr>';
+            echo '<div class="loopis-message warning"><p>' . wp_kses_post(nl2br($locker_warning_info)) . '</p></div>';
         }
     }
 }

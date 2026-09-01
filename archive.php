@@ -32,7 +32,7 @@ get_header(); ?>
 
         <!-- List header -->
         <div class="columns">
-            <div class="column1">↓ <?php echo $count; ?> aktuella annonser</div>
+            <div class="column1">↓ <?php echo $count; ?> annonser</div>
             <div class="column2 small">💡 Senast överst</div>
         </div>
         <hr>
