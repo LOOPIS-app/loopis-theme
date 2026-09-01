@@ -25,7 +25,8 @@ $post_date = get_the_time('Y-m-d H:i');
 $extend_date = get_post_meta($post_id, 'extend_date', true);
 $previous_post_id = get_post_meta($post_id, 'previous_post', true);
 $forward_post_id = get_post_meta($post_id, 'forward_post', true);
-$location = get_post_meta(get_the_ID(), 'location', true) ?: 'Plats saknas';
+$location = get_post_meta($post_id, 'location', true );
+$location_name = ($location === 'Skåpet') ? get_locker_data('name') : $location;
 $fetcher = get_post_meta($post_id, 'fetcher', true);
 if ($fetcher && ($fetcher_data = get_userdata($fetcher))) {
     $fetchername = $fetcher_data->display_name; 
@@ -52,7 +53,7 @@ $image_3_id = get_post_meta($post_id, 'image_3', true);
             <div class="post-padding">
                 <div class="post-meta">
                     <span><?php the_category(' '); if (in_category('new')) { echo raffle_time(); } ?></span>
-                    <span><i class="fas fa-walking"></i><?php if ($location == 'Skåpet') { ?><a class="no-link-styling" href="https://maps.app.goo.gl/h63CFSWVyk52NkbD7"><?php echo $location; ?> i <?php echo esc_html(get_bloginfo('name')); ?></a><?php } else { ?><a class="no-link-styling" href="https://maps.google.com/maps?q=<?php echo urlencode($location); ?>"><?php echo $location ?></a><?php } ?></span>
+                    <span><i class="fas fa-walking"></i><?php if ($location == 'Skåpet') { ?><a class="no-link-styling" href="https://maps.app.goo.gl/h63CFSWVyk52NkbD7"><?php echo $location_name; ?> </a><?php } else { ?><a class="no-link-styling" href="https://maps.google.com/maps?q=<?php echo urlencode($location); ?>"><?php echo $location ?></a><?php } ?></span>
                 </div><!--post-meta-->    
             
                 <div class="post-title"><h1 class="wrap"><?php the_title(); ?></h1></div>

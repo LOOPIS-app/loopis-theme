@@ -9,8 +9,9 @@ if (!defined('ABSPATH')) {
 }
 
 // Get variables
+
 $location = get_post_meta(get_the_ID(), 'location', true) ?: 'Plats saknas';
-if ($location == 'Skåpet') { $location = 'Skåpet i ' . esc_html(get_bloginfo('name')); }
+if ($location == 'Skåpet') { $location =  get_locker_data('name', 'Skåpet'); }
 ?>
 
 <div class="post-list-post-big" onclick="location.href='<?php the_permalink(); ?>';">

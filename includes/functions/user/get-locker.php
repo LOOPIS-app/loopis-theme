@@ -23,7 +23,7 @@ function get_locker_data($field, $default = '') {
 
     $key = 'locker_'.$field;
     
-    $value = $wpdb->get_var($wpdb->prepare("SELECT * FROM $table WHERE setting_key = %s", $key));
+    $value = $wpdb->get_var($wpdb->prepare("SELECT setting_value FROM $table WHERE setting_key = %s", $key));
     return ($value !== null) ? $value : $default;
 }
 
@@ -48,6 +48,28 @@ function get_locker_code() {
     );
 
     return $locker_code;
+}
+
+/**
+ * Get area privacy from loopis_settings table
+ *
+ * @param string $index The index of the locker to look up
+ * @return string|null The locker code or null if not found
+ */
+function get_privacy() {
+    global $wpdb;
+
+    $table = $wpdb->prefix . 'loopis_settings';
+    $setting_key = 'area_privacy';
+
+    $area_privacy = $wpdb->get_var(
+        $wpdb->prepare(
+            "SELECT setting_value FROM $table WHERE setting_key = %s",
+            $setting_key
+        )
+    );
+
+    return $area_privacy ?? 0;
 }
 
 
@@ -77,7 +99,7 @@ function get_locker() {
             "code"    => $locker['locker_code']->setting_value,
             "postal_code"    => $locker['locker_postal_code']->setting_value,
             "full"    => $locker['locker_full']->setting_value,
-            "privacy" => $locker['locker_privacy']->setting_value,
+            "privacy" =>  get_privacy(),
             "warning_info" => $locker['locker_warning_info']->setting_value,
             "warning_header" => $locker['locker_warning_header']->setting_value,
         ];
