@@ -14,6 +14,18 @@ $args = array(
     'posts_per_page' => 3,
 );
 
+// Filter out private support posts
+if (!current_user_can('loopis_support') && !current_user_can('manage_options')) {
+    $args['tax_query'] = array(
+        array(
+            'taxonomy' => 'support-category',
+            'field'    => 'slug',
+            'terms'    => array('private'),
+            'operator' => 'NOT IN',
+        ),
+    );
+}
+
 // Query
 $the_query = new WP_Query( $args );
 $count = $the_query->found_posts; ?>
