@@ -113,10 +113,16 @@ $image_3_id = get_post_meta($post_id, 'image_3', true);
                 } 
                 ?>
 
-            <!-- Admin log -->
-            <?php if (current_user_can('administrator') || current_user_can('manager')) { 
-                include LOOPIS_THEME_DIR . '/templates/post/post-log-admin.php'; 
-            } ?>
+            <!-- Admin interaction -->
+            <?php if (current_user_can('administrator') || current_user_can('manager')) {  ?>
+                <div class="admin-block">
+	            <h5>🦀 Admin</h5>
+	            <hr>
+                <p class="small">💡 Verktyg och information för admin.</p>
+                <?php include LOOPIS_THEME_DIR . '/templates/post/post-actions-admin.php'; ?>
+                <?php include LOOPIS_THEME_DIR . '/templates/post/post-log-admin.php'; ?>
+                </div><!--admin-block-->
+            <?php } ?>
 
 </div><!--page-padding-->    
 
