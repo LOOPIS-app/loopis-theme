@@ -61,11 +61,11 @@ foreach ($users as $user) {
 <!-- Lost items -->
 <h3>🪂 Saker på vift</h3>
 <hr>
-<p>Här ser du saker som inte har hittats i skåpet vid hämtning:</p>
 <!-- Things disappeared -->
 <?php include LOOPIS_THEME_DIR . '/pages/area/panels/disappeared-latest.php'; ?>
 
-<p>Här ser du saker som admin har plockat bort ur skåpet:</p>
 <!-- Things cleaned out -->
 <?php include LOOPIS_THEME_DIR . '/pages/area/panels/extracted-latest.php'; ?>
 
+<!-- Things complained about -->
+<?php include LOOPIS_THEME_DIR . '/pages/area/panels/complaint-latest.php'; ?>

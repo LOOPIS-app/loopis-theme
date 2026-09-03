@@ -57,6 +57,9 @@ switch ($post_type) {
     'submit_button' => '<button name="submit" type="submit" id="submit" class="grey small">Skicka</button>')); ?>
 <p class="small"><?php if ( $current != $author ) { ?><span class="small-link"><a href="#" id="tag-author">🔔 Pinga avsändaren</a> (<?php echo $authorname; ?>)</span> <?php } ?></p>
 <p class="small"><span class="small-link"><a href="#" id="tag-admin">🔔 Pinga admin</a></span></p>
+<?php if (current_user_can('manager')) { ?>
+<p class="small">Signera med <span class="small-link"><a href="#" id="sign-admin">💚 Admin</a></span></p>
+<?php } ?>
 </div><!-- loopis-form -->
 
 <!-- Mention sctripts -->

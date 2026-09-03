@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
     
         <div class="form-row">
         <label for="source-link">1⃣ Länk?</label>
-        <input type="url" id="source-link" name="source-link" placeholder="Klistra in länk till sidan" required>
+        <input type="url" id="source-link" name="source-link" placeholder="Klistra in länk till sidan">
         <p class="description">Klistra gärna in en länk till sidan det gäller.</p>
     </div>
 

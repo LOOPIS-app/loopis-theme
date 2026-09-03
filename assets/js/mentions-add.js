@@ -85,3 +85,21 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+
+// Add "💚 Admin" to comment field
+document.addEventListener('DOMContentLoaded', function() {
+    var insertAdminLink = document.getElementById('sign-admin');
+    var commentTextArea = document.getElementById('comment');
+
+    if (insertAdminLink && commentTextArea) {
+        insertAdminLink.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            var heartAdmin = '💚 Admin';
+            var currentValue = commentTextArea.value.trim();
+
+            commentTextArea.value = currentValue ? currentValue + ' ' + heartAdmin + ' ' : heartAdmin + ' ';
+        });
+    }
+});
