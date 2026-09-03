@@ -20,8 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($submitted_form === 'manage_options' && $can_manage_options) {
         check_admin_referer('loopis_settings_manage_options');
-
-        $area_privacy = isset($_POST['area_privacy']) ? 'true' : 'false';
+        $privacy = ! empty($_POST['area_privacy']) ? '1' : '0';
+        $area_privacy = $privacy ? 'true' : 'false';
         $locker_id = isset($_POST['locker_id']) ? sanitize_text_field(wp_unslash($_POST['locker_id'])) : '00000';
         $locker_name = isset($_POST['locker_name']) ? sanitize_text_field(wp_unslash($_POST['locker_name'])) : 'locker';
         $locker_postal_code = isset($_POST['locker_postal_code']) ? sanitize_text_field(wp_unslash($_POST['locker_postal_code'])) : '00000';
@@ -31,6 +31,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $ok = $ok && loopis_update_setting('locker_id', $locker_id);
         $ok = $ok && loopis_update_setting('locker_name', $locker_name);
         $ok = $ok && loopis_update_setting('locker_postal_code', $locker_postal_code);
+        $areas_table = $wpdb->base_prefix . 'loopis_areas';
+        $current_blog_id = get_current_blog_id();
+
+        $area_updated = $wpdb->update(
+            $areas_table,
+            array(
+                'privacy'       => $privacy,
+                'locker_id'          => $locker_id,
+                'locker_name'        => $locker_name,
+                'postal_code' => $locker_postal_code,
+            ),
+            array(
+                'blog_id' => $current_blog_id,
+            ),
+            array(
+                '%d',
+                '%s',
+                '%s',
+                '%s',
+            ),
+            array(
+                '%d',
+            )
+        );
+
+        if ($area_updated === false) {
+            $exists = $wpdb->get_var(
+                $wpdb->prepare(
+                    "SELECT 1 FROM {$areas_table} WHERE blog_id = %d LIMIT 1",
+                    $current_blog_id
+                )
+            );
+
+            if (!$exists) {
+                $wpdb->insert(
+                    $areas_table,
+                    array(
+                        'blog_id'     => $current_blog_id,
+                        'locker_id'   => $locker_id,
+                        'locker_name' => $locker_name,
+                        'postal_code' => $locker_postal_code,
+                        'privacy'     => $privacy,
+                    ),
+                    array('%d', '%s', '%s', '%s', '%d')
+                );
+            }else{
+                $ok = false;
+            }
+        }
 
         $settings_notice = $ok ? '✅ Inställningar sparade.' : '💢 Kunde inte spara alla inställningar.';
         $settings_notice_type = $ok ? 'success' : 'error';

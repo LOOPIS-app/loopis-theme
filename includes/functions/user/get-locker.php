@@ -98,7 +98,7 @@ function get_locker() {
             "name"    => $locker['locker_name']->setting_value,
             "code"    => $locker['locker_code']->setting_value,
             "postal_code"    => $locker['locker_postal_code']->setting_value,
-            "full"    => $locker['locker_full']->setting_value,
+            "warning"    => $locker['locker_warning']->setting_value,
             "privacy" =>  get_privacy(),
             "warning_info" => $locker['locker_warning_info']->setting_value,
             "warning_header" => $locker['locker_warning_header']->setting_value,
