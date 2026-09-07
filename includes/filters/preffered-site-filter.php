@@ -1,6 +1,6 @@
 <?php
 /**
- * Filter which redirects users once to their preffered.
+ * Filter which redirects users once to their preffered site.
  * 
  * Always included in functions.php
  * 
