@@ -31,7 +31,7 @@ get_header(); ?>
         <!-- List header -->
         <div class="columns">
             <div class="column1">↓ <?php echo $count; ?> aktuella annonser</div>
-            <div class="column2 small bottom">💡 Senaste överst</div>
+            <div class="column2"><a href="<?php echo esc_url(home_url('/?s=')); ?>">🔍️ Sök</a><!--a href="/"><i class="fas fa-sliders-h"></i>Filter</a--></div>
         </div>
         <hr>
 

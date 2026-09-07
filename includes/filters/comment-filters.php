@@ -39,12 +39,30 @@ add_filter('comment_flood_filter', '__return_false');
  */
 
 function preserve_blank_lines_in_comments($comment_content, $comment) {
-    // Replace consecutive line breaks with a placeholder string
+    // Replace consecutive line breaks with a placeholder string.
     $comment_content = preg_replace('/\n(\s*\n)+/', '<!-- wp:preserve-blank-line -->', $comment_content);
     
     return $comment_content;
 }
 add_filter('comment_text', 'preserve_blank_lines_in_comments', 10, 2);
+
+
+/**
+ * Convert paragraph tags to line breaks for content output.
+ *
+ * @param string      $content Content HTML.
+ * @param WP_Comment|null $comment Unused, kept for signature consistency.
+ * @return string HTML output
+ */
+function preserve_blank_lines_in_content($content, $comment = null) {
+    // Remove the first opening <p> tag entirely (no <br> replacement).
+    $content = preg_replace('/<p\b[^>]*>/i', '', $content, 1);
+
+    // Replace any remaining opening/closing <p> tags (with optional attributes) with <br>.
+    $content = preg_replace('/<\/?p\b[^>]*>/i', '<br>', $content);
+
+    return $content;
+}
 
 
 /**

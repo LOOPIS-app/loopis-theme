@@ -20,21 +20,6 @@ $raffle_date = get_post_meta($post_id, 'raffle_date', true);
 $edit_wpadmin = get_admin_url(null, 'post.php?post=' . $post_id . '&action=edit');
 ?>
 
-<div class="admin-block">
-<?php include LOOPIS_THEME_DIR . '/templates/links/admin-link.php'; ?>
-
-<?php
-if (in_category('disappeared')) {
-    $fetcher = get_post_meta($post_id, 'fetcher', true); 
-    if(!empty($fetcher) && (int) $fetcher > 0){
-        if (isset($_POST['coin-back'])) {
-            loopis_ledger_add_post('cancelled', $fetcher, $post_id,['timestamp' => $timestamp, 'type'=>'disappeared']);
-            delete_post_meta($post_id, 'fetcher'); 
-        }
-    }
-}
-?>
-
 <!-- QUEUE -->	
 <?php if (!in_category( 'new' )) :
     $queue = get_post_meta($post_id, 'queue', true); 
@@ -201,38 +186,15 @@ if ($image_2_id) {
 echo '</div><!--logg-->';
 ?>
 
-<div class="columns">Hantera</div>	
-<hr style="margin-bottom: 2px;">
-<!-- Fetched button -->
-<?php if (in_category( array( 'locker', 'booked_custom' ))) : ?>
-        <?php if(isset($_POST['fetched'])) { admin_action_fetched ($post_id); } ?>
-        <form method="post" class="arb" action=""><button name="fetched" type="submit" class="admin blue small" onclick="return confirm('Har saken hämtats?')">Hämtat</button></form>
-        <p class="info">Har hämtaren glömt tryck hämta? Tryck på knappen.</p>
-<?php endif;?>
-
 <!-- Notification button -->
+<h5>🚨 Extrema situationer</h5>
         <?php if(isset($_POST['notif_manual'])) { admin_action_notif_manual ($post_id); } ?>
         <form method="post" class="arb" action=""><button name="notif_manual" type="submit" class="admin orange small" onclick="return confirm('Skicka manuellt?')">Skicka besked</button></form>
         <p class="info">Har inga mail skickats? Tryck på knappen.</p>
-    <?php
-    if (in_category('disappeared')) {
-        $fetcher = get_post_meta($post_id, 'fetcher', true); 
-        if(!empty($fetcher) && (int) $fetcher > 0){
-            if (!isset($_POST['coin-back'])) {
-                echo '
-                <form method="post">
-                    <button type="submit" class="admin orange small" name="coin-back"> Ge mynt tillbaka</button>
-                </form>
-                ';
-                echo '<p class="info">Har hämtaren inte fått sitt mynt tillbaka? Tryck på knappen.</p>';
-            }
-        }
-    }
-    ?>
+    
 <!-- Edit & remove -->
 <div class="logg">
 <p><?php
     echo ' <a href="' . $edit_wpadmin . '">👽 Redigera i WP-admin</a>';
 ?></p>
 </div><!--logg-->
-</div><!--admin-->

@@ -18,18 +18,20 @@ get_header(); ?>
 <p class="small">💡 Supportfrågor i ditt område.</p>
 
 <!-- Access check-->
-<?php if ( current_user_can('administrator') ) { ?>
+<?php if ( current_user_can('member') || current_user_can('manage_options') ) { ?>
 
-<p>Här kan du få support av admin och andra medlemmar: <button type="button" class="orange small" onclick="window.location.href='<?php echo esc_url(add_query_arg('option', 'coins-stripe', network_home_url('/shop/'))); ?>'">Skapa tråd</button></p>
+<p>Här kan du få support av admin och andra medlemmar: <button type="button" class="orange small" onclick="window.location.href='<?php echo esc_url(add_query_arg('view', 'create-support-post', home_url('/area/'))); ?>'">Skapa tråd</button></p>
 <p>Innan du skapar en ny tråd, sök bland de som finns:</p>
 <?php get_template_part('templates/forms/search-form-support'); ?>
 
 <?php
 // Arguments for archive search/filter within this CPT only
+$paged = ( get_query_var( 'paged' ) ) ? (int) get_query_var( 'paged' ) : 1;
+
 $args = array(
     'post_type' => 'support',
     'posts_per_page' => 50,
-    'paged' => ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1,
+    'paged' => $paged,
 );
 
 $forum_search = ! empty( $_GET['forum-search'] ) ? sanitize_text_field( wp_unslash( $_GET['forum-search'] ) ) : '';
@@ -49,7 +51,31 @@ if ( ! empty( $_GET['forum-category'] ) ) {
 
 // Query
 $the_query = new WP_Query( $args );
-$count = $the_query->found_posts;
+$count = 0;
+
+// Count visible posts across all pages (not only current page).
+$count_args = $args;
+$count_args['posts_per_page'] = -1;
+$count_args['paged'] = 1;
+$count_args['fields'] = 'ids';
+$count_args['no_found_rows'] = true;
+
+$count_query = new WP_Query( $count_args );
+
+if ( ! empty( $count_query->posts ) ) {
+    $current_id = (int) get_current_user_id();
+    $can_view_private = current_user_can( 'loopis_support' ) || current_user_can( 'manage_options' );
+
+    foreach ( $count_query->posts as $support_post_id ) {
+        $post_id = (int) $support_post_id;
+        $author_id = (int) get_post_field( 'post_author', $post_id );
+        $is_private_support = has_term( 'private', 'support-category', $post_id );
+
+        if ( ! $is_private_support || $can_view_private || $current_id === $author_id ) {
+            $count++;
+        }
+    }
+}
 ?>
 
 <!--Output-->
@@ -62,25 +88,10 @@ $count = $the_query->found_posts;
 <!--Post loop-->
 <?php if( $the_query->have_posts() ): ?>
     <?php while( $the_query->have_posts() ) : $the_query->the_post(); ?>
-		<?php $post_id = get_the_ID(); ?>
-			<div class="post-list-cpt" onclick="location.href='<?php the_permalink(); ?>';">
-                <?php if ( has_post_thumbnail() ) : ?>
-                    <div class="post-list-cpt-thumbnail">
-                        <?php the_post_thumbnail('thumbnail'); // Display the square thumbnail ?>
-                    </div>
-                <?php endif; ?>
-                <div class="post-list-cpt-title">🗨 <?php echo esc_html(strip_emoji(get_the_title())); ?></div>
-                <div class="post-list-cpt-excerpt"><?php echo get_the_excerpt(); ?></div>
-                <div class="post-list-cpt-meta">
-					<span><?php echo esc_html(get_the_terms($post_id, 'support-category')[0]->name); ?></span>
-					<span><i class="far fa-clock"></i><?php echo human_time_diff(get_the_time('U'), current_time('timestamp'));?> sen</span>
-                    <span><i class="far fa-comment"></i><?php echo get_comments_number(); ?></span>
-                    <!--span>👤 php echo get_the_author_posts_link(); </span-->
-				</div>
-			</div>
+     <?php get_template_part('templates/post-list/support-posts'); ?>
     <?php endwhile; ?>
 
-<?php if ( $the_query->max_num_pages > 1 ) : ?>
+<?php if ( $count > 0 && $the_query->max_num_pages > 1 ) : ?>
     <div id="post-pagination">
         <?php
         echo wp_kses_post( paginate_links( array(
