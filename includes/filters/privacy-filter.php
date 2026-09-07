@@ -1,6 +1,11 @@
 <?php
 /**
- * Redirects from privated sites
+ * Redirects user from privated sites.
+ *  
+ * Always included in functions.php
+ * 
+ * @package LOOPIS_Theme
+ * @subpackage Frontend
  */
 add_action( 'template_redirect', function() {
     $area_privacy = filter_var(loopis_get_setting( 'area_privacy', false ),FILTER_VALIDATE_BOOLEAN);
