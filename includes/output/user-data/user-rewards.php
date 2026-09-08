@@ -1,8 +1,7 @@
 <?php
 /**
- * Output user payments.
+ * Output user rewards.
  *
- * Used in wpum/profile/economy.php and author.php
  * $user_id has to be passed from context!
  */
 

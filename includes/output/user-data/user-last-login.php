@@ -1,6 +1,8 @@
 <?php
 /**
- * Show latest login
+ * Show user latest login.
+ * 
+ * Should be replaced with latest visit... But that value has to be stored somewhere first?
  *
  * $user_id has to be passed from context!
  */

@@ -1,8 +1,7 @@
 <?php
 /**
- * User summary for admin on author.php
+ * Output user summary for admin on author.php
  * 
- * Displays member info, payments, activity, and statistics
  * $user and $user_id is passed from context
  */
 

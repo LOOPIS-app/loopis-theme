@@ -1,8 +1,7 @@
 <?php
 /**
- * Show user ID (with link to edit for admins)
+ * Output user ID - with link to WP admin for super admin.
  *
- * Used in author.php & admin area
  * $user_id has to be passed from context!
  */
  

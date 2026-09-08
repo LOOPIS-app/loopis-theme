@@ -1,8 +1,7 @@
 <?php
 /**
- * Show user age on profile.
+ * Output user birthyear and age. 
  *
- * Used in author.php & admin area
  * $user_id has to be passed from context!
  */
  
