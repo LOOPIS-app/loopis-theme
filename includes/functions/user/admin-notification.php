@@ -91,7 +91,7 @@ function send_admin_notification_email(string $email_content, int $post_id, int 
     $subject = "🔔 {$post_title}";
     // Set content in email form
     $headers = loopis_mail_headers();
-    $outro = array(loopis_mail_ping($admin_name, $post_link, $post_title), loopis_mail_location($location_name))
+    $outro = array(loopis_mail_ping($admin_name, $post_link, $post_title), loopis_mail_location($location_name));
     $the_email = loopis_mail_template('',$outro,$email_content);
     $the_email .= loopis_mail_footer('Gå till LOOPIS.app för att hantera annonsen eller skriva ett svar.');
     // Send email
