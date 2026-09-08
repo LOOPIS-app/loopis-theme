@@ -36,4 +36,7 @@ include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-paus
 	<p>💢 Du har inga annonser att pausa eller aktivera.</p>
 <?php } ?>
 
-<p><span class="big-link"><a href="<?php echo esc_url(wp_logout_url(home_url())); ?>">🚪 Logga ut</a></span> från LOOPIS.app</p>
+<h3>👤 Mitt konto</h3>
+<hr>
+<p><span class="big-link"><a href="<?php echo esc_url(network_home_url('/user')); ?>">📋 Mitt medlemskap</a></span></p>
+<p><span class="big-link"><a href="<?php echo esc_url(wp_logout_url(home_url())); ?>">🚪 Logga ut</a></span></p>

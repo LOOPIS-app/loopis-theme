@@ -103,6 +103,7 @@ span.big-link:hover { background: #ebebeb; }
 span.mega-link:hover { background: #ebebeb; cursor: pointer; }
 span.rounded { font-size: 14px; padding:4px 10px; border-radius: 20px; }
 span.white { background: #fff !important; }
+span.trans { background: none !important; }
 span.grey { color: #777 !important; }
 span.grey a { color: #777 !important; text-decoration: none; }
 span.code { font-family: 'Courier New', monospace; font-weight: bold; }
