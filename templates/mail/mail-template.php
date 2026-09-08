@@ -29,7 +29,7 @@ function loopis_mail_template(string $mail_intro='', string|array $mail_outro=''
     if(!empty($mail_outro)){
         $mail .= '<p style="font-size: 14px">' . $mail_outro . '</p>';
     }
-    return $mail
+    return $mail;
 }
 
 function loopis_mail_template_outro_array(array $outro_entries){
