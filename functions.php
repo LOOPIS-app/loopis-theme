@@ -35,9 +35,10 @@ add_action('wp_enqueue_scripts', 'loopis_theme_assets');
  * Include PHP files
  */
 
- // Utility function to include all PHP files in a folder
+// Utility function to include all PHP files in a folder.
 function loopis_theme_include_folder($folder_name) {
-    $absolute_path = LOOPIS_THEME_DIR . '/includes/' . $folder_name;
+    $folder_name = '/' . trim((string) $folder_name, '/');
+    $absolute_path = LOOPIS_THEME_DIR . '/includes' . $folder_name;
     if (is_dir($absolute_path)) {
         foreach (glob($absolute_path . '/*.php') as $file) {
             include_once $file;
@@ -50,16 +51,16 @@ function loopis_theme_include_folder($folder_name) {
 // Define folders to load
 function loopis_theme_load_files() {
     // For everyone
-    loopis_theme_include_folder('filters');
-    loopis_theme_include_folder('shortcodes');
-    loopis_theme_include_folder('functions/everyone');
+    loopis_theme_include_folder('/filters');
+    loopis_theme_include_folder('/shortcodes');
+    loopis_theme_include_folder('/functions/everyone');
 
     // For user
     if (is_user_logged_in()) { 
-        loopis_theme_include_folder('functions/user');
+        loopis_theme_include_folder('/functions/user');
     } else {
     // For visitor
-        loopis_theme_include_folder('functions/visitor');
+        loopis_theme_include_folder('/functions/visitor');
     }
 }
 add_action('after_setup_theme', 'loopis_theme_load_files');
