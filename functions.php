@@ -1,27 +1,20 @@
 <?php
 /**
- * Theme bootstrap for LOOPIS sub sites (aka. local apps)
- *
- * Loads all frontend core files.
+ * Theme bootstrap for LOOPIS sub sites (aka. the local apps)
  */
 
 // Prevent direct access
 if (!defined('ABSPATH')) { exit; }
 
 // Define theme version
-define('LOOPIS_THEME_VERSION', '1.04'); // Update version number here + in style.css
-
-// Theme folder constants are provided by MU plugin "LOOPIS Constants".
-
-// Define locker ID for this installation (temporary solution)
-if (!defined('LOCKER_ID')) { define('LOCKER_ID', '12845-1'); }
+define('LOOPIS_THEME_VERSION', '1.05'); // Update version number here + in style.css
 
 /** 
  * Enqueue theme CSS and JavaScript
  */
 
 function loopis_theme_assets() {
-    // Enqueue CSS theme styles
+    // Enqueue LOOPIS styles
     wp_enqueue_style('loopis-theme-style', LOOPIS_THEME_URI . '/assets/css/base.css', array(), filemtime(LOOPIS_THEME_DIR . '/assets/css/base.css'));
     wp_enqueue_style('loopis-theme-forms', LOOPIS_THEME_URI . '/assets/css/forms.css', array('loopis-theme-style'), filemtime(LOOPIS_THEME_DIR . '/assets/css/forms.css'));
     wp_enqueue_style('loopis-theme-responsive', LOOPIS_THEME_URI . '/assets/css/responsive.css', array(), filemtime(LOOPIS_THEME_DIR . '/assets/css/responsive.css'));
@@ -33,7 +26,7 @@ function loopis_theme_assets() {
     // Enqueue CSS styles and JS for admin
     if (current_user_can('manage_options') || current_user_can('loopis_admin')) {
         wp_enqueue_style('loopis-theme-admin', LOOPIS_THEME_URI . '/assets/css/admin.css', array(), filemtime(LOOPIS_THEME_DIR . '/assets/css/admin.css')); 
-        wp_enqueue_script('loopis-admin-script', LOOPIS_THEME_URI . '/assets/js/admin.js', array('jquery'), filemtime(LOOPIS_THEME_DIR . '/assets/js/admin.js'), true);
+        wp_enqueue_script('loopis-theme-admin', LOOPIS_THEME_URI . '/assets/js/admin.js', array('jquery'), filemtime(LOOPIS_THEME_DIR . '/assets/js/admin.js'), true);
     }
 }
 add_action('wp_enqueue_scripts', 'loopis_theme_assets');
