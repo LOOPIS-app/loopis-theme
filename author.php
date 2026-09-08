@@ -49,12 +49,12 @@ $joined_date = date('Y-m-d',strtotime($profile_economy['joined_date']));
 if ($count_submitted !== 0) { $given_percentage = round(($count_given / $count_submitted) * 100); } else { $given_percentage = 0; }
 ?>
 
-<p>Medlem sedan <span class="label">🎉 <?php echo $joined_date; ?></span></p>
-<p>Bostadsort <span class="label">🗺 <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-city.php'; ?></span></p>
-<p>Område <span class="label">📍 <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-primary-blog.php'; ?></span></p>
+<p>Blev medlem <span class="big-label">🎉 <?php echo $joined_date; ?></span></p>
+<p>Bor i postorten <span class="big-label">🗺 <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-city.php'; ?></span></p>
+<p>Loopar i området <span class="big-label">📍 <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-primary-blog.php'; ?></span><br> &nbsp;</p>
 <div class="wrapped">
 <h1><img src="<?php echo LOOPIS_THEME_URI; ?>/assets/img/coin.png" alt="Mynt:" class="symbol"><?php echo $coins; ?></h1>
-<p class="small"><?php echo $first_name; ?> kan just nu hämta <?php echo $coins; ?> saker.</p>
+<p class="small"><?php echo $first_name; ?> kan just nu hämta <?php echo $coins; ?> saker</p>
 <hr>
 <p><span class="label">💚 <?php echo $count_given; ?> saker lämnade</span></p>
 <p><span class="label">❤ <?php echo $count_booked; ?> saker hämtade</span></p>
