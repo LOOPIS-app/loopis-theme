@@ -1,6 +1,6 @@
 <?php
 /**
- * Output user primary blog
+ * Output user primary blog.
  *
  * $user_id has to be passed from context!
  */

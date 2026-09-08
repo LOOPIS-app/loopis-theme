@@ -1,8 +1,8 @@
 <?php
 /**
- * Copy of user profile template for displaying WPUM profile tab content.
+ * Output summary of user activity
  * 
- * Created by LOOPIS.
+ * $user_id is set from author.php
  */
 
 // Exit if accessed directly
@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Set author user ID
-$user_id = get_queried_object_id();
+$user_id = get_queried_object_id(); // redundant?
 $first_name = get_user_meta($user_id, 'first_name', true);
 
 // Get profile economy

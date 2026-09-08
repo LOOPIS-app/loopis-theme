@@ -2,7 +2,6 @@
 /**
  * Output user gender.
  *
- * Used in author.php & admin area
  * $user_id has to be passed from context!
  */
  

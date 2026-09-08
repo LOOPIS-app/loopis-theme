@@ -20,7 +20,7 @@ switch ($post_type) {
     case 'post':
         $message = "💢 Ingen har ännu visat intresse.";
         break;
-    case 'forum':
+    case 'news':
         $message = "👋 Skriv den första kommentaren!";
         break;
     case 'support':

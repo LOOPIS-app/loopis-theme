@@ -1,8 +1,9 @@
 <?php
 /**
- * Output user names.
+ * Output user first name + last name.
+ * 
+ * Could be replaced by outputting display_name if we decide to change that in WP admin settings.
  *
- * Used in author.php & admin area
  * $user_id has to be passed from context!
  */
 
