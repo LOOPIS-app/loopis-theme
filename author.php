@@ -49,8 +49,9 @@ $joined_date = date('Y-m-d',strtotime($profile_economy['joined_date']));
 if ($count_submitted !== 0) { $given_percentage = round(($count_given / $count_submitted) * 100); } else { $given_percentage = 0; }
 ?>
 
-<p>Bor i <span class="label">📍 <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-area.php'; ?></span></p>
-<p>Blev loopare <span class="label">🎉 <?php echo $joined_date; ?></span></p>
+<p>Medlem sedan <span class="label">🎉 <?php echo $joined_date; ?></span></p>
+<p>Bostadsort <span class="label">🗺 <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-city.php'; ?></span></p>
+<p>Område <span class="label">📍 <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-primary-blog.php'; ?></span></p>
 <div class="wrapped">
 <h1><img src="<?php echo LOOPIS_THEME_URI; ?>/assets/img/coin.png" alt="Mynt:" class="symbol"><?php echo $coins; ?></h1>
 <p class="small"><?php echo $first_name; ?> kan just nu hämta <?php echo $coins; ?> saker.</p>
