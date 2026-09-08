@@ -64,7 +64,9 @@ function loopis_ledger_page(){
 	$max_pages= max(1, (int) ceil($num/$posts_per_page));
 	$offset = ($page-1)*$posts_per_page;
 	$post_ledger = loopis_ledger_fetch($options,['posts_per_page'=>$posts_per_page, 'offset'=>$offset, 'dasc' => 'DESC']);
-	$grid_spacing = 'grid-template-columns: repeat(' . count($cols) . ', 1fr);';
+	$coin_count = ((int) array_key_exists('coins', $cols)) + ((int) array_key_exists('clover', $cols));
+	$count_cols = count($cols) - $coin_count;
+	$grid_spacing = 'grid-template-columns: repeat(' . $count_cols . ', 1fr)' . ' ' . str_repeat('0.4fr ', $coin_count). ';';
 
 	ob_start();
 	echo '↓ ' . $offset .' till ' . min(($offset+$posts_per_page),$num) .' av '. $num . ' Aktiviteter';
@@ -75,7 +77,7 @@ function loopis_ledger_page(){
 	<!--ledger-->
 		<div class="admin-grid" style="<?php echo $grid_spacing ;?>">
 			<?php foreach ($cols as $index => $col):?>
-				<div><?php echo $col; ?></div>
+	            <div> <i class="<?php echo get_fas($index) ;?>"></i> </div>
 			<?php endforeach; ?>
     	</div>
 
@@ -85,9 +87,11 @@ function loopis_ledger_page(){
 					<?php if ($index === 'user_id'): 
 						$user_info = get_userdata($entry['user_id']);
 					?>
-						<div><a href="<?php echo get_author_posts_url($entry['user_id']); ?>"><i class="fa-solid fa-user"></i><?php echo esc_html(($user_info->first_name ?? '').' '.($user_info->last_name ?? '')); ?></a></div>
+						<div><a href="<?php echo get_author_posts_url($entry['user_id']); ?>"><?php echo esc_html(($user_info->first_name ?? '').' '.($user_info->last_name ?? '')); ?></a></div>
+					<?php elseif ($index === 'post_id'): ?>
+						<div><a href="<?php echo add_query_arg(array('p' => esc_html($entry[$index])),home_url('/')); ?>"> <?php echo esc_html(get_the_title($entry[$index])); ?></a></div>
 					<?php else: ?>
-	            		<div><i class="<?php echo get_fas($index) ;?>"></i> <?php echo esc_html($entry[$index]); ?></div>
+	            		<div> <?php echo esc_html($entry[$index]); ?></div>
 					<?php endif; ?>
 				<?php endforeach; ?>
 	        </div>
@@ -119,12 +123,12 @@ function loopis_ledger_page(){
 function get_fas($handle){
 	$options = [
 		'user_id' => "fa-solid fa-user",
-		'event' => "fas fa-info-circle",
-		'post_id' => "fa-solid fa-signs-post",
-		'type' => "fa-solid fa-circle-question",
-		'coins' => "fa-regular fa-circle",
+		'event' => "fas fa-bell",
+		'post_id' => "fas fa-gift",
+		'type' => "fas fa-info-circle",
+		'coins' => "fas fa-coins",
 		'clover' => "fa-solid fa-clover",
-		'description' => "fa-solid fa-book-open",
+		'description' => "fas fa-question-circle",
 		'location' => "fa-solid fa-location-dot",
 		'timestamp' => "fa-solid fa-clock",
 	];
