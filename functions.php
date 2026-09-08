@@ -13,9 +13,6 @@ define('LOOPIS_THEME_VERSION', '1.04'); // Update version number here + in style
 
 // Theme folder constants are provided by MU plugin "LOOPIS Constants".
 
-// Define locker ID for this installation (temporary solution)
-if (!defined('LOCKER_ID')) { define('LOCKER_ID', '12845-1'); }
-
 /** 
  * Enqueue theme CSS and JavaScript
  */

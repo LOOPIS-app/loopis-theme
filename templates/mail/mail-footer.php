@@ -9,13 +9,15 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-function loopis_mail_footer(string $role = ''): string {
-    if ($role === 'manager') {
+function loopis_mail_footer(string $text = ''): string {
+    if ($text === 'manager') {
         $icon = LOOPIS_THEME_URI . '/assets/img/LOOPIS_icon_admin.png';
         $text = 'Notifikation till admin på ' . get_bloginfo('name') . '.';
+    } elseif(!empty($text)){
+        $icon = LOOPIS_THEME_URI . '/assets/img/LOOPIS_icon.png';
     } else {
         $icon = LOOPIS_THEME_URI . '/assets/img/LOOPIS_icon.png';
-        $text = 'Gå till LOOPIS.app för att hantera annonsen eller skriva ett svar.';
+        $text = 'Ett mail från LOOPIS.app';
     }
 
     $html = '<table style="border-collapse: collapse;border-top: 1px solid">'

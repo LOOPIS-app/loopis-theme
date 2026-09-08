@@ -10,6 +10,10 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
+require_once get_template_directory() . '/templates/mail/mail-template.php';
+require_once get_template_directory() . '/templates/mail/mail-headers.php';
+require_once get_template_directory() . '/templates/mail/mail-footer.php';
+
 /** SEND ADMIN NOTIFICATION */
 // Add comment from admin + delete
 function send_admin_notification(string $comment_content, int $post_id, int $user_id) {
@@ -78,35 +82,18 @@ function send_admin_notification_email(string $email_content, int $post_id, int 
         'UTF-8'
     );
 
-    // Avoid undefined-error in cron-job (by Poe)
+    // Avoid undefined-error in cron-job (by Poe) 
     $remote_addr = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1';
 
     // Remove tabs and extra whitespace (by CoPilot 2025-12-04)
     $email_content = preg_replace('/\t+/', '', $email_content); // Remove all tabs
     $email_content = preg_replace('/\n\s+/', "\n", $email_content); // Remove leading spaces on new lines
     $subject = "🔔 {$post_title}";
-    $place_info = '📍 Plats för överlämning: ' . $location_name;
     // Set content in email form
-  $the_email = '<div style="padding: 10px;font-size: 18px;font-style: italic;background: #f5f5f5;border-radius: 10px">'.$email_content.'</div>
-        <p style="font-size: 14px"> '.$place_info.'</p>
-        <p style="font-size: 14px"><strong>'.$admin_name.'</strong> pingade dig → <a href="'.$post_link.'">'.$post_title.'</a></p>
-        <table style="border-collapse: collapse;border-top: 1px solid">
-        <tbody>
-        <tr>
-        <td style="padding: 5 5 0 0"><img style="height: 32px" src="https://loopis.app/wp-content/themes/loopis-theme/assets/img/LOOPIS_icon.png" alt="LOOPIS_logo" /></td>
-        <td style="padding: 5 10 0 0">
-        <p style="font-size: 11px;font-style: italic;margin: 0;line-height: 1.2">Gå till LOOPIS.app för att hantera annonsen eller skriva ett svar.</p>
-        </td>
-        </tr>
-        </tbody>
-        </table>';
-
-    $headers = array(
-        'From: LOOPIS <info@loopis.app>',
-        'Content-Type: text/html; charset=UTF-8',
-        'Content-Language: sv-SE',
-        'X-Emoji-Service: twemoji'
-            );
+    $headers = loopis_mail_headers();
+    $outro = array(loopis_mail_ping($admin_name, $post_link, $post_title), loopis_mail_location($location_name))
+    $the_email = loopis_mail_template('',$outro,$email_content);
+    $the_email .= loopis_mail_footer('Gå till LOOPIS.app för att hantera annonsen eller skriva ett svar.');
     // Send email
     wp_mail($to, $subject, $the_email, $headers); 
 }
