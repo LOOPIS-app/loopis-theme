@@ -1,6 +1,8 @@
 <?php
 /**
  * Output user area.
+ * 
+ * This (wpum_area) is deprecated. Replaced with primary_blog + wpum_postcode & wpum_postarea
  *
  * Used in author.php & admin area
  * $user_id has to be passed from context!

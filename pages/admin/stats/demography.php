@@ -2,6 +2,8 @@
 /**
  * Statistics for members.
  * 
+ * TODO: Deprecate wpum_area
+ * 
  * Will be improved to use generic functions.
  * Will be improved to use custom database table.
  */

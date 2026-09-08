@@ -38,7 +38,6 @@ wp_enqueue_script('loopis-tabs', LOOPIS_THEME_URI . '/assets/js/tabs.js', array(
                 <h7>📋 Medlemsregister</h7>
                 <hr>
                 <p>👤 Användarnamn: <b><?php echo $user->user_login ?></b></p>
-                <p>📍 Område: <b><?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-area.php'; ?></b></p>
                 <p>🚼 Ålder: <b><?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-age.php'; ?></b></p>
                 <p>⚧ Kön: <b><?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-gender.php'; ?></b></p>
                 <p>📧 E-post: <b><?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-email.php'; ?></b></p>
