@@ -13,11 +13,17 @@ if (!defined('ABSPATH')) {
 }
 
 // Get user postal code
-$postalcode = get_user_meta($user_id, 'wpum_postcode', true);
+$city = get_user_meta($user_id, 'wpum_postarea', true);
+//
+if(empty($city)){
+    if(function_exists('loopis_get_city')){
+        $city = loopis_get_city(get_user_meta($user_id, 'wpum_postcode', true));
+        update_user_meta($user_id, 'wpum_postarea', $city);
+    }else{
+        $city = 'okänt';
+    }
+}
 
-// Convert postalcode to city name
-// $city = loopis_get_city_by_postalcode($postalcode);
-$city = $postalcode; // Temporary, until loopis_get_city_by_postalcode is fixed
 
 // Output
 echo esc_html($city);
