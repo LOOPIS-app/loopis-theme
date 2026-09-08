@@ -1,8 +1,7 @@
 <?php
 /**
- * Show user phone (with link to send SMS)
+ * Output user phone - with link to send text message + copy button.
  *
- * Used in author.php & admin area
  * $user_id has to be passed from context!
  */
  

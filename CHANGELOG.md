@@ -1,5 +1,9 @@
 # 📋 Changelog for "LOOPIS Theme"
 
+## 1.05 (2026-09-08)
+- Multisite fixes & general improvements
+- Support forum added
+
 ## 1.04 (2026-08-26)
 - UI revision and addition of page-area.php
 - CPT revision: 'forum' renamed to 'news'

@@ -2,7 +2,7 @@
 /**
  * Output support posts created by user.
  *
- * Used in author.php
+ * $user_id has to be passed from context!
  */
  
 if (!defined('ABSPATH')) {

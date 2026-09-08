@@ -1,10 +1,9 @@
 <?php
 /**
- * Output user city.
+ * Output user postal area (place of living).
  * 
- * TODO: Currently outputs wpum_postcode, which should be used to fetch and store city name in wpum_postarea
+ * If not yet stored in user_meta, it will be fetched and stored based on postal code.
  *
- * Used in author.php & admin area
  * $user_id has to be passed from context!
  */
 
@@ -14,16 +13,15 @@ if (!defined('ABSPATH')) {
 
 // Get user postal code
 $city = get_user_meta($user_id, 'wpum_postarea', true);
-//
+
+// Get user postal area
 if(empty($city)){
-    if(function_exists('loopis_get_city')){
+    $city = 'Okänt';
+    // Include function for mapping postal code to postal area.
+    include_once LOOPIS_USERS_DIR . '/includes/functions/loopis-get-city.php';
         $city = loopis_get_city(get_user_meta($user_id, 'wpum_postcode', true));
         update_user_meta($user_id, 'wpum_postarea', $city);
-    }else{
-        $city = 'okänt';
-    }
 }
-
 
 // Output
 echo esc_html($city);

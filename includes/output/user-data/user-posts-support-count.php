@@ -1,8 +1,8 @@
 <?php
 /**
- * Output count user support posts.
+ * Output count of user support posts.
  *
- * Used in author.php
+ * $user_id has to be passed from context!
  */
  
 if (!defined('ABSPATH')) {

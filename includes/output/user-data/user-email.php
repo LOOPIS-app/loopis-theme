@@ -1,8 +1,7 @@
 <?php
 /**
- * Show user email (with link to send email)
+ * Output user email - with link to send email + copy button.
  *
- * Used in author.php & admin area
  * $user_id has to be passed from context!
  */
  

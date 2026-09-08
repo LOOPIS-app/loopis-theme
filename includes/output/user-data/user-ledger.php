@@ -1,12 +1,9 @@
 
 <?php
 /**
- * Template for displaying WPUM profile tab content.
+ * Output user ledger.
  * 
- * Modified by LOOPIS.
- * 
- * Improvements:
- * – Fade out post types not relevant to the user
+ * $user_id has to be passed from context!
  */
 
 // Exit if accessed directly

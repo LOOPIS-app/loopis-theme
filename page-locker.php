@@ -9,7 +9,7 @@ get_header(); ?>
 
         <h1>⏹ Skåpet</h1>
         <hr>
-        <p class="small">💡 Information om skåpet i ditt område: <?php echo get_bloginfo('name'); ?></p>
+        <p class="small">💡 Information om skåpet i ditt område.</p>
 
         <!-- Output the content of the page -->
         <?php the_content(); ?>
