@@ -86,6 +86,8 @@ function loopis_ledger_page(){
 						$user_info = get_userdata($entry['user_id']);
 					?>
 						<div><a href="<?php echo get_author_posts_url($entry['user_id']); ?>"><i class="fa-solid fa-user"></i><?php echo esc_html(($user_info->first_name ?? '').' '.($user_info->last_name ?? '')); ?></a></div>
+					<?php elseif ($index === 'post_id'): ?>
+						<div><a href="<?php echo add_query_arg(array('p' => esc_html($entry[$index])),home_url('/')); ?>"><i class="<?php echo get_fas($index) ;?>"></i> <?php echo esc_html(get_the_title($entry[$index])); ?></a></div>
 					<?php else: ?>
 	            		<div><i class="<?php echo get_fas($index) ;?>"></i> <?php echo esc_html($entry[$index]); ?></div>
 					<?php endif; ?>
