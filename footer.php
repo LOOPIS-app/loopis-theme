@@ -1,6 +1,9 @@
 </div><!--container-->
 <?php get_template_part('templates/general/scroll-to-top'); ?>
-<?php get_template_part('templates/faq/questions-area'); ?>
+
+<?php if (is_user_logged_in()) : ?>
+    <?php get_template_part('templates/faq/questions-area'); ?>
+<?php endif; ?>
 
 </div><!--wrapper-->
 
