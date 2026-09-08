@@ -1,8 +1,6 @@
 <?php
 /**
- * Theme bootstrap for LOOPIS sub sites (aka. local apps)
- *
- * Loads all frontend core files.
+ * Theme bootstrap for LOOPIS sub sites (aka. the local apps)
  */
 
 // Prevent direct access
@@ -18,7 +16,7 @@ define('LOOPIS_THEME_VERSION', '1.04'); // Update version number here + in style
  */
 
 function loopis_theme_assets() {
-    // Enqueue CSS theme styles
+    // Enqueue LOOPIS styles
     wp_enqueue_style('loopis-theme-style', LOOPIS_THEME_URI . '/assets/css/base.css', array(), filemtime(LOOPIS_THEME_DIR . '/assets/css/base.css'));
     wp_enqueue_style('loopis-theme-forms', LOOPIS_THEME_URI . '/assets/css/forms.css', array('loopis-theme-style'), filemtime(LOOPIS_THEME_DIR . '/assets/css/forms.css'));
     wp_enqueue_style('loopis-theme-responsive', LOOPIS_THEME_URI . '/assets/css/responsive.css', array(), filemtime(LOOPIS_THEME_DIR . '/assets/css/responsive.css'));
@@ -30,7 +28,7 @@ function loopis_theme_assets() {
     // Enqueue CSS styles and JS for admin
     if (current_user_can('manage_options') || current_user_can('loopis_admin')) {
         wp_enqueue_style('loopis-theme-admin', LOOPIS_THEME_URI . '/assets/css/admin.css', array(), filemtime(LOOPIS_THEME_DIR . '/assets/css/admin.css')); 
-        wp_enqueue_script('loopis-admin-script', LOOPIS_THEME_URI . '/assets/js/admin.js', array('jquery'), filemtime(LOOPIS_THEME_DIR . '/assets/js/admin.js'), true);
+        wp_enqueue_script('loopis-theme-admin', LOOPIS_THEME_URI . '/assets/js/admin.js', array('jquery'), filemtime(LOOPIS_THEME_DIR . '/assets/js/admin.js'), true);
     }
 }
 add_action('wp_enqueue_scripts', 'loopis_theme_assets');
@@ -39,9 +37,10 @@ add_action('wp_enqueue_scripts', 'loopis_theme_assets');
  * Include PHP files
  */
 
- // Utility function to include all PHP files in a folder
+// Utility function to include all PHP files in a folder.
 function loopis_theme_include_folder($folder_name) {
-    $absolute_path = LOOPIS_THEME_DIR . '/includes/' . $folder_name;
+    $folder_name = '/' . trim((string) $folder_name, '/');
+    $absolute_path = LOOPIS_THEME_DIR . '/includes' . $folder_name;
     if (is_dir($absolute_path)) {
         foreach (glob($absolute_path . '/*.php') as $file) {
             include_once $file;
@@ -54,16 +53,16 @@ function loopis_theme_include_folder($folder_name) {
 // Define folders to load
 function loopis_theme_load_files() {
     // For everyone
-    loopis_theme_include_folder('filters');
-    loopis_theme_include_folder('shortcodes');
-    loopis_theme_include_folder('functions/everyone');
+    loopis_theme_include_folder('/filters');
+    loopis_theme_include_folder('/shortcodes');
+    loopis_theme_include_folder('/functions/everyone');
 
     // For user
     if (is_user_logged_in()) { 
-        loopis_theme_include_folder('functions/user');
+        loopis_theme_include_folder('/functions/user');
     } else {
     // For visitor
-        loopis_theme_include_folder('functions/visitor');
+        loopis_theme_include_folder('/functions/visitor');
     }
 }
 add_action('after_setup_theme', 'loopis_theme_load_files');
