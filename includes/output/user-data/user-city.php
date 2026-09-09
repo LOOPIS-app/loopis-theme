@@ -19,8 +19,8 @@ if(empty($city)){
     $city = 'Okänt';
     // Include function for mapping postal code to postal area.
     include_once LOOPIS_USERS_DIR . '/includes/functions/loopis-get-city.php';
-        $city = loopis_get_city(get_user_meta($user_id, 'wpum_postcode', true));
-        update_user_meta($user_id, 'wpum_postarea', $city);
+    $city = loopis_get_city(get_user_meta($user_id, 'wpum_postcode', true));
+    update_user_meta($user_id, 'wpum_postarea', $city);
 }
 
 // Output
