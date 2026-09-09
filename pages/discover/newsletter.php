@@ -1,0 +1,62 @@
+<?php
+/**
+ * Newsletter posts for discover page (not used yet)
+ *
+ * Dynamic content of page-discover.php
+ * Reached on /discover/?view=newsletter
+ */
+
+if (!defined('ABSPATH')) {
+    exit;
+}
+?>
+
+<div class="page-padding">
+
+        <h1>📧 Veckans tips</h1>
+
+        <?php
+        // Check pagination
+        $paged = get_query_var('paged') ?: 1;
+
+        // Get available posts categories
+        $available_posts = loopis_cats(['tips']);
+        
+        // Fetch and count available posts
+        $args = array(
+            'post_type'      => 'post',
+            'posts_per_page' => 50,
+            'category__in'   => $available_posts,
+            'paged'          => $paged,
+        );
+
+        $the_query = new WP_Query($args);
+        $count = $the_query->found_posts;
+        ?>
+
+        <!-- List header -->
+        <div class="columns">
+            <div class="column1">↓ <?php echo $count; ?> tips just nu</div>
+            <div class="column2 small bottom"></div>
+        </div>
+        <hr>
+
+        <!-- Posts -->
+        <div class="post-list">
+            <?php if ($the_query->have_posts()) : ?>
+                <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
+                    <?php get_template_part('templates/post-list/big-posts'); ?>
+                <?php endwhile; ?>
+        </div><!--post-list-->
+
+        <?php include_once get_template_directory() . '/templates/post-list/pagination.php'; ?>
+
+        <?php else : ?>
+            <p>💢 Det finns inga aktuella annonser</p>
+        <?php endif; ?>
+
+        <?php wp_reset_postdata(); ?>
+
+</div><!--page-padding-->
+
+<?php get_footer(); ?>

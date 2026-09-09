@@ -17,6 +17,8 @@ function action_forward(int $post_id) {
 	
 	// Retrieve the current post data
 	$current_post = get_post($post_id);
+	$author =  get_current_user_id();
+	$location = get_post_meta($post_id,'location',true);
 	
 	// Create a new post with the same content
 	$new_post_args = array(
@@ -24,11 +26,13 @@ function action_forward(int $post_id) {
 	    'post_content' => $current_post->post_content,
 	    'post_status'  => 'publish',
 	    'post_type'    => $current_post->post_type,
-	    'post_author'  => get_current_user_id(),
+	    'post_author'  => $author,
 	);
 	$new_post_id = wp_insert_post($new_post_args);
 	
 	if (!is_wp_error($new_post_id)) {
+
+	loopis_ledger_add_post('submitted', $author, $new_post_id ,['timestamp' => current_time('Y-m-d H:i:s'), 'location' => $location, 'type' => 'forwarded']);
 	
 	// Set the same featured image for new post
 	$featured_image = get_post_thumbnail_id($post_id);
@@ -86,14 +90,10 @@ function action_forward(int $post_id) {
     $user_mentions_string = implode(' + ', $user_mentions);
     // Send notification from LOOPIS to users in queue
     $notification_message = '♻ Denna sak har skickats vidare!<br>⏳ Ni kan delta i lottning igen imorgon klockan 12.<br>💡 Tips till ' . $user_mentions_string;
-    add_admin_comment($notification_message, $new_post_id, 1);
+    add_admin_comment($notification_message, $new_post_id, 2);
 	}
-
-	// Redirect to new post with "/edit" appended to the URL
-	$redirect_script = '<script type="text/javascript">';
-	$redirect_script .= 'window.location.href = "' . esc_url(get_permalink($new_post_id)) . '/edit";';
-	$redirect_script .= '</script>';
-	echo $redirect_script;
+	$redirect_url = add_query_arg(array('option'=> 'single', 'edit_post_id' => $new_post_id), home_url('/submit/'));
+	wp_safe_redirect($redirect_url);
 	exit;
 		
 	} else {

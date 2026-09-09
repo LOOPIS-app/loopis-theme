@@ -10,4 +10,4 @@ if (!defined('ABSPATH')) {
 }
 ?>
 
-<div class="top"><a href="#" id="back-to-top"><i class="fas fa-angle-double-up"></i> Upp</a></div>
+<div class="center"><a href="#" id="back-to-top"><i class="fas fa-angle-double-up"></i> Upp</a></div>

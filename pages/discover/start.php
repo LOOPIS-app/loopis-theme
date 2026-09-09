@@ -1,7 +1,9 @@
 <?php
 /**
- * Discover: START (page-discover.php)
- * Content overview.
+ * Overview for discover pages
+ *
+ * Dynamic content of page-discover.php
+ * Reached on /discover (this view is set as default)
  */
 
 if (!defined('ABSPATH')) {
@@ -15,10 +17,10 @@ if (!defined('ABSPATH')) {
 
 <?php 
 // Output three random posts
-get_template_part('templates/search/random-posts');
+get_template_part('templates/discover/random-posts');
 
 // Insert spacer
 insert_spacer(20);
 
 // Output popular tags
-get_template_part('templates/search/popular-tags');
+get_template_part('templates/discover/popular-tags');

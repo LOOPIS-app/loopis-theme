@@ -18,11 +18,7 @@ $participants = get_post_meta($post_id, 'participants', true);
     if (is_array($participants)) { $count = count($participants); } else { $count = 0; }
 $raffle_date = get_post_meta($post_id, 'raffle_date', true);
 $edit_wpadmin = get_admin_url(null, 'post.php?post=' . $post_id . '&action=edit');
-$edit_wpum = get_permalink() . 'edit';
 ?>
-
-<div class="admin-block">
-<?php include LOOPIS_THEME_DIR . '/templates/links/admin-link.php'; ?>
 
 <!-- QUEUE -->	
 <?php if (!in_category( 'new' )) :
@@ -144,6 +140,37 @@ if (in_category('removed')) {
 </div><!--logg-->	
 
 <?php
+$post_ledger = loopis_ledger_fetch(['post_id'=>$post_id]);
+$grid_spacing = 'grid-template-columns: 1.4fr 0.8fr 1.2fr 0.6fr 0.6fr;';
+?>
+
+<!--ledger-->
+
+<div class="columns">Ledger</div>	
+<hr style="margin-bottom: 2px;">
+<div class="logg">
+    <div class="admin-grid" style="<?php echo $grid_spacing ;?>">
+        <div>Event</div>
+        <div>Time</div>
+        <div>User</div>
+        <div>Coins</div>
+        <div>Clovers</div>
+    </div>
+
+    <?php foreach ($post_ledger as $entry): 
+        $user_info = get_userdata($entry['user_id']);
+    ?>
+        <div class="admin-grid" style="<?php echo $grid_spacing ;?>">
+            <div><i class="fas fa-info-circle"></i> <?php echo esc_html($entry['event']); ?></div>
+            <div><i class="fa-solid fa-clock"></i> <?php echo esc_html($entry['timestamp']); ?></div>
+            <div><i class="fa-solid fa-user"></i> <?php echo esc_html(($user_info->first_name ?? '').' '.($user_info->last_name ?? '')); ?></div>
+            <div><i class="fa-regular fa-circle"></i> <?php echo esc_html($entry['coins']); ?></div>
+            <div><i class="fa-solid fa-clover"></i> <?php echo esc_html($entry['clover']); ?></div>
+        </div>
+    <?php endforeach; ?>
+</div>
+<?php
+
 // Edit images
 $image_2_id = get_post_meta($post_id, 'image_2', true);
 if (has_post_thumbnail()) {
@@ -159,25 +186,15 @@ if ($image_2_id) {
 echo '</div><!--logg-->';
 ?>
 
-<div class="columns">Hantera</div>	
-<hr style="margin-bottom: 2px;">
-<!-- Fetched button -->
-<?php if (in_category( array( 'locker', 'booked_custom' ))) : ?>
-        <?php if(isset($_POST['fetched'])) { admin_action_fetched ($post_id); } ?>
-        <form method="post" class="arb" action=""><button name="fetched" type="submit" class="admin-style blue small" onclick="return confirm('Har saken hämtats?')">Hämtat</button></form>
-        <p class="info">Har hämtaren glömt tryck hämta? Tryck på knappen.</p>
-<?php endif;?>
-
 <!-- Notification button -->
+<h5>🚨 Extrema situationer</h5>
         <?php if(isset($_POST['notif_manual'])) { admin_action_notif_manual ($post_id); } ?>
-        <form method="post" class="arb" action=""><button name="notif_manual" type="submit" class="admin-style orange small" onclick="return confirm('Skicka manuellt?')">Skicka besked</button></form>
+        <form method="post" class="arb" action=""><button name="notif_manual" type="submit" class="admin orange small" onclick="return confirm('Skicka manuellt?')">Skicka besked</button></form>
         <p class="info">Har inga mail skickats? Tryck på knappen.</p>
-
+    
 <!-- Edit & remove -->
 <div class="logg">
 <p><?php
-echo '<a href="' . $edit_wpum . '">Redigera annons</a> '; 
-echo ' <a href="' . $edit_wpadmin . '">👽 Redigera i WP-admin</a>';
-    ?></p>
+    echo ' <a href="' . $edit_wpadmin . '">👽 Redigera i WP-admin</a>';
+?></p>
 </div><!--logg-->
-</div><!--admin-->

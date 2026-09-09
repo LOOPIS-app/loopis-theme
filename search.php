@@ -6,14 +6,13 @@
 
 get_header(); ?>
 
-<div class="content">
-    <div class="page-padding">
+<div class="page-padding">
 
         <h1>🔍 Sök </h1>
         <hr>
         <p class="small">💡 Sök bland alla aktuella annonser.</p>
         <!-- Search Form -->
-        <?php get_template_part('templates/search/search-form'); ?>
+        <?php get_template_part('templates/forms/search-form'); ?>
 
         <?php
         
@@ -63,11 +62,10 @@ get_header(); ?>
 
         <?php else : ?>
             <!-- No search query - show popular tags and random post -->
-            <?php get_template_part('templates/search/popular-tags'); ?>
-            <?php get_template_part('templates/search/random-posts'); ?>
+            <?php get_template_part('templates/discover/popular-tags'); ?>
+            <?php get_template_part('templates/discover/random-posts'); ?>
         <?php endif; ?>
 
-    </div><!--page-padding-->
-</div><!--content-->
+</div><!--page-padding-->
 
 <?php get_footer(); ?>

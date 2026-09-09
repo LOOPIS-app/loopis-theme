@@ -21,30 +21,29 @@ function action_book_locker(int $post_id) {
     $fetcher = get_current_user_id();
     $fetcher_name = get_userdata($fetcher)->display_name;
 
-    // Check fetcher economy
-    $profile_economy = get_economy($fetcher);
-    $coins = $profile_economy['coins'];
+    // Check fetcher economy     
+    $coins = (int) get_user_meta($fetcher,'loopis_balance', true);
     if ($coins < 1) {
-        include LOOPIS_THEME_DIR . '/templates/access/no-coins.php';
+        include LOOPIS_THEME_DIR . '/includes/output/access/no-coins.php';
         echo '<script src="' . LOOPIS_THEME_DIR . '/assets/js/scroll-to-warning.js"></script>';
         return;
     }
     
     // Get locker code
-    $locker_code = get_locker_code(LOCKER_ID);
-
+    $locker_code = get_locker_code();
+    $timestamp = current_time('Y-m-d H:i:s');
     // Set post meta
     wp_set_object_terms($post_id, null, 'category');
     wp_set_object_terms($post_id, 'booked', 'category');
     update_post_meta($post_id,'fetcher', $fetcher);
-    update_post_meta($post_id,'book_date', current_time('Y-m-d H:i:s'));
-
+    update_post_meta($post_id,'book_date',  $timestamp);
+    loopis_ledger_add_post('booked', $fetcher, $post_id, ['timestamp' => $timestamp]);
     // Send notification from LOOPIS to author
     send_admin_notification_email('
     ❤ ' . $fetcher_name . ' har paxat! <br>
     ⌛ Lämna gärna i skåpet inom 24 timmar. <br>
     🔓 Kod till skåpet: <b>' . $locker_code . '</b> <br>
-    🙏 Tack för att du loopar! @' . $author_name, $post_id, 1, $author);
+    🙏 Tack för att du loopar! @' . $author_name, $post_id, 2, $author);
 
     // Leave comment by fetcher
     add_comment('<p class="book">
@@ -61,10 +60,9 @@ function action_book_locker(int $post_id) {
 function action_book_custom(int $post_id) {
     // Check economy
     $fetcher = get_current_user_id();
-    $profile_economy = get_economy($fetcher);
-    $coins = $profile_economy['coins'];
+    $coins = (int) get_user_meta($fetcher,'loopis_balance', true);
     if ($coins < 1) {
-        include LOOPIS_THEME_DIR . '/templates/access/no-coins.php';
+        include LOOPIS_THEME_DIR . '/includes/output/access/no-coins.php';
         echo '<script src="' . LOOPIS_THEME_DIR . '/assets/js/scroll-to-warning.js"></script>';
         return;
     }
@@ -77,22 +75,24 @@ function action_book_custom(int $post_id) {
     $author_phone = get_the_author_meta('wpum_phone');
 
     // Set post meta
+    $timestamp = current_time('Y-m-d H:i:s');
     wp_set_object_terms($post_id, null, 'category');
     wp_set_object_terms($post_id, 'booked_custom', 'category');
     update_post_meta($post_id,'fetcher', $fetcher);
     update_post_meta($post_id,'book_date', current_time('Y-m-d H:i:s'));
-
+    loopis_ledger_add_post('booked', $fetcher, $post_id, ['timestamp' => $timestamp]);
+		
     // Send notification from LOOPIS to author
     send_admin_notification_email('
     ❤ ' . $fetcher_name . ' har paxat!<br>
     📱 Du kommer få ett sms för att komma överens om hämtning på ' . $location . '. <br>
-    🙏 Tack för att du loopar! @' . $author_name, $post_id, 1, $author);
+    🙏 Tack för att du loopar! @' . $author_name, $post_id, 2, $author);
 
     // Send notification from LOOPIS to fetcher
     send_admin_notification_email('
     📍 Du har paxat för hämtning på ' . $location . '. <br>
     📱 Skicka ett sms till ' . $author_name . ' på <a href="sms:' . $author_phone .'">' . $author_phone .'</a> <br>
-    🙏 Tack för att du loopar! @' . $fetcher_name, $post_id, 1, $fetcher);
+    🙏 Tack för att du loopar! @' . $fetcher_name, $post_id, 2, $fetcher);
 
     // Leave comment by fetcher
     add_comment('<p class="book">

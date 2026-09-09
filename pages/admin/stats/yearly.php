@@ -29,7 +29,7 @@ $top_posts = get_top_posts_by_participants($selected_year);
 // Output top posts by participants
 ?>
 <div class="columns"><div class="column1"><h7>🎁 Topp-10 annonser <?php if ($selected_year == 'all' ) { echo "alla år"; } else { echo $selected_year; } ?></h7></div>
-<div class="column2 bottom">Deltagare</div></div>
+<div class="column2">Deltagare</div></div>
 <hr>
 <?php if (!empty($top_posts)) : ?>
     <div class="post-list">
@@ -74,7 +74,7 @@ $tag_post_counts_fetched = get_top_tags_fetched($selected_year);
     <div class="column2" style="justify-content: flex-start;">↓ Paxade</div>
 </div>
 <hr>
-<div class="columns_cat">
+<div class="column_half">
     <!-- Column 1: Published Posts -->
     <div>
         <?php

@@ -1,36 +1,30 @@
 </div><!--container-->
+<?php get_template_part('templates/general/scroll-to-top'); ?>
+
 </div><!--wrapper-->
+
 <?php $admin_url = home_url('/admin/'); ?>
-<footer id="footer">
-<div class="footer-menu admin-footer">
+
+<footer id="footer" class="footer-admin">
     <nav>
-        
-        <a href="<?php echo  esc_url($admin_url); ?>" class="footer-button">
-        <span class="emoji">🐙</span>
+        <a href="<?php echo  esc_url($admin_url); ?>" class="footer-item">
+        <span class="emoji">🦀</span>
         <span class="text">Översikt</span>
         </a>
-
-        <a href="<?php echo esc_url( add_query_arg('view', 'traffic-gifts', $admin_url) ); ?>" class="footer-button">
-        <span class="emoji">⏰</span>
-        <span class="text">Påminnelser</span>
-        </a>
         
-        <a href="<?php echo esc_url( add_query_arg('view', 'stats', $admin_url) ); ?>" class="footer-button">
-        <span class="emoji">📊</span>
-        <span class="text">Statistik</span>
+        <a href="<?php echo esc_url( add_query_arg('view', 'more/post-search', $admin_url) ); ?>" class="footer-item">
+        <span class="emoji">🔍</span>
+        <span class="text">Sök</span>
         </a>
-
-        <a href="<?php echo esc_url( add_query_arg('view', 'support', $admin_url) ); ?>" class="footer-button">
-        <span class="emoji">🛟</span>
-        <span class="text">Support</span>
-        </a>
-        
-        <a href="<?php echo esc_url( add_query_arg('view', 'storage', $admin_url) ); ?>" class="footer-button">
+                
+        <a href="<?php echo esc_url( add_query_arg('view', 'storage', $admin_url) ); ?>" class="footer-item">
         <span class="emoji">📦</span>
         <span class="text">Lager</span>
         </a>
     </nav>
-</div>
+
+<div class="footer-backdoor" onclick="location.href='<?php echo esc_url(home_url('/')); ?>'">🚪</div>
+
 </footer><!--footer-->
 <?php wp_footer(); ?>
 

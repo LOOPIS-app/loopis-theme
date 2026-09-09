@@ -18,7 +18,7 @@ include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-stor
     <?php $event_name = function_exists('loopis_get_setting') ? loopis_get_setting('event_name', '📍 Inget event angivet') : '📍 Inget event angivet'; ?>
     <p class="small">💡 Du har behörighet att markera hämtning på <span class="small-label"><?php echo $event_name; ?></span></p>
     <?php $member_users = get_users(array('role' => 'member')); ?>	
-    
+    <div class="loopis-form">
     <form method="post" class="arb" action="" style="display: flex; align-items: center;">
         <div style="position: relative; margin-right: 10px;">
             <input type="text" 
@@ -34,10 +34,10 @@ include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-stor
             </div>
         </div>
         
-        <button name="book_storage" type="submit" class="blue" style="display:none;">☑ Hämtad</button>
+        <button name="book_storage" type="submit" class="blue small" style="display:none;">☑ Hämtad</button>
     </form>
     <p class="info">Skriv namnet på den medlem som hämtar.</p>
-        
+    </div>    
     <?php if(isset($_POST['book_storage']) && isset($_POST['selected_member'])) { $user_id = $_POST['selected_member']; admin_action_book_storage($user_id, $post_id); } ?>
 
     <script>

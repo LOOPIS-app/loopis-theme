@@ -10,4 +10,4 @@ if (!defined('ABSPATH')) {
 }
 
 // Output
-echo '<p><span class="rounded">🐙 Admin</span></p>';
+echo '<p><span class="rounded">🦀 Admin</span></p>';

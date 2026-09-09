@@ -1,61 +1,49 @@
 </div><!--container-->
 <?php get_template_part('templates/general/scroll-to-top'); ?>
 
-<?php if ((current_user_can('member') || current_user_can('loopis_support')) && !is_singular('support')) : ?>
-    <?php get_template_part('templates/post-forms/support-form'); ?>
+<?php if (is_user_logged_in()) : ?>
+    <?php get_template_part('templates/faq/questions-area'); ?>
 <?php endif; ?>
-<?php $site_url = home_url("/"); ?>
+
 </div><!--wrapper-->
 
 <footer id="footer">
-    <div class="footer-menu">
-        <nav>
-            <a href="<?php echo $site_url ?>" class="footer-button">
+    <nav>
+            <a href="<?php echo esc_url(home_url('/')); ?>" class="footer-item">
                 <span class="emoji">️🎁️</span>
-                <span class="text">Saker att få</span>
-            </a>
-            <a href="<?php echo $site_url . '?s=' ?>" class="footer-button">
-                <span class="emoji">🔍️</span>
-                <span class="text">Sök</span>
+                <span class="text">Saker</span>
             </a>
 
-            <a href="<?php echo esc_url($site_url . 'submit/'); ?>" class="footer-button">
+            <a href="<?php echo esc_url(home_url('/submit/')); ?>" class="footer-item">
                 <span class="emoji">💚</span>
                 <span class="text">Ge bort</span>
             </a>
 
-            <?php if (is_user_logged_in()) : ?>
-                <a href="<?php echo $site_url . 'activity/' ?>" class="footer-button">
-                    <span class="emoji">🔔</span>
-                    <span class="text">Min aktivitet</span>
-                </a>
-            <?php else : ?>
-                <a href="<?php echo $site_url . 'faq/' ?>" class="footer-button">
-                    <span class="emoji">💡</span>
-                    <span class="text">Hur funkar det?</span>
-                </a>
-            <?php endif; ?>
+             <a href="<?php echo esc_url(home_url('/area')); ?>" class="footer-item">
+                <span class="emoji">🛟</span>
+                <span class="text"><?php echo get_bloginfo('name'); ?></span>
+            </a>
 
             <?php if (is_user_logged_in()) : ?>
-                <?php if (current_user_can('administrator')) : ?>
-                    <a href="<?php echo $site_url . 'admin/' ?>" class="footer-button">
-                        <span class="emoji">🐙️</span>
-                        <span class="text">Admin</span>
-                    </a>
-                <?php else : ?>
-                    <a href="<?php echo $site_url . 'profile/' ?>" class="footer-button">
-                        <span class="emoji">👤️</span>
-                        <span class="text">Min profil</span>
-                    </a>
-                <?php endif; ?>
+
+                <a href="<?php echo esc_url(home_url('/activity/')); ?>" class="footer-item">
+                    <span class="emoji">👤</span>
+                    <span class="text">Min aktivitet</span>
+                </a>
+                
             <?php else : ?>
-                <a href="<?php echo $site_url . 'log-in/' ?>" class="footer-button">
+
+                <a href="<?php echo esc_url(get_loopis_login_url()); ?>" class="footer-item">
                     <span class="emoji">👤️</span>
                     <span class="text">Logga in</span>
                 </a>
             <?php endif; ?>
-        </nav>
-    </div>
+    </nav>
+
+<?php if (current_user_can('loopis_admin') || current_user_can('manage_options')) : ?>
+    <div class="footer-backdoor" onclick="location.href='<?php echo esc_url(home_url('/admin/')); ?>'">🦀</div>
+<?php endif; ?>
+
 </footer><!--footer-->
 
 <?php wp_footer(); ?>

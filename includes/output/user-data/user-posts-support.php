@@ -1,0 +1,69 @@
+<?php
+/**
+ * Output support posts created by user.
+ *
+ * $user_id has to be passed from context!
+ */
+ 
+if (!defined('ABSPATH')) {
+    exit; // Exit if accessed directly
+}
+
+// Get all things posted + count
+$user_ID = get_queried_object_id();
+$the_query = new WP_Query(array(
+    'post_type'      => 'support',
+    'author'         => $user_ID,
+    'posts_per_page' => -1,
+));
+$count = $the_query->found_posts;
+?>
+
+<!-- OUTPUT -->
+ <p class="small">💡 Skapade supportfrågor.</p>
+<h7>🛟 <?php echo $first_name;?>s frågor</h7>
+<div class="columns"><div class="column1">
+↓ <?php echo $count; if ( $count == 1 ) { echo ' ärende'; } else { echo ' ärenden'; } ?>
+</div>
+<div class="column2">
+</div></div>
+<hr>
+
+<div class="post-list">
+
+	<?php if ( $the_query->have_posts() ) : ?>
+
+		<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
+			<?php $post_id = get_the_ID(); ?>
+			<div class="post-list-post" onclick="location.href='<?php the_permalink(); ?>';">
+				<div class="post-list-post-thumbnail">
+					<?php echo the_post_thumbnail('thumbnail'); ?>
+				</div>
+				<div class="post-list-post-title">
+					<?php the_title(); ?>
+				</div>
+				<div class="post-list-post-meta">
+					<?php 
+					$terms= get_the_terms($post_id, 'support-category');
+					if (!is_wp_error($terms)){
+						echo esc_html($terms[0]->name); 
+					}
+					
+					?>
+					<span class="right"><i class="far fa-clock"></i><?php echo human_time_diff(get_the_time('U'), current_time('timestamp'));?> sen</span>
+				</div>
+			</div>
+
+		<?php endwhile; ?>
+
+<!-- Check if pagination is needed -->
+<!-- Removed because not working with tabs -->
+
+	<?php else : ?>
+		<p>💢 <?php echo $first_name; ?> har inte skapat några support-ärenden ännu.</p>
+	<?php endif; ?>
+		
+</div><!--post-list-->
+
+
+<?php wp_reset_postdata(); ?>

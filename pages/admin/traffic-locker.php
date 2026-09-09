@@ -1,6 +1,9 @@
 <?php
 /**
  * Locker traffic page
+ * 
+ * Reached on /admin/?view=traffic-locker
+ * 
  * Shows locker activity for a selected date
  * Displays chronological log of items left and fetched from lockers
  */
@@ -20,7 +23,8 @@ $selected_date = isset($_GET['locker_date']) ? sanitize_text_field($_GET['locker
 ?>
 
 <!-- Date Selection Form -->
-<form method="GET" action="/admin/" style="margin-bottom: 20px;">
+<div class="loopis-form loopis-filter">
+<form method="GET" action="<?php echo esc_url(home_url('/admin/')); ?>" style="margin-bottom: 20px;">
     <input type="hidden" name="view" value="traffic-locker">
     <label for="locker_date">Välj dag: </label>
     <select id="locker_date" name="locker_date" onchange="this.form.submit()">
@@ -38,6 +42,7 @@ $selected_date = isset($_GET['locker_date']) ? sanitize_text_field($_GET['locker
         <?php endfor; ?>
     </select>
 </form>
+</div> <!-- loopis-form -->
 
 <?php
 // Initialize variables for counts and entries

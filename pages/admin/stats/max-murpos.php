@@ -18,11 +18,11 @@ $current_year = date('Y');
 ?>
 
 <div class="columns"><div class="column1"><h3>Resultat</h3></div>
-<div class="column2 bottom">2024-<?php echo $current_year; ?></div></div>
+<div class="column2">2024-<?php echo $current_year; ?></div></div>
 <hr>
 <?php
 // Get profile economy
-$profile_economy = get_economy('66');
+$profile_economy = loopis_ledger_user_event_counts('66');
 $count_submitted = $profile_economy['count_submitted'];
 $count_given = $profile_economy['count_given'];
 if ($count_submitted !== 0) { $given_percentage = round(($count_given / $count_submitted) * 100); } else { $given_percentage = 0; }

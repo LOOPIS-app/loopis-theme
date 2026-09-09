@@ -16,11 +16,23 @@ if (!defined('ABSPATH')) {
 function action_remove(int $post_id) {
 
     // Set post meta
+	$timestamp = current_time('Y-m-d H:i:s');
 	wp_set_object_terms( $post_id, null, 'category' ); 
 	wp_set_object_terms( $post_id, 'removed', 'category' );
+	$author_id = get_post_field( 'post_author', $post_id );
+	$fetcher_id = (int) get_post_meta($post_id,'fetcher', true);
+	
+	// Send notification to fetcher and update ledger
+	if($fetcher_id>0){
+		loopis_ledger_add_post('cancelled', $fetcher_id , $post_id, ['timestamp' => $timestamp, 'type' => 'removed']);
+		send_admin_notification_email('❌ Annonsen har tyvärr tagits bort. <br>❤️‍🩹 Du har fått tillbaka ditt regnbågsmynt.', $post_id, 2, $fetcher_id);
+	}
 	update_post_meta($post_id,'fetcher', null);
-	update_post_meta($post_id,'remove_date', current_time('Y-m-d H:i:s'));
+	update_post_meta($post_id,'remove_date', $timestamp);
 
+	// Update ledger
+	loopis_ledger_add_post('removed', $author_id , $post_id, ['timestamp' => $timestamp]);
+	
 	// Leave comment by author
 	add_comment ('<p class="remove">❌ Annons borttagen.</p>', $post_id );
 
@@ -30,7 +42,7 @@ function action_remove(int $post_id) {
 
 /** 
  * AUTHOR: UNREMOVE POST 
- * Author clicks unremove on post
+ * Author clicks unremove on post 
  */
 function action_unremove(int $post_id) {
 	

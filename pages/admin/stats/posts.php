@@ -257,7 +257,7 @@ if ($selected_year === 'all') { $selected_year = "Alla år"; }
 
 <!-- Output the counts -->
 <div class="columns"><div class="column1"><h3>🎁 Annonser</h3></div>
-<div class="column2 bottom"><?php echo $selected_year; ?> (<?php echo $days_passed; ?> dagar)</div></div>
+<div class="column2"><?php echo $selected_year; ?> (<?php echo $days_passed; ?> dagar)</div></div>
 <hr>
 
 <p><span class="big-label">⬆ <?php echo $total_count; ?> skapade</span> = <span class="big-label"><?php echo number_format($posts_per_day, 2); ?> per dag</span></p>
@@ -266,14 +266,14 @@ if ($selected_year === 'all') { $selected_year = "Alla år"; }
 <p class="small">❌ <?php echo $removed_count; ?> borttagna = <?php echo number_format($removed_per_day, 2); ?> per dag = <?php echo $removed_percentage; ?>% av alla skapade</p>
 
 <div class="columns"><div class="column1"><h3>🙋‍♀️ Paxningar</h3></div>
-<div class="column2 bottom"><?php echo $selected_year; ?> (<?php echo $days_passed; ?> dagar)</div></div>
+<div class="column2"><?php echo $selected_year; ?> (<?php echo $days_passed; ?> dagar)</div></div>
 <hr>
 <p><span class="big-label">❤ <?php echo $booked_count; ?> paxade</span> = <span class="big-label"><?php echo number_format($booked_per_day, 2); ?> per dag</span> = <span class="big-label"><?php echo $booked_percentage; ?>% av alla skapade</span></p>
 <p class="small">🎲 <?php echo $raffle_count; ?> paxade genom lottning = <?php echo number_format($raffle_per_day, 2); ?> per dag = <?php echo $raffle_percentage; ?>% av alla paxade</p>
 <p class="small">🟢 <?php echo $first_count; ?> paxade först till kvarn = <?php echo number_format($first_per_day, 2); ?> per dag = <?php echo $first_percentage; ?>% av alla paxade</p>
 
 <div class="columns"><div class="column1"><h3>♻ Hämtningar</h3></div>
-<div class="column2 bottom"><?php echo $selected_year; ?> (<?php echo $days_passed; ?> dagar)</div></div>
+<div class="column2"><?php echo $selected_year; ?> (<?php echo $days_passed; ?> dagar)</div></div>
 <hr>
 <p><span class="big-label">☑ <?php echo $fetched_count; ?> hämtade</span> = <span class="big-label"><?php echo number_format($fetched_per_day, 2); ?> per dag</span> = <span class="big-label"><?php echo $fetched_percentage; ?>% av alla skapade</span></p>
 <p class="small"><i class="fas fa-share" style="color: #999;"></i> <?php echo $forwarded_fetched_count; ?> återskapade = <?php echo number_format($forwarded_fetched_per_day, 2); ?> per dag = <?php echo $forwarded_fetched_percentage; ?>% av alla återskapade</p>
@@ -282,7 +282,7 @@ if ($selected_year === 'all') { $selected_year = "Alla år"; }
 <p class="small">🌳 <?php echo $event_count; ?> hämtade på LOOPIS-bord = <?php echo $event_percentage; ?>% av alla hämtade</p>
 
 <div class="columns"><div class="column1"><h3>👤 Utan styrelsen</h3></div>
-<div class="column2 bottom"><?php echo $selected_year; ?> (<?php echo $days_passed; ?> dagar)</div></div>
+<div class="column2"><?php echo $selected_year; ?> (<?php echo $days_passed; ?> dagar)</div></div>
 <hr>
 <p><span class="big-label">⬆ <?php echo $total_noboard_count; ?> skapade</span> = <span class="big-label"><?php echo number_format($posts_per_day_noboard, 2); ?> per dag</span> = <span class="big-label"><?php echo $total_noboard_percentage; ?>% av alla skapade</span></p>
 <p><span class="big-label">❤ <?php echo $booked_noboard_count; ?> paxade</span> = <span class="big-label"><?php echo number_format($booked_per_day_noboard, 2); ?> per dag</span> = <span class="big-label"><?php echo $booked_noboard_percentage; ?>% av de skapade</span></p>

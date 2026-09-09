@@ -248,7 +248,7 @@ foreach ($weeks as $week) {
 
 <!--CHART 1 OUTPUT-->
 <div class="columns"><div class="column1"><h3>📊 Veckovis</h3></div>
-<div class="column2 bottom small"><a href="#" id="download-weeklyChart">📄WeeklyChart.csv</a></div></div>
+<div class="column2 small"><a href="#" id="download-weeklyChart">📄WeeklyChart.csv</a></div></div>
 <hr>
 <canvas id="weeklyChart" width="400" height="200"></canvas>
 
@@ -353,7 +353,7 @@ document.getElementById('download-weeklyChart').addEventListener('click', functi
 <!--CHART 2 OUTPUT-->
 <div class="columns">
     <div class="column1"><h3>♻ Veckovis (%)</h3></div>
-    <div class="column2 bottom small"><a href="#" id="download-percentageChart">📄PercentageChart.csv</a></div>
+    <div class="column2 small"><a href="#" id="download-percentageChart">📄PercentageChart.csv</a></div>
 </div>
 <hr>
 <canvas id="percentageChart" width="400" height="200"></canvas>
@@ -434,7 +434,7 @@ document.getElementById('download-percentageChart').addEventListener('click', fu
 <!--CHART 3 OUTPUT-->
 <div class="columns">
     <div class="column1"><h3>📈 Ackumulerat</h3></div>
-    <div class="column2 bottom small"><a href="#" id="download-cumulativeChart">📄CumulativeChart.csv</a></div>
+    <div class="column2 small"><a href="#" id="download-cumulativeChart">📄CumulativeChart.csv</a></div>
 </div>
 <hr>
 <canvas id="cumulativeChart" width="400" height="200"></canvas>

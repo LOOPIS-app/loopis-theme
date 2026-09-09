@@ -20,7 +20,7 @@ function action_locker(int $post_id) {
 	if ($fetcher) { $fetcher_name = get_userdata($fetcher)->display_name; } 
 	
 	// Get locker code
-    $locker_code = get_locker_code(LOCKER_ID);
+    $locker_code = get_locker_code();
 	
 	// Set post meta
 	wp_set_object_terms( $post_id, null, 'category' ); 
@@ -28,7 +28,7 @@ function action_locker(int $post_id) {
 	update_post_meta($post_id, 'locker_date', current_time('Y-m-d H:i:s'));
 	
 	// Send notification from LOOPIS to fetcher	
-	send_admin_notification_email('🎁 Nu kan du hämta i skåpet @' . $fetcher_name . '! <br>⌛ Hämta gärna inom 24 timmar. <br>🔓 Kod till skåpet: <b>'.$locker_code.'</b>', $post_id, 1, $fetcher);
+	send_admin_notification_email('🎁 Nu kan du hämta i skåpet @' . $fetcher_name . '! <br>⌛ Hämta gärna inom 24 timmar. <br>🔓 Kod till skåpet: <b>'.$locker_code.'</b>', $post_id, 2, $fetcher);
 	
 	// Leave comment by author
 	add_comment ('<p class="locker">✅ Nu har jag lämnat i skåpet! <span>🔔' . $fetcher_name . '</span></p>', $post_id );

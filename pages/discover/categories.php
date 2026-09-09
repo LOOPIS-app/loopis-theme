@@ -1,6 +1,9 @@
 <?php
 /**
- * Discover: all LOOPIS tags (called categories in UI)
+ * Categories for discover page
+ *
+ * Dynamic content of page-discover.php
+ * Reached on /discover/?view=categories
  */
 
 if (!defined('ABSPATH')) {
@@ -48,7 +51,7 @@ arsort($tag_post_counts); ?>
 <div class="columns"><div class="column1">↓ Bokstavsordning</div>
 <div class="column2" style="justify-content: flex-start;">↓ Popularitet</div></div>
 <hr>
-<div class="columns_cat">
+<div class="column_half">
     <div>
         <?php foreach ($tags as $tag) : ?>
             <?php $tag_link = get_tag_link($tag->term_id); ?>

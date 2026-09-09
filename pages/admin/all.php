@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) {
 }
 ?>
 
-<h1>🐙 Admin - alla filer</h1>
+<h1>🦀 Admin - alla filer</h1>
 <hr>
 <p class="small">💡 Lista över alla php-filer i mappen "admin"</p>
 

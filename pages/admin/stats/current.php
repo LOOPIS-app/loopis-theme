@@ -49,7 +49,7 @@ $current_percentage = ($member_count > 0) ? round(($current_count / $member_coun
 
 <!-- Output the counts -->
 <div class="columns"><div class="column1"><h7>🎁 Aktuella annonser</h7></div>
-<div class="column2 bottom">Just nu</div></div>
+<div class="column2">Just nu</div></div>
 <hr>
 
 <p>

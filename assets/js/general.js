@@ -1,40 +1,108 @@
-/*
-    General scripts for LOOPIS theme
-    
-    Loaded on all pages from functions.php
-*/
+/**
+ * General scripts for LOOPIS theme
+ * 
+ * Loaded on all pages from functions.php
+ */
 
 (function($) {
     "use strict";
 
     $(document).ready(function() {
-        /* "Remember me" by Poe */
+
+        /* "Remember me" checked by default for WPUM login form */
         $('#remember').prop('checked', true);
 
-        /* "Scroll to top" by ALX */
+        /* "Up" link in footer.php */
         $('a#back-to-top').on('click', function() {
             $('html, body').animate({ scrollTop: 0 }, 'slow');
             return false;
         });
 
-        /* "Copy URL" by Poe and Copilot */
-        $('#copy_url').on('click', function() {
-            const url = $(location).attr('href'); // Get the current URL
-            navigator.clipboard.writeText(url).then(function() {
-                alert("Länk kopierad."); // Optional: Add a confirmation message
-            }).catch(function(err) {
-                console.error("Ett fel uppstod: ", err);
-            });
+        /* "Copy URL" link  */
+        $('#copy_url').on('click', function(e) {
+            e.preventDefault();
+            const url = window.location.href;
+
+            const fallbackCopy = function(text) {
+                const temp = document.createElement('textarea');
+                temp.value = text;
+                temp.setAttribute('readonly', '');
+                temp.style.position = 'absolute';
+                temp.style.left = '-9999px';
+                document.body.appendChild(temp);
+                temp.select();
+                const ok = document.execCommand('copy');
+                document.body.removeChild(temp);
+                return ok;
+            };
+
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(url).then(function() {
+                    alert("Länk kopierad.");
+                }).catch(function(err) {
+                    if (fallbackCopy(url)) {
+                        alert("Länk kopierad.");
+                    } else {
+                        console.error("Ett fel uppstod: ", err);
+                    }
+                });
+            } else if (fallbackCopy(url)) {
+                alert("Länk kopierad.");
+            } else {
+                console.error("Ett fel uppstod: Kunde inte kopiera länk.");
+            }
         });
-        $('.copy_user_info').on('click', function() {
-            const text = $(this).prev().text().trim(); // Get text of previous element
-            navigator.clipboard.writeText(text).then(() => {
-                const $btn = $(this);
-                $btn.html('Copied!');
-                setTimeout(() => $btn.html('<i class="far fa-copy"></i>'), 1000);
-            }).catch(err => {
-                console.error("Copy failed:", err);
-            });
+
+        /* "Copy user info" link */
+        const copyUserInfo = function(el) {
+            const text = $(el).prev().text().trim(); // Get text of previous element
+            if (!text) {
+                return;
+            }
+
+            const fallbackCopy = function(value) {
+                const temp = document.createElement('textarea');
+                temp.value = value;
+                temp.setAttribute('readonly', '');
+                temp.style.position = 'absolute';
+                temp.style.left = '-9999px';
+                document.body.appendChild(temp);
+                temp.select();
+                const ok = document.execCommand('copy');
+                document.body.removeChild(temp);
+                return ok;
+            };
+
+            const showCopiedState = function($el) {
+                $el.html('<i class="far fa-check-square"></i>');
+                setTimeout(function() {
+                    $el.html('<i class="far fa-copy"></i>');
+                }, 1000);
+            };
+
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(function() {
+                    showCopiedState($(el));
+                }).catch(function() {
+                    if (fallbackCopy(text)) {
+                        showCopiedState($(el));
+                    }
+                });
+            } else if (fallbackCopy(text)) {
+                showCopiedState($(el));
+            }
+        };
+
+        $(document).on('click', '.copy_user_info', function(e) {
+            e.preventDefault();
+            copyUserInfo(this);
+        });
+
+        $(document).on('keydown', '.copy_user_info', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                copyUserInfo(this);
+            }
         });
 
         /* "Trap focus" by ALX (keyboard focus restricted) */

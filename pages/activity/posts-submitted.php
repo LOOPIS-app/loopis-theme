@@ -69,7 +69,7 @@ $count = count($results);
 <h1><?php list_header_output($url_slug) ?></h1>
 <hr>
 <p><?php list_instruction_output($url_slug, $count) ?></p>
-<?php get_template_part('templates/search/search-form-sql'); ?>
+<?php get_template_part('templates/forms/search-form-sql'); ?>
 <div class="columns"><div class="column1">↓ <?php if ($count !== 1) { echo $offset." -";} ?><?php echo " ".($offset+$count); ?><?php echo " av " . $total . " totalt"; ?></div>
 <div class="column2 small">💡 Senast överst</div></div>
 <hr>

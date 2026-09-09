@@ -1,22 +1,23 @@
 <?php
 /**
- * Front page template
- * Displays current posts + messages for users and visitors.
+ * LOOPIS sub site front page page
+ * 
+ * Displays messages for user/visitor + current posts.
  */
 
 get_header(); ?>
 
-<div class="content">
-    <div class="page-padding">
+<div class="page-padding">
 
         <?php
         // Messages for users and visitors
         if (current_user_can('member') || current_user_can('administrator')) {
-            // include_once LOOPIS_THEME_DIR . '/templates/user/front-page/front-tips.php'; // Temporary Christmas tips
-            include_once LOOPIS_THEME_DIR . '/templates/user/front-page/front-alerts.php';
-            include_once LOOPIS_THEME_DIR . '/templates/user/front-page/front-forum.php';
+            // include LOOPIS_THEME_DIR . '/includes/output/front-page/front-tips.php'; // Activate when needed
+            include LOOPIS_THEME_DIR . '/includes/output/front-page/front-alerts.php';
+            include LOOPIS_THEME_DIR . '/includes/output/front-page/front-news.php';
         } else {
-            include_once LOOPIS_THEME_DIR . '/templates/user/front-page/front-message.php';
+            include LOOPIS_THEME_DIR . '/includes/output/access/role-greeting-local.php';
+            include LOOPIS_THEME_DIR . '/includes/output/access/role-options-local.php';
         }
 
         // Count new posts
@@ -50,11 +51,10 @@ get_header(); ?>
         ?>
 
         <h1>🎁 Saker att få</h1>
-
         <!-- List header -->
         <div class="columns">
             <div class="column1">↓ <?php echo $count_new; ?> nya och <?php echo $count_old; ?> tidigare</div>
-            <div class="column2"><a href="<?php echo esc_url(add_query_arg('view', 'random-posts', home_url('/discover/')) ); ?>">🤹 Fyndhörnan →</a></div>
+            <div class="column2"><a href="<?php echo esc_url(home_url('/?s=')); ?>">🔍️ Sök</a><!--a href="/"><i class="fas fa-sliders-h"></i>Filter</a--></div>
         </div>
         <hr>
 
@@ -95,14 +95,10 @@ get_header(); ?>
 
         <?php wp_reset_postdata(); ?>
 
-    </div><!--page-padding-->
-</div><!--content-->
+</div><!--page-padding-->
 
 <?php
 // Add to homescreen prompt for logged-in users
-if (is_user_logged_in()) {
-    get_template_part('templates/user/front-page/add-to-homescreen');
-}
-?>
+if (is_user_logged_in()) {include LOOPIS_THEME_DIR . '/includes/output/front-page/add-to-homescreen.php'; } ?>
 
 <?php get_footer(); ?>

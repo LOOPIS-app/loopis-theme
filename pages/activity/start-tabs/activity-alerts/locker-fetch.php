@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Get locker code
-$locker_code = get_locker_code(LOCKER_ID);
+$locker_code = get_locker_code();
 
 // Query
 $count = $the_query->post_count; 

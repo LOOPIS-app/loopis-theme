@@ -78,7 +78,7 @@ arsort($tag_post_counts);
     <div class="column2" style="justify-content: flex-start;">↓ Popularitet</div>
 </div>
 <hr>
-<div class="columns_cat">
+<div class="column_half">
     <div>
         <?php foreach ($tags as $tag) : ?>
             <p><span class="big-label">

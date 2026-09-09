@@ -11,6 +11,6 @@ if (!defined('ABSPATH')) {
 ?>
 <h7><i class="fas fa-walking"></i>Dags att hämta/lämna?</h7>
 <div class="columns"><div class="column1">↓ 0 saker</div>
-<div class="column2 bottom"></div></div>
+<div class="column2"></div></div>
 <hr>
 <p>✅ Du har inga saker att hämta/lämna just nu.</p>

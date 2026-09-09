@@ -21,7 +21,7 @@ $args = array(
 $comments = get_comments($args); ?>
 
 <!--Output-->
-
+<h7>🗨 Mina kommentarer</h7>
 <div class="columns"><div class="column1">↓ 50 senaste</div>
 <div class="column2"></div></div>
 <hr>

@@ -1,14 +1,16 @@
 <?php
 /**
  * Archive template
+ *
+ * Displays category and tag archives for gift posts
  * 
- * Displays category, tag, and other archive pages
+ * Reached at: https://loopis.app/category/x/
+ * Reached at: https://loopis.app/tag/x/
  */
 
 get_header(); ?>
 
-<div class="content">
-    <div class="page-padding">
+<div class="page-padding">
 
         <?php if (is_category()) : ?>
             <h1><?php single_cat_title(); ?></h1>
@@ -18,10 +20,10 @@ get_header(); ?>
             <h1>Arkiv</h1>
         <?php endif; ?>
 		<hr>
-		<p class="small">💡 Alla annonser i <span class="small-label"><?php if (is_category()) { echo single_cat_title('', false); } elseif (is_tag()) { echo '<i class="fas fa-hashtag"></i>'; echo single_tag_title('', false); } else { echo 'arkivet'; } ?>.</span></p>
+		<p class="small">💡 Alla annonser <?php if (is_category()) { echo 'med status <span class="label">'; echo single_cat_title('', false); echo '</span>'; } elseif (is_tag()) { echo 'i kategorin <span class="label"><i class="fas fa-hashtag"></i>'; echo single_tag_title('', false); echo '</span>'; } else { echo 'arkivet'; } ?></p>
 
         <!-- Search Form -->
-        <?php get_template_part('templates/search/search-form'); ?>
+        <?php get_template_part('templates/forms/search-form'); ?>
 
         <?php
         // Post count
@@ -30,8 +32,8 @@ get_header(); ?>
 
         <!-- List header -->
         <div class="columns">
-            <div class="column1">↓ <?php echo $count; ?> aktuella annonser</div>
-            <div class="column2"><a href="<?php echo get_permalink( get_page_by_path('hur-far-jag-saker') ); ?>">📌 Hur får jag saker?</a></div>
+            <div class="column1">↓ <?php echo $count; ?> annonser</div>
+            <div class="column2 small">💡 Senast överst</div>
         </div>
         <hr>
 
@@ -43,15 +45,13 @@ get_header(); ?>
                 <?php endwhile; ?>
         </div><!--post-list-->
 
-        <?php if ($count > 50) {
-            get_template_part('templates/post-list/pagination');
-        } ?>
+        <?php if ($count > 50) { get_template_part('templates/post-list/pagination'); } ?>
 
         <?php else : ?>
             <p>💢 Inga inlägg hittades</p>
         <?php endif; ?>
 
-    </div><!--page-padding-->
-</div><!--content-->
+</div><!--page-padding-->
+
 
 <?php get_footer(); ?>

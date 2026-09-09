@@ -8,15 +8,14 @@ if (current_user_can('loopis_admin') || current_user_can('manage_options')) : ?>
 
     <?php include LOOPIS_THEME_DIR . '/templates/admin/header-admin.php'; ?>
 
-    <div class="admin-content">
-        <div class="page-padding">
+        <div class="page-padding admin-content">
 
             <?php
             // Dynamic admin page loader
             $content_dir = get_template_directory() . '/pages/admin/';
 
-            // Get 'view' parameter from URL (default to 'start')
-            $content_name = isset($_GET['view']) ? sanitize_text_field($_GET['view']) : 'dashboard';
+            // Get 'view' parameter from URL (default to 'panels' if not set)
+            $content_name = isset($_GET['view']) ? sanitize_text_field($_GET['view']) : 'start';
             
             // Additional sanitization - only allow alphanumeric, dash, underscore, and forward slash
             $content_name = preg_replace('/[^a-zA-Z0-9_\/-]/', '', $content_name);
@@ -29,7 +28,7 @@ if (current_user_can('loopis_admin') || current_user_can('manage_options')) : ?>
             
             // Prevent empty string after sanitization
             if (empty($content_name)) {
-                $content_name = 'dashboard';
+                $content_name = 'start';
             }
             
             // Define the full path to the PHP file
@@ -39,7 +38,7 @@ if (current_user_can('loopis_admin') || current_user_can('manage_options')) : ?>
             if (file_exists($php_file) && is_file($php_file)) {
                 include $php_file;
             } else {
-                echo '<h1>🐙 Admin</h1><hr>';
+                echo '<h1>🦀 Admin</h1><hr>';
                 echo '<p>💢 Filen hittades inte: <b>' . esc_html($php_file) . '</b></p>';
             }
             ?>
@@ -47,11 +46,10 @@ if (current_user_can('loopis_admin') || current_user_can('manage_options')) : ?>
             <div class="clear"></div>
 
         </div><!--page-padding-->
-    </div><!--admin-content-->
 
     <?php include LOOPIS_THEME_DIR . '/templates/admin/footer-admin.php'; ?>
 
 <!-- NO ACCESS -->
 <?php else : ?>
-    <?php include_once LOOPIS_THEME_DIR . '/templates/access/admin-only.php'; ?>
+    <?php include LOOPIS_THEME_DIR . '/includes/output/access/only-admin-page.php'; ?>
 <?php endif; ?>

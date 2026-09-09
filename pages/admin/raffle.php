@@ -53,7 +53,7 @@ wp_reset_postdata();
 
 <!-- Tab Navigation -->
 <div class="tab-nav">
-    <nav class="profile-navbar">
+    <nav class="tab-navbar">
         <a href="#" class="tab-link" data-tab="tab-today">
             <?php echo ($complete_count == 0) ? '✅' : '⌛'; ?> Idag
         </a>

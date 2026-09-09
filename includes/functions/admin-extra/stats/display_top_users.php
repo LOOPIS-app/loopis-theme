@@ -15,7 +15,8 @@ function display_top_users($users, $icon, $show_percentage = false) {
 
     $rank = 1;
     foreach ($users as $user) {
-        $user_id = $user->user_id ?? $user->post_author ?? $user->fetcher_id; // Get user ID
+        $user_arr = (array) $user;
+        $user_id = $user_arr['user_id'] ?? $user_arr['post_author'] ?? $user_arr['fetcher_id'] ?? null;
         $user_info = get_userdata($user_id); // Fetch user data
         $username = $user_info ? $user_info->user_login : 'Unknown User'; // Handle missing user info
         $value = $show_percentage ? round($user->percentage) . '%' : ($user->combined_count ?? $user->post_count ?? $user->fetcher_count);

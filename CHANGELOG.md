@@ -1,5 +1,48 @@
 # 📋 Changelog for "LOOPIS Theme"
 
+## 1.05 (2026-09-08)
+- Multisite fixes & general improvements
+- Support forum added
+
+## 1.04 (2026-08-26)
+- UI revision and addition of page-area.php
+- CPT revision: 'forum' renamed to 'news'
+
+## 1.03 (2026-06-26)
+- Onboarding improved, redirecting to member_pending to main site.
+- Ledger views added to post log, author log and admin area.
+
+## 1.02 (2026-06-25)
+- Bugs and small fixes
+- Some admin panels moved to "LOOPIS Theme HQ"
+- Privacy page added
+
+## 1.01 (2026-06-22)
+- Bugs fixes
+- Page content for /user and /shop moved to "LOOPIS Theme HQ"
+
+## 1.00 (2026-06-16)
+- Deployment on new multisite!
+
+## 0.90 (2026-06-15)
+- NOT SINGLE SITE COMPATIBLE!
+- Theme constants definition moved to new mu-plugin "LOOPIS Constants"
+- Content of pages /shop and /user are now shared to "LOOPIS Theme HQ"
+- Output with php logic moved from `templates` to `includes/output` and shared to "LOOPIS Theme HQ"
+
+## 0.89 (2026-06-11)
+- NOT SINGLE SITE COMPATIBLE!
+- Single site stuff placed in folder `deprecated`
+- New redirects to mainsite for login, signup and FAQ.
+
+## 0.88 (2026-06-10)
+- Now sharing styles to "LOOPIS Theme HQ" (introducing common `base.css`)
+
+## 0.87 (2026-06-08)
+- `style.css` cleaned up, with `forms.css` and `wpum.css` separated
+- New template `gift-form.php`, replacing plugin WPUM Frontend Posting 
+- Layout changes for `single.php` with support for three post images
+
 ## 0.86 (2026-06-01)
 - Changes preparing for multisite migration:
 - Stripe session payments after login instead of payment links on signup
