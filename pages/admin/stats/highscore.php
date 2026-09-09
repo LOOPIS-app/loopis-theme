@@ -76,7 +76,7 @@ if ($top_users_data === false) {
         SELECT pm.meta_value AS fetcher_id, COUNT(*) as fetcher_count
         FROM {$wpdb->prefix}postmeta pm
         JOIN {$wpdb->prefix}posts p ON pm.post_id = p.ID
-        WHERE pm.meta_key = 'fetcher' AND p.post_type = 'post' AND p.post_status = 'publish' $year_condition
+        WHERE pm.meta_key = 'fetcher' AND p.post_type = 'post' AND p.post_status = 'publish' $year_condition AND pm.meta_value != ''
         GROUP BY pm.meta_value
         ORDER BY fetcher_count DESC
         LIMIT 20
@@ -91,7 +91,6 @@ if ($top_users_data === false) {
             'combined_count' => $giver->post_count,
         ];
     }
-
     foreach ($top_fetchers as $fetcher) {
         $user_id = $fetcher->fetcher_id;
         if (isset($loopare[$user_id])) {

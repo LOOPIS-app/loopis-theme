@@ -10,9 +10,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Include mail templates
-require_once get_template_directory() . '/templates/mail/mail-template.php';
-require_once get_template_directory() . '/templates/mail/mail-headers.php';
-require_once get_template_directory() . '/templates/mail/mail-footer.php';
+loopis_get_mail_templates();
 
 function send_support_notification(int $post_id) {
 

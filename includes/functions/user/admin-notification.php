@@ -10,9 +10,7 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-require_once get_template_directory() . '/templates/mail/mail-template.php';
-require_once get_template_directory() . '/templates/mail/mail-headers.php';
-require_once get_template_directory() . '/templates/mail/mail-footer.php';
+loopis_get_mail_templates();
 
 /** SEND ADMIN NOTIFICATION */
 // Add comment from admin + delete
