@@ -29,7 +29,6 @@ h3 { font-size: 24px; }
 h7 { font-size: 24px; }
 
 h1 .symbol { height: 27px !important; width: auto; }  /* used for coins  */
-h1 .symbol .emoji { font-size: 90%; }  /* used for clovers and stars */
 
 /* special */
 .wrapped { display: block; margin: 0 0 15px 0;}  /* unwraps the wrap */

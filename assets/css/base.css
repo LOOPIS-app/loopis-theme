@@ -77,6 +77,12 @@ b, strong, .bold { font-weight: 400; }
 /* Emojis */
 img.emoji, img.wp-smiley { width: 1em; height: 1em; vertical-align: -0.1em; margin: 0 1px 0 0 !important; }
 
+/* Symbols (60px coins admin etc.) */
+h1 .symbol { height: 35px !important; width: auto; margin-bottom: -2px; }
+h5 .symbol { height: 22px !important; width: auto; margin-bottom: -2px; } 
+span.big-link .symbol { height: 15px !important; width: auto; margin-bottom: -1px; }
+span.mega-link .symbol { height: 19px !important; width: auto; margin-bottom: -2px; }
+
 /* Font Awesome */
 .fa, .fab, .fal, .far, .fas { width: 1em; text-align: center; }
 i { margin-right: 3px; }
@@ -94,16 +100,16 @@ span.small-label { font-size: 13px; padding:3px;  }
 span.big-label { font-size: 16px; padding:5px;  }
 span.mega-label { font-size: 18px; padding:7px; line-height: 35px; }
 span.link { font-size: 14px; padding:5px; }
-span.small-link { font-size: 13px; padding:3px;  }
-span.big-link { font-size: 16px; padding:5px;  }
+span.small-link { font-size: 13px; padding:3px; }
+span.big-link { font-size: 16px; padding:5px; }
 span.mega-link { font-size: 18px; padding:7px; line-height: 35px; }
 span.link:hover { background: #ebebeb; }
 span.small-link:hover { background: #ebebeb; }
 span.big-link:hover { background: #ebebeb; }
 span.mega-link:hover { background: #ebebeb; cursor: pointer; }
 span.rounded { font-size: 14px; padding:4px 10px; border-radius: 20px; }
-span.white { background: #fff !important; }
 span.trans { background: none !important; }
+span.white { background: #fff !important; }
 span.grey { color: #777 !important; }
 span.grey a { color: #777 !important; text-decoration: none; }
 span.code { font-family: 'Courier New', monospace; font-weight: bold; }
@@ -116,16 +122,11 @@ span.right { float: right; }
 .post-content span { font-size: 14px; padding:5px; background: #fff; }
 .post-content.news span { background: #fff; }
 .post-content.faq span { background: #f5f5f5; }
-.wrapped span { background: #fff; }
-.economy span { background: none !important; }
+.wrapped span.label, .wrapped span.small-label, .wrapped span.big-label, .wrapped span.mega-label { background: #fff; }
 
 /* Post and page spans */
-.post-label,
-span.post-label,
-.is-style-post-label { font-size: 14px; padding:5px; background: #fff; color: #333; }
-.big-post-label,
-span.big-post-label,
-.is-style-big-post-label { font-size: 16px; padding:5px; background: #fff; color: #333; }
+.post-label, span.post-label, .is-style-post-label { font-size: 14px; padding:5px; background: #fff; color: #333; }
+.big-post-label, span.big-post-label, .is-style-big-post-label { font-size: 16px; padding:5px; background: #fff; color: #333; }
 
 /* Heading  */
 h1, h2, h3, h4, h5, h6, h7 { margin: 0; padding: 0; font-weight: 300; letter-spacing: -0.3px; line-height: 1.3em; white-space: nowrap; }
@@ -139,8 +140,6 @@ h5 { font-size: 24px; margin-top: 0px; }		                    /* wrapped divs  *
 h6 { font-size: 20px; margin-top: 0px; }		                    /* some custom headings */
 
 /* Special heading */
-h1 .symbol { height: 30px !important; width: auto; padding-right: 5px; }  /* used for coins  */
-h1 .symbol .emoji { font-size: 80%; }  /* used for clovers and stars */
 h1.wrap { white-space: normal; }
 
 /* Heading columns */
@@ -205,11 +204,9 @@ h1.wrap { white-space: normal; }
 
 /* Post & page: list */
 ul, ol,
-.wp-block-list { margin: 5px 0 10px 10px; padding-inline-start: 10px; }
+.wp-block-list { text-align: left; padding-inline-start: 25px; }
 ul li, ol li,
 .wp-block-list li { margin-bottom: 5px; }
-ul li::marker, ol li::marker,
-.wp-block-list li::marker { font-weight: bold; }
 
 /* Post: columns (used?) */
 .wp-block-columns { margin-bottom:0px; }
