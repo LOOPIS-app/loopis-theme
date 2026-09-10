@@ -84,13 +84,14 @@ $count = $the_query->found_posts;
                     <div class="notif-meta post-list-post-meta">
                         <p>
                             <?php
-                            if (has_category(array('booked', 'booked_custom'))) {
+                            if (has_category(array('booked', 'booked_custom', 'locker', 'fetched'))) {
                                 $fetcher = get_post_meta($post_id, 'fetcher', true);
                                 if ($fetcher) {
                                     $fetchername = get_userdata($fetcher)->display_name;
-                                    echo "❤️ " . esc_html($fetchername);
+                                    the_category(' ');
+                                    echo " ← " . esc_html($fetchername);
                                 }
-                                if ($participant_count > 1) {
+                                if ($participant_count > 0) {
                                     echo " ← 🎲 " . $participant_count . " deltagare";
                                 }
                             } else {

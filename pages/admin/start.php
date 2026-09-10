@@ -29,14 +29,6 @@ $admin_url = home_url('/admin/');
         <?php include __DIR__ . '/panels/gift-stats.php'; ?>
     </p>
 </div>
-<!-- The book -->
-<div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'ledger', $admin_url) ); ?>'">
-    <h5>📕 Lokala boken</h5>
-    <hr>
-    <p class="small">
-        <?php include __DIR__ . '/panels/ledger.php'; ?>
-    </p>
-</div>
 
 <!-- Raffle results -->
 <div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'raffle', $admin_url) ); ?>'">
@@ -116,6 +108,7 @@ $admin_url = home_url('/admin/');
 <hr>
 <div>
     <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'more/post-search', $admin_url) ); ?>">🔍 Alla annonser</a></span>&nbsp;
+    <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'ledger', $admin_url) ); ?>">📕 Lokala boken</a></span>&nbsp;
     <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'more/inventory', $admin_url) ); ?>">📋 Inventering i skåpet</a></span>&nbsp;
     <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'more/collage', $admin_url) ); ?>">🖼 Kollage</a></span>&nbsp;
     <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'more/uncategorized', $admin_url) ); ?>">❤️‍🩹 Annonser utan kategori</a></span>&nbsp;
