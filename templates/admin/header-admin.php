@@ -32,10 +32,8 @@
 	<header id="header" class="header-admin">
 		<div class="group">
 			<div class="header-back" onclick="history.back()"><i class="fas fa-chevron-left"></i></div>
-			<!-- Multisite: Show site name below logo -->
 			<a href="<?php echo esc_url(home_url('/admin/')); ?>"><img src="<?php echo LOOPIS_THEME_URI; ?>/assets/img/LOOPIS_logo_admin.png" alt="LOOPIS-logo" id="header-logo"></a>
 			<div class="header-area">📍<?php echo get_bloginfo('name'); ?></div>
-			<div class="header-faq" onclick="location.href='<?php echo esc_url( network_home_url('/admin') ); ?>'">🗺</div>
 			</div>
 		</header>
 

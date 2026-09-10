@@ -31,7 +31,7 @@ $coins = $profile_economy['coins'];
 <h7>👛 Mina mynt</h7>
 <hr>
 <div class="wrapped">
-<h1><img src="<?php echo LOOPIS_THEME_URI; ?>/assets/img/coin.png" alt="Mynt:" class="symbol"><?php echo $coins; ?></h1>
+<h1><img src="<?php echo LOOPIS_THEME_URI; ?>/assets/img/coin.png" alt="Mynt:" class="symbol"> <?php echo $coins; ?></h1>
 <p class="small">Du kan just nu paxa och hämta <?php echo $coins; ?> saker.</p>
 <hr>
 <p class="small">💚 <?php echo $count_given; ?> saker lämnade</p>
