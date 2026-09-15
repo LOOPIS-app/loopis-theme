@@ -7,7 +7,7 @@
  * – possibility to use URL for each tab (+ back button support)
  * – delayed loading of a tabs content until clicked?
  * 
- * Created by CoPilot, inspired by WPUM.
+ * Created by CoPilot, inspired by WPUM, modified by Hubert.
  */
 
 (function() {
@@ -25,6 +25,11 @@
             return;
         }
 
+        const params = new URLSearchParams(window.location.search);
+        var tabGet = Number(params.get("tab"));
+        if (!Number.isFinite(tabGet)) {
+            tabGet = 0;
+        }
         // Get all tab links and panels within the container
         const tabLinks = container.querySelectorAll('.tab-link');
         const tabPanels = container.querySelectorAll('.tab-panel');
@@ -34,12 +39,13 @@
             return;
         }
 
+        tabGet = Math.max(Math.min(tabGet,tabLinks.length),0);
         // Set first tab as active on load
         if (tabLinks.length > 0) {
-            tabLinks[0].classList.add('active');
+            tabLinks[tabGet].classList.add('active');
         }
         if (tabPanels.length > 0) {
-            tabPanels[0].classList.add('active');
+            tabPanels[tabGet].classList.add('active');
         }
 
         // Add click event to each tab link

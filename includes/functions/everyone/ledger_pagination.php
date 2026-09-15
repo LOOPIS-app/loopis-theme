@@ -83,13 +83,23 @@ function loopis_ledger_page(){
 
 	    <?php foreach ($post_ledger as $entry): ?>
 	        <div class="admin-grid" style="<?php echo $grid_spacing ;?>">
+			<?php
+				$blog_id = $entry['blog_id'];
+				$post_id = $entry['post_id'];
+				$blog_name = get_blog_option( $blog_id, 'blogname' );
+				$post = get_blog_post( $blog_id, $post_id );
+				$post_url  = $post ? get_blog_permalink( $blog_id, $post_id ) : '';
+				$title = $post ? get_the_title( $post ) : 'Inget inlägg';				
+			?>
 				<?php foreach ($cols as $index => $col):?>
 					<?php if ($index === 'user_id'): 
 						$user_info = get_userdata($entry['user_id']);
 					?>
 						<div><a href="<?php echo get_author_posts_url($entry['user_id']); ?>"><?php echo esc_html(($user_info->first_name ?? '').' '.($user_info->last_name ?? '')); ?></a></div>
 					<?php elseif ($index === 'post_id'): ?>
-						<div><a href="<?php echo add_query_arg(array('p' => esc_html($entry[$index])),home_url('/')); ?>"> <?php echo esc_html(get_the_title($entry[$index])); ?></a></div>
+						<div><a href="<?php echo esc_url($post_url); ?>"> <?php echo esc_html($title); ?></a></div>
+					<?php elseif ($index === 'blog_id'): ?>
+						<div> <?php echo esc_html($blog_name); ?></div>
 					<?php else: ?>
 	            		<div> <?php echo esc_html($entry[$index]); ?></div>
 					<?php endif; ?>
@@ -125,6 +135,7 @@ function get_fas($handle){
 		'user_id' => "fa-solid fa-user",
 		'event' => "fas fa-bell",
 		'post_id' => "fas fa-gift",
+		'blog_id' => "fa-solid fa-map-location-dot",
 		'type' => "fas fa-info-circle",
 		'coins' => "fas fa-coins",
 		'clover' => "fa-solid fa-clover",

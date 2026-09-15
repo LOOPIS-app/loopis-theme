@@ -364,7 +364,7 @@ function loopis_ledger_user_rewards($user_id){
  *
  * @return array ledger entries as [0] => ['coins' => 1, type => 'survey' ...
  */
-function loopis_ledger_column_distinct($column){
+function loopis_ledger_column_distinct($column,$blog_id=-1){
     global $wpdb;
     $allowed = [
         'blog_id',
@@ -379,10 +379,17 @@ function loopis_ledger_column_distinct($column){
     if (!in_array($column,$allowed)){
         return null;
     }
-
+    $blog_id = absint( $blog_id );
+    $where = "";
+    if ( $column !== 'blog_id' && $blog_id > 0 && get_site( $blog_id ) ) {
+        $where = $wpdb->prepare(
+            'WHERE blog_id = %d',
+            $blog_id
+        );
+    }
     $table_name = $wpdb->base_prefix . 'loopis_ledger';
     $rewards = $wpdb->get_results(
-        "SELECT DISTINCT {$column} FROM {$table_name}", ARRAY_A
+        "SELECT DISTINCT {$column} FROM {$table_name} " . $where, ARRAY_A
     );
 
     return $rewards;
