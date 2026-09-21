@@ -25,7 +25,7 @@ include_once LOOPIS_THEME_DIR .'/templates/post-list/pagination-sql.php';
 	<select name="event" id="ledger-event" class="ledger-filter">
 		<option value="">Alla event</option>
 		<?php
-		$events = loopis_ledger_column_distinct('event');
+		$events = loopis_ledger_column_distinct('event', get_current_blog_id());
 		foreach ($events as $event) {
 			echo '<option value="' . esc_attr($event['event']) . '">' . esc_html($event['event']) . '</option>';
 		}
@@ -35,7 +35,7 @@ include_once LOOPIS_THEME_DIR .'/templates/post-list/pagination-sql.php';
 	<select name="type" id="ledger-type" class="ledger-filter">
 		<option value="">Alla typer</option>
 		<?php
-		$events = loopis_ledger_column_distinct('type');
+		$events = loopis_ledger_column_distinct('type', get_current_blog_id());
 		foreach ($events as $event) {
 			echo '<option value="' . esc_attr($event['type']) . '">' . esc_html(loopis_ledger_type_output($event['type'])) . '</option>';
 		}
@@ -44,7 +44,7 @@ include_once LOOPIS_THEME_DIR .'/templates/post-list/pagination-sql.php';
 	<select name="description" id="ledger-description" class="ledger-filter">
 		<option value="">Alla beskrivningar</option>
 		<?php
-		$events = loopis_ledger_column_distinct('description');
+		$events = loopis_ledger_column_distinct('description', get_current_blog_id());
 		foreach ($events as $event) {
 			echo '<option value="' . esc_attr($event['description']) . '">' . esc_html($event['description']) . '</option>';
 		}
