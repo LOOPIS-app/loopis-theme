@@ -521,6 +521,12 @@ function loopis_ledger_add_post($event, $user_id, $post_id, $options=[]){
         default:
             return;
     }
+    if (isset($options['clovers'])){
+        $clovers = (int) $options['clovers'];
+    }
+    if (isset($options['coins'])){
+        $clovers = (int) $options['coins'];
+    }
 
     $table_name = $wpdb->base_prefix . 'loopis_ledger';
     $result = $wpdb->query(
