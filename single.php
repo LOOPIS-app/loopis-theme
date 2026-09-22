@@ -53,7 +53,7 @@ $image_3_id = get_post_meta($post_id, 'image_3', true);
             <div class="post-padding">
                 <div class="post-meta">
                     <span><?php the_category(' '); if (in_category('new')) { echo raffle_time(); } ?></span>
-                    <span><i class="fas fa-walking"></i><?php if ($location == 'Skåpet') { ?><a class="no-link-styling" href="https://maps.app.goo.gl/h63CFSWVyk52NkbD7"><?php echo $location_name; ?> </a><?php } else { ?><a class="no-link-styling" href="https://maps.google.com/maps?q=<?php echo urlencode($location); ?>"><?php echo $location ?></a><?php } ?></span>
+                    <span><i class="fas fa-walking"></i><?php if ($location == 'Skåpet') { ?><a class="no-link-styling" href="<?php echo esc_url(home_url('/locker/')); ?>"><?php echo $location_name; ?> </a><?php } else { ?><a class="no-link-styling" href="https://maps.google.com/maps?q=<?php echo urlencode($location); ?>"><?php echo $location ?></a><?php } ?></span>
                 </div><!--post-meta-->    
             
                 <div class="post-title"><h1 class="wrap"><?php the_title(); ?></h1></div>
@@ -115,7 +115,7 @@ $image_3_id = get_post_meta($post_id, 'image_3', true);
                 ?>
 
             <!-- Admin interaction -->
-            <?php if (current_user_can('administrator') || current_user_can('manager')) {  ?>
+            <?php if (current_user_can('manage_options') || current_user_can('manager')) {  ?>
                 <div class="admin-block">
 	            <h5>🦀 Admin</h5>
 	            <hr>

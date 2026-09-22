@@ -22,7 +22,7 @@ if (!empty($reward_info)) {
         // Set $received_stars to 1 if no value exists or is empty
         $received_stars = $row['coins'] ?? 1;
         // Output the reward
-        echo '<p>' . esc_html($reward_reason) . ' ' . esc_html($reward_description) . '<span class="plus right">+' . esc_html($received_stars) . '</span></p>';
+        echo '<p><span class="left">' . esc_html($reward_reason) . ' ' . esc_html($reward_description) . '</span>&nbsp; &nbsp;<span class="plus right">+' . esc_html($received_stars) . '</span></p>';
     }
 } else {
     // Output if no rewards are found
