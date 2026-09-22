@@ -31,12 +31,20 @@ if (!defined('ABSPATH')) {
         <p class="info">Kommer hämtaren inte att hämta? Tryck på knappen för att boka för nästa i kön.</p>
 <?php endif;?>
 
-<!-- Item disappeared? -->
-<?php if (in_category('disappeared')) :
+<!-- Return coin (Should be improved by removing the post + posting comment) -->
+<?php if (in_category( array( 'disappeared', 'complaint', 'removed' ) )) :
     $fetcher = get_post_meta($post_id, 'fetcher', true); 
+    $timestamp = current_time('Y-m-d H:i:s');
     if(!empty($fetcher) && (int) $fetcher > 0) {
         if (isset($_POST['coin-back'])) {
-            loopis_ledger_add_post('cancelled', $fetcher, $post_id,['timestamp' => $timestamp, 'type'=>'disappeared']);
+            if (in_category('disappeared')) {
+                $type = 'disappeared';
+            } elseif (in_category('complaint')) {
+                $type = 'complaint';
+            } elseif (in_category('removed')) {
+                $type = 'removed';
+            }
+            loopis_ledger_add_post('cancelled', $fetcher, $post_id,['timestamp' => $timestamp, 'type'=>$type]);
             delete_post_meta($post_id, 'fetcher'); 
         } } ?>
 	<form method="post"><button type="submit" class="orange small" name="coin-back">Ge mynt tillbaka</button></form>

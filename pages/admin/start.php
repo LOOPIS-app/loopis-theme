@@ -121,6 +121,8 @@ $admin_url = home_url('/admin/');
 <hr>
 <div>
     <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'webmaster/test', $admin_url) ); ?>">💣 Testsida</a></span>&nbsp;
+    <span class="big-link"><a href="https://loopis.app/12845/?p=X">🎁 URL för post_id X</a></span>&nbsp;
+    <span class="big-link"><a href="https://loopis.app/12845/?author=X">👤 URL för user_id X</a></span>&nbsp;
 </div>
 <?php endif; ?>
 
