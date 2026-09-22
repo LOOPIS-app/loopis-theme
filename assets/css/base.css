@@ -243,6 +243,7 @@ a.option:hover { background: none !important; color: #333 !important; }
 .post-actions { margin-top:15px; } 	
 
 /* Post list */
+.post-list { margin-bottom: 30px; }
 .post-list-post { height: 60px; background: #f5f5f5; box-shadow: 2px 2px 5px #eee; margin-bottom: 13px; text-align: left; }
 .post-list-post-big { height: 120px; background: #f5f5f5; box-shadow: 2px 2px 5px #eee; margin-bottom:15px; text-align: left; }
 .post-list > .link:hover { background: #ebebeb; box-shadow: 1px 1px 3px #eee; cursor: pointer; }

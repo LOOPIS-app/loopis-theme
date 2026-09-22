@@ -2,7 +2,9 @@
 /**
  * Output summary of user activity
  * 
- * $user_id is set from author.php
+ * $user_id is set from author.php (?)
+ * 
+ * TODO: This file is deprecated: It has been migrated to LOOPIS Theme HQ (user-activity.php) where all user-data should be located?
  */
 
 // Exit if accessed directly
@@ -31,10 +33,7 @@ $clover_coins = $profile_economy['clover_coins'];
 $coins = $profile_economy['coins'];
 ?>
 
-<p class="small">💡 Aktivitet och ekonomi.</p>
-<h7>🧮 <?php echo $first_name;?>s aktivitet</h7>
-<hr>
-
+<!-- COINS -->
 <div class="economy wrapped">
 <p><span class="left text-left">Regnbågsmynt</span> <span class="right"><img src="<?php echo LOOPIS_THEME_URI; ?>/assets/img/coin.png" alt="coin symbol" style="height:15px; width: auto;" /></span></p>
 <hr>
@@ -81,6 +80,7 @@ $coins = $profile_economy['coins'];
 </p>
 </div>
 
+<!--Info-->
 <p class="small">
 <?php if ($clovers >= 10) {  $remainder = $clovers % 10; $remaining = 10 - $remainder; ?>
 💡 Samla <?php echo $remaining; ?> fyrklöver för att få nästa mynt.<br>
@@ -88,9 +88,10 @@ $coins = $profile_economy['coins'];
 <?php if ($clovers < 10) { $remaining = 10 - $clovers; ?>
 💡 Samla <?php echo $remaining; ?> fyrklöver så får du ett mynt!<br>
 <?php } ?>
-<a href="<?php echo esc_url(network_home_url( '/faq/hur-funkar-beloningar/')); ?>">📌 Hur funkar belöningar?</a>
 </p>
 
+<!--FAQ-->	
+<p><span class="big-link"><a href="<?php echo esc_url(network_home_url( '/faq/hur-funkar-beloningar' )); ?>">📌 Hur funkar belöningar?</a></span></p>
 
 <!--PAYMENTS-->	
 <h3>📒 Kvitton</h3>

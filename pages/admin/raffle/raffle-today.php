@@ -113,7 +113,12 @@ $count = $the_query->found_posts;
 <?php wp_reset_postdata(); ?>
 
 <!-- Manual Raffle Start -->
-<?php if (current_user_can('loopis_raffle') && $complete_count > 0) : ?>
+<?php if (current_user_can('manage_options') && $complete_count > 0) : ?>
+
+<h5>🚨 Extrema situationer</h5>
+<hr>
+<p class="small">💡 Verktyg endast för webmaster.</p>
+
     <?php if (isset($_POST['start_raffle'])) {
         loopis_cronjobs_raffle();
     } ?>

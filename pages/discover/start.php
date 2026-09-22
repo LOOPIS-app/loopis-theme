@@ -3,6 +3,7 @@
  * Overview for discover pages
  *
  * Dynamic content of page-discover.php
+ * 
  * Reached on /discover (this view is set as default)
  */
 
@@ -17,7 +18,7 @@ if (!defined('ABSPATH')) {
 
 <h3>🔍 Sök</h3>
 <hr style="margin: 0px;">
-<p class="small">💡 Sök bland alla aktuella annonser.</p>
+<p class="small">💡 Sök bland alla saker att få.</p>
 <?php get_template_part('templates/forms/search-form'); ?>
 
 <?php 
@@ -26,12 +27,9 @@ get_template_part('templates/discover/popular-tags');
 
 // Output three random posts
 get_template_part('templates/discover/random-posts');  
-
-// Insert spacer
-insert_spacer(10);
 ?>
 
-<h3><span class="desaturate">🚪</span> Skåpet</h3>
+<h3><span class="desaturate">🚪</span> Skåpet?</h3>
 <hr style="margin: 0px;">
 <p class="small">💡 Var finns skåpet och hur funkar det?</p>
-<p><span class="mega-link"><a href="<?php echo home_url( '/locker' ); ?>">→  Information om skåpet</a></span></p>
+<p>Titta på sidan om <span class="mega-link"><a href="<?php echo home_url( '/locker' ); ?>">⏹️ Skåpet</a></span></p>

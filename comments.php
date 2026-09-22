@@ -51,7 +51,10 @@ switch ($post_type) {
 <h6><i class="far fa-comment"></i></i> Skriv kommentar</h6>
 <hr style="margin:0">
 <div class="loopis-form">
-<p class="small">💡 Kom ihåg att pinga användare för att de ska se din kommentar.</p>
+<p class="small">💡 Kom ihåg att pinga den som ska se din kommentar.</p>
+<?php if (current_user_can('manage_options')) { ?>
+<div class="admin-block"><p><b>⚠️ Du är inloggad som <?php echo wp_get_current_user()->display_name; ?>!</b></p></div>
+<?php } ?>
 <?php comment_form(array(
     'title_reply' => '',
     'submit_button' => '<button name="submit" type="submit" id="submit" class="grey small">Skicka</button>')); ?>
