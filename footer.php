@@ -14,13 +14,18 @@
                 <span class="text">Saker</span>
             </a>
 
+            <a href="<?php echo esc_url(home_url('/discover/')); ?>" class="footer-item">
+                <span class="emoji">🧭</span>
+                <span class="text">Hitta</span>
+            </a>
+
             <a href="<?php echo esc_url(home_url('/submit/')); ?>" class="footer-item">
                 <span class="emoji">💚</span>
                 <span class="text">Ge bort</span>
             </a>
 
              <a href="<?php echo esc_url(home_url('/area')); ?>" class="footer-item">
-                <span class="emoji">🛟</span>
+                <span class="emoji">📍</span>
                 <span class="text"><?php echo get_bloginfo('name'); ?></span>
             </a>
 

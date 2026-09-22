@@ -11,19 +11,21 @@ if (!defined('ABSPATH')) {
 $args = array(
     'posts_per_page' => 3,
     'orderby'        => 'rand',
-    'category__in'   => loopis_cats(['new', 'old']),
+    'category__in'   => loopis_cat('old'),
 );
 $the_query = new WP_Query($args);
 ?>
 
-<div class="columns"><div class="column1"><h3>🤹 Tre tips</h3></div>
+<div class="columns"><div class="column1"><h3>🤹 Chansa</h3></div>
 <div class="column2"><a href="<?php echo esc_url( add_query_arg(array('view' => 'random-posts'), home_url('/discover/')) ); ?>">Visa fler →</a></div></div>
-<hr>
+<hr style="margin: 0px;">
+<p class="small">💡 Tre slumpade annonser först tll kvarn.</p>
+
  <!-- Posts output -->
 <div class="post-list">
         <?php if ($the_query->have_posts()) : ?>
             <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
-                <?php get_template_part('templates/post-list/small-posts-tags'); ?>
+                <?php get_template_part('templates/post-list/small-posts'); ?>
             <?php endwhile; ?>
 </div><!--post-list-->
 <?php else : ?>

@@ -13,11 +13,11 @@ if (!defined('ABSPATH')) {
 $area = home_url('/area/');
 ?>
 
-<h1>🛟 <?php echo esc_html(get_bloginfo('name')); ?></h1>
+<h1>📍 <?php echo esc_html(get_bloginfo('name')); ?></h1>
 <hr>
 <p class="small">💡 Information och support för ditt område.</p>
 
-<p>Här hittar du information och support för <?php echo esc_html(get_bloginfo('name')); ?>. Tillsammans ser vi till att LOOPIS funkar så bra som möjligt!</p>
+<p>Har du en fråga eller fundering? Tillsammans ser vi till att LOOPIS funkar så bra som möjligt. 💞</p>
 
 <!-- Instructions -->
 <?php include LOOPIS_THEME_DIR . '/pages/area/panels/instructions.php'; ?>

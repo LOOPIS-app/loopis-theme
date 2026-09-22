@@ -6,7 +6,6 @@
 get_header(); ?>
 
 <div class="page-padding">
-    <h1>👤 Min aktivitet</h1>
     
         <!-- MEMBER ACCESS -->
         <?php if ( current_user_can('member') || current_user_can('administrator') ) {
@@ -32,6 +31,7 @@ get_header(); ?>
         if (file_exists($php_file) && is_file($php_file)) {
             include $php_file;
         } else {
+            echo '<h1>👤 Min aktivitet</h1>';
             echo '<hr>';
             echo '<p>💢 Filen hittades inte: <b>' . esc_html($php_file) . '</b></p>';
         }
@@ -41,6 +41,7 @@ get_header(); ?>
 
 <!-- NO ACCESS MESSAGE -->	
 <?php } else { 
+    echo '<h1>👤 Min aktivitet</h1>';
     echo '<hr>';
     include LOOPIS_THEME_DIR . '/includes/output/access/only-member.php'; 
     } ?>
