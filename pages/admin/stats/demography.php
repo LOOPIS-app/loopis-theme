@@ -1,11 +1,6 @@
 <?php
 /**
  * Statistics for members.
- * 
- * TODO: Deprecate wpum_area
- * 
- * Will be improved to use generic functions.
- * Will be improved to use custom database table.
  */
 
 if (!defined('ABSPATH')) {
@@ -17,46 +12,65 @@ if (!defined('ABSPATH')) {
 <hr>
 <p class="small">💡 Statistik för våra medlemmar</p>
 
+<p>Användare med följande roller ingår:<br>
+<span class="label">member</span> <span class="label">member_earlier</span> <span class="label">member_archived</span> <span class="label">member_outside</span></p>
+
+<h4>🗓 Välj period</h4>
+<hr>
+<?php
+// Check if the current user can update the database.
+$can_populate_postarea = is_multisite()
+    ? current_user_can('manage_network_users')
+    : current_user_can('manage_options');
+
+$postarea_update_output = '';
+
+// Run the postarea population script only after an authorized form submission.
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loopis_populate_postarea'])) {
+    if (!$can_populate_postarea) {
+        wp_die('Du saknar behörighet att uppdatera postområden.');
+    }
+
+    check_admin_referer('loopis_populate_postarea');
+
+    ob_start();
+    require __DIR__ . '/scripts/loopis-populate-postarea.php';
+    $postarea_update_output = ob_get_clean();
+}
+?>
+
 <?php
 global $wpdb;
 
 // Set the current year
 $current_year = date('Y');
 
+// Include only users with one of the member roles in the statistics.
+$included_roles = [
+    'member',
+    'member_earlier',
+    'member_archived',
+    'member_outside',
+];
+
+$is_included_user = function ($user_id) use ($included_roles) {
+    $user = get_userdata($user_id);
+
+    return $user && !empty(array_intersect($included_roles, (array) $user->roles));
+};
+
 // Render dropdown and get the selected year
 include_once LOOPIS_THEME_DIR . '/includes/functions/admin-extra/stats/stats_select_year.php';
 $selected_year = stats_select_year();
 
-// Set the field ID and meta key for the gender dropdown field
-$field_id = 27; // The field ID for the gender dropdown
-$dropdown_meta_key = 'dropdown_options';
-
-// Query the database to get the dropdown options
-$dropdown_options = $wpdb->get_var(
-    $wpdb->prepare(
-        "SELECT meta_value FROM {$wpdb->prefix}wpum_fieldmeta WHERE wpum_field_id = %d AND meta_key = %s",
-        $field_id,
-        $dropdown_meta_key
-    )
-);
-
-// Initialize the gender labels mapping array
-$gender_labels = [];
-
-// If dropdown options are found, deserialize and build the mapping
-if (!empty($dropdown_options)) {
-    $options = maybe_unserialize($dropdown_options);
-    if (is_array($options)) {
-        foreach ($options as $option) {
-            if (isset($option['value']) && isset($option['label'])) {
-                $gender_labels[$option['value']] = $option['label'];
-            }
-        }
-    }
-}
-
-// Add a default label for unspecified genders
-$gender_labels['unspecified'] = 'Uppgift saknas';
+// Build gender rows from the users' raw wpum_gender values.
+$gender_labels = ['unspecified' => 'Uppgift saknas'];
+$gender_translations = [
+    'secret'    => 'Vill ej uppge',
+    'female'    => 'Kvinna',
+    'male'      => 'Man',
+    'nonbinary' => 'Icke-binär',
+];
 
 // Determine the date range based on the selected year
 if ($selected_year === 'all') {
@@ -67,6 +81,7 @@ if ($selected_year === 'all') {
     $fetch_date_end = "{$selected_year}-12-31 23:59:59";
 }
 $fetcher_cat = loopis_cat('fetched');
+
 // Query to fetch active members (user IDs)
 $active_members_query = "
     SELECT DISTINCT user_id 
@@ -92,40 +107,23 @@ $active_members_query = "
 ";
 $active_members = $wpdb->get_col($wpdb->prepare($active_members_query, $fetch_date_start, $fetch_date_end, $fetch_date_start, $fetch_date_end));
 
-// Initialize gender counts
-$gender_counts = array_fill_keys(array_keys($gender_labels), 0);
-$total_gender_counts = array_fill_keys(array_keys($gender_labels), 0);
-
-// Initialize an array to store users with unspecified gender
-$unspecified_users = [];
+// Initialize gender counts.
+$gender_counts = ['unspecified' => 0];
+$total_gender_counts = ['unspecified' => 0];
 
 // Fetch gender for each active member
 foreach ($active_members as $user_id) {
-    // Check if the user exists in the wp_users table
-    $user_exists = $wpdb->get_var(
-        $wpdb->prepare(
-            "SELECT ID FROM {$wpdb->prefix}users WHERE ID = %d",
-            $user_id
-        )
-    );
-
-    if (!$user_exists) {
-        // Skip this user if they don't exist
+    if (!$is_included_user($user_id)) {
+        // Skip users outside the included member roles.
         continue;
     }
 
-    // Fetch the gender meta value
-    $gender = get_user_meta($user_id, 'wpum_gender', true);
-    $gender = strtolower($gender); // Normalize the gender value
-
-    // Check if the gender exists in the mapping
-    if (isset($gender_counts[$gender])) {
-        $gender_counts[$gender]++;
-    } else {
-        // If gender is not specified or invalid, count as unspecified
-        $gender_counts['unspecified']++;
-        $unspecified_users[] = $user_id; // Add user ID to the unspecified list
-    }
+    $gender = trim((string) get_user_meta($user_id, 'wpum_gender', true));
+    $gender_key = $gender !== '' ? strtolower($gender) : 'unspecified';
+    $gender_labels[$gender_key] = $gender !== ''
+        ? ($gender_translations[$gender_key] ?? $gender)
+        : 'Uppgift saknas';
+    $gender_counts[$gender_key] = ($gender_counts[$gender_key] ?? 0) + 1;
 }
 
 // Fetch all members created before or within the selected year
@@ -133,24 +131,32 @@ $registration_date_limit = ($selected_year === 'all') ? "{$current_year}-12-31 2
 
 $all_users = $wpdb->get_results(
     $wpdb->prepare(
-        "SELECT ID FROM {$wpdb->prefix}users WHERE user_registered <= %s",
+        "SELECT ID FROM {$wpdb->base_prefix}users WHERE user_registered <= %s",
         $registration_date_limit
     )
 );
 
-// Store the count of all users
-$count_all_users = count($all_users);
+$count_all_users = 0;
 
 foreach ($all_users as $user) {
-    $gender = get_user_meta($user->ID, 'wpum_gender', true);
-    $gender = strtolower($gender); // Normalize the gender value
-
-    if (isset($total_gender_counts[$gender])) {
-        $total_gender_counts[$gender]++;
-    } else {
-        $total_gender_counts['unspecified']++;
+    if (!$is_included_user($user->ID)) {
+        continue;
     }
+
+    $count_all_users++;
+    $gender = trim((string) get_user_meta($user->ID, 'wpum_gender', true));
+    $gender_key = $gender !== '' ? strtolower($gender) : 'unspecified';
+    $gender_labels[$gender_key] = $gender !== ''
+        ? ($gender_translations[$gender_key] ?? $gender)
+        : 'Uppgift saknas';
+    $total_gender_counts[$gender_key] = ($total_gender_counts[$gender_key] ?? 0) + 1;
 }
+
+uksort($gender_labels, function ($first_key, $second_key) use ($total_gender_counts) {
+    $total_comparison = ($total_gender_counts[$second_key] ?? 0) <=> ($total_gender_counts[$first_key] ?? 0);
+
+    return $total_comparison !== 0 ? $total_comparison : strcasecmp($first_key, $second_key);
+});
 ?>
 	
 <!-- Output the Gender Counts -->
@@ -163,10 +169,10 @@ foreach ($all_users as $user) {
 <table class="admin-table">
     <thead>
         <tr>
-            <th>Gender</th>
-            <th>Active</th>
-            <th>Inactive</th>
-            <th>Total</th>
+            <th>Kön</th>
+            <th>Totalt</th>
+            <th>Aktiva</th>
+            <th>Inaktiva</th>
         </tr>
     </thead>
     <tbody>
@@ -179,9 +185,9 @@ foreach ($all_users as $user) {
             ?>
             <tr>
                 <td><?php echo $gender_label; ?></td>
+                <td><?php echo $total_count; ?></td>
                 <td><?php echo $active_count; ?></td>
                 <td><?php echo $inactive_count; ?></td>
-                <td><?php echo $total_count; ?></td>
             </tr>
         <?php endforeach; ?>
     </tbody>
@@ -190,40 +196,12 @@ foreach ($all_users as $user) {
 <?php
 global $wpdb;
 
-// Set the field ID and meta key for the area dropdown field
-$field_id_area = 30; // The field ID for the area dropdown
-$dropdown_meta_key_area = 'dropdown_options';
+// Build area rows from the users' raw wpum_postarea values.
+$area_labels = ['unspecified' => 'Uppgift saknas'];
 
-// Query the database to get the dropdown options for the area
-$dropdown_options_area = $wpdb->get_var(
-    $wpdb->prepare(
-        "SELECT meta_value FROM {$wpdb->prefix}wpum_fieldmeta WHERE wpum_field_id = %d AND meta_key = %s",
-        $field_id_area,
-        $dropdown_meta_key_area
-    )
-);
-
-// Initialize the area labels mapping array
-$area_labels = [];
-
-// If dropdown options are found, deserialize and build the mapping
-if (!empty($dropdown_options_area)) {
-    $options_area = maybe_unserialize($dropdown_options_area);
-    if (is_array($options_area)) {
-        foreach ($options_area as $option) {
-            if (isset($option['value']) && isset($option['label'])) {
-                $area_labels[$option['value']] = $option['label'];
-            }
-        }
-    }
-}
-
-// Add a default label for unspecified areas
-$area_labels['unspecified'] = 'Uppgift saknas';
-
-// Initialize area counts
-$area_counts = array_fill_keys(array_keys($area_labels), 0);
-$total_area_counts = array_fill_keys(array_keys($area_labels), 0);
+// Initialize area counts.
+$area_counts = ['unspecified' => 0];
+$total_area_counts = ['unspecified' => 0];
 
 // Fetch all users created before or within the selected year
 $registration_date_limit = ($selected_year === 'all') ? "{$current_year}-12-31 23:59:59" : "{$selected_year}-12-31 23:59:59";
@@ -235,19 +213,16 @@ $all_users_area = $wpdb->get_results(
     )
 );
 
-// Store the count of all users
-$count_all_users = count($all_users_area);
-
 // Count total users by area
 foreach ($all_users_area as $user) {
-    $area = get_user_meta($user->ID, 'wpum_area', true);
-    $area = strtolower($area); // Normalize the area value
-
-    if (isset($total_area_counts[$area])) {
-        $total_area_counts[$area]++;
-    } else {
-        $total_area_counts['unspecified']++;
+    if (!$is_included_user($user->ID)) {
+        continue;
     }
+
+    $area = trim((string) get_user_meta($user->ID, 'wpum_postarea', true));
+    $area_key = $area !== '' ? $area : 'unspecified';
+    $area_labels[$area_key] = $area !== '' ? $area : 'Uppgift saknas';
+    $total_area_counts[$area_key] = ($total_area_counts[$area_key] ?? 0) + 1;
 }
 
 // Fetch active members for the area
@@ -277,20 +252,26 @@ $active_members_area = $wpdb->get_col($wpdb->prepare($active_members_area_query,
 
 // Count active users by area
 foreach ($active_members_area as $user_id) {
-    $area = get_user_meta($user_id, 'wpum_area', true);
-    $area = strtolower($area); // Normalize the area value
-
-    if (isset($area_counts[$area])) {
-        $area_counts[$area]++;
-    } else {
-        $area_counts['unspecified']++;
+    if (!$is_included_user($user_id)) {
+        continue;
     }
+
+    $area = trim((string) get_user_meta($user_id, 'wpum_postarea', true));
+    $area_key = $area !== '' ? $area : 'unspecified';
+    $area_labels[$area_key] = $area !== '' ? $area : 'Uppgift saknas';
+    $area_counts[$area_key] = ($area_counts[$area_key] ?? 0) + 1;
 }
+
+uksort($area_labels, function ($first_key, $second_key) use ($total_area_counts) {
+    $total_comparison = ($total_area_counts[$second_key] ?? 0) <=> ($total_area_counts[$first_key] ?? 0);
+
+    return $total_comparison !== 0 ? $total_comparison : strcasecmp($first_key, $second_key);
+});
 ?>
 
-<!-- Output the Area Counts -->
+<!-- Output the City Counts -->
 <div class="columns">
-    <div class="column1"><h3>📍 Områden</h3></div>
+    <div class="column1"><h3>📍 Postområden</h3></div>
     <div class="column2"><?php echo $count_all_users; ?> medlemmar (<?php echo ($selected_year === 'all') ? 'Alla år' : $selected_year; ?>)</div>
 </div>
 <hr>
@@ -298,10 +279,10 @@ foreach ($active_members_area as $user_id) {
 <table class="admin-table">
     <thead>
         <tr>
-            <th>Area</th>
-            <th>Active</th>
-            <th>Inactive</th>
-            <th>Total</th>
+            <th>Postområde</th>
+            <th>Totalt</th>
+            <th>Aktiva</th>
+            <th>Inaktiva</th>
         </tr>
     </thead>
     <tbody>
@@ -314,10 +295,38 @@ foreach ($active_members_area as $user_id) {
             ?>
             <tr>
                 <td><?php echo $area_label; ?></td>
+                <td><?php echo $total_count; ?></td>
                 <td><?php echo $active_count; ?></td>
                 <td><?php echo $inactive_count; ?></td>
-                <td><?php echo $total_count; ?></td>
             </tr>
         <?php endforeach; ?>
     </tbody>
 </table>
+
+<?php if ($can_populate_postarea) : ?>
+<h4>😈 Uppdatera postområden</h4>
+<hr>
+<p class="small">💡 Endast for webmaster.</p>
+
+    <form method="post">
+        <?php wp_nonce_field('loopis_populate_postarea'); ?>
+        <!-- This button fills only missing wpum_postarea values. -->
+        <button type="submit" class="orange small" name="loopis_populate_postarea" value="1" onclick="return confirm('Detta kompletterar saknade postområden. Vill du fortsätta?');">
+            Komplettera saknade postområden
+        </button>
+        <!-- This button recalculates and overwrites existing values. -->
+        <button
+            type="submit"
+            class="red small"
+            name="loopis_populate_postarea"
+            value="force"
+            onclick="return confirm('Detta skriver över befintliga postområden. Vill du fortsätta?');"
+        >
+            Uppdatera alla postområden
+        </button>
+    </form>
+<?php endif; ?>
+
+<?php if ($postarea_update_output !== '') : ?>
+    <pre><?php echo esc_html($postarea_update_output); ?></pre>
+<?php endif; ?>

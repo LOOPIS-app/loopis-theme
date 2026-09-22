@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
             var heartAdmin = '💚 Admin';
             var currentValue = commentTextArea.value.trim();
 
-            commentTextArea.value = currentValue ? currentValue + ' ' + heartAdmin + ' ' : heartAdmin + ' ';
+            commentTextArea.value = currentValue ? currentValue + '\n' + heartAdmin + ' ' : heartAdmin + ' ';
         });
     }
 });

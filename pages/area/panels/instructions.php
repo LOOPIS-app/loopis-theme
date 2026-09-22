@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="attention-block">
 
 <h6 style="font-weight: 400;">Har du problem med en annons?</h6>
-<p>→ <span class="mega-label white">🔔 pinga @admin</span><br>i en kommentar på annonsen.</p>
+<p>→ <span class="mega-link white"><a href="<?php echo esc_url( add_query_arg('view', 'admin', home_url('/area/')) ); ?>">🔔 pinga @admin</a></span><br>i en kommentar på annonsen.</p>
 
 <h6 style="font-weight: 400;">Har du frågor om LOOPIS eller skåpet?</h6>
 <p>→ <span class="mega-link white"><a href="<?php echo network_home_url( '/faq' ); ?>">💡 Vanliga frågor</a></span>&nbsp;
