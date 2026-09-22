@@ -21,7 +21,7 @@ wp_enqueue_script('loopis-tabs', get_template_directory_uri() . '/assets/js/tabs
   <nav class="tab-navbar">
     <a href="#" class="tab-link" data-tab="tab-activity"><i class="fas fa-walking" style="color:#333;margin-right:0px"></i></a>
     <a href="#" class="tab-link" data-tab="tab-posts">🎁</a>
-        <a href="#" class="tab-link" data-tab="tab-coins">👛</a>
+    <a href="#" class="tab-link" data-tab="tab-coins">👛</a>
     <a href="#" class="tab-link" data-tab="tab-comments">🗨</a>
     <a href="#" class="tab-link" data-tab="tab-settings">⚙</a>
   </nav>
