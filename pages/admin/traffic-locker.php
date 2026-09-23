@@ -24,10 +24,10 @@ $selected_date = isset($_GET['locker_date']) ? sanitize_text_field($_GET['locker
 
 <!-- Date Selection Form -->
 <div class="loopis-form loopis-filter">
-<form method="GET" action="<?php echo esc_url(home_url('/admin/')); ?>" style="margin-bottom: 20px;">
+<form method="GET" action="<?php echo esc_url(home_url('/admin/')); ?>">
     <input type="hidden" name="view" value="traffic-locker">
     <label for="locker_date">Välj dag: </label>
-    <select id="locker_date" name="locker_date" onchange="this.form.submit()">
+    <select id="locker_date" name="locker_date" style="max-width: 200px;" onchange="this.form.submit()">
         <?php
         // Generate dropdown for the last 7 days
         for ($i = 0; $i < 7; $i++) :
@@ -158,15 +158,12 @@ usort($entries, function ($a, $b) {
 
 <div class="logg" style="padding: 0;">
     <?php if (!empty($entries)) : ?>
-        <ul>
             <?php foreach ($entries as $entry) : ?>
-                <li>
                     <?php echo esc_html($entry['time']); ?> &nbsp;
                     <?php echo $entry['display']; ?>
                     <a href="#" class="ping-bell" data-username="<?php echo esc_attr($entry['username']); ?>">🔔</a>
-                </li>
+                    <br>
             <?php endforeach; ?>
-        </ul>
     <?php else : ?>
         <p>Inga händelser för det valda datumet.</p>
     <?php endif; ?>
@@ -195,7 +192,7 @@ $count_visitors = count(array_unique(array_merge($fetcher_ids, $author_ids)));
 </div>
 
 <!-- Mention Box -->
-<h6>🔔 Pinga?</h6>
+<h3>🔔 Pinga?</h3>
 <hr>
 <textarea id="mention-box" 
           style="width: 100%; height: 55px; font-size: 15px;" 

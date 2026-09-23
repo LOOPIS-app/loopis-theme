@@ -1,14 +1,12 @@
 <?php
 /**
- * Dynamic content for pages using url /activity/?view=
- * 
- * This content complements the WPUM profile pages on /profile
+ * Dynamic content loader for pages using url /activity/?view=
  */
 
 get_header(); ?>
 
 <div class="page-padding">
-
+    
         <!-- MEMBER ACCESS -->
         <?php if ( current_user_can('member') || current_user_can('administrator') ) {
 
@@ -33,7 +31,8 @@ get_header(); ?>
         if (file_exists($php_file) && is_file($php_file)) {
             include $php_file;
         } else {
-            echo '<h1>👤 Min aktivitet</h1><hr>';
+            echo '<h1>👤 Min aktivitet</h1>';
+            echo '<hr>';
             echo '<p>💢 Filen hittades inte: <b>' . esc_html($php_file) . '</b></p>';
         }
         ?>
@@ -41,7 +40,11 @@ get_header(); ?>
         <div class="clear"></div>
 
 <!-- NO ACCESS MESSAGE -->	
-<?php } else { include LOOPIS_THEME_DIR . '/includes/output/access/only-member.php'; } ?>
+<?php } else { 
+    echo '<h1>👤 Min aktivitet</h1>';
+    echo '<hr>';
+    include LOOPIS_THEME_DIR . '/includes/output/access/only-member.php'; 
+    } ?>
 
 </div><!--page-padding-->
 

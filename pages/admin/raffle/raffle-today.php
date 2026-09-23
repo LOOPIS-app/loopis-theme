@@ -84,13 +84,14 @@ $count = $the_query->found_posts;
                     <div class="notif-meta post-list-post-meta">
                         <p>
                             <?php
-                            if (has_category(array('booked', 'booked_custom'))) {
+                            if (has_category(array('booked', 'booked_custom', 'locker', 'fetched'))) {
                                 $fetcher = get_post_meta($post_id, 'fetcher', true);
                                 if ($fetcher) {
                                     $fetchername = get_userdata($fetcher)->display_name;
-                                    echo "❤️ " . esc_html($fetchername);
+                                    the_category(' ');
+                                    echo " ← " . esc_html($fetchername);
                                 }
-                                if ($participant_count > 1) {
+                                if ($participant_count > 0) {
                                     echo " ← 🎲 " . $participant_count . " deltagare";
                                 }
                             } else {
@@ -112,7 +113,12 @@ $count = $the_query->found_posts;
 <?php wp_reset_postdata(); ?>
 
 <!-- Manual Raffle Start -->
-<?php if (current_user_can('loopis_raffle') && $complete_count > 0) : ?>
+<?php if (current_user_can('manage_options') && $complete_count > 0) : ?>
+
+<h5>🚨 Extrema situationer</h5>
+<hr>
+<p class="small">💡 Verktyg endast för webmaster.</p>
+
     <?php if (isset($_POST['start_raffle'])) {
         loopis_cronjobs_raffle();
     } ?>

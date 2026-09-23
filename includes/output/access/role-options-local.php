@@ -17,8 +17,8 @@ if (is_user_logged_in()) {
 
     // Member pending, earlier or outside
     if (current_user_can('member_pending') || current_user_can('member_earlier') || current_user_can('member_outside')) {
-        $options = '<p>⏳ Du behöver komplettera ditt medlemskap.</p>
-                    <p>Gå till <span class="big-link"><a href="'.esc_url(network_site_url('')).'">🗺 LOOPIS startsida</a></span> </p>';
+        $options = '<p>📋 Du behöver komplettera ditt medlemskap.</p>
+                    <p>Gå till <span class="big-link"><a href="'.esc_url(network_site_url('/start/')).'">🗺 LOOPIS startsida</a></span> </p>';
     }
 
 } else {

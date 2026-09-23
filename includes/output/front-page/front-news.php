@@ -31,7 +31,7 @@ if ( $the_query->have_posts() ) : ?>
     <div class="post-list-cpt" style="height:60px;" onclick="location.href='<?php the_permalink(); ?>';">
                 <?php if ( has_post_thumbnail() ) : ?>
                     <div class="post-list-cpt-thumbnail" style="width: 60px; height: 60px; overflow: hidden;">
-                        <?php get_the_post_thumbnail(get_the_ID(), 'thumbnail'); ?>
+                        <?php the_post_thumbnail('thumbnail'); ?>
                     </div>
                 <?php endif; ?>
                 <div class="post-list-cpt-title"><?php echo esc_html(get_the_title()); ?></div>

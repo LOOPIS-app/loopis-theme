@@ -8,9 +8,10 @@ if (!defined('ABSPATH')) {
 }
 ?>
 
-<div class="columns"><div class="column1"><h3><i class="fas fa-hashtag"></i> Populära kategorier</h3></div>
+<div class="columns"><div class="column1"><h3><i class="fas fa-hashtag"></i> Bläddra</h3></div>
 <div class="column2"><a href="<?php echo esc_url(add_query_arg('view', 'categories', home_url('/discover/')) ); ?>">Visa alla →</a></div></div>
-<hr>
+<hr style="margin: 0px;">
+<p class="small">💡 De tio mest populära kategorierna just nu.</p>
 
 <p style="line-height:2.2em">
 <?php

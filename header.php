@@ -123,7 +123,7 @@
 			<a href="<?php echo esc_url(home_url('/')); ?>"><img src="<?php echo LOOPIS_THEME_URI; ?>/assets/img/LOOPIS_logo.png" alt="LOOPIS-logo" id="header-logo"></a>
 			<div class="header-area">📍<?php echo $area ?></div>
 			<div class="header-faq" onclick="location.href='<?php echo esc_url( network_home_url('/start/') ); ?>'">🗺</div>
-			</div>
-		</header>
+		</div>
+	</header>
 		
 	<div class="container">

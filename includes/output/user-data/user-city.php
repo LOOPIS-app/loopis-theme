@@ -12,16 +12,21 @@ if (!defined('ABSPATH')) {
 }
 
 // Get user postal code
-$city = get_user_meta($user_id, 'wpum_postarea', true);
+$postarea = get_user_meta($user_id, 'wpum_postarea', true);
 
 // Get user postal area
-if(empty($city)){
-    $city = 'Okänt';
+if(empty($postarea)){
     // Include function for mapping postal code to postal area.
     include_once LOOPIS_USERS_DIR . '/includes/functions/loopis-get-city.php';
-    $city = loopis_get_city(get_user_meta($user_id, 'wpum_postcode', true));
-    update_user_meta($user_id, 'wpum_postarea', $city);
+    $lookup_city = loopis_get_city(get_user_meta($user_id, 'wpum_postcode', true));
+
+    if ($lookup_city) {
+        $postarea = $lookup_city;
+        update_user_meta($user_id, 'wpum_postarea', $postarea);
+    } else {
+        $postarea = 'Okänt';
+    }
 }
 
 // Output
-echo esc_html($city);
+echo esc_html($postarea);

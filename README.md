@@ -1,8 +1,8 @@
 # 🌈 LOOPIS Theme
-**Theme providing all frontend design and functionality for LOOPIS.app**
+**Theme providing frontend for LOOPIS.app/subsites**
 
 ## 💡 Status
-We are working on migration to MultiSite with fewer third party plugins.
+We are working on improving the Wordpress MultiSite experience.
 
 ## 📋 Changelog
 See [CHANGELOG.md](CHANGELOG.md)

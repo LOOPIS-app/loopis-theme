@@ -65,7 +65,7 @@ if ($previous_post_id) {
     echo '<p><a href="' . get_permalink($previous_post_id) . '"><i class="fas fa-arrow-alt-circle-left"></i></a><i class="fas fa-arrow-alt-circle-right"></i>' . get_the_author_posts_link() . ' – ' . human_time_diff(get_the_time('U'), $now_time) . ' sen <span>' . get_the_time('Y-m-d H:i') . '</span></p>';
 } else {
     // Created
-    echo '<p><i class="fas fa-arrow-alt-circle-up"></i>' . get_the_author_posts_link() . ' – ' . human_time_diff(get_the_time('U'), $now_time) . ' sen <span>' . get_the_time('Y-m-d H:i') . '</span></p>';
+    echo '<p><i class="fas fa-arrow-alt-circle-up"></i>' . get_the_author_posts_link() . ' – ' . human_time_diff(get_the_time('U'), $now_time) . ' sen <span>' . get_the_time('Y-m-d H:i:s') . '</span></p>';
 }
 
 // Raffled
@@ -132,7 +132,7 @@ if (in_category('removed')) {
 ?>
 </div><!--logg-->
 
-<div class="columns">Metadata</div>	
+<div class="columns">↓ Metadata</div>
 <hr style="margin-bottom: 2px;">
 <div class="logg">
     <p><i class="fas fa-info-circle"></i> Post ID: <?php echo $post_id; ?></p>
@@ -144,9 +144,31 @@ $post_ledger = loopis_ledger_fetch(['post_id'=>$post_id]);
 $grid_spacing = 'grid-template-columns: 1.4fr 0.8fr 1.2fr 0.6fr 0.6fr;';
 ?>
 
-<!--ledger-->
+<!-- WP-admin access -->
+<div class="columns">↓ WP-admin</div>
+<hr style="margin-bottom: 2px;">
+<div class="logg">
+<p><a href="<?php echo esc_url($edit_wpadmin); ?>"><i class="fas fa-gift"></i> Redigera annons</a></p>
+<?php
+if (has_post_thumbnail()) {
+    $thumbnail_id = get_post_thumbnail_id();
+    $edit_image_url = admin_url('post.php?post=' . $thumbnail_id . '&action=edit'); ?>
+    <p><a href="<?php echo esc_url($edit_image_url); ?>"><i class="fas fa-image"></i> Redigera bild 1</a></p>
+    <?php }
+$image_2_id = get_post_meta($post_id, 'image_2', true);
+if ($image_2_id) {
+    $edit_image_2_url = admin_url('post.php?post=' . $image_2_id . '&action=edit'); ?>
+    <p><a href="<?php echo esc_url($edit_image_2_url); ?>"><i class="fas fa-image"></i> Redigera bild 2</a></p>
+<?php }
+$image_3_id = get_post_meta($post_id, 'image_3', true);
+if ($image_3_id) {
+    $edit_image_3_url = admin_url('post.php?post=' . $image_3_id . '&action=edit'); ?>
+    <p><a href="<?php echo esc_url($edit_image_3_url); ?>"><i class="fas fa-image"></i> Redigera bild 3</a></p>
+<?php } ?>
+</div><!--logg-->
 
-<div class="columns">Ledger</div>	
+<!--Ledger output-->
+<div class="columns">↓ Ledger</div>
 <hr style="margin-bottom: 2px;">
 <div class="logg">
     <div class="admin-grid" style="<?php echo $grid_spacing ;?>">
@@ -169,32 +191,15 @@ $grid_spacing = 'grid-template-columns: 1.4fr 0.8fr 1.2fr 0.6fr 0.6fr;';
         </div>
     <?php endforeach; ?>
 </div>
-<?php
 
-// Edit images
-$image_2_id = get_post_meta($post_id, 'image_2', true);
-if (has_post_thumbnail()) {
-    $thumbnail_id = get_post_thumbnail_id();
-    $edit_image_url = admin_url('post.php?post=' . $thumbnail_id . '&action=edit');
-    echo '<div class="columns">Bilder</div>	
-<hr style="margin-bottom: 2px;"><div class="logg"><p><a href="' . esc_url($edit_image_url) . '"><i class="fas fa-image"></i> Redigera bild</a></p>';
-}
-if ($image_2_id) {
-    $edit_image_2_url = admin_url('post.php?post=' . $image_2_id . '&action=edit');
-    echo '<p><a href="' . esc_url($edit_image_2_url) . '"><i class="fas fa-image"></i> Redigera bild-2</a></p>';
-}
-echo '</div><!--logg-->';
-?>
-
-<!-- Notification button -->
+<?php if (current_user_can('manage_options')) {  ?>
 <h5>🚨 Extrema situationer</h5>
+<hr>
+<p class="small">💡 Verktyg endast för webmaster.</p>
         <?php if(isset($_POST['notif_manual'])) { admin_action_notif_manual ($post_id); } ?>
         <form method="post" class="arb" action=""><button name="notif_manual" type="submit" class="admin orange small" onclick="return confirm('Skicka manuellt?')">Skicka besked</button></form>
-        <p class="info">Har inga mail skickats? Tryck på knappen.</p>
+        <p class="info">Har inga mail skickats vid dagens lottning? Tryck på knappen.</p>
     
-<!-- Edit & remove -->
-<div class="logg">
-<p><?php
-    echo ' <a href="' . $edit_wpadmin . '">👽 Redigera i WP-admin</a>';
-?></p>
+    <?php } ?>
+
 </div><!--logg-->

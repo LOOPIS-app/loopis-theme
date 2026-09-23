@@ -53,8 +53,8 @@ address,cite,em { font-style: italic; }
 .footer-backdoor:hover { opacity: 1; }
 
 /* Link */
-a { color:#1e73be; text-decoration:none;}
-a:hover { color:#180770; }
+a { color: #1e73be; text-decoration: none;}
+a:hover { color: #180770; }
 a.no-link-styling,
 a.no-link-styling:hover,
 a.no-link-styling:visited,
@@ -67,15 +67,22 @@ p { margin:0 0 10px 0; }
 hr, .wp-block-separator { width: 100%; padding: 0; margin: 0 0 9px 0; background-color: #333; height: 0px; border-top: 1px solid #333 !important; }
 
 /* Universal style */
-.error { font-size: 14px; margin:0 0 5px 0; font-style:italic; color:#DD2E44;  }
-.small { font-size: 14px; line-height: 1.5em; margin:2px 0 10px 0; }
-.info { font-size: 14px; line-height: 1.5em; font-style:italic; margin:2px 0 10px 0; }
+.error { font-size: 14px; margin: 0 0 5px 0; font-style: italic; color: #DD2E44;  }
+.small { font-size: 14px; line-height: 1.5em; margin: 2px 0 10px 0; }
+.info { font-size: 14px; line-height: 1.5em; font-style: italic; margin: 2px 0 10px 0; }
 b, strong, .bold { font-weight: 400; }
 .hidden { visibility: hidden }
 .shorten { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 /* Emojis */
 img.emoji, img.wp-smiley { width: 1em; height: 1em; vertical-align: -0.1em; margin: 0 1px 0 0 !important; }
+span.desaturate { filter: saturate(30%); }
+
+/* Symbols (60px coins admin etc.) */
+h1 .symbol { height: 35px !important; width: auto; margin-bottom: -2px; }
+h5 .symbol { height: 22px !important; width: auto; margin-bottom: -2px; } 
+span.big-link .symbol { height: 15px !important; width: auto; margin-bottom: -1px; }
+span.mega-link .symbol { height: 19px !important; width: auto; margin-bottom: -2px; }
 
 /* Font Awesome */
 .fa, .fab, .fal, .far, .fas { width: 1em; text-align: center; }
@@ -87,23 +94,24 @@ i { margin-right: 3px; }
 .group:after { clear:both; }
 .group { zoom:1; }
 
-/* Span */
+/* Spans */
 span { white-space: nowrap; }
 span.label { font-size: 14px; padding:5px; }
 span.small-label { font-size: 13px; padding:3px;  }
 span.big-label { font-size: 16px; padding:5px;  }
 span.mega-label { font-size: 18px; padding:7px; line-height: 35px; }
-span.link { font-size: 14px; padding:5px; }
-span.small-link { font-size: 13px; padding:3px;  }
-span.big-link { font-size: 16px; padding:5px;  }
-span.mega-link { font-size: 18px; padding:7px; line-height: 35px; }
-span.link:hover { background: #ebebeb; }
-span.small-link:hover { background: #ebebeb; }
-span.big-link:hover { background: #ebebeb; }
-span.mega-link:hover { background: #ebebeb; cursor: pointer; }
 span.rounded { font-size: 14px; padding:4px 10px; border-radius: 20px; }
-span.white { background: #fff !important; }
+span.link { font-size: 14px; padding:5px; }
+span.small-link { font-size: 13px; padding:3px; }
+span.big-link { font-size: 16px; padding:5px; }
+span.mega-link { font-size: 18px; padding:7px; line-height: 35px; }
+span:is(.link, .small-link, .big-link, .mega-link):hover {
+  background: #ebebeb !important;
+}
+
+/* Spans special */
 span.trans { background: none !important; }
+span.white { background: #fff !important; }
 span.grey { color: #777 !important; }
 span.grey a { color: #777 !important; text-decoration: none; }
 span.code { font-family: 'Courier New', monospace; font-weight: bold; }
@@ -111,21 +119,17 @@ span.plus { font-weight: 700; color: #73c23d !important;  }
 span.minus { font-weight: 700; color: #FF969D !important; }
 span.right { float: right; }
 
-/* Spans in specific content */
-.page-padding span { background: #f5f5f5; }
-.post-content span { font-size: 14px; padding:5px; background: #fff; }
-.post-content.news span { background: #fff; }
-.post-content.faq span { background: #f5f5f5; }
-.wrapped span { background: #fff; }
-.economy span { background: none !important; }
+/* Span color in specific content */
+:is(.page-padding, .post-content.faq) span:is(.label, .small-label, .big-label, .mega-label, .link, .small-link, .big-link, .mega-link, .rounded) {
+  background: #f5f5f5;
+}
+:is(.post-content, .post-content.news, .wrapped) span:is(.label, .small-label, .big-label, .mega-label, .link, .small-link, .big-link, .mega-link, .rounded) {
+  background: #fff;
+}
 
-/* Post and page spans */
-.post-label,
-span.post-label,
-.is-style-post-label { font-size: 14px; padding:5px; background: #fff; color: #333; }
-.big-post-label,
-span.big-post-label,
-.is-style-big-post-label { font-size: 16px; padding:5px; background: #fff; color: #333; }
+/* Post and page spans in WP admin text editor */
+.post-label, span.post-label, .is-style-post-label { font-size: 14px; padding:5px; background: #fff; color: #333; }
+.big-post-label, span.big-post-label, .is-style-big-post-label { font-size: 16px; padding:5px; background: #fff; color: #333; }
 
 /* Heading  */
 h1, h2, h3, h4, h5, h6, h7 { margin: 0; padding: 0; font-weight: 300; letter-spacing: -0.3px; line-height: 1.3em; white-space: nowrap; }
@@ -139,8 +143,6 @@ h5 { font-size: 24px; margin-top: 0px; }		                    /* wrapped divs  *
 h6 { font-size: 20px; margin-top: 0px; }		                    /* some custom headings */
 
 /* Special heading */
-h1 .symbol { height: 30px !important; width: auto; padding-right: 5px; }  /* used for coins  */
-h1 .symbol .emoji { font-size: 80%; }  /* used for clovers and stars */
 h1.wrap { white-space: normal; }
 
 /* Heading columns */
@@ -205,11 +207,9 @@ h1.wrap { white-space: normal; }
 
 /* Post & page: list */
 ul, ol,
-.wp-block-list { margin: 5px 0 10px 10px; padding-inline-start: 10px; }
+.wp-block-list { text-align: left; padding-inline-start: 25px; }
 ul li, ol li,
 .wp-block-list li { margin-bottom: 5px; }
-ul li::marker, ol li::marker,
-.wp-block-list li::marker { font-weight: bold; }
 
 /* Post: columns (used?) */
 .wp-block-columns { margin-bottom:0px; }
@@ -243,6 +243,7 @@ a.option:hover { background: none !important; color: #333 !important; }
 .post-actions { margin-top:15px; } 	
 
 /* Post list */
+.post-list { margin-bottom: 30px; }
 .post-list-post { height: 60px; background: #f5f5f5; box-shadow: 2px 2px 5px #eee; margin-bottom: 13px; text-align: left; }
 .post-list-post-big { height: 120px; background: #f5f5f5; box-shadow: 2px 2px 5px #eee; margin-bottom:15px; text-align: left; }
 .post-list > .link:hover { background: #ebebeb; box-shadow: 1px 1px 3px #eee; cursor: pointer; }
