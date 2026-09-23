@@ -38,8 +38,8 @@
             console.warn('No tab links found in container');
             return;
         }
-
-        tabGet = Math.max(Math.min(tabGet,tabLinks.length),0);
+        
+        tabGet = Math.max(Math.min(tabGet, tabLinks.length - 1), 0);
         // Set first tab as active on load
         if (tabLinks.length > 0) {
             tabLinks[tabGet].classList.add('active');
@@ -52,6 +52,10 @@
         tabLinks.forEach(function(link) {
             link.addEventListener('click', function(event) {
                 event.preventDefault();
+                const tabIndex = Array.from(tabLinks).indexOf(this);
+                const url = new URL(window.location.href);
+                url.searchParams.set('tab', tabIndex);
+                window.history.pushState({}, '', url);
                 const tabId = this.getAttribute('data-tab');
                 openTab(tabId, container);
             });
