@@ -99,7 +99,7 @@ $image_3_id = get_post_meta($post_id, 'image_3', true);
 
                 <?php 
                 // Access control
-                if (current_user_can('member') || current_user_can('administrator')) {
+                if (current_user_can('use_locker') || current_user_can('administrator')) {
 
                     // Post actions
                     include LOOPIS_THEME_DIR . '/templates/post/post-actions.php';
