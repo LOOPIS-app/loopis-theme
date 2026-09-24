@@ -30,7 +30,7 @@
 /* Form description */
 .loopis-form .description { color: var(--form-muted); font-size: 13px; font-style: italic; margin-top: -5px; display: block; }
 .loopis-form p.description { margin: 0; }
-label .required { color: #ff969d; }
+.required { color: #DD2E44 !important; }
 
 /* Form rows */
 .loopis-form .form-row { margin: 0 0 var(--form-gap); }
