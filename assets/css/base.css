@@ -306,7 +306,6 @@ input[type="button"]:hover, input[type="reset"]:hover, input[type="submit"]:hove
   background: #666 !important;
   color: #FFF !important; }
 a.button, a.button:link, a.button:visited, a.button:hover, a.button:active { color: #FFF !important; text-decoration: none !important; }
-input[disabled] { background: #e3ebdd; color: #333; padding: 8px 14px; display: inline-block; border: none; cursor: pointer; -webkit-border-radius: 10px; border-radius: 10px; }
 
 /* Buttons colors */
 button.small, input[type="submit"].small { font-size: 15px !important; padding: 5px 10px; margin: 0; }
