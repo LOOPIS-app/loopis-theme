@@ -120,7 +120,7 @@ span.plus { font-weight: 700; color: #73c23d !important;  }
 span.minus { font-weight: 700; color: #FF969D !important; }
 span.right { float: right; }
 
-/* Span color in specific content */
+/* Span color in specific content (TODO: Fix this to remove extra.css) */
 :is(.page-padding, .post-content.faq) span:is(.label, .small-label, .big-label, .mega-label, .link, .small-link, .big-link, .mega-link, .rounded) {
   background: #f5f5f5;
 }
