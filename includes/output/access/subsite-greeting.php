@@ -1,11 +1,8 @@
 <?php
 /**
- * Front page message for member/visitor.
+ * Front page greeting depending on role.
  *
  * Included in front-page.php
- * 
- * Improvements:
- * - Revise to work with WordPress multisite and membership on different sites.
  */
  
 if (!defined('ABSPATH')) {

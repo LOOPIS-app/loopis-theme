@@ -16,8 +16,8 @@ get_header(); ?>
             include LOOPIS_THEME_DIR . '/includes/output/front-page/front-alerts.php';
             include LOOPIS_THEME_DIR . '/includes/output/front-page/front-news.php';
         } else {
-            include LOOPIS_THEME_DIR . '/includes/output/access/role-greeting-local.php';
-            include LOOPIS_THEME_DIR . '/includes/output/access/role-options-local.php';
+            include LOOPIS_THEME_DIR . '/includes/output/access/subsite-greeting.php';
+            include LOOPIS_THEME_DIR . '/includes/output/access/subsite-message.php';
         }
 
         // Count new posts
