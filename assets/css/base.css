@@ -67,10 +67,11 @@ p { margin:0 0 10px 0; }
 hr, .wp-block-separator { width: 100%; padding: 0; margin: 0 0 9px 0; background-color: #333; height: 0px; border-top: 1px solid #333 !important; }
 
 /* Universal style */
-.error { font-size: 14px; margin: 0 0 5px 0; font-style: italic; color: #DD2E44;  }
 .small { font-size: 14px; line-height: 1.5em; margin: 2px 0 10px 0; }
 .info { font-size: 14px; line-height: 1.5em; font-style: italic; margin: 2px 0 10px 0; }
 b, strong, .bold { font-weight: 400; }
+.required { color: #DD2E44; }
+.error { font-size: 14px; margin: 0 0 5px 0; font-style: italic; color: #DD2E44;  }
 .hidden { visibility: hidden }
 .shorten { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
@@ -119,7 +120,7 @@ span.plus { font-weight: 700; color: #73c23d !important;  }
 span.minus { font-weight: 700; color: #FF969D !important; }
 span.right { float: right; }
 
-/* Span color in specific content */
+/* Span color in specific content (TODO: Fix this to remove extra.css) */
 :is(.page-padding, .post-content.faq) span:is(.label, .small-label, .big-label, .mega-label, .link, .small-link, .big-link, .mega-link, .rounded) {
   background: #f5f5f5;
 }
@@ -306,7 +307,6 @@ input[type="button"]:hover, input[type="reset"]:hover, input[type="submit"]:hove
   background: #666 !important;
   color: #FFF !important; }
 a.button, a.button:link, a.button:visited, a.button:hover, a.button:active { color: #FFF !important; text-decoration: none !important; }
-input[disabled] { background: #e3ebdd; color: #333; padding: 8px 14px; display: inline-block; border: none; cursor: pointer; -webkit-border-radius: 10px; border-radius: 10px; }
 
 /* Buttons colors */
 button.small, input[type="submit"].small { font-size: 15px !important; padding: 5px 10px; margin: 0; }
@@ -366,7 +366,7 @@ button.disabled, a.button.disabled { opacity: 0.5; cursor: not-allowed; }
 .blue_light, .fetched, .returned, .unqueue, .regret, .cancel { background: #E4F4FF !important; }
 .purple_light, .forward, .retrieved { background: #FAF2FA !important; }
 
-/* LOOPIS tabs (inspired by WPUM) */
+/* LOOPIS tabs */
 .tab-navbar { display: flex; align-items: flex-end; gap: 5px; padding-top:20px; border-top: 0px; border-bottom: 5px solid #f5f5f5; }
 .tab-navbar>a.active:first-child, 
 .tab-navbar>a:hover:first-child, 
@@ -385,7 +385,7 @@ button.disabled, a.button.disabled { opacity: 0.5; cursor: not-allowed; }
 .page-padding .tab-navbar { justify-content: flex-start; }
 .page-padding.center .tab-navbar { justify-content: center; }
 
-/* LOOPIS message (inspired by WPUM) */
+/* LOOPIS message */
 .loopis-message {  border-radius: 10px; padding: 7px 7px 1px 7px; margin: 12px 0; font-size: 16px; }
 .loopis-message p { padding: 0; margin: 0 0 6px 0; }
 .loopis-message span { background: #f5f5f5; }

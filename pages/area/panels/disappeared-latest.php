@@ -22,7 +22,6 @@ $count = $the_query->found_posts; ?>
 <!--Output-->
 <div class="wrapped link" style="min-width:250px" onclick="location.href='<?php echo get_home_url( null, '/category/disappeared/' ); ?>'">
 <h5>💢 Försvunna saker</h5>
-<p class="small">💡 Saker som inte hittats i skåpet vid hämtning.</p>
 <p class="small">↓ 3 senaste<span class="right blue">Se alla →</span></p>
 <hr>
 <?php if ( $the_query->have_posts() ) : ?>
