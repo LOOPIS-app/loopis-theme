@@ -19,7 +19,7 @@ $admin_url = home_url('/admin/');
     <div class="column2"></div>
 </div>
 <hr>
-<p class="small">💡 Du är inloggad som <span class="small-link"><a href="<?php echo esc_url( home_url('/user/') ); ?>">👤<?php echo wp_get_current_user()->user_login; ?></a></span></p>
+<p class="small">💡 Du är inloggad som <span class="small-label">👤<?php echo wp_get_current_user()->user_login; ?></span></p>
 
 <!-- Statistics -->
 <div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'stats', $admin_url) ); ?>'">
