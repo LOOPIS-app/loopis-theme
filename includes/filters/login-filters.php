@@ -1,15 +1,13 @@
 <?php
 /**
- * Disable wp-admin for non-admin users
- * 
- * This hook hides the WordPress admin-space for users who do not have administrative privileges.
+ * Filters controlling login and admin access for non-admin users.
  * 
  * @package LOOPIS_Theme
  * @subpackage Frontend
  */
 
 /**
- * Force admin redirect
+ * Disable wp-admin for non-admin users
  */
 add_action( 'admin_init', function() {
     if ( is_admin() && !current_user_can('manage_options') && !wp_doing_ajax() ) {
@@ -17,6 +15,17 @@ add_action( 'admin_init', function() {
         exit;
     }
 } );
+
+
+/**
+ * Redirect wp-login.php on subsites to the mainsite login.
+ */
+add_action('login_init', function() {
+    if ((int) get_current_blog_id() !== (int) get_main_site_id()) {
+        wp_redirect(network_site_url('wp-login.php'));
+        exit;
+    }
+});
 
 
 /**
@@ -39,7 +48,7 @@ function logout_without_confirm($action, $result)
 }
 
 /**
- * Lengthens login time borrowed from web
+ * Lengthens login time (borrowed from web)
  * 
  * @return int one year in time
  */
