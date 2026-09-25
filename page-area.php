@@ -10,7 +10,7 @@
         <?php 
 
         // Access check (local members + administrator only)
-        if (current_user_can('member') || current_user_can('manage_options')) :
+        if (current_user_can('member') || current_user_can('loopis_admin')) :
 
         // Dynamic content loader
         $content_dir = get_template_directory() . '/pages/area/';

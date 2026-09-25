@@ -124,13 +124,13 @@ span.right { float: right; }
 :is(.page-padding, .post-content.faq) span:is(.label, .small-label, .big-label, .mega-label, .link, .small-link, .big-link, .mega-link, .rounded) {
   background: #f5f5f5;
 }
-:is(.post-content, .post-content.news, .wrapped) span:is(.label, .small-label, .big-label, .mega-label, .link, .small-link, .big-link, .mega-link, .rounded) {
+:is(.post-content, .wrapped) span:is(.label, .small-label, .big-label, .mega-label, .link, .small-link, .big-link, .mega-link, .rounded) {
   background: #fff;
 }
 
 /* Post and page spans in WP admin text editor */
-.post-label, span.post-label, .is-style-post-label { font-size: 14px; padding:5px; background: #fff; color: #333; }
-.big-post-label, span.big-post-label, .is-style-big-post-label { font-size: 16px; padding:5px; background: #fff; color: #333; }
+.post-label, span.post-label, .is-style-post-label { font-size: 14px; padding:5px; background: #fff; }
+.big-post-label, span.big-post-label, .is-style-big-post-label { font-size: 16px; padding:5px; background: #fff; }
 
 /* Heading  */
 h1, h2, h3, h4, h5, h6, h7 { margin: 0; padding: 0; font-weight: 300; letter-spacing: -0.3px; line-height: 1.3em; white-space: nowrap; }

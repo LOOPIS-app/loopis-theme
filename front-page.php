@@ -17,7 +17,7 @@ get_header(); ?>
     }
     
     // Messages for users and visitors
-    if (current_user_can('member') || current_user_can('administrator')) {
+    if (current_user_can('member') || current_user_can('loopis_admin')) {
         // include LOOPIS_THEME_DIR . '/includes/output/front-page/front-tips.php'; (To be created)
         include LOOPIS_THEME_DIR . '/includes/output/front-page/front-alerts.php';
         include LOOPIS_THEME_DIR . '/includes/output/front-page/front-news.php';
