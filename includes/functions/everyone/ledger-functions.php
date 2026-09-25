@@ -480,12 +480,14 @@ function loopis_ledger_add_post($event, $user_id, $post_id, $options=[]){
         'blog_id' => get_current_blog_id(),
         'timestamp' => current_time('Y-m-d H:i:s'),
         'type' => '',
+        'description' => '',
     ];
 
     $blog_id = (int) ($options['blog_id'] ?? $defaults['blog_id']);
     $location = (string) ($options['location'] ?? $defaults['location']);
     $timestamp = $options['timestamp'] ?? $defaults['timestamp'];
     $type = (string) ($options['type'] ?? $defaults['type']);
+    $description = (string) ($options['description'] ?? $defaults['description']);
     if (($user_id<=0)||($post_id<=0)||($blog_id<=0)){
         error_log('LEDGER ERROR AT EVENT:' . $event .', POST ID: '.$post_id. 'USER ID: '. $user_id);
         return;
@@ -521,19 +523,26 @@ function loopis_ledger_add_post($event, $user_id, $post_id, $options=[]){
         default:
             return;
     }
+    if (isset($options['clovers'])){
+        $clovers = (int) $options['clovers'];
+    }
+    if (isset($options['coins'])){
+        $clovers = (int) $options['coins'];
+    }
 
     $table_name = $wpdb->base_prefix . 'loopis_ledger';
     $result = $wpdb->query(
         $wpdb->prepare(
             "INSERT INTO {$table_name}
-            (user_id, post_id, blog_id, location, event, type, coins, clover, timestamp)
-            VALUES ( %d, %d, %d, %s, %s, %s, %d, %d, %s)",
+            (user_id, post_id, blog_id, location, event, type, description, coins, clover, timestamp)
+            VALUES ( %d, %d, %d, %s, %s, %s,%s, %d, %d, %s)",
             $user_id,
             $post_id,
             $blog_id,
             $location,
             $event,
             $type,
+            $description,
             $coins,
             $clovers,
             $timestamp
