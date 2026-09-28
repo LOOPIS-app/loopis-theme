@@ -35,22 +35,21 @@ if (!defined('ABSPATH')) {
 <?php if (in_category( array( 'locker', 'fetched') )) :
     $fetcher = get_post_meta($post_id, 'fetcher', true); 
     $timestamp = current_time('Y-m-d H:i:s');
-    if (isset($_POST['remove'])) {
-            action_remove();
-        }
-    if (isset($_POST['complain'])) {
-            action_complaint();
+
+    if (isset($_POST['complaint'])) {
+            include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-complaint.php'; 
+
+            action_complaint($post_id);
         }
     if (isset($_POST['disappear'])) {
-            action_disappear();
+            include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-disappear.php'; 
+            action_disappear($post_id);
         }
     ?>
-	<form method="post"><button type="submit" class="orange small" name="remove">Ta bort! ❌</button></form>
-    <p class="info">Ska denna tas bort? Tryck på knappen.</p>
-    <form method="post"><button type="submit" class="orange small" name="complaint">Klaga! 🗣️</button></form>
+    <form method="post"><button type="submit" class="orange small" name="complaint">💩 Klagomål! </button></form>
     <p class="info"> Är denna defekt? Tryck på knappen.</p>
-    <form method="post"><button type="submit" class="orange small" name="disappear">Borta! 👻</button></form>
-    <p class="info"> Är denna redan borta? Tryck på knappen.</p>
+    <form method="post"><button type="submit" class="orange small" name="disappear">💢 Försvunnen! </button></form>
+    <p class="info"> Har denna försvunnit? Tryck på knappen.</p>
 	<?php endif; ?>
 
 </div><!--post-actions-->
