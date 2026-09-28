@@ -2,7 +2,7 @@
 /**
  * LOOPIS subsite front page
  * 
- * Displays messages for user/visitor + current posts.
+ * Display notifications + messages + current posts.
  */
 
 get_header(); ?>
@@ -10,18 +10,23 @@ get_header(); ?>
 <div class="page-padding">
 
     <?php
-    // Get current user variables
+    // Get current user
+    $user_roles = array();
     if ( is_user_logged_in() ) {
         $user_id = get_current_user_id();
-        $user_firstname = get_user_meta($user_id, 'first_name', true);
+        $user = wp_get_current_user();
+        $user_roles = (array) $user->roles;
+        $user_firstname = $user->first_name;
     }
     
-    // Messages for users and visitors
-    if (current_user_can('member') || current_user_can('loopis_admin')) {
-        // include LOOPIS_THEME_DIR . '/includes/output/front-page/front-tips.php'; (To be created)
+    // Notifications for members
+    if (in_array('member', $user_roles, true) || current_user_can('loopis_locker') || current_user_can('loopis_admin')) {
         include LOOPIS_THEME_DIR . '/includes/output/front-page/front-alerts.php';
         include LOOPIS_THEME_DIR . '/includes/output/front-page/front-news.php';
-        } else {
+        }
+
+    // Greeting & message for non-members
+    if (!in_array('member', $user_roles, true) && !current_user_can('loopis_admin')) {
         include LOOPIS_THEME_DIR . '/includes/output/access/subsite-greeting.php';
         include LOOPIS_THEME_DIR . '/includes/output/access/subsite-message.php';
     }
