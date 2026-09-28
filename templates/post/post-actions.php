@@ -32,12 +32,13 @@ $locker_code = get_locker_code();
 <?php include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-participate.php'; ?>
 
 <?php if ( $current != $author ) : ?>
-	<?php if (!in_array($current, $participants)) :
-		if(isset($_POST['participate'])) { action_participate($post_id); } ?>
-		<form method="post" action=""><button name="participate" type="submit" class="orange" onclick="return confirm('Vill du delta i lottning?')">Delta i lottning</button></form>
-		<p class="info">Tryck på knappen om du vill delta i lottning<?php echo raffle_time(); ?>.</p>
+	<?php if (current_user_can('member')) : ?>
+		<?php if (!in_array($current, $participants)) :
+			if(isset($_POST['participate'])) { action_participate($post_id); } ?>
+			<form method="post" action=""><button name="participate" type="submit" class="orange" onclick="return confirm('Vill du delta i lottning?')">Delta i lottning</button></form>
+			<p class="info">Tryck på knappen om du vill delta i lottning<?php echo raffle_time(); ?>.</p>
+		<?php endif;?>
 	<?php endif;?>
-
 	<?php if (in_array($current, $participants)) : ?>
 		<p>⏳ Du väntar på lottning <?php echo raffle_time(); ?>...</p>		
 		<?php if(isset($_POST['un_participate'])) { action_unparticipate($post_id); } ?>
@@ -63,21 +64,22 @@ $locker_code = get_locker_code();
 		<p>⏳ Du väntar på att någon ska paxa...</p>
 		<p>🧘 Vänta gärna så länge som möjligt med att ta bort din annons. Plötsligt kanske någon ny eller gammal medlem behöver det du ger bort!</p>
 	<?php endif;?>
-		
-	<?php if ( $current != $author && $location == 'Skåpet') : ?>
-	<p>Den som först paxar får hämta i <span class="label"><i class="fas fa-walking"></i><?php echo $location; ?></span><p>
-		<?php if(isset($_POST['book_locker'])) { action_book_locker($post_id); } ?>
-		<form method="post" action=""><button name="book_locker" type="submit" class="red" onclick="return confirm('Vill du paxa och hämta i skåpet?')">Paxa</button></form>
-		<p class="info">Tryck på knappen för att paxa.</p>
-	<?php endif;?>
 	
-	<?php if ( $current != $author && $location != 'Skåpet') : ?>
-		<p>Den som först paxar får hämta på <span class="label"><i class="fas fa-walking"></i><?php echo $location ?></span><p>
-		<?php if(isset($_POST['book_custom'])) { action_book_custom ($post_id); } ?>
-		<form method="post" action=""><button name="book_custom" type="submit" class="red" onclick="return confirm('Vill du paxa och hämta på <?php echo $location ?>?')">Paxa</button></form>
-		<p class="info">Tryck på knappen för att paxa.</p>
+	<?php if (current_user_can('member')) : ?>	
+		<?php if ( $current != $author && $location == 'Skåpet') : ?>
+		<p>Den som först paxar får hämta i <span class="label"><i class="fas fa-walking"></i><?php echo $location; ?></span><p>
+			<?php if(isset($_POST['book_locker'])) { action_book_locker($post_id); } ?>
+			<form method="post" action=""><button name="book_locker" type="submit" class="red" onclick="return confirm('Vill du paxa och hämta i skåpet?')">Paxa</button></form>
+			<p class="info">Tryck på knappen för att paxa.</p>
+		<?php endif;?>
+		
+		<?php if ( $current != $author && $location != 'Skåpet') : ?>
+			<p>Den som först paxar får hämta på <span class="label"><i class="fas fa-walking"></i><?php echo $location ?></span><p>
+			<?php if(isset($_POST['book_custom'])) { action_book_custom ($post_id); } ?>
+			<form method="post" action=""><button name="book_custom" type="submit" class="red" onclick="return confirm('Vill du paxa och hämta på <?php echo $location ?>?')">Paxa</button></form>
+			<p class="info">Tryck på knappen för att paxa.</p>
+		<?php endif;?>
 	<?php endif;?>
-
 	<?php if ( current_user_can('manager') || ( $current == $author && current_user_can('loopis_storage') ) ) :
 	include_once LOOPIS_THEME_DIR . '/templates/post/storage-booking.php';
 	endif; ?>
@@ -272,10 +274,12 @@ $locker_code = get_locker_code();
 			<?php } else { ?>
 			
 			<p>♻ Du har hämtat. Tack för att du loopar!</p>
-			<?php include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-forward.php'; ?>
-		<?php if(isset($_POST['forward'])) { action_forward ($post_id); } ?>
-		<form method="post" action=""><button name="forward" type="submit" class="purple" onclick="return confirm('Vill du skicka vidare? Du kan redigera din kopia av annonsen.')">Skicka vidare</button></form>
-		<p class="info">Tryck på knappen så lägger vi upp samma annons igen.</p>
+			<?php if (current_user_can('member')) : ?>	
+				<?php include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-forward.php'; ?>
+				<?php if(isset($_POST['forward'])) { action_forward ($post_id); } ?>
+				<form method="post" action=""><button name="forward" type="submit" class="purple" onclick="return confirm('Vill du skicka vidare? Du kan redigera din kopia av annonsen.')">Skicka vidare</button></form>
+				<p class="info">Tryck på knappen så lägger vi upp samma annons igen.</p>
+			<?php endif;?>
 			<?php } ?>
 			
 	<?php endif;?>
@@ -285,12 +289,14 @@ $locker_code = get_locker_code();
 
 <!-- REMOVED POST -->
 <?php if (in_category( 'removed' )) : ?>
-
+	
 	<?php if ( $current == $author ) : ?>
 		<p>⚠ Denna annons har tagits bort.</p>
-		<?php if(isset($_POST['unremove'])) { action_unremove($post_id); } ?>
-		<form method="post" action=""><button name="unremove" type="submit" class="green small" onclick="return confirm('Är annonsen aktuell igen?')">Publicera igen</button></form>
-		<p class="info">Är annonsen aktuell igen? Tryck på knappen för att publicera den igen.</p>
+		<?php if (current_user_can('member')) : ?>	
+			<?php if(isset($_POST['unremove'])) { action_unremove($post_id); } ?>
+			<form method="post" action=""><button name="unremove" type="submit" class="green small" onclick="return confirm('Är annonsen aktuell igen?')">Publicera igen</button></form>
+			<p class="info">Är annonsen aktuell igen? Tryck på knappen för att publicera den igen.</p>
+		<?php endif;?>
 	<?php endif;?>
 	
 	<?php if ( $current != $author ) : ?>
