@@ -125,7 +125,7 @@ $count = $the_query->found_posts;
     <form method="post" class="arb" action="">
         <button name="start_raffle" 
                 type="submit" 
-                class="red small" 
+                class="admin red small" 
                 onclick="return confirm('Vill du starta lottning manuellt?')">
             🤖 Lotta nu...
         </button>

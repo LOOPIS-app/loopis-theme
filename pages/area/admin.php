@@ -20,20 +20,19 @@ if (!defined('ABSPATH')) {
 <h3>🗒 Uppgifter för admin</h3>
 <hr>
 <ul class="wrapped wp-block-list">
-    <li>Svara på frågor och hjälpa till där det behövs.</li>
-    <li>Hålla ordning och städa i skåpet.</li>
-    <li>Skicka sms-påminnelser när saker inte har hämtats efter 5 dagar.</li>
-    <li>Försöka hitta saker som hamnat fel → <span class="link white"><a href="<?php echo get_home_url( null, '/category/disappeared//' ); ?>">💢 Försvunnen</a></span></li>
-    <li>Ta bort saker ur skåpet som inte har paxats → <span class="link white"><a href="<?php echo get_home_url( null, '/category/extracted/' ); ?>">🧹 Bortplockad</a></span></li>
-    <li>Ta bort olämpliga annonser → <span class="link white"><a href="<?php echo network_home_url( '/faq/restriktioner' ); ?>">📌 Restriktioner</a></span></li>
+    <li>Se till det är bra ordning i LOOPIS app och skåp.</li>
+    <li>Svara på frågor i kommentarsfält och <span class="big-link"><a href="<?php echo home_url( '/support' ); ?>">🛟 Supportforum</a></span></li>
+    <li>Skicka automatiska sms-påminnelser när saker inte har hämtats efter 5 dagar.</li>
+    <li>Ta bort olämpliga annonser → <span class="big-link"><a href="<?php echo network_home_url( '/faq/restriktioner' ); ?>">📌 Restriktioner</a></span></li>
+    <li>Representera området vid kontakt med föreningens styrelse.</li>
 </ul>
 
 <h3>💞 Kontakta admin</h3>
 <hr>
 <ul class="wrapped wp-block-list">
-    <li>Du kan alltid <span class="label white">🔔 pinga @admin</span> i ett kommentarsfält.</li>
-    <li>För frågor som inte gäller en annons: <span class="link white"><a href="<?php echo home_url( '/support' ); ?>">🛟 Supportforum</a></span></li>
-    <li>För privata frågor, maila <span class="link white">✉ <a href="mailto:<?php echo get_bloginfo('admin_email'); ?>"><?php echo get_bloginfo('admin_email'); ?></a></span></li>  
+    <li>Du kan alltid <span class="big-label">🔔 pinga @admin</span> i ett kommentarsfält.</li>
+    <li>För frågor som inte gäller en annons: <span class="big-link"><a href="<?php echo home_url( '/support' ); ?>">🛟 Supportforum</a></span></li>
+    <li>För privata frågor, maila <span class="big-link">✉ <a href="mailto:<?php echo get_bloginfo('admin_email'); ?>"><?php echo get_bloginfo('admin_email'); ?></a></span></li>  
 </ul>
 
 <?php
@@ -41,21 +40,27 @@ if (!defined('ABSPATH')) {
 $users = get_users(array('role' => 'manager'));
 $count = count($users); ?>
 
-<h3>📍 Vem är admin?</h3>
+<h3>🕵️‍♂️ Vem är admin?</h3>
 <hr>
 <p>En admins profilbild har glasögon. <?php if ($count == 1) { echo 'Denna medlem är admin i ditt område.'; } else { echo 'Dessa medlemmar är admins i ditt område:'; } ?></p>
+<p>
 <?php
 foreach ($users as $user) {
     $user_first_name = get_user_meta($user->ID, 'first_name', true);
     $user_last_name = get_user_meta($user->ID, 'last_name', true);
     $author_link = get_author_posts_url($user->ID);
-	echo '<p><span class="mega-link"><a href="' . esc_url($author_link) . '"><img src="' . LOOPIS_THEME_URI . '/assets/img/admin.png" alt="Admin" class="symbol"> ' . esc_html($user_first_name . ' ' . $user_last_name) . '</a></p>';
+	echo '<span class="mega-link"><a href="' . esc_url($author_link) . '"><img src="' . LOOPIS_THEME_URI . '/assets/img/admin.png" alt="Admin" class="symbol"> ' . esc_html($user_first_name . ' ' . $user_last_name) . '</a></span> &nbsp;';
 }
 ?>
+</p>
 
 <!-- Lost items -->
 <h3>🪂 Saker på vift</h3>
 <hr>
+<p>Här är tre kategorier av saker som admin hanterar:</p>
+    <p><span class="big-link"><a href="<?php echo get_home_url( null, '/category/disappeared//' ); ?>">💢 Försvunnen</a></span> = Fanns inte i skåpet vid hämtning.</p>
+    <p><span class="big-link"><a href="<?php echo get_home_url( null, '/category/extracted/' ); ?>">🧹 Bortplockad</a></span> = Skulle inte vara i skåpet.</p>
+    <p><span class="big-link"><a href="<?php echo get_home_url( null, '/category/complaint/' ); ?>">💩 Reklamerade</a></span> = Trasiga eller felaktiga enligt mottagaren.</p>
 <!-- Things disappeared -->
 <?php include LOOPIS_THEME_DIR . '/pages/area/panels/disappeared-latest.php'; ?>
 

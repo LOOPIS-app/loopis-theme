@@ -53,7 +53,7 @@ switch ($post_type) {
 <div class="loopis-form">
 <p class="small">💡 Kom ihåg att pinga den som ska se din kommentar.</p>
 <?php if (current_user_can('manage_options')) { ?>
-<div class="admin-block"><p><b>⚠️ Du är inloggad som <?php echo wp_get_current_user()->display_name; ?>!</b></p></div>
+<div class="admin-block"><p>⚠️ Du är inloggad som <b><?php echo wp_get_current_user()->display_name; ?>!</b></p></div>
 <?php } ?>
 <?php comment_form(array(
     'title_reply' => '',

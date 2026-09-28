@@ -21,15 +21,16 @@
 .loopis-form select { border-radius: var(--form-control-radius); }
 .loopis-form :where(input[type="search"], input[type="text"], input[type="password"], input[type="email"], input[type="url"], input[type="tel"], input[type="number"], select, textarea):focus { border-color: var(--form-border-focus); color: var(--form-text); box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); }
 .loopis-form :where(input[type="submit"], button) { font-size: var(--form-control-size); }
+.loopis-form input[disabled] { background: #ebebeb; color: #666; }
 
 /* Form labels */
 .loopis-form label { color: var(--form-text); font-size: var(--form-label-size); font-weight: 600; display: block; }
 .loopis-form label:has(input[type="radio"]) { font-size: 22px; font-weight: 300; }
 
 /* Form description */
-.loopis-form .description { color: var(--form-muted); font-size: 13px; font-style: italic; margin-top: 0px; opacity: 1; white-space: normal; display: block; }
+.loopis-form .description { color: var(--form-muted); font-size: 13px; font-style: italic; margin-top: -5px; display: block; }
 .loopis-form p.description { margin: 0; }
-label .required { color: #ff969d; }
+.required { color: #DD2E44 !important; }
 
 /* Form rows */
 .loopis-form .form-row { margin: 0 0 var(--form-gap); }

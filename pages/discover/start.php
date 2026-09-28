@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
 
 <h1>🧭 Hitta</h1>
 <hr>
-<p class="small">💡 Här finns olika sätt att hitta saker du behöver - eller vill ha. 😻</p>
+<p class="small">💡 Här finns olika sätt att hitta saker du behöver.</p>
 
 <h3>🔍 Sök</h3>
 <hr style="margin: 0px;">
@@ -29,7 +29,7 @@ get_template_part('templates/discover/popular-tags');
 get_template_part('templates/discover/random-posts');  
 ?>
 
-<h3><span class="desaturate">🚪</span> Skåpet?</h3>
+<h3><i class="fas fa-walking"></i> Skåpet?</h3>
 <hr style="margin: 0px;">
 <p class="small">💡 Var finns skåpet och hur funkar det?</p>
-<p>Titta på sidan om <span class="mega-link"><a href="<?php echo home_url( '/locker' ); ?>">⏹️ Skåpet</a></span></p>
+<p>Titta på sidan om <span class="big-link"><a href="<?php echo home_url( '/locker' ); ?>">⏹️ Skåpet</a></span></p>

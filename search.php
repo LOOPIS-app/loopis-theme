@@ -61,9 +61,8 @@ get_header(); ?>
             <?php endif; ?>
 
         <?php else : ?>
-            <!-- No search query - show popular tags and random post -->
+            <!-- No search query - show popular tags (to be replaced with recent searches?) -->
             <?php get_template_part('templates/discover/popular-tags'); ?>
-            <?php get_template_part('templates/discover/random-posts'); ?>
         <?php endif; ?>
 
 </div><!--page-padding-->

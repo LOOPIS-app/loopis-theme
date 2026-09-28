@@ -9,7 +9,7 @@ global $wpdb;
 $locker_warning_value = loopis_get_setting('locker_warning', '0');
 
 if ($locker_warning_value === '0') {
-	echo '✅ Varning för skåp är inaktiv<br>';
+	echo '✅ Varning för skåp ej aktiv<br>';
 } else {
 	echo '<b>⚠ Varning för skåp är aktiv!</b><br>';
 }
@@ -21,7 +21,7 @@ echo '🔒 Kod för skåpet: ' . $locker_code_value . '<br>';
 
 // Check area privacy status
 if ($area_privacy_value === 'false') {
-	echo '💚 Området är offentligt';
+	echo '♾️ Området är offentligt';
 } else {
 	echo '⛔️ Området är privat';
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Show last week statistics for gifts in admin dashboard
+ * Show last weeks ledger entries
  */
  
 if (!defined('ABSPATH')) {
@@ -8,6 +8,7 @@ if (!defined('ABSPATH')) {
 }
 $table = $wpdb->base_prefix . 'loopis_ledger';
 
+// Calculate the start and end dates for the last 7 complete days
 $now_time = new DateTime(current_time('mysql'));
 $start_date = clone $now_time;
 $start_date->modify('-8 days');
@@ -41,13 +42,13 @@ $total_booked = (int) $wpdb->get_var($wpdb->prepare(
     'booked'
 ));
 $events = ($total_events == 0) 
-    ? '⚠ 0 händelser <br>'
-    : '🔥 ' . $total_events . ' händelser ('.round($total_events/7).' per dag) <br>';
+    ? '💢 0 händelser <br>'
+    : '✏️ ' . $total_events . ' händelser ('.round($total_events/7).' per dag) <br>';
 $submitted = ($total_submitted == 0) 
-    ? '⚠ 0 annonser <br>'
+    ? '💢 0 annonser <br>'
     : '💚 ' . $total_submitted . ' annonser ('. round($total_submitted/7).' per dag) <br>';
 $booked = ($total_booked == 0) 
-    ? '⚠ 0 bokade annonser <br>'
+    ? '💢 0 bokade annonser <br>'
     : '❤ ' . $total_booked . ' paxade ('.round($total_booked/7).' per dag) =  ♻ ' . round(($total_booked/$total_submitted)*100) . '%';
 
 echo $events;

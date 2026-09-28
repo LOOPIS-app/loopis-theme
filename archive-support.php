@@ -18,7 +18,7 @@ get_header(); ?>
 <p class="small">💡 Supportfrågor i ditt område.</p>
 
 <!-- Access check-->
-<?php if ( current_user_can('member') || current_user_can('manage_options') ) { ?>
+<?php if ( current_user_can('member') || current_user_can('loopis_admin') ) { ?>
 
 <p>Här kan du få support av admin och andra medlemmar: <button type="button" class="orange small" onclick="window.location.href='<?php echo esc_url(add_query_arg('view', 'create-support-post', home_url('/area/'))); ?>'">Skapa tråd</button></p>
 <p>Innan du skapar en ny tråd, sök bland de som finns:</p>
@@ -64,7 +64,7 @@ $count_query = new WP_Query( $count_args );
 
 if ( ! empty( $count_query->posts ) ) {
     $current_id = (int) get_current_user_id();
-    $can_view_private = current_user_can( 'loopis_support' ) || current_user_can( 'manage_options' );
+    $can_view_private = current_user_can( 'loopis_admin' );
 
     foreach ( $count_query->posts as $support_post_id ) {
         $post_id = (int) $support_post_id;
@@ -123,7 +123,6 @@ if ( ! empty( $count_query->posts ) ) {
 
 
 <?php } else { 
-    echo "<h3>🛠 Work in progress!</h3>";
     include LOOPIS_THEME_DIR . '/includes/output/access/only-user.php';
 } ?>
 
