@@ -4,6 +4,7 @@
  * 
  * Passed from page-start.php:
  * $user_id
+ * $user_roles
  * $user_firstname
  */
  
@@ -13,10 +14,26 @@ if (!defined('ABSPATH')) {
 
 if (is_user_logged_in()) { 
 
-    // Member pending or earlier
-    if (current_user_can('member_pending') || current_user_can('member_earlier')) {
+    // Member pending
+    if (in_array('member_pending', $user_roles, true)) {
         echo '<div class="loopis-message information">';
         echo '<p>⏳ Du behöver komplettera ditt medlemskap.</p>';
+        echo '<p>Gå till <span class="big-link"><a href="'.esc_url(network_site_url('/start/')).'">🗺 LOOPIS startsida</a></span> </p>';
+        echo '</div>';
+    }
+
+    // Member earlier
+    elseif (in_array('member_earlier', $user_roles, true)) {
+        echo '<div class="loopis-message information">';
+        echo '<p>❤️‍🩹 Du är inte längre medlem i detta område.</p>';
+        echo '<p>Gå till <span class="big-link"><a href="'.esc_url(network_site_url('/start/')).'">🗺 LOOPIS startsida</a></span> </p>';
+        echo '</div>';
+    }
+
+    // Member archived
+    elseif (in_array('member_archived', $user_roles, true)) {
+        echo '<div class="loopis-message information">';
+        echo '<p>🕸️ Du behöver förnya ditt medlemskap.</p>';
         echo '<p>Gå till <span class="big-link"><a href="'.esc_url(network_site_url('/start/')).'">🗺 LOOPIS startsida</a></span> </p>';
         echo '</div>';
     }
