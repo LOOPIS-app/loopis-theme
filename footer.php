@@ -45,7 +45,7 @@
             <?php endif; ?>
     </nav>
 
-<?php if (current_user_can('loopis_admin') || current_user_can('manage_options')) : ?>
+<?php if (current_user_can('loopis_admin') || current_user_can('loopis_board')) : ?>
     <div class="footer-backdoor" onclick="location.href='<?php echo esc_url(home_url('/admin/')); ?>'">🦀</div>
 <?php endif; ?>
 
