@@ -516,6 +516,10 @@ function loopis_ledger_add_post($event, $user_id, $post_id, $options=[]){
             $coins = 0;
             $clovers = 0;
             break;
+        case 'delivered':
+            $coins = 0;
+            $clovers = 0;
+            break;
         case 'cancelled':
             $coins = 1;
             $clovers = 0;
