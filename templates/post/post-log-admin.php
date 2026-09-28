@@ -140,7 +140,7 @@ if (in_category('removed')) {
 </div><!--logg-->	
 
 <?php
-$post_ledger = loopis_ledger_fetch(['post_id'=>$post_id]);
+$post_ledger = loopis_ledger_fetch(['post_id'=>$post_id, 'blog_id'=>get_current_blog_id()]);
 $grid_spacing = 'grid-template-columns: 1.4fr 0.8fr 1.2fr 0.6fr 0.6fr;';
 ?>
 
