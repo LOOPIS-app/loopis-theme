@@ -140,7 +140,7 @@ if (in_category('removed')) {
 </div><!--logg-->	
 
 <?php
-$post_ledger = loopis_ledger_fetch(['post_id'=>$post_id]);
+$post_ledger = loopis_ledger_fetch(['post_id'=>$post_id, 'blog_id'=>get_current_blog_id()]);
 $grid_spacing = 'grid-template-columns: 1.4fr 0.8fr 1.2fr 0.6fr 0.6fr;';
 ?>
 
@@ -170,27 +170,56 @@ if ($image_3_id) {
 <!--Ledger output-->
 <div class="columns">↓ Ledger</div>
 <hr style="margin-bottom: 2px;">
-<div class="logg">
-    <div class="admin-grid" style="<?php echo $grid_spacing ;?>">
-        <div>Event</div>
-        <div>Time</div>
-        <div>User</div>
-        <div>Coins</div>
-        <div>Clovers</div>
-    </div>
 
-    <?php foreach ($post_ledger as $entry): 
-        $user_info = get_userdata($entry['user_id']);
-    ?>
-        <div class="admin-grid" style="<?php echo $grid_spacing ;?>">
-            <div><i class="fas fa-info-circle"></i> <?php echo esc_html($entry['event']); ?></div>
-            <div><i class="fa-solid fa-clock"></i> <?php echo esc_html($entry['timestamp']); ?></div>
-            <div><i class="fa-solid fa-user"></i> <?php echo esc_html(($user_info->first_name ?? '').' '.($user_info->last_name ?? '')); ?></div>
-            <div><i class="fa-regular fa-circle"></i> <?php echo esc_html($entry['coins']); ?></div>
-            <div><i class="fa-solid fa-clover"></i> <?php echo esc_html($entry['clover']); ?></div>
-        </div>
-    <?php endforeach; ?>
+
+<!--ledger-->
+
+<!-- Sets filters(options for fetching) -->
+<div class="loopis-form loopis-filter">
+	<input type="hidden" class="ledger-filter" name="blog_id" value=<?php echo get_current_blog_id();?>>
+	<input type="hidden" class="ledger-filter" name="post_id" value=<?php echo $post_id;?>>
 </div>
+
+<!-- Sets generated columns -->
+
+<div class="ledger-hidden">
+	<input type="hidden" class="ledger-column" name="user_id" value="Användare">
+	<input type="hidden" class="ledger-column" name="event" value="Event">
+	<input type="hidden" class="ledger-column" name="timestamp" value="Tid">
+	<input type="hidden" class="ledger-column" name="coins" value="Mynt">			
+	<input type="hidden" class="ledger-column" name="clover" value="Klöver">
+</div>
+
+<!-- Husks(for customisation reasons) -->
+
+<div id="activity-count" class="columns"></div>	
+<hr style="margin-bottom: 2px;">
+
+<div id="ledger" class="logg">
+</div>
+
+<div style="display: none;" id="post-pagination" data-max-pages="" data-page="">
+</div>
+
+<?php
+$nonce = wp_create_nonce('loopis_ledger_nonce');
+?>
+<!-- pass important info -->
+<script>
+  window.LoopisLedger = {
+    nonce: <?php echo wp_json_encode($nonce); ?>,
+    ajaxUrl: <?php echo wp_json_encode( admin_url("admin-ajax.php") ); ?>
+  };
+</script>
+<!-- get main script -->
+<script src="<?php echo esc_url( LOOPIS_THEME_URI . '/assets/js/ledger-display.js' ); ?>" defer></script>
+<script>
+	// get first page
+	document.addEventListener('DOMContentLoaded',()=>{
+		loadLedgerPage(1);
+	});
+</script>
+
 
 <?php if (current_user_can('manage_options')) {  ?>
 <h5>🚨 Extrema situationer</h5>
