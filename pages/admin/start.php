@@ -75,6 +75,17 @@ $admin_url = home_url('/admin/');
     </p>
 </div>
 
+<!-- Pending members count -->
+<?php if (current_user_can('loopis_admin') || current_user_can('loopis_board')) : ?>
+    <div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'members/activation', $admin_url) ); ?>'">
+        <h5>👤 Nya medlemmar</h5>
+        <hr>
+        <p class="small">
+            <?php include __DIR__ . '/panels/members-pending.php'; ?>
+        </p>
+    </div>
+<?php endif; ?>
+
 <!-- Comment count -->
 <div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'comments', $admin_url) ); ?>'">
     <h5>🗨 Kommentarer</h5>
@@ -102,6 +113,14 @@ $admin_url = home_url('/admin/');
         </p>
     </div>
 
+<!-- Member Info Section -->
+<?php if (current_user_can('loopis_admin') || current_user_can('loopis_board')) : ?>
+    <h3>👤 Medlemmar</h3>
+    <hr>
+    <div>
+        <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'members/email-list', $admin_url) ); ?>">✉ Epost-adresser</a></span>&nbsp;
+    </div>
+<?php endif; ?>
 
 <!-- More Section -->
 <h3>🛠 Mer</h3>

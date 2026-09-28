@@ -9,14 +9,15 @@ if (!defined('ABSPATH')) {
 
 // Get users with pending member role
 $users = get_users([
-    'role__in' => ['member_pending']
+    'role__in' => ['member_pending'],
+    'blog_id' => get_current_blog_id(),
 ]);
 
 $count = count($users);
 
 // Output
 if ($count == 0) {
-    echo '💢 0 väntande medlemmar';
+    echo '💢 0 ej aktiverade';
 } else {
-    echo '⏳ ' . $count . ' som ej har betalat';
+    echo '⏳ ' . $count . ' ej aktiverade';
 }
