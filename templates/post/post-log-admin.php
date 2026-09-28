@@ -12,10 +12,10 @@ $now_time = get_now_time();
 $authorname = get_the_author_meta('display_name', $author);
 $authorlink = get_author_posts_url(get_the_author_meta('ID')); 
 $participants = get_post_meta($post_id, 'participants', true); 
-    if (is_array($participants) && !empty($participants)) {
-        $participants = array_filter($participants);   /* remove gaps  */
-        $participants = array_values($participants) ;}  /* re-index */
-    if (is_array($participants)) { $count = count($participants); } else { $count = 0; }
+if (is_array($participants) && !empty($participants)) {
+    $participants = array_filter($participants);   /* remove gaps  */
+    $participants = array_values($participants) ;}  /* re-index */
+if (is_array($participants)) { $count = count($participants); } else { $count = 0; }
 $raffle_date = get_post_meta($post_id, 'raffle_date', true);
 $edit_wpadmin = get_admin_url(null, 'post.php?post=' . $post_id . '&action=edit');
 ?>
