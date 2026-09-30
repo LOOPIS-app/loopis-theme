@@ -186,6 +186,8 @@ if ($image_3_id) {
 	<input type="hidden" class="ledger-column" name="user_id" value="Användare">
 	<input type="hidden" class="ledger-column" name="event" value="Event">
 	<input type="hidden" class="ledger-column" name="timestamp" value="Tid">
+	<input type="hidden" class="ledger-column" name="type" value="Typ">
+	<input type="hidden" class="ledger-column" name="description" value="Beskrivning">
 	<input type="hidden" class="ledger-column" name="coins" value="Mynt">			
 	<input type="hidden" class="ledger-column" name="clover" value="Klöver">
 </div>
