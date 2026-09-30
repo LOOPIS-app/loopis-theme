@@ -26,7 +26,7 @@ if ( is_user_logged_in() ) {
 
     // Member archived
     elseif (in_array('member_archived', $user_roles, true)) {
-        echo "<h5>Nytt år! 💚</h5><hr>"; 
+        echo "<h5>Välkomment tillbaka! 💚</h5><hr>"; 
     }
         
     // Not a user on the current subsite.
