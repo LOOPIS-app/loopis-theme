@@ -33,7 +33,7 @@ if (is_user_logged_in()) {
     // Member archived
     elseif (in_array('member_archived', $user_roles, true)) {
         echo '<div class="loopis-message information">';
-        echo '<p>🕸️ Du behöver förnya ditt medlemskap.</p>';
+        echo '<p>🕸️ Ditt medlemskap i detta område är arkiverat.</p>';
         echo '<p>Gå till <span class="big-link"><a href="'.esc_url(network_site_url('/start/')).'">🗺 LOOPIS startsida</a></span> </p>';
         echo '</div>';
     }
@@ -41,7 +41,7 @@ if (is_user_logged_in()) {
     // Not a user on the current subsite.
     elseif (!is_user_member_of_blog($user_id, get_current_blog_id())) {
         echo '<div class="loopis-message information">';
-        echo '<p>❤️‍🩹 Du är inte medlem i detta område.</p>';
+        echo '<p>💡 Du är inte medlem i detta område.</p>';
         echo '<p><span class="big-link"><a href="'.esc_url(network_site_url('/start/')).'">🗺 Gå till LOOPIS startsida</a></span></p>';
         echo '</div>';
     }
