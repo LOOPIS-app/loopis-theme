@@ -25,7 +25,7 @@ if (is_user_logged_in()) {
     // Member earlier
     elseif (in_array('member_earlier', $user_roles, true)) {
         echo '<div class="loopis-message information">';
-        echo '<p>❤️‍🩹 Du är inte längre medlem i detta område.</p>';
+        echo '<p>💡 Du är inte längre medlem i detta område.</p>';
         echo '<p>Gå till <span class="big-link"><a href="'.esc_url(network_site_url('/start/')).'">🗺 LOOPIS startsida</a></span> </p>';
         echo '</div>';
     }
