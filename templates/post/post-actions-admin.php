@@ -32,23 +32,24 @@ if (!defined('ABSPATH')) {
 <?php endif;?>
 
 <!-- Return coin (Should be improved by removing the post + posting comment) -->
-<?php if (in_category( array( 'disappeared', 'complaint', 'removed' ) )) :
+<?php if (in_category( array( 'locker', 'fetched') )) :
     $fetcher = get_post_meta($post_id, 'fetcher', true); 
     $timestamp = current_time('Y-m-d H:i:s');
-    if(!empty($fetcher) && (int) $fetcher > 0) {
-        if (isset($_POST['coin-back'])) {
-            if (in_category('disappeared')) {
-                $type = 'disappeared';
-            } elseif (in_category('complaint')) {
-                $type = 'complaint';
-            } elseif (in_category('removed')) {
-                $type = 'removed';
-            }
-            loopis_ledger_add_post('cancelled', $fetcher, $post_id,['timestamp' => $timestamp, 'type'=>$type]);
-            delete_post_meta($post_id, 'fetcher'); 
-        } } ?>
-	<form method="post"><button type="submit" class="orange small" name="coin-back">Ge mynt tillbaka</button></form>
-    <p class="info">Ska hämtaren få ett mynt tillbaka? Tryck på knappen.</p>
+
+    if (isset($_POST['complaint'])) {
+            include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-complaint.php'; 
+
+            action_complaint($post_id);
+        }
+    if (isset($_POST['disappear'])) {
+            include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-disappear.php'; 
+            action_disappear($post_id);
+        }
+    ?>
+    <form method="post"><button type="submit" class="orange small" name="complaint">💩 Klagomål! </button></form>
+    <p class="info"> Är denna defekt? Tryck på knappen.</p>
+    <form method="post"><button type="submit" class="orange small" name="disappear">💢 Försvunnen! </button></form>
+    <p class="info"> Har denna försvunnit? Tryck på knappen.</p>
 	<?php endif; ?>
 
 </div><!--post-actions-->
