@@ -19,17 +19,17 @@ get_header(); ?>
         $user_firstname = $user->first_name;
     }
     
-    // Notifications for members
-    if (in_array('member', $user_roles, true) || current_user_can('loopis_locker') || current_user_can('loopis_admin')) {
-        include LOOPIS_THEME_DIR . '/includes/output/front-page/front-alerts.php';
-        include LOOPIS_THEME_DIR . '/includes/output/front-page/front-news.php';
-        }
-
     // Greeting & message for non-members
     if (!in_array('member', $user_roles, true) && !current_user_can('loopis_admin')) {
         include LOOPIS_THEME_DIR . '/includes/output/access/subsite-greeting.php';
         include LOOPIS_THEME_DIR . '/includes/output/access/subsite-message.php';
     }
+
+    // Notifications for members
+    if (in_array('member', $user_roles, true) || current_user_can('loopis_locker') || current_user_can('loopis_admin')) {
+        include LOOPIS_THEME_DIR . '/includes/output/front-page/front-alerts.php';
+        include LOOPIS_THEME_DIR . '/includes/output/front-page/front-news.php';
+        }
 
     // Count new posts
     $count_new_args = array(

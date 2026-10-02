@@ -8,7 +8,7 @@ get_header(); ?>
 <div class="page-padding">
     
         <!-- MEMBER ACCESS -->
-        <?php if ( current_user_can('member') || current_user_can('administrator') ) {
+        <?php if ( current_user_can('member') || current_user_can('loopis_locker') ) {
 
         // Dynamic content loader
         $content_dir = get_template_directory() . '/pages/activity/';
