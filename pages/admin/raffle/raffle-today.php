@@ -114,7 +114,7 @@ $count = $the_query->found_posts;
 
 <!-- Manual Raffle Start -->
 <?php if (current_user_can('manage_options') && $complete_count > 0) : ?>
-
+<div class="wrapped admin-block">
 <h5>🚨 Extrema situationer</h5>
 <hr>
 <p class="small">💡 Verktyg endast för webmaster.</p>
@@ -131,4 +131,5 @@ $count = $the_query->found_posts;
         </button>
     </form>
     <p class="info">Tryck på knappen för att starta dagens lottning manuellt.</p>
+</div>
 <?php endif; ?>

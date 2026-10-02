@@ -239,10 +239,13 @@ $count = $the_query->found_posts;
 
 
 <!--Manual start-->
-<?php if (current_user_can('loopis_admin')) { ?>
+<?php if (current_user_can('manage_options') ) : ?>
 <div class="wrapped admin-block">
+<h5>🚨 Extrema situationer</h5>
+<hr>
+<p class="small">💡 Verktyg endast för webmaster.</p>
 		<?php if(isset($_POST['start_reminders'])) { cron_job_reminders(); } ?>
 		<form method="post" class="arb" action=""><button name="start_reminders" type="submit" class="red small" onclick="return confirm('Vill du skicka påminnelser manuellt?')">🤖 Påminn nu...</button></form>
 		<p class="info">Tryck på knappen för att skicka påminnelser manuellt.</p>
 </div>
-<?php } ?>
+<?php endif; ?>
