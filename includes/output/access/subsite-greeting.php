@@ -21,7 +21,7 @@ if ( is_user_logged_in() ) {
 
     // Member earlier
     elseif (in_array('member_earlier', $user_roles, true)) {
-        echo "<h5>Välkomment tillbaka! 💚</h5><hr>"; 
+        echo "<h5>Hej $user_firstname 👋</h5><hr>"; 
     }
 
     // Member archived

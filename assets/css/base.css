@@ -136,7 +136,7 @@ span.right { float: right; }
 h1, h2, h3, h4, h5, h6, h7 { margin: 0; padding: 0; font-weight: 300; letter-spacing: -0.3px; line-height: 1.3em; white-space: nowrap; }
 
 h1 { font-size: 40px; margin-top: 0px; letter-spacing: -1px; }  /* used only for page- and post-titles */
-h2 { font-size: 34px; margin-top: 25px; }		                    /* not used */
+h2 { font-size: 34px; margin-top: 25px; letter-spacing: -1px; }	/* front page */
 h3 { font-size: 28px; margin-top: 25px; }		                    /* subheadings */
 h7 { font-size: 28px; padding-top: 10px; }		                  /* subheadings with less margin */
 h4 { font-size: 24px; margin-top: 15px;}		                    /* not used */

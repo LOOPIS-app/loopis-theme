@@ -17,7 +17,7 @@ $birthyear_int = intval($birthyear);
 if ($birthyear_int > 0) {
     $current_year = intval(date('Y'));
     $age = $current_year - $birthyear_int;
-    $output = "$birthyear_int ≈ $age år";
+    $output = "~$age år ($birthyear_int)";
 } else {
     $output = "–";
 }

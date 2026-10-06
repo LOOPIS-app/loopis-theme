@@ -15,10 +15,17 @@ if (current_user_can('administrator')) {
 } 
 ?>
 
-<!-- SET VARIABLES -->
 <?php
 wp_reset_postdata(); // added here when removed from functions.php
-$current = get_current_user_id();
+// Get current user (new version copied from front-page.php)
+$user_roles = array();
+if ( is_user_logged_in() ) {
+    $user_id = get_current_user_id();
+    $user = wp_get_current_user();
+    $user_roles = (array) $user->roles;
+    $user_firstname = $user->first_name;
+}
+$current = get_current_user_id(); // to be replaced everywhere with $user_id
 $author = get_the_author_meta('ID'); 
 $post_id = get_the_ID();
 $post_date = get_the_time('Y-m-d H:i');
@@ -99,7 +106,7 @@ $image_3_id = get_post_meta($post_id, 'image_3', true);
 
                 <?php 
                 // Access control
-                if (current_user_can('loopis_locker') || current_user_can('administrator')) {
+                if (current_user_can('loopis_locker')) {
 
                     // Post actions
                     include LOOPIS_THEME_DIR . '/templates/post/post-actions.php';
@@ -115,7 +122,7 @@ $image_3_id = get_post_meta($post_id, 'image_3', true);
                 ?>
 
             <!-- Admin interaction -->
-            <?php if (current_user_can('manage_options') || current_user_can('manager')) {  ?>
+            <?php if (current_user_can('loopis_admin')) {  ?>
                 <div class="admin-block">
 	            <h5>🦀 Admin</h5>
 	            <hr>
