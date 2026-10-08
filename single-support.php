@@ -128,7 +128,7 @@ if ($can_view_support) : ?>
 <?php endif;?>
 
 <!-- No access-->
-<?php else : include LOOPIS_THEME_DIR . '/includes/output/access/only-user.php'; endif; ?>
+<?php else : include LOOPIS_THEME_DIR . '/includes/output/access/only-member.php'; endif; ?>
 
 </div> <!--page-padding-->
 

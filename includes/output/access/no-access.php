@@ -1,6 +1,6 @@
 <?php
 /**
- * Message for visitors in member areas.
+ * Generic message for visitors or users where they do not have access.
  */
  
 if (!defined('ABSPATH')) {
@@ -8,6 +8,6 @@ if (!defined('ABSPATH')) {
 }
 ?>
 <div class="loopis-message information">
-	<p>🚧 Du behöver vara inloggad för att se något här.</p>
+	<p>🚧 Du har inte behörighet att se denna sida.</p>
 	<p><span class="big-link"><?php get_template_part('templates/links/go-back'); ?></span></p>
 </div>

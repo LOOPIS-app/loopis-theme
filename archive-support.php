@@ -123,7 +123,7 @@ if ( ! empty( $count_query->posts ) ) {
 
 
 <?php } else { 
-    include LOOPIS_THEME_DIR . '/includes/output/access/only-user.php';
+    include LOOPIS_THEME_DIR . '/includes/output/access/only-member.php';
 } ?>
 
 </div><!--page-padding-->
