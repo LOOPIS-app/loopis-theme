@@ -37,6 +37,14 @@
 .loopis-form .form-row:last-child { margin-bottom: 0; }
 .loopis-form .form-row :where(input, select, textarea, button) { margin-bottom: 0; }
 
+/* Form blocks */
+.form-blocks { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); column-gap: 10px; align-items: end; --form-control-size: 15px; }
+.form-blocks .form-block { min-width: 0; margin: 0; }
+.form-blocks :where(input[type="text"], select) { width: 100%; height: 35px; max-width: none; flex: initial; font-size: 15px; }
+.form-blocks select { padding: 6px; }
+.form-blocks .form-block-actions { display: flex; align-items: center; gap: 10px; margin: 0; }
+.form-blocks .form-block-actions button { margin-bottom: 5px; }
+
 /* Form placeholder text */
 :where(input, textarea)::placeholder { color: #b3b3b3; opacity: 1; }
 

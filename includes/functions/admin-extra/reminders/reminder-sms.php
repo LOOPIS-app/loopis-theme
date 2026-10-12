@@ -22,13 +22,13 @@ function reminder_leave_sms(int $reminder_leave, int $post_id) {
         $phone = get_the_author_meta('wpum_phone', $author);
         $name = get_userdata($author)->first_name;
         $link = get_the_permalink($post_id);
-        $message = "Hej $name!\nHar du sett våra påminnelser om att lämna i skåpet? Det har gått $days dagar nu.\n💚 Johan på LOOPIS\n\n$link";
+        $message = "Hej $name!\nHar du sett våra påminnelser om att lämna i skåpet? Det har gått $days dagar nu.\n💚 Admin på LOOPIS\n\n$link";
 
         // Encode the message for URL and replace '+' with '%20'
         $message_encoded = str_replace('+', '%20', urlencode($message));
 
         // Add admin comment
-        add_admin_comment('<p class="reminder">💡 Påminnelse skickad via sms till <span>📱' . $author_name . '</span></p>', $post_id);
+        add_comment('<p class="reminder">💡 Påminnelse skickad via sms till <span>📱' . $author_name . '</span><br>💚 Admin</p>', $post_id);
 
         // Increase number
         update_post_meta($post_id,'reminder_leave', $reminder_leave + 1);
@@ -61,13 +61,13 @@ function reminder_fetch_sms(int $reminder_fetch, int $post_id) {
         $phone = get_the_author_meta('wpum_phone', $fetcher);
         $name = get_userdata($fetcher)->first_name;
         $link = get_the_permalink($post_id);
-        $message = "Hej $name!\nHar du sett våra påminnelser om att hämta i skåpet? Det har gått $days dagar nu.\n💚 Johan på LOOPIS\n\n$link";
+        $message = "Hej $name!\nHar du sett våra påminnelser om att hämta i skåpet? Det har gått $days dagar nu.\n💚 Admin på LOOPIS\n\n$link";
         
         // Encode the message for URL and replace '+' with '%20'
         $message_encoded = str_replace('+', '%20', urlencode($message));
 
         // Add admin comment
-        add_admin_comment('<p class="reminder">💡 Påminnelse skickad via sms till <span>📱' . $fetcher_name . '</span></p>', $post_id);
+        add_comment('<p class="reminder">💡 Påminnelse skickad via sms till <span>📱' . $fetcher_name . '</span><br>💚 Admin</p>', $post_id);
 
         // Increase number
         update_post_meta($post_id,'reminder_fetch', $reminder_fetch + 1);
@@ -101,13 +101,13 @@ function reminder_custom_sms(int $reminder_fetch, int $post_id) {
         $name = get_userdata($fetcher)->first_name;
 		$location = get_post_meta($post_id, 'location', true);
         $link = get_the_permalink($post_id);
-        $message = "Hej $name!\nHur går det med hämtningen på $location? Det har gått $days dagar nu.\n💚 Johan på LOOPIS\n\n$link";
+        $message = "Hej $name!\nHur går det med hämtningen på $location? Det har gått $days dagar nu.\n💚 Admin på LOOPIS\n\n$link";
         
         // Encode the message for URL and replace '+' with '%20'
         $message_encoded = str_replace('+', '%20', urlencode($message));
 
         // Add admin comment
-        add_admin_comment('<p class="reminder">💡 Påminnelse skickad via sms till <span>📱' . $fetcher_name . '</span></p>', $post_id);
+        add_comment('<p class="reminder">💡 Påminnelse skickad via sms till <span>📱' . $fetcher_name . '</span><br>💚 Admin</p>', $post_id);
 
         // Increase number
         update_post_meta($post_id,'reminder_fetch', $reminder_fetch + 1);

@@ -3,7 +3,7 @@
  * Storage page
  * 
  * Dynamic content of page-admin.php
- * Reached on /admin/?view=storage
+ * Reached on /discover/?view=storage
  * 
  * Shows all items in storage category
  * Access restricted to users with loopis_storage capability
@@ -19,11 +19,18 @@ if (!defined('ABSPATH')) {
 <hr>
 <p class="small">💡 Här ser du alla saker i kategorin <span class="small-label">📦 Lager</span></p>
 
-<?php if (current_user_can('manage_options') || current_user_can('loopis_storage')) : ?>
+<?php if (current_user_can('loopis_storage')) : ?>
 
     <?php
     // Get search term
-    $search_term = isset($_GET['storage_search']) ? sanitize_text_field($_GET['storage_search']) : '';
+    $search_term = isset($_GET['storage_search'])
+        ? sanitize_text_field(wp_unslash($_GET['storage_search']))
+        : '';
+    $paged = max(
+        1,
+        absint(get_query_var('paged')),
+        isset($_GET['paged']) ? absint(wp_unslash($_GET['paged'])) : 0
+    );
 
     // Get category IDs
     $storage_category = loopis_cat('storage');
@@ -32,8 +39,9 @@ if (!defined('ABSPATH')) {
     $args = array(
         'post_type'      => 'post',
         'cat'            => $storage_category,
-        'posts_per_page' => -1,
-        'post_status'    => array('publish', 'draft')
+        'posts_per_page' => 50,
+        'paged'          => $paged,
+        'post_status'    => array('publish', 'draft'),
     );
 
     // Add search to arguments if search term exists
@@ -47,17 +55,17 @@ if (!defined('ABSPATH')) {
     ?>
 
     <!-- Search Box -->
-    <form class="loopis-form" id="search-form" method="GET" action="/admin/" novalidate>
+    <form class="loopis-form" id="search-form" method="GET" action="<?php echo esc_url(home_url('/discover/')); ?>" novalidate>
         <input type="hidden" name="view" value="storage">
             <input type="text" 
                    name="storage_search" 
                    value="<?php echo esc_attr($search_term); ?>" 
                    placeholder="🔍 Skriv sökord">
-            <input type="submit" value="Sök">
+            <input type="submit" class="green small" value="Sök">
             <?php if (!empty($search_term)) : ?>
                 <button type="button" 
                         class="grey small" 
-                        onclick="location.href='/admin/?view=storage'">
+                        onclick="location.href='<?php echo esc_url(add_query_arg('view', 'storage', home_url('/discover/'))); ?>'">
                     Rensa
                 </button>
             <?php endif; ?>
@@ -76,6 +84,10 @@ if (!defined('ABSPATH')) {
             <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
                 <?php get_template_part('templates/post-list/small-posts-author'); ?>
             <?php endwhile; ?>
+            <?php
+            set_query_var('custom_query', $the_query);
+            include_once get_template_directory() . '/templates/post-list/pagination-views.php';
+            ?>
         <?php else : ?>
             <?php if (!empty($search_term)) : ?>
                 <p>💢 Inga saker hittades för "<?php echo esc_html($search_term); ?>"</p>
