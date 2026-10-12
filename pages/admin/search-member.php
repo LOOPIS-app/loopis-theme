@@ -8,12 +8,15 @@ if (!defined('ABSPATH')) {
 }
 ?>
 
-<h1>🔍 Sök medlemmar</h1>
+<h1>🔍 Sök medlem</h1>
 <hr>
-<p class="small">💡 Sök på namn och/eller ort.</p>
+<p class="small">💡  Använd filter och/eller sökord.</p>
 
 <?php
 $search_term = isset($_GET['search']) ? sanitize_text_field(wp_unslash($_GET['search'])) : '';
+$current_view = isset($_GET['view'])
+    ? sanitize_file_name(wp_unslash($_GET['view']))
+    : 'search-member';
 $search_terms = preg_split('/\s+/', trim($search_term), -1, PREG_SPLIT_NO_EMPTY);
 $selected_city = isset($_GET['city']) ? sanitize_text_field(wp_unslash($_GET['city'])) : '';
 $available_cities = array();
@@ -76,7 +79,7 @@ $count = count($search_results);
 
 <!-- Search box -->
 <form class="loopis-form" id="search-form"  method="get" action="">
-    <input type="hidden" name="view" value="<?php echo esc_attr(isset($_GET['view']) ? wp_unslash($_GET['view']) : ''); ?>">
+    <input type="hidden" name="view" value="<?php echo esc_attr($current_view); ?>">
 <div class="search-row">
     <input type="search" name="search" value="<?php echo esc_attr($search_term); ?>" placeholder="🔍 Skriv namn">
     <select name="city" id="city">

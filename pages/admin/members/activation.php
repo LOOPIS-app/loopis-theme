@@ -49,9 +49,13 @@ $count = count($pending_users);
 </div>
 
 <?php
-// Get recently activated members (last X days)
-$days_ago = 7;
-$time_ago = strtotime('-' . $days_ago . ' days');
+// Set timeframe
+$today_start = get_gmt_from_date(wp_date('Y-m-d 00:00:00'));
+$days_ago = 0;
+$time_ago = gmdate('Y-m-d H:i:s', strtotime('-' . $days_ago . ' days', strtotime($today_start . ' UTC')));
+if ($days_ago == 0) { $time_frame = 'idag'; } else { $time_frame =  'senaste ' . $days_ago . ' ' . (($days_ago == 1) ? 'dagen' : 'dagarna'); }
+
+// Get new members
 $args = array(
     'role'       => 'member',
     'blog_id' => get_current_blog_id(),
@@ -59,8 +63,7 @@ $args = array(
     'order'      => 'DESC',
     'date_query' => array(
         array(
-            'after'     => date('Y-m-d', $time_ago),
-            'before'    => date('Y-m-d'),
+            'after'     => $time_ago,
             'inclusive' => true,
         ),
     ),
@@ -73,7 +76,7 @@ $count = count($new_users);
 <h3>✅ Nya medlemmar</h3>
 <div class="columns">
     <div class="column1">
-        ↓ <?php echo $count; ?> <?php echo (($count == 1) ? 'ny' : 'nya'); ?> senaste veckan
+        ↓ <?php echo $count; ?> <?php echo (($count == 1) ? 'ny' : 'nya'); ?> <?php echo $time_frame; ?>
     </div>
     <div class="column2 small">💡 Senaste överst</div>
 </div>

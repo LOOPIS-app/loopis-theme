@@ -70,7 +70,8 @@ hr, .wp-block-separator { width: 100%; padding: 0; margin: 0 0 9px 0; background
 .small { font-size: 14px; line-height: 1.5em; margin: 2px 0 10px 0; }
 .info { font-size: 14px; line-height: 1.5em; font-style: italic; margin: 2px 0 10px 0; }
 b, strong, .bold { font-weight: 400; }
-.required { color: #DD2E44; }
+.required { color: #DD2E44; } /* Twemoji red */
+.approved { color: #78b159; } /* Twemoji green */
 .error { font-size: 14px; margin: 0 0 5px 0; font-style: italic; color: #DD2E44;  }
 .hidden { visibility: hidden }
 .shorten { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

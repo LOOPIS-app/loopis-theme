@@ -80,7 +80,7 @@ $admin_url = home_url('/admin/');
     <h5>👤 Nya medlemmar</h5>
     <hr>
     <p class="small">
-        <?php include __DIR__ . '/panels/members-pending.php'; ?>
+        <?php include __DIR__ . '/panels/members-new.php'; ?>
     </p>
 </div>
 
@@ -116,7 +116,6 @@ $admin_url = home_url('/admin/');
     <h3>👤 Medlemmar</h3>
     <hr>
     <div>
-        <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'members/member-search', $admin_url) ); ?>">🔍 Sök medlemmar</a></span>&nbsp;
         <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'members/email-list', $admin_url) ); ?>">✉ Epost-adresser</a></span>&nbsp;
     </div>
 <?php endif; ?>
@@ -125,7 +124,6 @@ $admin_url = home_url('/admin/');
 <h3>🛠 Mer</h3>
 <hr>
 <div>
-    <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'more/post-search', $admin_url) ); ?>">🔍 Sök annonser</a></span>&nbsp;
     <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'ledger', $admin_url) ); ?>">📕 Lokala boken</a></span>&nbsp;
     <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'more/inventory', $admin_url) ); ?>">📋 Inventering i skåpet</a></span>&nbsp;
     <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'more/collage', $admin_url) ); ?>">🖼 Kollage</a></span>&nbsp;

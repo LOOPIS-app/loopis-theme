@@ -12,14 +12,14 @@
         <span class="text">Översikt</span>
         </a>
         
-        <a href="<?php echo esc_url( add_query_arg('view', 'more/post-search', $admin_url) ); ?>" class="footer-item">
+        <a href="<?php echo esc_url( add_query_arg('view', 'search-post', $admin_url) ); ?>" class="footer-item">
         <span class="emoji">🔍</span>
-        <span class="text">Sök</span>
+        <span class="text">Sök annons</span>
         </a>
                 
-        <a href="<?php echo esc_url( add_query_arg('view', 'storage', $admin_url) ); ?>" class="footer-item">
-        <span class="emoji">📦</span>
-        <span class="text">Lager</span>
+        <a href="<?php echo esc_url( add_query_arg('view', 'search-member', $admin_url) ); ?>" class="footer-item">
+        <span class="emoji">👤</span>
+        <span class="text">Sök medlem</span>
         </a>
     </nav>
 

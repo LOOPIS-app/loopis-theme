@@ -37,13 +37,15 @@ wp_enqueue_script('loopis-tabs', LOOPIS_THEME_URI . '/assets/js/tabs.js', array(
                 <h7>📋 Medlemsregister</h7>
                 <hr>
                 <p>👤 Användarnamn: <b><?php echo $user->user_login ?></b></p>
-                <p>🗺 <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-city.php'; ?> (<?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-zipcode.php'; ?>)</p>
+                <p>🗺 Postort: <b><?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-city.php'; ?></b> (<?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-zipcode.php'; ?>)</p>
+                <p>📍 Huvudområde: <b><?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-primary-blog.php'; ?></b></p>
                 <p>🚼 Ålder: <b><?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-age.php'; ?></b></p>
                 <p>⚧ Kön: <b><?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-gender.php'; ?></b></p>
                 <p>📧 E-post: <b><?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-email.php'; ?></b></p>
                 <p>📱 Mobilnummer: <b><?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-phone.php'; ?></b></p>
                 <p>🔧 User-ID: <b><?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-id.php'; ?></b></p>
-                <p>🧩 <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-roles.php'; ?></p>
+                <p>🧩 Roll: <b><?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-roles.php'; ?></b></p>
+                <p>🚦 Medlemskap: <b><?php include LOOPIS_THEME_HQ_DIR . '/includes/output/user-data/user-active.php'; ?></b></p>
             </div><!--wrapped-->
 
             <div class="wrapped">
