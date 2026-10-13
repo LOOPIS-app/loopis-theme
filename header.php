@@ -50,7 +50,7 @@
 	} elseif (is_author()) {
 		// User profiles
 		$author = get_queried_object();
-		$title = $author->display_name . ' - LOOPIS';
+		$title = get_name($author->ID) . ' - LOOPIS';
 		$og_type = 'profile';
 		$og_url = get_author_posts_url($author->ID);
 	} elseif (is_tag()) {

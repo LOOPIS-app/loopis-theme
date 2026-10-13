@@ -476,7 +476,7 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
 
             <div class="form-row" id="gift-terms-row">
                 <label for="terms-search">4⃣ Kategori <span id="terms-count">0/3</span></label>
-                <input type="search" id="terms-search" placeholder="Sök kategori..." autocomplete="off">
+                <input type="search" id="terms-search" placeholder="Sök kategori..." autocomplete="off"> 
                 <div id="terms-options" class="terms-options" role="group" aria-label="Kategorier">
                     <?php if (!empty($post_tags)) : ?>
                         <?php foreach ($post_tags as $tag) : ?>

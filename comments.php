@@ -6,8 +6,9 @@
 // Get neccesary variables again (since comments.php is loaded separately)
 $post_id = get_the_ID();
 $current = get_current_user_id();
+$currentname =  get_name($current);
 $author = get_the_author_meta('ID'); 
-$authorname = get_the_author_meta('display_name', $author);
+$authorname = get_name($author);
 
 // Get comment count
 $comment_count = get_comment_count($post_id)['approved'];
@@ -53,7 +54,7 @@ switch ($post_type) {
 <div class="loopis-form">
 <p class="small">💡 Kom ihåg att pinga den som ska se din kommentar.</p>
 <?php if (current_user_can('manage_options')) { ?>
-<div class="admin-block"><p>⚠️ Du är inloggad som <b><?php echo wp_get_current_user()->display_name; ?>!</b></p></div>
+<div class="admin-block"><p>⚠️ Du är inloggad som <b><?php echo $currentname; ?>!</b></p></div>
 <?php } ?>
 <?php comment_form(array(
     'title_reply' => '',

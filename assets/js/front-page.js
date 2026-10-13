@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const termsRow = document.getElementById('gift-untags-row');
     const termsOptions = document.getElementById('untags-options');
     const termsSearchInput = document.getElementById('untags-search');
+    let applyTermsFilter = function() {};
     
     function getTermCheckboxes() {
         if (!termsOptions) {
@@ -22,20 +23,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!target || target.type !== 'checkbox') {
                 return;
             }
-
-            const selectedCount = getTermCheckboxes().filter(function(checkbox) {
-                return checkbox.checked;
-            }).length;
-
-            if (selectedCount > 3 && target.checked) {
-                target.checked = false;
-                syncTagCountMessage(true);
-                applyTermsFilter();
-                return;
-            }
-
-            syncTagCountMessage(false);
-            applyTermsFilter();
         });
     }
 
@@ -76,11 +63,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         function applyTermFilter() {
             const query = normalizeSearchString(termsSearchInput.value);
-            const selectedCount = getTermCheckboxes().filter(function(checkbox) {
-                return checkbox.checked;
-            }).length;
-            const isAtSelectionLimit = selectedCount >= 3;
-            const showOnlySelectedOnLoad = !hasUserInteracted && selectedCount > 0;
 
             termRows.forEach(function(row) {
                 const checkbox = row.querySelector('input[type="checkbox"]');
@@ -89,9 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const labelValue = normalizeSearchString(labelSource);
                 const matches = !query || labelValue.includes(query);
                 const isSelected = !!(checkbox && checkbox.checked);
-                const shouldShow = showOnlySelectedOnLoad
-                    ? isSelected
-                    : (isSelected || (!isAtSelectionLimit && matches));
+                const shouldShow = (isSelected ||  matches);
                 
                 row.classList.toggle('is-filter-hidden', !shouldShow);
             });
@@ -145,6 +125,5 @@ document.addEventListener('DOMContentLoaded', function() {
     if (termsOptions) {
         attachTermsSelectHandlers();
         attachTermsSearchHandler();
-        syncTagCountMessage(false);
     }
 });

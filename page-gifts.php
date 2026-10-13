@@ -25,10 +25,11 @@ get_header(); ?>
         : array();
 
     $filter_submitted = isset( $_GET['filter_submitted'] ) || isset( $_GET['untags'] );
+    $save = isset($_GET['save']) ? (int) $_GET['save']  : 0;
 
     if (
         is_user_logged_in()
-        && isset( $_GET['save'] )
+        && $save
         && isset( $_GET['loopis_filter_nonce'] )
         && wp_verify_nonce(
             sanitize_text_field( wp_unslash( $_GET['loopis_filter_nonce'] ) ),
@@ -93,14 +94,15 @@ get_header(); ?>
             <div class="column2"><button class="link-style" onclick="reveal('filter');"><i class="fas fa-sliders-h"></i>Filter</a></div>
         </div>
         <hr>
-        <script>
-    function reveal(objectId) {
-        const object = document.getElementById(objectId);
-        object.hidden = !object.hidden;
-    }
+          
+    <script>
+        function reveal(objectId) {
+            const object = document.getElementById(objectId);
+            object.classList.toggle('is-visible');
+        }
     </script>
     
-    <div id="filter" hidden>
+    <div id="filter" class='filter-container'>
         <div class="filter-wrapper">
             <form method="get" action="">
                 <div class="form-row" id="gift-untags-row">
@@ -119,9 +121,8 @@ get_header(); ?>
                 </div>
                 <input type="hidden" name="filter_submitted" value="1">
                 <?php wp_nonce_field( 'save_loopis_filter', 'loopis_filter_nonce', false ); ?>               
-                <input type="checkbox" id="save" name="save" value="1">
-                <label for="save">Spara inställningar?</label>
-                <button type="submit">Filtrera</button>
+                <button type="submit" name="save" value="1" class="blue">Spara</button>
+                <button type="submit" name="save" value="0" class="green">Filtrera</button>
             </form>
         </div>
         <hr>

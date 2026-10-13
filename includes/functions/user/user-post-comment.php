@@ -23,7 +23,7 @@ function add_comment(string $comment_content, int $post_id) {
 	// Set up comment data
 	$comment_data = array(
             'comment_post_ID' => $post_id,
-            'comment_author' => $current_user->display_name,
+            'comment_author' => get_name($current_user->ID),
             'comment_author_email' => $current_user->user_email,
 			'comment_author_url' => $current_user->user_url,
 	        'comment_content' => $comment_content,

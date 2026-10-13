@@ -36,7 +36,7 @@ $location = get_post_meta($post_id, 'location', true );
 $location_name = ($location === 'Skåpet') ? get_locker_data('name') : $location;
 $fetcher = get_post_meta($post_id, 'fetcher', true);
 if ($fetcher && ($fetcher_data = get_userdata($fetcher))) {
-    $fetchername = $fetcher_data->display_name; 
+    $fetchername = get_name($fetcher); 
     $fetcherlink = get_author_posts_url($fetcher); 
 } else {
     $fetchername = 'Hämtare saknas';

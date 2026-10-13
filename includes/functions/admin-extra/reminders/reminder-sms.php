@@ -14,7 +14,7 @@ function reminder_leave_sms(int $reminder_leave, int $post_id) {
     if ($reminder_leave == 3) {
         // Prepare SMS
         $author = get_post_field('post_author');
-		$author_name = get_userdata($author)->display_name;
+		$author_name = get_name($author);
         $book_time = strtotime(get_post_meta($post_id, 'book_date', true));
         $now_time = (new DateTime(current_time('mysql')))->getTimestamp();
         $time_difference = $now_time - $book_time;
@@ -53,7 +53,7 @@ function reminder_fetch_sms(int $reminder_fetch, int $post_id) {
     if ($reminder_fetch == 3) {
         // Prepare SMS
         $fetcher = get_post_meta($post_id, 'fetcher', true);
-		$fetcher_name = get_userdata($fetcher)->display_name;
+		$fetcher_name = get_name($fetcher);
         $locker_time = strtotime(get_post_meta($post_id, 'locker_date', true));
 		$now_time = (new DateTime(current_time('mysql')))->getTimestamp();
         $time_difference = $now_time - $locker_time;
@@ -92,7 +92,7 @@ function reminder_custom_sms(int $reminder_fetch, int $post_id) {
     if ($reminder_fetch == 3) {
         // Prepare SMS
         $fetcher = get_post_meta($post_id, 'fetcher',true);
-		$fetcher_name = get_userdata($fetcher)->display_name;
+		$fetcher_name = get_name($fetcher);
         $book_time = strtotime(get_post_meta($post_id, 'book_date',true));
 		$now_time = (new DateTime(current_time('mysql')))->getTimestamp();
         $time_difference = $now_time - $book_time;
