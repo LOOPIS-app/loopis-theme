@@ -63,3 +63,18 @@ function limit_tags($terms) {
     return $terms;
 }
 add_filter('term_links-post_tag', 'limit_tags');
+
+/**
+ * Change name 
+ * 
+ * @return str Name for front end display
+ */
+add_filter( 'the_author', function ( $display_name ) {
+    global $authordata;
+
+    if ( isset( $authordata->ID ) ) {
+        return get_name( (int) $authordata->ID );
+    }
+
+    return $display_name;
+} );

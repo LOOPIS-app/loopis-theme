@@ -95,3 +95,10 @@ function loopis_wrap_comment_avatars_with_author_link($avatar, $id_or_email, $si
     return '<a href="' . esc_url($author_url) . '" class="avatar-link">' . $avatar . '</a>';
 }
 add_filter('get_avatar', 'loopis_wrap_comment_avatars_with_author_link', 20, 6);
+
+add_filter( 'get_comment_author', function ( $author, $comment_id, $comment ) {
+    if ( $comment->user_id ) {
+        return get_name( (int) $comment->user_id );
+    }
+    return $author;
+}, 10, 3 );

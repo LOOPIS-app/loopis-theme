@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) {
 
 // Set more variables
 $now_time = get_now_time();
-$authorname = get_the_author_meta('display_name', $author);
+$authorname = get_name(get_the_author_meta('ID'));
 $authorlink = get_author_posts_url(get_the_author_meta('ID')); 
 $participants = get_post_meta($post_id, 'participants', true); 
 if (is_array($participants) && !empty($participants)) {
@@ -32,7 +32,7 @@ $edit_wpadmin = get_admin_url(null, 'post.php?post=' . $post_id . '&action=edit'
     foreach ($queue as $user_id) {
         $user_info = get_userdata($user_id);
         if ($user_info !== false) {
-            $display_name = $user_info->display_name;
+            $display_name = get_name($user_info->id);
             $author_posts_url = get_author_posts_url($user_info->ID);
             
             echo '<i class="fas fa-user"></i><a href="' . $author_posts_url . '">' . $display_name . '</a><br>'; } }
@@ -48,7 +48,7 @@ $edit_wpadmin = get_admin_url(null, 'post.php?post=' . $post_id . '&action=edit'
     foreach ($participants as $user_id) {
         $user_info = get_userdata($user_id);
         if ($user_info !== false) {
-            $display_name = $user_info->display_name;
+            $display_name = get_name($user_info->id);
             $author_posts_url = get_author_posts_url($user_info->ID);
             
             echo '<i class="fas fa-user"></i><a href="' . $author_posts_url . '">' . $display_name . '</a><br>'; } }

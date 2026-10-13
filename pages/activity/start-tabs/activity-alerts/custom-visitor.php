@@ -28,7 +28,7 @@ if( $the_query->have_posts() ): ?>
         if ($fetcher) { 
             $user = get_userdata($fetcher);
             if ($user) {
-                $fetchername = $user->display_name;
+                $fetchername = get_name($fetcher);
             }
         } 
     ?>

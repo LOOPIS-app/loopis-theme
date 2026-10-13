@@ -87,7 +87,7 @@ $count = $the_query->found_posts;
                             if (has_category(array('booked', 'booked_custom', 'locker', 'fetched'))) {
                                 $fetcher = get_post_meta($post_id, 'fetcher', true);
                                 if ($fetcher) {
-                                    $fetchername = get_userdata($fetcher)->display_name;
+                                    $fetchername = get_name($fetcher);
                                     the_category(' ');
                                     echo " ← " . esc_html($fetchername);
                                 }
