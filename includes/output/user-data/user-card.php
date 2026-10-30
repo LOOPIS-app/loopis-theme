@@ -44,7 +44,7 @@ if (!empty($payments) && is_array($payments)) {
     <h5>👤 <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-names.php'; ?><span class="detail">⏳ <?php echo esc_html($registered); ?></span></h5>
 <p>
     <?php if (is_main_site()) : ?>
-    <span>📍 <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-primary-blog.php'; ?></span>
+    <span>📍 <?php include LOOPIS_THEME_HQ_DIR . '/includes/output/user-data/user-primary-blog.php'; ?></span>
     <?php endif; ?>
     <span>🗺 <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-city.php'; ?> (<?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-zipcode.php'; ?>)</span>
     <span>🚼 <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-age.php'; ?></span>
