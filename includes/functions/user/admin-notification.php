@@ -12,58 +12,8 @@ if (!defined('ABSPATH')) {
 
 loopis_get_mail_templates();
 
-/** SEND ADMIN NOTIFICATION */
-// Add comment from admin + delete
-function send_admin_notification(string $comment_content, int $post_id, int $user_id) {
-
-    // Get admin user data
-    $user_data = get_userdata($user_id);
-
-    // Avoid undefined-error in cron-job (by Poe)
-    $remote_addr = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1';
-
-    // Remove tabs and extra whitespace (by CoPilot 2025-12-04)
-    $comment_content = preg_replace('/\t+/', '', $comment_content); // Remove all tabs
-    $comment_content = preg_replace('/\n\s+/', "\n", $comment_content); // Remove leading spaces on new lines
-
-    // Set up comment data
-    $comment_data = array(
-        'comment_post_ID' => $post_id,
-        'comment_author' => $user_data->display_name,
-        'comment_author_email' => $user_data->user_email,
-        'comment_author_url' => $user_data->user_url,
-        'comment_content' => $comment_content,
-        'comment_type' => '',
-        'comment_parent' => 0,
-        'user_id' => $user_data->ID,
-        'comment_approved' => '1',
-        'comment_author_IP' => $remote_addr,
-    );
-
-    // Disable all comment content filtering
-    add_filter('pre_comment_content', function($content) use ($comment_content) {
-        return $comment_content;
-    }, 999);
-
-    // Post comment
-    $comment_id = wp_new_comment($comment_data, true);
-
-    // Restore the default comment content filtering
-    remove_filter('pre_comment_content', function($content) use ($comment_content) {
-        return $comment_content;
-    }, 999);
-    
-    if ($comment_id) {
-        // Comment was successfully added
-        wp_delete_comment($comment_id, true);
-    } else {
-        // There was an error adding the comment
-        return false;
-    }
-}
-
 /** SEND ADMIN NOTIFICATION EMAIL */
-// the "This could have been an email" fix :)
+// the "This could have been an email" fix by Hubert :)
 function send_admin_notification_email(string $email_content, int $post_id, int $admin_id, int $recipient_id) {
 
     // Get data
@@ -87,11 +37,13 @@ function send_admin_notification_email(string $email_content, int $post_id, int 
     $email_content = preg_replace('/\t+/', '', $email_content); // Remove all tabs
     $email_content = preg_replace('/\n\s+/', "\n", $email_content); // Remove leading spaces on new lines
     $subject = "🔔 {$post_title}";
+
     // Set content in email form
     $headers = loopis_mail_headers();
     $outro = array(loopis_mail_ping($admin_name, $post_link, $post_title), loopis_mail_location($location_name));
     $the_email = loopis_mail_template('',$outro,$email_content);
     $the_email .= loopis_mail_footer('Gå till LOOPIS.app för att hantera annonsen eller skriva ett svar.');
+
     // Send email
     wp_mail($to, $subject, $the_email, $headers); 
 }
