@@ -55,7 +55,7 @@ if ($count_submitted !== 0) { $given_percentage = round(($count_given / $count_s
 
 <p>Blev medlem <span class="big-label">🎉 <?php echo $joined_date; ?></span></p>
 <p>Bor i postorten <span class="big-label">🗺 <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-city.php'; ?></span></p>
-<p>Loopar i området <span class="big-label">📍 <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-primary-blog.php'; ?></span> &nbsp;</p>
+<p>Loopar i området <span class="big-label">📍 <?php include LOOPIS_THEME_HQ_DIR . '/includes/output/user-data/user-primary-blog.php'; ?></span> &nbsp;</p>
 <?php if (in_array('manager', $user->roles)): ?><p>Har rollen <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'admin', home_url('/area/')) ); ?>"><img src="<?php echo LOOPIS_THEME_URI; ?>/assets/img/admin.png" alt="Admin" class="symbol"> Admin</a></span></p>
 <?php endif; ?>
 

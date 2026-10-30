@@ -24,7 +24,7 @@ $full_request_url = $scheme . $host . $request_uri;
             <div class="loopis-message information">
                 <h5>🪰 Hittat en bugg?</h5>
                 <hr>
-                <p>Berätta gärna hur du hamnade här i formuläret längst ner.</p>
+                <p>Berätta gärna hur du hamnade här i ett mail till <span class="big-link white">✉️ <a href="mailto:info@loopis.se">info@loopis.se</a></span></p>
             </div>
             
         <?php endif; ?>

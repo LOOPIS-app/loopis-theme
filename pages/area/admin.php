@@ -15,24 +15,24 @@ if (!defined('ABSPATH')) {
 <hr>
 <p class="small">💡 Information om admin.</p>
  
-<p>Admins är volontärer i ditt område som hjälper till att hålla ordning i app och skåp.</p>
+<p>En admin är en medlem och volontär som bor i ditt område. Admins hjälper till att hålla ordning i app och skåp.</p>
 
 <h3>🗒 Uppgifter för admin</h3>
 <hr>
-<ul class="wrapped wp-block-list">
+<ol class="wrapped wp-block-list">
     <li>Se till det är bra ordning i LOOPIS app och skåp.</li>
-    <li>Svara på frågor i kommentarsfält och <span class="big-link"><a href="<?php echo home_url( '/support' ); ?>">🛟 Supportforum</a></span></li>
-    <li>Skicka automatiska sms-påminnelser när saker inte har hämtats efter 5 dagar.</li>
-    <li>Ta bort olämpliga annonser → <span class="big-link"><a href="<?php echo network_home_url( '/faq/restriktioner' ); ?>">📌 Restriktioner</a></span></li>
+    <li>Svara på frågor i kommentarer och <span class="big-link white"><a href="<?php echo home_url( '/support' ); ?>">🛟 Supportforum</a></span></li>
+    <li>Skicka sms-påminnelser när saker inte har hämtats/lämnats efter 5 dagar.</li>
+    <li>Ta bort olämpliga annonser → <span class="big-link white"><a href="<?php echo network_home_url( '/faq/restriktioner' ); ?>">📌 Restriktioner</a></span></li>
     <li>Representera området vid kontakt med föreningens styrelse.</li>
-</ul>
+</ol>
 
 <h3>💞 Kontakta admin</h3>
 <hr>
 <ul class="wrapped wp-block-list">
-    <li>Du kan alltid <span class="big-label">🔔 pinga @admin</span> i ett kommentarsfält.</li>
-    <li>För frågor som inte gäller en annons: <span class="big-link"><a href="<?php echo home_url( '/support' ); ?>">🛟 Supportforum</a></span></li>
-    <li>För privata frågor, maila <span class="big-link">✉ <a href="mailto:<?php echo get_bloginfo('admin_email'); ?>"><?php echo get_bloginfo('admin_email'); ?></a></span></li>  
+    <li>Du kan alltid pinga <span class="big-label white">@admin</span> i ett kommentarsfält.</li>
+    <li>För frågor som inte gäller en annons: <span class="big-link white"><a href="<?php echo home_url( '/support' ); ?>">🛟 Supportforum</a></span></li>
+    <li>För privata frågor, maila <span class="big-link white">✉ <a href="mailto:<?php echo get_bloginfo('admin_email'); ?>"><?php echo get_bloginfo('admin_email'); ?></a></span></li>  
 </ul>
 
 <?php
@@ -42,7 +42,8 @@ $count = count($users); ?>
 
 <h3>🕵️‍♂️ Vem är admin?</h3>
 <hr>
-<p>En admins profilbild har glasögon. <?php if ($count == 1) { echo 'Denna medlem är admin i ditt område.'; } else { echo 'Dessa medlemmar är admins i ditt område:'; } ?></p>
+<p>Admins profilbild har glasögon! 👓</p>
+<p><?php if ($count == 1) { echo 'Denna medlem är admin i ditt område.'; } else { echo 'Dessa medlemmar är admins i ditt område:'; } ?></p>
 <p>
 <?php
 foreach ($users as $user) {
