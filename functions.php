@@ -7,7 +7,7 @@
 if (!defined('ABSPATH')) { exit; }
 
 // Define theme version
-define('LOOPIS_THEME_VERSION', '1.06'); // Update version number here + in style.css
+define('LOOPIS_THEME_VERSION', '1.07'); // Update version number here + in style.css
 
 // Theme folder constants are provided by MU plugin "LOOPIS Constants".
 
