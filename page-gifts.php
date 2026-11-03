@@ -20,8 +20,11 @@ get_header(); ?>
 
     $all_tags = get_terms( array('taxonomy' => 'post_tag', 'hide_empty' => false,));
 
-    $unselected_tags = isset( $_GET['untags'] )
-        ? array_filter( array_map( 'absint', (array) wp_unslash( $_GET['untags'] ) ) )
+    $unselected_tags = isset($_GET['untags'])
+        ? array_values(array_filter(array_map(
+            'sanitize_title',
+            (array) wp_unslash($_GET['untags'])
+        )))
         : array();
 
     $filter_submitted = isset( $_GET['filter_submitted'] ) || isset( $_GET['untags'] );
@@ -46,8 +49,8 @@ get_header(); ?>
     } elseif ( is_user_logged_in() && ! $filter_submitted ) {
         $presets = get_user_meta( $user_id, 'loopis_filter_gifts', true );
         if ( is_array( $presets ) ) {
-            $unselected_tags = isset( $presets['untags'] ) && is_array( $presets['untags'] )
-                ? array_map( 'absint', $presets['untags'] )
+            $unselected_tags = isset($presets['untags']) && is_array($presets['untags'])
+                ? array_values(array_filter(array_map('sanitize_title', $presets['untags'])))
                 : array();
         }
     }
@@ -58,7 +61,7 @@ get_header(); ?>
         $tax_query[] = array(
             'taxonomy' => 'post_tag',
             'field'    => 'term_id',
-            'terms'    => $unselected_tags,
+            'terms'    => loopis_tags($unselected_tags),
             'operator' => 'NOT IN',
         );
     }

@@ -31,7 +31,7 @@ if (!defined('ABSPATH')) {
                     <?php if ( ! is_wp_error( $all_tags ) ) : ?>
                         <?php foreach ( $all_tags as $tag ) : ?>
                             <label class="term-option" data-term-label="<?php echo esc_attr($tag->name); ?>">
-                                <input type="checkbox" name="untags[]" value="<?php echo esc_attr($tag->term_id); ?>" <?php checked(in_array((int) $tag->term_id, $unselected_tags, true)); ?>>
+                                <input type="checkbox" name="untags[]" value="<?php echo esc_attr($tag->slug); ?>" <?php checked(in_array($tag->slug, $unselected_tags, true)); ?>>
                                 <span><?php echo esc_html($tag->name); ?></span>
                             </label>
                         <?php endforeach; ?>
