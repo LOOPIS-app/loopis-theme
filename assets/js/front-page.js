@@ -41,25 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        const termRows = Array.from(termsOptions.querySelectorAll('.untag-option'));
-
-        let hasUserInteracted = false;
-        let hasOpenedOptions = getTermCheckboxes().some(function(checkbox) {
-            return checkbox.checked;
-        });
-
-        if (!hasOpenedOptions) {
-            termsOptions.classList.add('is-collapsed');
-        }
-
-        function openTermsOptions() {
-            if (hasOpenedOptions) {
-                return;
-            }
-
-            hasOpenedOptions = true;
-            termsOptions.classList.remove('is-collapsed');
-        }
+        const termRows = Array.from(termsOptions.querySelectorAll('.term-option'));
 
         function applyTermFilter() {
             const query = normalizeSearchString(termsSearchInput.value);
@@ -102,16 +84,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         ['input', 'search', 'keyup', 'change'].forEach(function(eventName) {
             termsSearchInput.addEventListener(eventName, function() {
-                hasUserInteracted = true;
-                openTermsOptions();
                 applyTermFilter();
             });
         });
 
         ['focus', 'click'].forEach(function(eventName) {
             termsSearchInput.addEventListener(eventName, function() {
-                hasUserInteracted = true;
-                openTermsOptions();
                 applyTermFilter();
                 scrollTermsRowIntoView();
             });
