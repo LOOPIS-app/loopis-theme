@@ -17,7 +17,7 @@ $count = $the_query->post_count;
 
 // Output
 if( $the_query->have_posts() ): ?>
-<h7><i class="fas fa-walking"></i> Dags att hämta i skåpet!</h7>
+<h7><i class="fas fa-walking" style="display:inline-block; transform: scaleX(-1);"></i> Dags att hämta i skåpet!</h7>
 <div class="columns"><div class="column1">
 ↓ <?php echo $count; if ( $count == 1 ) { echo ' sak'; } else { echo ' saker'; } ?>
 </div><div class="column2">
