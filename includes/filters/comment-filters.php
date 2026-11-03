@@ -129,7 +129,7 @@ function loopis_render_ping($text, $comment = null, $args = array()) {
 }
 
 add_filter( 'get_comment_author', function ( $author, $comment_id, $comment ) {
-    $user = get_user($comment->user_id);
+    $user = get_userdata($comment->user_id);
     if ( $user ) {
         return $user->display_name;
     }

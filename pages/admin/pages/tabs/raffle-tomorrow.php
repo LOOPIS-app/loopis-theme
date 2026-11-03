@@ -73,7 +73,7 @@ $count = $the_query->found_posts;
                             if (has_category(array('booked', 'booked_custom'))) {
                                 $fetcher = get_post_meta($post_id, 'fetcher', true);
                                 if ($fetcher) {
-                                    $user = get_user($fetcher);
+                                    $user = get_userdata($fetcher);
                                     $fetchername = $user->display_name;
                                     echo " av " . esc_html($fetchername);
                                 }

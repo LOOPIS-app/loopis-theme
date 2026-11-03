@@ -6,10 +6,10 @@
 // Get neccesary variables again (since comments.php is loaded separately)
 $post_id = get_the_ID();
 $current_id = get_current_user_id();
-$current =  get_user($current);
-$current_name = $current->display_name
+$current =  get_userdata($current_id);
+$currentname = $current->display_name;
 $author_id = get_the_author_meta('ID'); 
-$author = get_user($author_id); 
+$author = get_userdata($author_id); 
 $authorname = $author->display_name;
 
 // Get comment count
