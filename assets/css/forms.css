@@ -72,7 +72,7 @@ li #reply-title { font-size: 0; margin: 0 !important; padding: 0; height: 0; bor
 
 /* Gift form tweaks */
 #gift-form #images { display: none !important; }
-.loopis-form .terms-options { background: #fff; border: 2px solid var(--form-border); border-radius: var(--form-control-radius); display: grid; align-content: start; gap: 6px; height: 120px; overflow-y: auto; overscroll-behavior: contain; padding: 8px; }
+.loopis-form .terms-options { background: #fff; border: 2px solid var(--form-border); border-radius: var(--form-control-radius); display: grid; align-content: start; gap: 6px; height: 160px; overflow-y: auto; overscroll-behavior: contain; padding: 8px; }
 #gift-form #terms-search { margin-bottom: 5px; }
 .loopis-form .terms-options.is-collapsed { display: none; }
 .loopis-form .term-option { align-items: center; cursor: pointer; display: flex; font-size: 18px; font-weight: 300; gap: 8px; margin: 0; padding: 2px 0; }
