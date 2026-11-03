@@ -29,12 +29,9 @@ if (!defined('ABSPATH')) {
 <!-- Storage -->
 <?php if (current_user_can('manage_options') || current_user_can('loopis_storage')) : ?>
 <div class="admin-block">
-<p>💡 Du har behörighet att lägga annonser i lager.</p>
-
-  <?php if (current_user_can('loopis_admin')) : ?>
-  <button type="button" class="orange small" onclick="window.location.href='<?php echo esc_url( add_query_arg(array('view' => 'storage'), home_url('/admin/')) ); ?>'">📦 Visa lager</button>
+<p>💡 Du har behörighet att hantera annonser i lager.</p>
+  <button type="button" class="orange small" onclick="window.location.href='<?php echo esc_url( add_query_arg(array('view' => 'storage'), home_url('/discover/')) ); ?>'">📦 Visa lager</button>
   <p class="info">Tryck här för att visa lager och paxa annonser.</p>
-  <?php endif; ?>
   </div>
 <?php endif; ?>
 

@@ -73,25 +73,34 @@ function action_forward(int $post_id) {
 
 	// Leave comment by author
 	add_comment(
-		'<p class="forward">💝 Jag skickar vidare. <span>→ <a href="' . esc_url( get_permalink($new_post_id) ) . '">Ny annons</a></span></p>',
+		'<p class="forward">💝 Jag skickar vidare. <span><a href="' . esc_url( get_permalink($new_post_id) ) . '">Ny annons</a></span></p>',
 		$post_id
 	);
-	// Check queue + notify
+	
+	/* NOTIFY USERS IN QUEUE */
+
+	// Check queue
 	$queue = maybe_unserialize(get_post_meta($post_id, 'queue', true)); // Ensure the value is unserialized
-	if (!empty($queue) && is_array($queue)) { 
-    // Generate the notification message with usernames
-    $user_mentions = array_map(function ($user_ID) {
-        $user = get_userdata($user_ID); // Fetch user data by ID
-        return $user ? '<span>@' . $user->user_login . '</span>' : ''; // Use the username (user_login) wrapped in <span>
-    }, $queue);
-    // Remove any empty mentions (in case a user ID is invalid)
-    $user_mentions = array_filter($user_mentions);
-    // Convert the mentions into a single string
-    $user_mentions_string = implode(' + ', $user_mentions);
-    // Send notification from LOOPIS to users in queue
-    $notification_message = '♻ Denna sak har skickats vidare!<br>⏳ Ni kan delta i lottning igen imorgon klockan 12.<br>💡 Tips till ' . $user_mentions_string;
-    add_admin_comment($notification_message, $new_post_id, 2);
+	$queue_count = 0;
+	if (!empty($queue) && is_array($queue)) {
+
+		// Send notification email from LOOPIS to every user in queue
+		$notification_message = '♻ Denna sak har skickats vidare!<br>⏳ Du kan delta i lottning igen imorgon klockan 12.<br>💡 Tips skickat till dig eftersom du stod i kö senast.';
+		foreach ($queue as $user_id) {
+			if (get_userdata($user_id)) {
+				send_admin_notification_email($notification_message, $new_post_id, 2, (int) $user_id);
+				$queue_count++;
+			}
+		}
 	}
+
+	// Add one comment from LOOPIS on post if there were users in the queue
+	if ($queue_count > 0) {
+		$admin_comment = '<p class="forward">♻ Denna sak har skickats vidare!<br>⏳ Alla kan delta i lottning igen imorgon klockan 12.<br>💡 Tips skickat till <span>🔔 ' . $queue_count . ' användare</span> som stod i kö senast.</p>';
+		add_admin_comment($admin_comment, $new_post_id, 2);
+	}
+	
+	// Redirect user to the edit page of the new post
 	$redirect_url = add_query_arg(array('option'=> 'single', 'edit_post_id' => $new_post_id), home_url('/submit/'));
 	wp_safe_redirect($redirect_url);
 	exit;

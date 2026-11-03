@@ -1,5 +1,9 @@
 # 📋 Changelog for "LOOPIS Theme"
 
+## 1.07 (2026-10-30)
+- Admin area major revision
+- Some CSS and general improvements
+
 ## 1.06 (2026-09-22)
 - Multisite fixes & UI improvements
 - Mail template introduced

@@ -60,6 +60,13 @@ function loopis_search_post_type($query) {
     $query->set('post_type', 'post');
     $query->set('post_status', 'publish');
 
+    $selected_category = $query->get('cat');
+    $selected_category_id = is_scalar($selected_category) ? absint($selected_category) : 0;
+    if ($selected_category_id && term_exists($selected_category_id, 'category')) {
+        $query->set('category__in', array($selected_category_id));
+        return;
+    }
+
     $category_ids = loopis_get_search_category_ids();
     if (!empty($category_ids)) {
         $query->set('category__in', $category_ids);

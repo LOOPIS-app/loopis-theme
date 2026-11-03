@@ -1,0 +1,293 @@
+<?php
+/**
+ * Statistics for posts.
+ * 
+ * Will be improved to use generic functions.
+ * Will be improved to use custom database table.
+ */
+
+if (!defined('ABSPATH')) {
+    exit;
+}
+?>
+
+<h1>📊 Annonser</h1>
+<hr>
+<p class="small">💡 Statistik för upplagda annonser</p>
+
+<?php
+// Categories
+$fetcher_cat = loopis_cat('fetched');
+$activity_cats = loopis_cats(['fetched', 'booked', 'booked_custom', 'locker']);
+$removed_cat = loopis_cat('removed');
+
+// Render dropdown and get the selected year
+include_once LOOPIS_THEME_DIR . '/pages/admin/functions/stats_select_year.php';
+$stats_selection = stats_select_year();
+$selected_year = $stats_selection['selected_year'];
+$days_passed = $stats_selection['days_passed'];
+
+// Exclude the board?
+$board_ids = array(2, 3, 66);
+
+// Function to build date query
+function build_date_query($selected_year) {
+    if ($selected_year === 'all') {
+        return array(); // No date query for all years
+    }
+    return array(
+        array(
+            'year' => $selected_year,
+        ),
+    );
+}
+
+// Number of posts created
+$total_args = array(
+    'post_type'      => 'post',
+    'posts_per_page' => -1,
+    'date_query'     => build_date_query($selected_year),
+);
+
+$total_query = new WP_Query($total_args);
+$total_count = $total_query->found_posts;
+
+// Number of posts created (board excluded)
+$total_noboard_args = array(
+    'post_type'      => 'post',
+    'posts_per_page' => -1,
+    'date_query'     => build_date_query($selected_year),
+    'author__not_in' => $board_ids,
+);
+
+$total_noboard_query = new WP_Query($total_noboard_args);
+$total_noboard_count = $total_noboard_query->found_posts;
+
+// Number of forwarded posts
+$forwarded_args = array(
+    'post_type'      => 'post',
+    'meta_key'       => 'previous_post',
+    'meta_query'     => array(
+        array(
+            'key'     => 'previous_post',
+            'value'   => '',
+            'compare' => '!=',
+        ),
+    ),
+    'posts_per_page' => -1,
+    'date_query'     => build_date_query($selected_year),
+);
+
+$forwarded_query = new WP_Query($forwarded_args);
+$forwarded_count = $forwarded_query->found_posts;
+
+// Number of forwarded posts fetched
+$forwarded_fetched_args = array(
+    'post_type'      => 'post',
+    'category__in'   => $fetcher_cat,
+    'meta_key'       => 'previous_post',
+    'meta_query'     => array(
+        array(
+            'key'     => 'previous_post',
+            'value'   => '',
+            'compare' => '!=',
+        ),
+    ),
+    'posts_per_page' => -1,
+    'date_query'     => build_date_query($selected_year),
+);
+
+$forwarded_fetched_query = new WP_Query($forwarded_fetched_args);
+$forwarded_fetched_count = $forwarded_fetched_query->found_posts;
+
+// Number of posts booked
+$booked_args = array(
+    'post_type'      => 'post',
+    'category__in'   => $activity_cats,
+    'posts_per_page' => -1,
+    'date_query'     => build_date_query($selected_year),
+);
+
+$booked_query = new WP_Query($booked_args);
+$booked_count = $booked_query->found_posts;
+
+// Number of posts booked (board excluded)
+$booked_noboard_args = array(
+    'post_type'      => 'post',
+    'category__in'   => $activity_cats,
+    'posts_per_page' => -1,
+    'date_query'     => build_date_query($selected_year),
+    'author__not_in' => $board_ids,
+);
+
+$booked_noboard_query = new WP_Query($booked_noboard_args);
+$booked_noboard_count = $booked_noboard_query->found_posts;
+
+// Number of posts fetched
+$fetched_args = array(
+    'post_type'      => 'post',
+    'category__in'   => $fetcher_cat,
+    'posts_per_page' => -1,
+    'date_query'     => build_date_query($selected_year),
+);
+
+$fetched_query = new WP_Query($fetched_args);
+$fetched_count = $fetched_query->found_posts;
+
+// Number of posts fetched (board excluded)
+$fetched_noboard_args = array(
+    'post_type'      => 'post',
+    'category__in'   => $fetcher_cat,
+    'posts_per_page' => -1,
+    'date_query'     => build_date_query($selected_year),
+    'author__not_in' => $board_ids,
+);
+
+$fetched_noboard_query = new WP_Query($fetched_noboard_args);
+$fetched_noboard_count = $fetched_noboard_query->found_posts;
+
+// Number of posts removed
+$removed_args = array(
+    'post_type'      => 'post',
+    'category__in'   => $removed_cat,
+    'posts_per_page' => -1,
+    'date_query'     => build_date_query($selected_year),
+);
+
+$removed_query = new WP_Query($removed_args);
+$removed_count = $removed_query->found_posts;
+
+// Number of booked posts with raffle_date
+$booked_raffle_args = array(
+    'post_type'      => 'post',
+    'category__in'   => $activity_cats,
+    'meta_key'       => 'raffle_date',
+    'meta_value'     => '',
+    'meta_compare'   => 'EXISTS',
+    'posts_per_page' => -1,
+    'date_query'     => build_date_query($selected_year),
+);
+
+$booked_raffle_query = new WP_Query($booked_raffle_args);
+$booked_raffle_count = $booked_raffle_query->found_posts;
+
+// Number of fetched posts with location 'Skåpet'
+$locker_args = array(
+    'post_type'      => 'post',
+    'category__in'   => $fetcher_cat,
+    'meta_key'       => 'location',
+    'meta_value'     => 'Skåpet',
+    'posts_per_page' => -1,
+    'date_query'     => build_date_query($selected_year),
+);
+
+$locker_query = new WP_Query($locker_args);
+$locker_count = $locker_query->found_posts;
+
+// Number of fetched posts with location 'LOOPIS-bord'
+$booked_event_args = array(
+    'post_type'      => 'post',
+    'category__in'   => $fetcher_cat,
+    'meta_key'       => 'location',
+    'meta_value'     => 'LOOPIS-bord',
+    'posts_per_page' => -1,
+    'date_query'     => build_date_query($selected_year),
+);
+
+$booked_event_query = new WP_Query($booked_event_args);
+$booked_event_count = $booked_event_query->found_posts;
+
+// Statistics for posts forwarded
+$forwarded_percentage = ($total_count > 0) ? round(($forwarded_count / $total_count) * 100) : 0;
+$forwarded_per_day = ($days_passed > 0) ? round($forwarded_count / $days_passed, 2) : 0;
+
+// Statistics for posts forwarded and fetched
+$forwarded_fetched_percentage = ($forwarded_count > 0) ? round(($forwarded_fetched_count / $forwarded_count) * 100) : 0;
+$forwarded_fetched_per_day = ($days_passed > 0) ? round($forwarded_fetched_count / $days_passed, 2) : 0;
+
+// Statistics for posts removed
+$removed_percentage = ($total_count > 0) ? round(($removed_count / $total_count) * 100) : 0;
+$removed_per_day = ($days_passed > 0) ? round($removed_count / $days_passed, 2) : 0;
+
+// Statistics for posts created
+$total_noboard_percentage = ($total_count - $removed_count > 0) ? round((($total_noboard_count - $removed_count) / ($total_count - $removed_count)) * 100) : 0;
+$posts_per_day = ($days_passed > 0) ? round($total_count / $days_passed, 2) : 0;
+$posts_per_day_noboard = ($days_passed > 0) ? round($total_noboard_count / $days_passed, 2) : 0;
+
+// Statistics for posts booked
+$booked_percentage = ($total_count > 0) ? round(($booked_count / $total_count) * 100) : 0;
+$booked_per_day = ($days_passed > 0) ? round($booked_count / $days_passed, 2) : 0;
+$booked_per_day_noboard = ($days_passed > 0) ? round($booked_noboard_count / $days_passed, 2) : 0;
+$booked_noboard_percentage = ($total_noboard_count > 0) ? round(($booked_noboard_count / $total_noboard_count) * 100) : 0;
+
+// Statistics for posts fetched
+$fetched_percentage = ($total_count > 0) ? round(($fetched_count / $total_count) * 100) : 0;
+$fetched_per_day = ($days_passed > 0) ? round($fetched_count / $days_passed, 2) : 0;
+$fetched_per_day_noboard = ($days_passed > 0) ? round($fetched_noboard_count / $days_passed, 2) : 0;
+$fetched_noboard_percentage = ($total_noboard_count > 0) ? round(($fetched_noboard_count / $total_noboard_count) * 100) : 0;
+
+// Statistics for posts fetched in locker
+$locker_percentage = ($fetched_count > 0) ? round(($locker_count / $fetched_count) * 100) : 0;
+$locker_per_day = ($days_passed > 0) ? round($locker_count / $days_passed, 2) : 0;
+
+// Statistics for posts fetched on custom location
+$custom_count = ($fetched_count - $locker_count - $booked_event_count);
+$custom_percentage = ($fetched_count > 0) ? round(($custom_count / $fetched_count) * 100) : 0;
+$custom_per_day = ($days_passed > 0) ? round($custom_count / $days_passed, 2) : 0;
+
+// Statistics for posts booked thorug raffle
+$booked_raffle_percentage = ($booked_count > 0) ? round(($booked_raffle_count / $booked_count) * 100) : 0;
+$booked_raffle_per_day = ($days_passed > 0) ? round($booked_raffle_count / $days_passed, 2) : 0;
+
+// Statistics for posts booked through first-time booking
+$booked_old_count = ($booked_count - $booked_raffle_count);
+$booked_old_percentage = ($booked_count > 0) ? round(($booked_old_count / $booked_count) * 100) : 0;
+$booked_old_per_day = ($days_passed > 0) ? round($booked_old_count / $days_passed, 2) : 0;
+
+// Statisitics for post booked on event
+$booked_event_percentage = ($booked_event_count > 0) ? round(($booked_event_count / $booked_count) * 100) : 0;
+$booked_event_per_day = ($days_passed > 0) ? round($booked_event_count / $days_passed, 2) : 0;
+
+// Adjust output of all years
+if ($selected_year === 'all') { $selected_year = "Alla år"; }
+?>
+
+
+<!-- Output the counts -->
+<div class="columns"><div class="column1"><h3>🎁 Annonser</h3></div>
+<div class="column2"><?php echo $selected_year; ?> (<?php echo $days_passed; ?> dagar)</div></div>
+<hr>
+<div class="span-list">
+<span class="mega-label">⬆ <?php echo $total_count; ?> skapade</span> = <span class="big-label"><?php echo number_format($posts_per_day, 2); ?> per dag</span><br>
+<span class="big- label"><i class="fas fa-share" style="color: #999;"></i> <?php echo $forwarded_count; ?> återskapade</span> = <span class="label"><?php echo number_format($forwarded_per_day, 2); ?> per dag</span> = <span class="label"><?php echo $forwarded_percentage; ?>% av alla skapade</span><br>
+<span class="big-label">❌ <?php echo $removed_count; ?> borttagna</span> = <span class="label"><?php echo number_format($removed_per_day, 2); ?> per dag</span> = <span class="label"><?php echo $removed_percentage; ?>% av alla skapade</span><br>
+</div>
+
+<div class="columns"><div class="column1"><h3>🙋‍♀️ Paxningar</h3></div>
+<div class="column2"><?php echo $selected_year; ?> (<?php echo $days_passed; ?> dagar)</div></div>
+<hr>
+<div class="span-list">
+<span class="mega-label">❤ <?php echo $booked_count; ?> paxade</span> = <span class="big-label"><?php echo number_format($booked_per_day, 2); ?> per dag</span> = <span class="big-label"><?php echo $booked_percentage; ?>% av alla skapade</span><br>
+<span class="big-label">🎲 <?php echo $booked_raffle_count; ?> genom lottning</span> = <span class="label"><?php echo number_format($booked_raffle_per_day, 2); ?> per dag</span> = <span class="label"><?php echo $booked_raffle_percentage; ?>% av alla paxade</span><br>
+<span class="big-label">🟢 <?php echo $booked_old_count; ?> först till kvarn</span> = <span class="label"><?php echo number_format($booked_old_per_day, 2); ?> per dag</span> = <span class="label"><?php echo $booked_old_percentage; ?>% av alla paxade</span><br>
+</div>
+
+<div class="columns"><div class="column1"><h3>♻ Hämtningar</h3></div>
+<div class="column2"><?php echo $selected_year; ?> (<?php echo $days_passed; ?> dagar)</div></div>
+<hr>
+<div class="span-list">
+<span class="mega-label">☑ <?php echo $fetched_count; ?> hämtade</span> = <span class="big-label"><?php echo number_format($fetched_per_day, 2); ?> per dag</span> = <span class="big-label"><?php echo $fetched_percentage; ?>% av alla skapade</span><br>
+<span class="big-label"><i class="fas fa-share" style="color: #999;"></i> <?php echo $forwarded_fetched_count; ?> återskapade</span> = <span class="label"><?php echo number_format($forwarded_fetched_per_day, 2); ?> per dag</span> = <span class="label"><?php echo $forwarded_fetched_percentage; ?>% av alla återskapade</span><br>
+<span class="big-label">⏹️ <?php echo $locker_count; ?> i skåpet</span> = <span class="label"><?php echo number_format($locker_per_day, 2); ?> per dag</span> = <span class="label"><?php echo $locker_percentage; ?>% av alla hämtade</span><br>
+<span class="big-label">📍<?php echo $custom_count; ?> på annan adress</span> = <span class="label"><?php echo number_format($custom_per_day, 2); ?> per dag</span> = <span class="label"><?php echo $custom_percentage; ?>% av alla hämtade</span><br>
+<span class="big-label">🌳 <?php echo $booked_event_count; ?> på event</span> = <span class="label"><?php echo number_format($booked_event_per_day, 2); ?> per dag</span> = <span class="label"><?php echo $booked_event_percentage; ?>% av alla hämtade</span><br>
+</div>
+
+<div class="columns"><div class="column1"><h3>👤 Utan styrelsen</h3></div>
+<div class="column2"><?php echo $selected_year; ?> (<?php echo $days_passed; ?> dagar)</div></div>
+<hr>
+<div class="span-list">
+<span class="mega-label">⬆ <?php echo $total_noboard_count; ?> skapade</span> = <span class="big-label"><?php echo number_format($posts_per_day_noboard, 2); ?> per dag</span> = <span class="big-label"><?php echo $total_noboard_percentage; ?>% av alla skapade</span><br>
+<span class="mega-label">❤ <?php echo $booked_noboard_count; ?> paxade</span> = <span class="big-label"><?php echo number_format($booked_per_day_noboard, 2); ?> per dag</span> = <span class="big-label"><?php echo $booked_noboard_percentage; ?>% av de skapade</span><br>
+<span class="mega-label">☑ <?php echo $fetched_noboard_count; ?> hämtade</span> = <span class="big-label"><?php echo number_format($fetched_per_day_noboard, 2); ?> per dag</span> = <span class="big-label"><?php echo $fetched_noboard_percentage; ?>% av de skapade</span><br>
+</div>

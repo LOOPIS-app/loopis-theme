@@ -28,6 +28,15 @@ get_header(); ?>
     // Notifications for members
     if (in_array('member', $user_roles, true) || current_user_can('loopis_locker') || current_user_can('loopis_admin')) {
         include LOOPIS_THEME_DIR . '/includes/output/front-page/front-alerts.php';
+        }
+
+    // Notifications for admin
+    if (current_user_can('loopis_admin')) {
+        include LOOPIS_THEME_DIR . '/includes/output/front-page/front-admin.php';
+        }
+
+    // News for members & admin
+    if (in_array('member', $user_roles, true) || current_user_can('loopis_admin')) {
         include LOOPIS_THEME_DIR . '/includes/output/front-page/front-news.php';
         }
 

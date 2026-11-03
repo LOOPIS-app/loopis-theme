@@ -40,7 +40,7 @@ $user_roles = (array) $current_user->roles;
     // Not logged in
     else :
         echo '<h1>💚 Ge bort</h1><hr>';
-        include LOOPIS_THEME_DIR . '/includes/output/access/only-user.php';
+        include LOOPIS_THEME_DIR . '/includes/output/access/only-member.php';
         include LOOPIS_THEME_DIR . '/templates/faq/questions-visitor.php';
         get_footer();
     
