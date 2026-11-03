@@ -100,7 +100,7 @@ $count = count($results);
             <?php if ($user_has_stuff) { list_button_output($url_slug, $post_id); } ?>
             <div class="notif-meta post-list-post-meta">
 				<span>
-					<?php the_category(' '); ?><?php if (in_category('new')) { echo raffle_time(); } ?> 
+					<?php the_category(' '); ?><?php if (in_category('new')) { echo raffle_time($post_id); echo "<span class=\"right\">" . raffle_count($post_id) . "</span>"; } ?> 
 				</span>
             </div>
         </div><!--post-list-post-->
