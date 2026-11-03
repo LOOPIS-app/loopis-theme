@@ -73,7 +73,7 @@ add_filter( 'the_author', function ( $display_name ) {
     global $authordata;
 
     if ( isset( $authordata->ID ) ) {
-        return get_name( (int) $authordata->ID );
+        return $authordata->display_name;
     }
 
     return $display_name;

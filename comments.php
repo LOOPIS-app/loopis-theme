@@ -5,10 +5,12 @@
 
 // Get neccesary variables again (since comments.php is loaded separately)
 $post_id = get_the_ID();
-$current = get_current_user_id();
-$currentname =  get_name($current);
-$author = get_the_author_meta('ID'); 
-$authorname = get_name($author);
+$current_id = get_current_user_id();
+$current =  get_user($current);
+$current_name = $current->display_name
+$author_id = get_the_author_meta('ID'); 
+$author = get_user($author_id); 
+$authorname = $author->display_name;
 
 // Get comment count
 $comment_count = get_comment_count($post_id)['approved'];
@@ -59,7 +61,7 @@ switch ($post_type) {
 <?php comment_form(array(
     'title_reply' => '',
     'submit_button' => '<button name="submit" type="submit" id="submit" class="grey small">Skicka</button>')); ?>
-<p class="small"><?php if ( $current != $author ) { ?><span class="small-link"><a href="#" id="tag-author">🔔 Pinga avsändaren</a> (<?php echo $authorname; ?>)</span> <?php } ?></p>
+<p class="small"><?php if ( $current_id != $author_id ) { ?><span class="small-link"><a href="#" id="tag-author">🔔 Pinga avsändaren</a> (<?php echo $authorname; ?>)</span> <?php } ?></p>
 <p class="small"><span class="small-link"><a href="#" id="tag-admin">🔔 Pinga admin</a></span></p>
 <?php if (current_user_can('manager')) { ?>
 <p class="small">Signera med <span class="small-link"><a href="#" id="sign-admin">💚 Admin</a></span></p>
