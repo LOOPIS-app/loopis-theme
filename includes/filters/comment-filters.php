@@ -96,9 +96,42 @@ function loopis_wrap_comment_avatars_with_author_link($avatar, $id_or_email, $si
 }
 add_filter('get_avatar', 'loopis_wrap_comment_avatars_with_author_link', 20, 6);
 
+
+
+
+add_filter('comment_text', 'loopis_render_ping', 20, 3);
+
+function loopis_render_ping($text, $comment = null, $args = array()) {
+    if (!($comment instanceof WP_Comment)) {
+        return $text;
+    }
+
+    return preg_replace_callback(
+        '/(?<![\p{L}\p{M}\p{N}_.-])@([\p{L}\p{M}\p{N}_.-]+)/u',
+        function ($matches) {
+            if ($matches[1]==='admin') {
+                return '<span class="ping">💚 Admin </span>';
+            }
+
+            $user = get_user_by('login', $matches[1]);
+
+            if (!$user) {
+                return $matches[0];
+            }
+
+            return sprintf(
+                '<span class="ping">🔔 %s</span>',
+                esc_html($user->display_name)
+            );
+        },
+        $text
+    );
+}
+
 add_filter( 'get_comment_author', function ( $author, $comment_id, $comment ) {
-    if ( $comment->user_id ) {
-        return get_name( (int) $comment->user_id );
+    $user = get_user($comment->user_id);
+    if ( $user ) {
+        return $user->display_name;
     }
     return $author;
 }, 10, 3 );
