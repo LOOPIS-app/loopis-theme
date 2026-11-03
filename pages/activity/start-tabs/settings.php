@@ -38,5 +38,7 @@ include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-paus
 
 <h3>👤 Mitt konto</h3>
 <hr>
-<p><span class="big-link"><a href="<?php echo esc_url(network_home_url('/user')); ?>">📋 Mitt medlemskap</a></span></p>
-<p><span class="big-link"><a href="<?php echo esc_url(wp_logout_url(home_url())); ?>">🚪 Logga ut</a></span></p>
+<div class="span-list">
+<span class="mega-link"><a href="<?php echo esc_url(network_home_url('/user')); ?>">📋 Mitt medlemskap</a></span><br>
+<span class="mega-link"><a href="<?php echo esc_url(get_loopis_logout_url()); ?>">🚪 Logga ut</a></span><br>
+</div>
