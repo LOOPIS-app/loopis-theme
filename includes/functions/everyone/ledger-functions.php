@@ -450,6 +450,8 @@ function loopis_ledger_economy($user_id){
         //event count
         'count_given' => (int) $events['count_given'],
         'count_booked' => (int) $events['count_booked'],
+        'count_fetched' => (int) $events['count_fetched'],
+        'count_regret' => (int) $events['count_regret'],
         'count_submitted' => (int) $events['count_submitted'],
         'count_deleted' => (int) $events['count_deleted'],
         //rewards 

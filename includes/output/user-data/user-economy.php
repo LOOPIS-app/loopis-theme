@@ -24,6 +24,8 @@ $membership_coins = $profile_economy['membership_coins'];
 $bought_coins = $profile_economy['bought_coins'];
 $count_given = $profile_economy['count_given'];
 $count_booked = $profile_economy['count_booked'];
+$count_fetched = $profile_economy['count_fetched'];
+$count_cancelled = $profile_economy['count_regret'];
 $count_submitted = $profile_economy['count_submitted'];
 $count_deleted = $profile_economy['count_deleted'];
 $stars = $profile_economy['stars'];
@@ -40,7 +42,7 @@ $coins = $profile_economy['coins'];
 <p class="group"><span class="left"><b><?php echo $payments_membership; ?></b> köp av medlemskap</span> <span class="plus right">+<?php echo $membership_coins; ?></span></p>
 <p class="group"><span class="left"><b><?php echo $payments_coins; ?></b> köp av mynt</span> <span class="plus right">+<?php echo $bought_coins; ?></span></p>
 <p class="group"><span class="left"><b><?php echo $count_given; ?></b> saker lämnade</span> <span class="plus right">+<?php echo $count_given; ?></span></p>
-<p class="group"><span class="left"><b><?php echo $count_booked; ?></b> saker hämtade/paxade</span>&nbsp; &nbsp;<span class="minus right">–<?php echo $count_booked; ?></span></p>
+<p class="group"><span class="left"><b><?php echo ($count_booked-$count_cancelled); ?></b> saker hämtade/paxade</span>&nbsp; &nbsp;<span class="minus right">–<?php echo ($count_booked-$count_cancelled); ?></span></p>
 <p class="group"><span class="left"><b><?php echo $clovers; ?></b> fyrklöver</span> <span class="plus right">+<?php echo $clover_coins; ?></span></p>
 <p class="group"><span class="left"><b><?php echo $stars; ?></b> guldstjärnor</span> <span class="plus right">+<?php echo $star_coins; ?></span></p>
 <hr>
@@ -52,7 +54,7 @@ $coins = $profile_economy['coins'];
 <p><span class="left">Fyrklöver</span> <span class="right">🍀</span></p>
 <hr>
 <p><span class="left"><b><?php echo $count_submitted; ?></b> annonser skapade</span>&nbsp; &nbsp;<span class="plus right">+<?php echo $count_submitted; ?></span></p>
-<p><span class="left"><b><?php echo $count_booked; ?></b> saker hämtade</span> <span class="plus right">+<?php echo $count_booked; ?></span></p>
+<p><span class="left"><b><?php echo $count_fetched; ?></b> saker hämtade</span> <span class="plus right">+<?php echo $count_fetched; ?></span></p>
 <hr>
 <p>&nbsp;<span class="right">Totalt: <b><?php echo $clovers; ?></b></span></p>
 
