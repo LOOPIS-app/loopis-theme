@@ -45,7 +45,12 @@ switch ($post_type) {
         <?php if ( $comment_count == 0 ) {
             echo '<div class="comment-body"><p>' . $message . '</p></div>';
             } else {
-            wp_list_comments( 'avatar_size=96&type=comment' ); } ?>	
+            wp_list_comments([
+                'avatar_size'=>'96',
+                'type'=>'comment',
+                'callback' => 'loopis_comment_callback'
+            ]); 
+            }?>	
         </ol>	
     </div>	
 
@@ -71,8 +76,8 @@ switch ($post_type) {
 <!-- Mention sctripts -->
 <script>
     // Pass PHP variable $authorname to JavaScript
-    window.authorUsername = '@<?php echo $authorname; ?>';
-    window.adminUsername = '@admin';
+    window.authorUsername = '<?php echo $author->user_login; ?>';
+    window.adminUsername = 'admin';
 </script>
 <script src="<?php echo LOOPIS_THEME_URI; ?>/assets/js/mentions-add.js"></script>
 <script src="<?php echo LOOPIS_THEME_URI; ?>/assets/js/mentions-show.js"></script>

@@ -110,7 +110,7 @@ function loopis_render_ping($text, $comment = null, $args = array()) {
         '/(?<![\p{L}\p{M}\p{N}_.-])@([\p{L}\p{M}\p{N}_.-]+)/u',
         function ($matches) {
             if ($matches[1]==='admin') {
-                return '<span class="ping">💚 Admin </span>';
+                return '<span class="ping">🔔 Admin </span>';
             }
 
             $user = get_user_by('login', $matches[1]);
@@ -135,3 +135,45 @@ add_filter( 'get_comment_author', function ( $author, $comment_id, $comment ) {
     }
     return $author;
 }, 10, 3 );
+
+
+
+function loopis_comment_callback($comment, $args, $depth) {
+    $user = $comment->user_id ? get_userdata($comment->user_id) : false;
+    $login = $user ? $user->user_login : '';
+
+    $GLOBALS['comment'] = $comment;
+    ?>
+    <li <?php comment_class('', $comment); ?> id="li-comment-<?php comment_ID(); ?>">
+        <div id="comment-<?php comment_ID(); ?>" class="comment-body">
+            <div class="comment-author">
+                <?php echo get_avatar($comment, $args['avatar_size']); ?>
+                <cite class="fn" data-login="<?php echo esc_attr($login); ?>">
+                    <?php echo get_comment_author_link($comment); ?>
+                </cite>
+            </div>
+            <div class="comment-meta commentmetadata">
+                <a href="<?php echo esc_url(get_comment_link($comment, $args)); ?>">
+                    <time datetime="<?php echo esc_attr(get_comment_time('c', false, true, $comment)); ?>">
+                        <?php
+                        printf(
+                            esc_html__('%1$s kl. %2$s ', 'your-text-domain'),
+                            esc_html(get_comment_date('', $comment)),
+                            esc_html(get_comment_time('', false, true, $comment))
+                        );
+                        ?>
+                    </time>
+                </a>
+
+                <?php edit_comment_link(esc_html__('(Redigera)', 'your-text-domain'), ' ', ''); ?>
+            </div>
+
+            <?php comment_text(); ?>
+            <?php comment_reply_link(array_merge($args, [
+                'depth' => $depth,
+                'max_depth' => $args['max_depth'],
+            ])); ?>
+        </div>
+    </li>
+    <?php
+}

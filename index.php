@@ -11,7 +11,7 @@
 get_header(); ?>
 <script src="<?php echo LOOPIS_THEME_URI; ?>/assets/js/front-page.js"></script>
 <div class="page-padding">
-
+    <h1>🎁 Saker att få</h1>
 <?php
     // Get current user
     $user_roles = array();

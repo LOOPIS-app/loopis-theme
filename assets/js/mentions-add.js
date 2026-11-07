@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (usernameElement) {
             // Get the username
-            var username = usernameElement.textContent.trim();
+            var username = usernameElement.dataset.login || usernameElement.textContent.trim();
 
             // Create a "Pinga" link element
             var pingLink = document.createElement('a');
@@ -35,11 +35,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (commentField) {
                     // Get the current value of the comment field
                     var currentValue = commentField.value.trim();
-
+                    var mention = '@' + username;
+                    var start = commentField.selectionStart;
+                    var end = commentField.selectionEnd;
                     // Add "@username " to the comment field if it's not already present
-                    if (!currentValue.includes('@' + username)) {
-                        var newValue = currentValue + ' @' + username + ' ';
-                        commentField.value = newValue;
+                    if (!currentValue.includes(mention)) {
+                        var before = currentValue.slice(0,start);
+                        var after = currentValue.slice(end);
+
+                        var addition = (before && !/\s$/.test(before) ? ' ' : '') + mention + (after && !/^\s/.test(after) ? ' ' : ' ');
+
+                        commentField.setRangeText(addition,start,end,'end');
+                        commentField.focus();
                     }
                 }
             });
@@ -50,18 +57,29 @@ document.addEventListener('DOMContentLoaded', function() {
 // Add "@post_author" to comment field
 document.addEventListener('DOMContentLoaded', function() {
     var insertUsernameLink = document.getElementById('tag-author');
-    var commentTextArea = document.getElementById('comment');
+    var commentField = document.getElementById('comment');
 
-    if (insertUsernameLink && commentTextArea) {
+    if (insertUsernameLink && commentField) {
         insertUsernameLink.addEventListener('click', function(event) {
             event.preventDefault();
 
             // Note: author username is passed from PHP to JavaScript
-            var authorUsername = window.authorUsername || '@author'; // Fallback
-            var currentValue = commentTextArea.value.trim();
+            var username = window.authorUsername || 'author'; // Fallback
+            
+            // Get the current value of the comment field
+            var currentValue = commentField.value.trim();
+            var mention = '@' + username;
+            var start = commentField.selectionStart;
+            var end = commentField.selectionEnd;
+            // Add "@username " to the comment field if it's not already present
+            if (!currentValue.includes(mention)) {
+                var before = currentValue.slice(0,start);
+                var after = currentValue.slice(end);
 
-            if (!currentValue.includes(authorUsername)) {
-                commentTextArea.value = currentValue ? currentValue + ' ' + authorUsername + ' ' : authorUsername + ' ';
+                var addition = (before && !/\s$/.test(before) ? ' ' : '') + mention + (after && !/^\s/.test(after) ? ' ' : ' ');
+
+                commentField.setRangeText(addition,start,end,'end');
+                commentField.focus();
             }
         });
     }
@@ -70,17 +88,28 @@ document.addEventListener('DOMContentLoaded', function() {
 // Add "@admin" to comment field
 document.addEventListener('DOMContentLoaded', function() {
     var insertAdminLink = document.getElementById('tag-admin');
-    var commentTextArea = document.getElementById('comment');
+    var commentField = document.getElementById('comment');
 
-    if (insertAdminLink && commentTextArea) {
+    if (insertAdminLink && commentField) {
         insertAdminLink.addEventListener('click', function(event) {
             event.preventDefault();
 
-            var adminUsername = window.adminUsername || '@admin';
-            var currentValue = commentTextArea.value.trim();
+            var username = window.adminUsername || 'admin';
 
-            if (!currentValue.includes(adminUsername)) {
-                commentTextArea.value = currentValue ? currentValue + ' ' + adminUsername + ' ' : adminUsername + ' ';
+            // Get the current value of the comment field
+            var currentValue = commentField.value.trim();
+            var mention = '@' + username;
+            var start = commentField.selectionStart;
+            var end = commentField.selectionEnd;
+            // Add "@username " to the comment field if it's not already present
+            if (!currentValue.includes(mention)) {
+                var before = currentValue.slice(0,start);
+                var after = currentValue.slice(end);
+
+                var addition = (before && !/\s$/.test(before) ? ' ' : '') + mention + (after && !/^\s/.test(after) ? ' ' : ' ');
+
+                commentField.setRangeText(addition,start,end,'end');
+                commentField.focus();
             }
         });
     }

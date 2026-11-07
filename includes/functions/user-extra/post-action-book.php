@@ -43,7 +43,7 @@ function action_book_locker(int $post_id) {
     ❤ ' . $fetcher_name . ' har paxat! <br>
     ⌛ Lämna gärna i skåpet inom 24 timmar. <br>
     🔓 Kod till skåpet: <b>' . $locker_code . '</b> <br>
-    🙏 Tack för att du loopar! @' . $author_name, $post_id, 2, $author);
+    🙏 Tack för att du loopar!', $post_id, 2, $author);
 
     // Leave comment by fetcher
     add_comment('<p class="book">
