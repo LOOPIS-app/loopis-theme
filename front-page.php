@@ -20,23 +20,23 @@ get_header(); ?>
     }
     
     // Greeting & message for non-members
-    if (!in_array('member', $user_roles, true) && !current_user_can('loopis_admin')) {
+    if (!in_array('member', $user_roles, true)) {
         include LOOPIS_THEME_DIR . '/includes/output/access/subsite-greeting.php';
         include LOOPIS_THEME_DIR . '/includes/output/access/subsite-message.php';
     }
 
     // Notifications for members
-    if (in_array('member', $user_roles, true) || current_user_can('loopis_locker') || current_user_can('loopis_admin')) {
+    if (in_array('member', $user_roles, true) || current_user_can('loopis_locker')) {
         include LOOPIS_THEME_DIR . '/includes/output/front-page/front-alerts.php';
         }
 
     // Notifications for admin
-    if (current_user_can('loopis_admin')) {
+    if (in_array('manager', $user_roles, true) || current_user_can('manage_options')) {
         include LOOPIS_THEME_DIR . '/includes/output/front-page/front-admin.php';
         }
 
-    // News for members & admin
-    if (in_array('member', $user_roles, true) || current_user_can('loopis_admin')) {
+    // News for members
+    if (in_array('member', $user_roles, true) || in_array('board', $user_roles, true) || current_user_can('manage_options')) {
         include LOOPIS_THEME_DIR . '/includes/output/front-page/front-news.php';
         }
 
