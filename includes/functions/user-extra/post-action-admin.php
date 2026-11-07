@@ -42,8 +42,8 @@ function admin_action_notif_manual($post_id) {
 		🍀 '.$count.' personer deltog. Bättre lycka nästa gång! <br>💡 PS. Vi hade problem med mailutskick idag, därför kommer detta besked lite sent.', $post_id, 3, $user_id); } 
 	
 	// Leave comment by LOOPIS
-	add_admin_comment ('🤖 Idag hade vi problem med mailutskick! <br>
-	💡 Besked om lottning har nu skickats med lite fördröjning.', $post_id, 2);
+	add_admin_comment ('<p class="purple_light">🤖 Idag hade vi problem med mailutskick! <br>
+	💡 Besked om lottning har nu skickats med lite fördröjning.</p>', $post_id, 2);
 	
 	// Refresh page
 	refresh_page();
