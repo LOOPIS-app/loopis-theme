@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const addressWrapper = document.getElementById('gift-location-wrapper');
     const imagesButton = document.getElementById('gift-images-button');
     const imagesInput = document.getElementById('images');
+    const imagesError = document.getElementById('gift-images-error');
     const existingImagesInput = document.getElementById('gift-existing-images');
     const featuredImageIndexInput = document.getElementById('featured_image_index');
     const previewContainer = document.getElementById('image-previews');
@@ -26,6 +27,9 @@ document.addEventListener('DOMContentLoaded', function() {
     let selectedImages = [];
     let featuredImageIndex = 0;
     let applyTermsFilter = function() {};
+    let preparingSubmission = false;
+    let readyForSubmission = false;
+    let existingImagesPromise = Promise.resolve();
 
     // Show address input only when "Annan adress" is selected.
     function toggleAddressField() {
@@ -236,6 +240,84 @@ document.addEventListener('DOMContentLoaded', function() {
 
         loadingOverlay.setAttribute('aria-hidden', 'false');
         document.body.classList.add('loopis-form-loading-active');
+    }
+
+    function hideLoadingOverlay() {
+        if (loadingOverlay) {
+            loadingOverlay.setAttribute('aria-hidden', 'true');
+        }
+        document.body.classList.remove('loopis-form-loading-active');
+    }
+
+    function loadImage(file) {
+        return new Promise(function(resolve, reject) {
+            const image = new Image();
+            const url = URL.createObjectURL(file);
+            image.onload = function() {
+                URL.revokeObjectURL(url);
+                resolve(image);
+            };
+            image.onerror = function() {
+                URL.revokeObjectURL(url);
+                reject(new Error('Could not decode image: ' + file.name));
+            };
+            image.src = url;
+        });
+    }
+
+    function canvasToJpeg(canvas, quality) {
+        return new Promise(function(resolve, reject) {
+            canvas.toBlob(function(blob) {
+                if (!blob || blob.type !== 'image/jpeg') {
+                    reject(new Error('Could not encode image as JPEG.'));
+                    return;
+                }
+                resolve(blob);
+            }, 'image/jpeg', quality);
+        });
+    }
+
+    async function prepareImage(file) {
+        const maxBytes = 200 * 1024;
+        const maxDimension = 1280;
+        const image = await loadImage(file);
+        const width = image.naturalWidth;
+        const height = image.naturalHeight;
+
+        if (!width || !height) {
+            throw new Error('Image has invalid dimensions: ' + file.name);
+        }
+
+        if (file.size <= maxBytes && Math.max(width, height) <= maxDimension &&
+            ['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
+            return file;
+        }
+
+        let scale = Math.min(1, maxDimension / Math.max(width, height));
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        if (!context || typeof canvas.toBlob !== 'function') {
+            throw new Error('Image preparation is not supported by this browser.');
+        }
+
+        for (let attempt = 0; attempt < 6; attempt += 1) {
+            canvas.width = Math.max(1, Math.round(width * scale));
+            canvas.height = Math.max(1, Math.round(height * scale));
+            context.fillStyle = '#fff';
+            context.fillRect(0, 0, canvas.width, canvas.height);
+            context.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+            for (const quality of [0.82, 0.70, 0.58]) {
+                const blob = await canvasToJpeg(canvas, quality);
+                if (blob.size <= maxBytes) {
+                    const name = file.name.replace(/\.[^.]+$/, '') + '.jpg';
+                    return new File([blob], name, { type: 'image/jpeg', lastModified: Date.now() });
+                }
+            }
+            scale *= 0.75;
+        }
+
+        throw new Error('Could not reduce image to the upload size limit: ' + file.name);
     }
 
     function getTermCheckboxes() {
@@ -521,11 +603,14 @@ document.addEventListener('DOMContentLoaded', function() {
         imagesInput.addEventListener('change', function() {
             const newFiles = Array.from(imagesInput.files || []);
             selectedImages = selectedImages.concat(newFiles).slice(0, maxImages);
+            if (imagesError) {
+                imagesError.hidden = true;
+            }
             refreshImageUI();
         });
 
         refreshImageUI();
-        preloadExistingImages();
+        existingImagesPromise = preloadExistingImages();
     }
 
     // Clear stale max-tag validation once the selection becomes valid again.
@@ -551,7 +636,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Submission guard: show loader once and block accidental double-click submits.
     if (form) {
-        form.addEventListener('submit', function(event) {
+        form.addEventListener('submit', async function(event) {
+            if (readyForSubmission) {
+                readyForSubmission = false;
+                return;
+            }
+
             const tagValid = syncTagCountMessage(true);
             const locationValid = syncLocationMessage(true);
 
@@ -560,13 +650,62 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            if (form.dataset.loadingShown === '1') {
+            if (preparingSubmission || form.dataset.loadingShown === '1') {
                 event.preventDefault();
                 return;
             }
 
+            event.preventDefault();
+            preparingSubmission = true;
             showLoadingOverlay();
-            form.dataset.loadingShown = '1';
+
+            try {
+                await existingImagesPromise;
+                if (selectedImages.length) {
+                    if (typeof DataTransfer === 'undefined') {
+                        throw new Error('This browser cannot prepare files for upload.');
+                    }
+                    const preparedImages = [];
+                    for (const file of selectedImages) {
+                        preparedImages.push(await prepareImage(file));
+                    }
+                    const transfer = new DataTransfer();
+                    preparedImages.forEach(function(file) {
+                        transfer.items.add(file);
+                    });
+                    imagesInput.files = transfer.files;
+                }
+
+                if (typeof form.requestSubmit !== 'function' || !submitButton) {
+                    throw new Error('This browser cannot submit the prepared form.');
+                }
+                if (imagesError) {
+                    imagesError.hidden = true;
+                }
+                form.dataset.loadingShown = '1';
+                readyForSubmission = true;
+                form.requestSubmit(submitButton);
+            } catch (error) {
+                console.error('Could not prepare gift form images:', error);
+                preparingSubmission = false;
+                readyForSubmission = false;
+                delete form.dataset.loadingShown;
+                hideLoadingOverlay();
+                if (imagesError) {
+                    imagesError.textContent = 'Bilderna kunde inte förberedas. Prova mindre bilder i JPG-format eller en annan webbläsare.';
+                    imagesError.hidden = false;
+                    imagesError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
         });
     }
+
+    window.addEventListener('pageshow', function(event) {
+        if (event.persisted && form) {
+            preparingSubmission = false;
+            readyForSubmission = false;
+            delete form.dataset.loadingShown;
+            hideLoadingOverlay();
+        }
+    });
 });

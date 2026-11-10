@@ -16,7 +16,7 @@ wp_enqueue_script(
     'loopis_gift_form_js',
     LOOPIS_THEME_URI . '/assets/js/gift-form.js',
     array(),
-    filemtime(LOOPIS_THEME_DIR . '/assets/js/gift-form.js'),
+    filemtime(LOOPIS_THEME_DIR . '/assets/js/gift-form.js') . '-image-upload-1',
     true
 );
 
@@ -452,7 +452,8 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
                 <label for="images">1⃣ Bilder</label>
                 <button type="button" id="gift-images-button">Lägg till bilder</button>
                 <input type="file" id="images" name="images[]" accept="image/*" multiple hidden>
-                <p class="description">Du kan lägga till 1-3 bilder. Den med ⭐ visas i listor.</p>
+                <p class="description">Du kan lägga till 1-3 bilder. Den med ⭐ visas i listor. Stora bilder förminskas automatiskt före uppladdning.</p>
+                <p id="gift-images-error" class="error" role="alert" hidden></p>
                 <div id="image-previews" aria-live="polite"></div>
             </div>
 
