@@ -16,7 +16,7 @@ wp_enqueue_script(
     'loopis_gift_form_js',
     LOOPIS_THEME_URI . '/assets/js/gift-form.js',
     array(),
-    filemtime(LOOPIS_THEME_DIR . '/assets/js/gift-form.js') . '-image-upload-1',
+    filemtime(LOOPIS_THEME_DIR . '/assets/js/gift-form.js'),
     true
 );
 
@@ -235,8 +235,8 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
 
         if ('' === trim($content_value)) {
             $gift_form_errors[] = 'Fyll i en beskrivning.';
-        } elseif ((function_exists('mb_strlen') ? mb_strlen(trim($content_value)) : strlen(trim($content_value))) < 10) {
-            $gift_form_errors[] = 'Beskrivningen måste vara minst 10 tecken.';
+        } elseif ((function_exists('mb_strlen') ? mb_strlen(trim($content_value)) : strlen(trim($content_value))) < 5) {
+            $gift_form_errors[] = 'Beskrivningen måste vara minst 5 tecken.';
         }
 
         if (count($selected_terms) < 1) {
@@ -269,6 +269,25 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
             $featured_image_index = min($featured_image_index, count($uploaded_files) - 1);
         }
 
+        $heic_extensions = array(
+            'heic'  => 'image/heic',
+            'heif'  => 'image/heif',
+            'heics' => 'image/heic-sequence',
+            'heifs' => 'image/heif-sequence',
+        );
+
+        foreach ($uploaded_files as $file) {
+            if (($file['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK) {
+                continue;
+            }
+
+            $extension = strtolower((string) pathinfo((string) ($file['name'] ?? ''), PATHINFO_EXTENSION));
+            if (isset($heic_extensions[$extension]) && !wp_image_editor_supports(array('mime_type' => $heic_extensions[$extension]))) {
+                $gift_form_errors[] = 'Servern kan inte behandla HEIC/HEIF-bilder. Konvertera bilden till JPG innan uppladdning.';
+                break;
+            }
+        }
+
         if (empty($gift_form_errors)) {
             // Bring in WP media/file helpers used by media_handle_sideload.
             require_once ABSPATH . 'wp-admin/includes/file.php';
@@ -276,8 +295,15 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
             require_once ABSPATH . 'wp-admin/includes/image.php';
 
             $attachment_ids = array();
-            $allowed_types = array('image/jpeg', 'image/png', 'image/webp');
-
+            $allowed_types = array(
+                'image/jpeg',
+                'image/png',
+                'image/webp',
+                'image/heic',
+                'image/heif',
+                'image/heic-sequence',
+                'image/heif-sequence',
+            );
             if ($gift_form_is_edit_mode) {
                 // Update existing post in edit mode.
                 $post_id = wp_update_post(array(
@@ -318,21 +344,25 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
                         continue;
                     }
 
-                    if (!in_array(($file['type'] ?? ''), $allowed_types, true)) {
-                        $gift_form_errors[] = 'Endast JPG, PNG och WebP är tillåtna.';
+                    $name_extension = strtolower((string) pathinfo((string) ($file['name'] ?? ''), PATHINFO_EXTENSION));
+                    $mime_type = strtolower((string) ($file['type'] ?? ''));
+                    $source_mime_type = $heic_extensions[$name_extension] ?? $mime_type;
+
+                    if (!in_array($source_mime_type, $allowed_types, true)) {
+                        $gift_form_errors[] = 'Endast JPG, PNG, WebP och HEIC/HEIF är tillåtna.';
                         continue;
                     }
 
                     // Rename uploaded files for easy post-scoped references: p[postID]-img-[slot].[ext]
                     $image_slot = (int) ($image_slot_map[$index] ?? ($index + 1));
-                    $mime_type = (string) ($file['type'] ?? '');
-                    $name_extension = strtolower((string) pathinfo((string) ($file['name'] ?? ''), PATHINFO_EXTENSION));
                     $image_extension = 'jpg';
 
-                    if ('image/png' === $mime_type || 'png' === $name_extension) {
+                    if ('image/png' === $source_mime_type || 'png' === $name_extension) {
                         $image_extension = 'png';
-                    } elseif ('image/webp' === $mime_type || 'webp' === $name_extension) {
+                    } elseif ('image/webp' === $source_mime_type || 'webp' === $name_extension) {
                         $image_extension = 'webp';
+                    } elseif (isset($heic_extensions[$name_extension])) {
+                        $image_extension = $name_extension;
                     }
 
                     $file['name'] = 'p' . (int) $post_id . '-img-' . $image_slot . '.' . $image_extension;
@@ -452,8 +482,7 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
                 <label for="images">1⃣ Bilder</label>
                 <button type="button" id="gift-images-button">Lägg till bilder</button>
                 <input type="file" id="images" name="images[]" accept="image/*" multiple hidden>
-                <p class="description">Du kan lägga till 1-3 bilder. Den med ⭐ visas i listor. Stora bilder förminskas automatiskt före uppladdning.</p>
-                <p id="gift-images-error" class="error" role="alert" hidden></p>
+                <p class="description">Du kan lägga till 1-3 bilder. Den med ⭐ visas i listor.</p>
                 <div id="image-previews" aria-live="polite"></div>
             </div>
 
@@ -465,7 +494,7 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
 
             <div class="form-row">
                 <label for="post_content">3⃣ Beskrivning</label>
-                <textarea id="post_content" name="post_content" placeholder="Skriv en beskrivning" rows="3" minlength="10" required><?php echo esc_textarea($content_value); ?></textarea>
+                <textarea id="post_content" name="post_content" placeholder="Skriv en beskrivning" rows="3" minlength="5" required><?php echo esc_textarea($content_value); ?></textarea>
                 <p class="description">Beskriv med mått, märke, färg, skick etc.</p>
             </div>
 

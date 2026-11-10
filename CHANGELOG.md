@@ -1,7 +1,7 @@
 # 📋 Changelog for "LOOPIS Theme"
 
 ## Unreleased
-- Resize and compress large gift-form images before upload to reduce server load and upload size.
+- Image uploads are now processed by our own mu-plugin `loopis-image-uploads.php`
 
 ## 1.08 (2026-11-03)
 - Tag filter added
