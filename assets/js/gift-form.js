@@ -490,7 +490,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         const blob = await response.blob();
-        const fallbackName = 'existing-image-' + String(index + 1) + '.jpg';
+        const fallbackName = 'existing-image-' + String(index + 1);
         const fileName = typeof image.name === 'string' && image.name ? image.name : fallbackName;
 
         return new File([blob], fileName, {

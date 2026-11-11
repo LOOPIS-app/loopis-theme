@@ -164,7 +164,10 @@ if ($gift_form_is_edit_mode && 'POST' !== strtoupper($_SERVER['REQUEST_METHOD'] 
         }
 
         $parsed_path = wp_parse_url($existing_image_url, PHP_URL_PATH);
-        $file_name = $parsed_path ? basename($parsed_path) : ('image-' . (int) $existing_image_id . '.jpg');
+        $attached_file = get_attached_file((int) $existing_image_id);
+        $file_name = $parsed_path
+            ? basename($parsed_path)
+            : ($attached_file ? basename($attached_file) : 'image-' . (int) $existing_image_id);
 
         $gift_form_existing_images[] = array(
             'url'  => esc_url_raw($existing_image_url),
@@ -187,7 +190,10 @@ if ($gift_form_is_edit_mode && empty($gift_form_existing_images)) {
         }
 
         $parsed_path = wp_parse_url($existing_image_url, PHP_URL_PATH);
-        $file_name = $parsed_path ? basename($parsed_path) : ('image-' . (int) $existing_image_id . '.jpg');
+        $attached_file = get_attached_file((int) $existing_image_id);
+        $file_name = $parsed_path
+            ? basename($parsed_path)
+            : ($attached_file ? basename($attached_file) : 'image-' . (int) $existing_image_id);
 
         $gift_form_existing_images[] = array(
             'url'  => esc_url_raw($existing_image_url),
@@ -283,7 +289,7 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
 
             $extension = strtolower((string) pathinfo((string) ($file['name'] ?? ''), PATHINFO_EXTENSION));
             if (isset($heic_extensions[$extension]) && !wp_image_editor_supports(array('mime_type' => $heic_extensions[$extension]))) {
-                $gift_form_errors[] = 'Servern kan inte behandla HEIC/HEIF-bilder. Konvertera bilden till JPG innan uppladdning.';
+                $gift_form_errors[] = 'Servern kan inte läsa HEIC/HEIF-bilder. Konvertera bilden till JPG innan uppladdning.';
                 break;
             }
         }
