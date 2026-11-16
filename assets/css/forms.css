@@ -83,6 +83,7 @@ li #reply-title { font-size: 0; margin: 0 !important; padding: 0; height: 0; bor
 #image-previews { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; min-width: 0; }
 #image-previews .image-preview-item { flex: 0 1 120px; min-width: 0; }
 #image-previews img { display: block; flex: 1 1 0; min-width: 0; width: 100%; max-width: 120px; aspect-ratio: 1 / 1; object-fit: cover; border: 3px solid white; }
+#image-previews .image-preview-fallback { display: grid; width: 100%; max-width: 120px; min-height: 120px; aspect-ratio: 1 / 1; place-items: center; overflow-wrap: anywhere; padding: 8px; background: #fff; border: 3px solid white; text-align: center; }
 #image-previews .image-preview-controls { display: flex; gap: 6px; justify-content: center; margin-top: 5px; }
 #image-previews .image-preview-controls button { background: #ffffff; border: 1px solid #ddd; border-radius: 50%; color: #333; display: inline-block; width: 32px; height: 32px; padding: 0; margin: 0; font-size: 14px !important; line-height: 32px; text-align: center; vertical-align: middle; }
 #image-previews .image-preview-controls .feature-button:not(.is-featured) { filter: grayscale(1); opacity: 0.85; }

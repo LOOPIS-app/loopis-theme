@@ -39,7 +39,7 @@ function action_forward(int $post_id) {
 	if ($featured_image) { set_post_thumbnail($new_post_id, $featured_image); }
 	
 	// Define meta keys to copy
-	$copied_meta_keys = array('created_via', 'wpum_post', 'image_2', 'location');
+	$copied_meta_keys = array('created_via', 'wpum_post', 'image_2', 'image_3', 'location');
 
 	// Copy specified metadata from the original post to the new post
 	$meta_data = get_post_meta($post_id);

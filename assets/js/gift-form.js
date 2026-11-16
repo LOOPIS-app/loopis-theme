@@ -146,6 +146,18 @@ document.addEventListener('DOMContentLoaded', function() {
             const controls = document.createElement('div');
             controls.className = 'image-preview-controls';
 
+            function showPreviewFallback() {
+                if (item.querySelector('.image-preview-fallback')) {
+                    return;
+                }
+
+                img.remove();
+                const fallback = document.createElement('span');
+                fallback.className = 'image-preview-fallback';
+                fallback.textContent = file.name;
+                item.insertBefore(fallback, controls);
+            }
+
             const featureButton = document.createElement('button');
             featureButton.type = 'button';
             featureButton.className = 'feature-button';
@@ -189,6 +201,8 @@ document.addEventListener('DOMContentLoaded', function() {
             reader.onload = function(event) {
                 img.src = event.target.result;
             };
+            reader.onerror = showPreviewFallback;
+            img.onerror = showPreviewFallback;
             reader.readAsDataURL(file);
         });
     }
@@ -476,7 +490,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         const blob = await response.blob();
-        const fallbackName = 'existing-image-' + String(index + 1) + '.jpg';
+        const fallbackName = 'existing-image-' + String(index + 1);
         const fileName = typeof image.name === 'string' && image.name ? image.name : fallbackName;
 
         return new File([blob], fileName, {
