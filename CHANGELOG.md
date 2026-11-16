@@ -1,7 +1,7 @@
 # 📋 Changelog for "LOOPIS Theme"
 
-## Unreleased
-- Image uploads are now processed by our own mu-plugin `loopis-image-uploads.php`
+## 1.09 (2026-11-16)
+- Image uploads are now processed by plugin "LOOPIS Content".
 
 ## 1.08 (2026-11-03)
 - Tag filter added

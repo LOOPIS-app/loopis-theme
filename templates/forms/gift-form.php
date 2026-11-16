@@ -331,7 +331,7 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
             if (is_wp_error($post_id)) {
                 $gift_form_errors[] = $post_id->get_error_message();
             } else {
-                // Build deterministic slot mapping so featured image is always img-1.
+                // Build deterministic slot mapping so the featured image is always slot 1.
                 $image_slot_map = array();
                 $next_image_slot = 2;
                 foreach ($uploaded_files as $upload_index => $file) {
@@ -359,7 +359,7 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
                         continue;
                     }
 
-                    // Rename uploaded files for easy post-scoped references: p[postID]-img-[slot].[ext]
+                    // Rename uploaded files for easy post-scoped references: p[postID]-[slot].[ext]
                     $image_slot = (int) ($image_slot_map[$index] ?? ($index + 1));
                     $image_extension = 'jpg';
 
@@ -371,7 +371,7 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
                         $image_extension = $name_extension;
                     }
 
-                    $file['name'] = 'p' . (int) $post_id . '-img-' . $image_slot . '.' . $image_extension;
+                    $file['name'] = 'p' . (int) $post_id . '-' . $image_slot . '.' . $image_extension;
 
                     $attachment_id = media_handle_sideload($file, $post_id);
                     if (is_wp_error($attachment_id)) {
