@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const imagesButton = document.getElementById('gift-images-button');
     const imagesInput = document.getElementById('images');
     const existingImagesInput = document.getElementById('gift-existing-images');
+    const imageSelectionInput = document.getElementById('gift-image-selection');
     const featuredImageIndexInput = document.getElementById('featured_image_index');
     const previewContainer = document.getElementById('image-previews');
     const termsRow = document.getElementById('gift-terms-row');
@@ -25,6 +26,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const submitButton = form ? form.querySelector('button[type="submit"][name="submit_gift_post"]') : null;
     let selectedImages = [];
     let featuredImageIndex = 0;
+    let imageProcessing = false;
+    let imageSyncFailed = false;
     let applyTermsFilter = function() {};
 
     // Show address input only when "Annan adress" is selected.
@@ -80,52 +83,76 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Rotate an image client-side and replace it in the selected image list.
-    function rotateImageLeft(index) {
-        const file = selectedImages[index];
-        if (!file) {
+    async function rotateImageLeft(index) {
+        const selected = selectedImages[index];
+        if (!selected || imageProcessing) {
             return;
         }
 
-        const reader = new FileReader();
-        reader.onload = function(readerEvent) {
-            const image = new Image();
-            image.onload = function() {
-                const canvas = document.createElement('canvas');
-                canvas.width = image.height;
-                canvas.height = image.width;
-
-                const context = canvas.getContext('2d');
-                if (!context) {
-                    return;
+        imageProcessing = true;
+        if (imagesButton) {
+            imagesButton.disabled = true;
+        }
+        try {
+            let file = selected.file;
+            if (!file) {
+                if (!selected.fullUrl) {
+                    throw new Error('Image URL unavailable');
                 }
+                const response = await fetch(selected.fullUrl, { credentials: 'same-origin' });
+                if (!response.ok) {
+                    throw new Error('Image fetch failed');
+                }
+                const blob = await response.blob();
+                file = new File([blob], selected.name, { type: blob.type });
+            }
+            await new Promise(function(resolve, reject) {
+                const reader = new FileReader();
+                reader.onload = function(readerEvent) {
+                    const image = new Image();
+                    image.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = image.height;
+                        canvas.height = image.width;
 
-                context.translate(0, canvas.height);
-                context.rotate(-Math.PI / 2);
-                context.drawImage(image, 0, 0);
-
-                canvas.toBlob(function(blob) {
-                    if (!blob) {
-                        return;
-                    }
-
-                    const rotatedFile = new File(
-                        [blob],
-                        file.name,
-                        {
-                            type: file.type || 'image/jpeg',
-                            lastModified: Date.now(),
+                        const context = canvas.getContext('2d');
+                        if (!context) {
+                            reject(new Error('Canvas unavailable'));
+                            return;
                         }
-                    );
 
-                    selectedImages[index] = rotatedFile;
-                    refreshImageUI();
-                }, file.type || 'image/jpeg', 0.92);
-            };
-
-            image.src = readerEvent.target.result;
-        };
-
-        reader.readAsDataURL(file);
+                        context.translate(0, canvas.height);
+                        context.rotate(-Math.PI / 2);
+                        context.drawImage(image, 0, 0);
+                        canvas.toBlob(function(blob) {
+                            if (!blob) {
+                                reject(new Error('Image rotation failed'));
+                                return;
+                            }
+                            const rotatedFile = new File([blob], file.name, {
+                                type: blob.type,
+                                lastModified: Date.now(),
+                            });
+                            const currentIndex = selectedImages.indexOf(selected);
+                            if (currentIndex !== -1) {
+                                selectedImages[currentIndex] = { file: rotatedFile, name: rotatedFile.name };
+                                refreshImageUI();
+                            }
+                            resolve();
+                        }, file.type || 'image/jpeg', 0.92);
+                    };
+                    image.onerror = function() { reject(new Error('Image decode failed')); };
+                    image.src = readerEvent.target.result;
+                };
+                reader.onerror = function() { reject(new Error('Image read failed')); };
+                reader.readAsDataURL(file);
+            });
+        } catch (error) {
+            window.alert('Bilden kunde inte roteras. Försök igen.');
+        } finally {
+            imageProcessing = false;
+            updateImagesButtonState(selectedImages);
+        }
     }
 
     // Render image previews and attach per-image control buttons.
@@ -197,29 +224,45 @@ document.addEventListener('DOMContentLoaded', function() {
             item.appendChild(controls);
             previewContainer.appendChild(item);
 
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                img.src = event.target.result;
-            };
-            reader.onerror = showPreviewFallback;
             img.onerror = showPreviewFallback;
-            reader.readAsDataURL(file);
+            if (file.file) {
+                const reader = new FileReader();
+                reader.onload = function(event) { img.src = event.target.result; };
+                reader.onerror = showPreviewFallback;
+                reader.readAsDataURL(file.file);
+            } else {
+                if (file.url) {
+                    img.src = file.url;
+                } else {
+                    showPreviewFallback();
+                }
+            }
         });
     }
 
     function syncInputFiles(files) {
         // Keep input.files aligned with the accumulated selections.
-        if (typeof DataTransfer === 'undefined') {
+        if (!imagesInput || !imageSelectionInput || typeof DataTransfer === 'undefined') {
+            imageSyncFailed = true;
             return;
         }
 
-        const transfer = new DataTransfer();
-
-        files.forEach(function(file) {
-            transfer.items.add(file);
-        });
-
-        imagesInput.files = transfer.files;
+        try {
+            const transfer = new DataTransfer();
+            const selection = files.map(function(image) {
+                if (image.file) {
+                    const index = transfer.files.length;
+                    transfer.items.add(image.file);
+                    return { upload: index };
+                }
+                return { id: image.id };
+            });
+            imagesInput.files = transfer.files;
+            imageSelectionInput.value = JSON.stringify(selection);
+            imageSyncFailed = false;
+        } catch (error) {
+            imageSyncFailed = true;
+        }
     }
 
     // Persist featured image index in hidden input for PHP handling.
@@ -475,53 +518,19 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             return parsed.filter(function(image) {
-                return image && typeof image.url === 'string' && image.url;
+                return image && Number.isInteger(image.id) && image.id > 0;
             });
         } catch (error) {
             return [];
         }
     }
 
-    // Convert an existing image URL into a File so the UI can handle it uniformly.
-    async function fileFromExistingImage(image, index) {
-        const response = await fetch(image.url, { credentials: 'same-origin' });
-        if (!response.ok) {
-            throw new Error('Could not fetch existing image.');
-        }
-
-        const blob = await response.blob();
-        const fallbackName = 'existing-image-' + String(index + 1);
-        const fileName = typeof image.name === 'string' && image.name ? image.name : fallbackName;
-
-        return new File([blob], fileName, {
-            type: blob.type || 'image/jpeg',
-            lastModified: Date.now(),
-        });
-    }
-
-    // Preload existing post images into the same preview/selection flow.
-    async function preloadExistingImages() {
+    // Keep existing attachments as references until their pixels are changed.
+    function preloadExistingImages() {
         const existingImages = getExistingImages().slice(0, maxImages);
-        if (!existingImages.length) {
-            return;
-        }
-
-        const preloaded = [];
-
-        for (let index = 0; index < existingImages.length; index += 1) {
-            try {
-                const file = await fileFromExistingImage(existingImages[index], index);
-                preloaded.push(file);
-            } catch (error) {
-                // Skip broken existing images and continue loading remaining images.
-            }
-        }
-
-        if (!preloaded.length) {
-            return;
-        }
-
-        selectedImages = preloaded;
+        selectedImages = existingImages.map(function(image) {
+            return { id: image.id, url: image.url, fullUrl: image.full_url, name: image.name };
+        });
         featuredImageIndex = 0;
         refreshImageUI();
     }
@@ -534,7 +543,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         imagesInput.addEventListener('change', function() {
             const newFiles = Array.from(imagesInput.files || []);
-            selectedImages = selectedImages.concat(newFiles).slice(0, maxImages);
+            selectedImages = selectedImages.concat(newFiles.map(function(file) {
+                return { file: file, name: file.name };
+            })).slice(0, maxImages);
             refreshImageUI();
         });
 
@@ -566,6 +577,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Submission guard: show loader once and block accidental double-click submits.
     if (form) {
         form.addEventListener('submit', function(event) {
+            if (imageProcessing || imageSyncFailed) {
+                event.preventDefault();
+                window.alert(imageProcessing ? 'Vänta tills bilden har roterats.' : 'Bilderna kunde inte förberedas. Ladda om sidan och försök igen.');
+                return;
+            }
             const tagValid = syncTagCountMessage(true);
             const locationValid = syncLocationMessage(true);
 

@@ -2,13 +2,7 @@
 **Theme providing frontend for LOOPIS.app/subsites**
 
 ## 💡 Status
-We are working on improving the Wordpress MultiSite experience.
-
-## 📋 Changelog
-See [CHANGELOG.md](CHANGELOG.md)
-
-## 💾 Installation
-Installation & updates are managed by plugin "LOOPIS Config".
+We are working on structuring the code and improving the UI.
 
 ## 👤 Contributors
-Johan Hagvil, Hubert Hilborn, Nils Larsson, Xiaoliang Gao
+Johan Hagvil, Hubert Hilborn, Nils Larsson, Xiaoliang Gao, Copilot

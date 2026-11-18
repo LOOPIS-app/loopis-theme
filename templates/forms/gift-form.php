@@ -11,6 +11,8 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
+require_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/gift-form-images.php';
+
 // Load form behavior script on page where form is included.
 wp_enqueue_script(
     'loopis_gift_form_js',
@@ -151,29 +153,6 @@ if ($gift_form_is_edit_mode && 'POST' !== strtoupper($_SERVER['REQUEST_METHOD'] 
         $custom_location_value = $location_value;
     }
 
-    $existing_image_ids = array_filter(array(
-        get_post_thumbnail_id($gift_form_edit_post_id),
-        (int) get_post_meta($gift_form_edit_post_id, 'image_2', true),
-        (int) get_post_meta($gift_form_edit_post_id, 'image_3', true),
-    ));
-
-    foreach ($existing_image_ids as $existing_image_id) {
-        $existing_image_url = wp_get_attachment_image_url((int) $existing_image_id, 'large');
-        if (!$existing_image_url) {
-            continue;
-        }
-
-        $parsed_path = wp_parse_url($existing_image_url, PHP_URL_PATH);
-        $attached_file = get_attached_file((int) $existing_image_id);
-        $file_name = $parsed_path
-            ? basename($parsed_path)
-            : ($attached_file ? basename($attached_file) : 'image-' . (int) $existing_image_id);
-
-        $gift_form_existing_images[] = array(
-            'url'  => esc_url_raw($existing_image_url),
-            'name' => sanitize_file_name($file_name),
-        );
-    }
 }
 
 if ($gift_form_is_edit_mode && empty($gift_form_existing_images)) {
@@ -185,18 +164,16 @@ if ($gift_form_is_edit_mode && empty($gift_form_existing_images)) {
 
     foreach ($existing_image_ids as $existing_image_id) {
         $existing_image_url = wp_get_attachment_image_url((int) $existing_image_id, 'large');
-        if (!$existing_image_url) {
-            continue;
-        }
-
-        $parsed_path = wp_parse_url($existing_image_url, PHP_URL_PATH);
+        $parsed_path = $existing_image_url ? wp_parse_url($existing_image_url, PHP_URL_PATH) : '';
         $attached_file = get_attached_file((int) $existing_image_id);
         $file_name = $parsed_path
             ? basename($parsed_path)
             : ($attached_file ? basename($attached_file) : 'image-' . (int) $existing_image_id);
 
         $gift_form_existing_images[] = array(
-            'url'  => esc_url_raw($existing_image_url),
+            'id'   => (int) $existing_image_id,
+            'url'  => $existing_image_url ? esc_url_raw($existing_image_url) : '',
+            'full_url' => esc_url_raw(wp_get_attachment_url((int) $existing_image_id) ?: ''),
             'name' => sanitize_file_name($file_name),
         );
     }
@@ -265,14 +242,27 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
             $uploaded_files = loopis_theme_hq_gift_form_normalize_files($_FILES['images']);
         }
 
-        if (empty($uploaded_files) && !$gift_form_is_edit_mode) {
-            $gift_form_errors[] = 'Lägg upp minst en bild.';
-        } elseif (count($uploaded_files) > 3) {
-            $gift_form_errors[] = 'Du kan ladda upp högst tre bilder.';
+        $allowed_image_ids = $gift_form_is_edit_mode ? array_values(array_filter(array_map('intval', array(
+            get_post_thumbnail_id($gift_form_edit_post_id),
+            get_post_meta($gift_form_edit_post_id, 'image_2', true),
+            get_post_meta($gift_form_edit_post_id, 'image_3', true),
+        )))) : array();
+        if ($gift_form_is_edit_mode) {
+            $original_image_ids = isset($_POST['gift_original_images'])
+                ? json_decode(wp_unslash($_POST['gift_original_images']), true)
+                : null;
+            if ($original_image_ids !== $allowed_image_ids) {
+                $gift_form_errors[] = 'Bilderna har ändrats under redigeringen. Ladda om sidan och försök igen.';
+            }
         }
-
-        if (!empty($uploaded_files)) {
-            $featured_image_index = min($featured_image_index, count($uploaded_files) - 1);
+        $image_selection = loopis_gift_validate_image_selection(
+            isset($_POST['gift_image_selection']) ? wp_unslash($_POST['gift_image_selection']) : null,
+            $allowed_image_ids,
+            $uploaded_files,
+            $featured_image_index
+        );
+        if (is_wp_error($image_selection)) {
+            $gift_form_errors[] = $image_selection->get_error_message();
         }
 
         $heic_extensions = array(
@@ -311,12 +301,7 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
                 'image/heif-sequence',
             );
             if ($gift_form_is_edit_mode) {
-                // Update existing post in edit mode.
-                $post_id = wp_update_post(array(
-                    'ID'           => $gift_form_edit_post_id,
-                    'post_title'   => $title_value,
-                    'post_content' => $content_value,
-                ), true);
+                $post_id = $gift_form_edit_post_id;
             } else {
                 // Create the post first; image and taxonomy data is attached after.
                 $post_id = wp_insert_post(array(
@@ -331,15 +316,18 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
             if (is_wp_error($post_id)) {
                 $gift_form_errors[] = $post_id->get_error_message();
             } else {
-                // Build deterministic slot mapping so the featured image is always slot 1.
+                // New uploads are named for their selected display slot.
                 $image_slot_map = array();
                 $next_image_slot = 2;
-                foreach ($uploaded_files as $upload_index => $file) {
-                    if ($upload_index === $featured_image_index) {
-                        $image_slot_map[$upload_index] = 1;
+                foreach ($image_selection as $selection_index => $item) {
+                    if ($selection_index === $featured_image_index) {
+                        $slot = 1;
                     } else {
-                        $image_slot_map[$upload_index] = $next_image_slot;
+                        $slot = $next_image_slot;
                         $next_image_slot++;
+                    }
+                    if (isset($item['upload'])) {
+                        $image_slot_map[$item['upload']] = $slot;
                     }
                 }
 
@@ -379,31 +367,48 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
                         continue;
                     }
 
-                    $attachment_ids[] = (int) $attachment_id;
+                    $attachment_ids[$index] = (int) $attachment_id;
                 }
 
-                if (empty($attachment_ids) && !$gift_form_is_edit_mode) {
-                    // Avoid orphan posts when all image uploads fail.
-                    wp_delete_post($post_id, true);
-                    $gift_form_errors[] = 'Ingen bild kunde sparas, så annonsen publicerades inte.';
-                } elseif (!empty($attachment_ids)) {
-                    // Set featured + extra images from freshly uploaded files.
-                    $featured_attachment_id = $attachment_ids[$featured_image_index] ?? $attachment_ids[0];
-                    $gallery_attachment_ids = array_values(array_filter(
-                        $attachment_ids,
-                        function($attachment_id) use ($featured_attachment_id) {
-                            return (int) $attachment_id !== (int) $featured_attachment_id;
+                if (empty($gift_form_errors) && $gift_form_is_edit_mode) {
+                    $current_image_ids = array_values(array_filter(array_map('intval', array(
+                        get_post_thumbnail_id($post_id),
+                        get_post_meta($post_id, 'image_2', true),
+                        get_post_meta($post_id, 'image_3', true),
+                    ))));
+                    if ($current_image_ids !== $allowed_image_ids) {
+                        $gift_form_errors[] = 'Bilderna har ändrats under redigeringen. Ladda om sidan och försök igen.';
+                    } else {
+                        $updated_post = wp_update_post(array(
+                            'ID'           => $post_id,
+                            'post_title'   => $title_value,
+                            'post_content' => $content_value,
+                        ), true);
+                        if (is_wp_error($updated_post)) {
+                            $gift_form_errors[] = $updated_post->get_error_message();
                         }
-                    ));
-
-                    set_post_thumbnail($post_id, $featured_attachment_id);
-
-                    if (!empty($gallery_attachment_ids[0])) {
-                        update_post_meta($post_id, 'image_2', $gallery_attachment_ids[0]);
                     }
+                }
 
-                    if (!empty($gallery_attachment_ids[1])) {
-                        update_post_meta($post_id, 'image_3', $gallery_attachment_ids[1]);
+                if (!empty($gift_form_errors)) {
+                    foreach ($attachment_ids as $attachment_id) {
+                        if (!wp_delete_attachment($attachment_id, true)) {
+                            error_log('LOOPIS gift form: could not clean up failed upload attachment ' . $attachment_id);
+                        }
+                    }
+                    if (!$gift_form_is_edit_mode && !wp_delete_post($post_id, true)) {
+                        error_log('LOOPIS gift form: could not delete failed post ' . $post_id);
+                    }
+                }
+
+                if (empty($gift_form_errors)) {
+                    $selected_image_ids = array();
+                    foreach ($image_selection as $item) {
+                        $selected_image_ids[] = isset($item['id']) ? $item['id'] : $attachment_ids[$item['upload']];
+                    }
+                    $image_result = loopis_gift_set_image_selection($post_id, $selected_image_ids, $featured_image_index);
+                    if (is_wp_error($image_result)) {
+                        $gift_form_errors[] = $image_result->get_error_message();
                     }
                 }
 
@@ -415,16 +420,6 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
                     $location_value = 0 === $selected_locker ? $custom_location_value : 'Skåpet';
                     update_post_meta($post_id, 'location', $location_value);
                     update_post_meta($post_id, 'locker_id', $selected_locker);
-
-                    // If new images were uploaded in edit mode, clear stale extra image meta.
-                    if (!empty($attachment_ids)) {
-                        if (empty($gallery_attachment_ids[0])) {
-                            delete_post_meta($post_id, 'image_2');
-                        }
-                        if (empty($gallery_attachment_ids[1])) {
-                            delete_post_meta($post_id, 'image_3');
-                        }
-                    }
 
                     $gift_form_success = true;
 
@@ -479,9 +474,11 @@ if ('POST' === strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') && isset($_POST['
     <form class="loopis-form" id="gift-form" action="" method="post" enctype="multipart/form-data">
         <?php wp_nonce_field('loopis_gift_form_action', 'loopis_gift_form_nonce'); ?>
         <input type="hidden" id="featured_image_index" name="featured_image_index" value="<?php echo esc_attr($featured_image_index); ?>">
+        <input type="hidden" id="gift-image-selection" name="gift_image_selection" value="">
         <?php if ($gift_form_is_edit_mode) : ?>
             <input type="hidden" name="edit_post_id" value="<?php echo esc_attr($gift_form_edit_post_id); ?>">
             <input type="hidden" id="gift-existing-images" value="<?php echo esc_attr(wp_json_encode($gift_form_existing_images)); ?>">
+            <input type="hidden" name="gift_original_images" value="<?php echo esc_attr(wp_json_encode(array_column($gift_form_existing_images, 'id'))); ?>">
         <?php endif; ?>
 
             <div class="form-row">
