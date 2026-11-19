@@ -25,7 +25,9 @@
 
 /* Form labels */
 .loopis-form label { color: var(--form-text); font-size: var(--form-label-size); font-weight: 600; display: block; }
-.loopis-form label:has(input[type="radio"]) { font-size: 22px; font-weight: 300; }
+.loopis-form label:has(input[type="radio"]) { font-size: 15px; font-weight: 300; }
+.loopis-form label:has(input[type="checkbox"]) { font-size: 16px;  font-weight: 300; display: block; margin-bottom: 10px; }
+.loopis-form input[type="checkbox"] { width: 16px; height: 16px; cursor: pointer; vertical-align: middle; }
 
 /* Form description */
 .loopis-form .description { color: var(--form-muted); font-size: 13px; font-style: italic; margin-top: -5px; display: block; }
