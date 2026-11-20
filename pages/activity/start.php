@@ -38,7 +38,7 @@ wp_enqueue_script('loopis-tabs', get_template_directory_uri() . '/assets/js/tabs
 
   <!-- POSTS -->
   <div id="tab-posts" class="tab-panel">
-    <p class="small">💡 Här ser du sakerna du har cirkulerat.</p>
+    <p class="small">💡 Här ser du dina annonser och paxningar.</p>
     <?php include_once __DIR__ . '/start-tabs/posts.php'; ?>
   </div>
 
@@ -56,7 +56,7 @@ wp_enqueue_script('loopis-tabs', get_template_directory_uri() . '/assets/js/tabs
   
   <!-- SETTINGS -->
   <div id="tab-settings" class="tab-panel">
-    <p class="small">💡 Här gör du inställningar för din aktivitet.</p>
+    <p class="small">💡 Här gör du inställningar för området.</p>
     <?php include_once __DIR__ . '/start-tabs/settings.php'; ?>
   </div>
 
