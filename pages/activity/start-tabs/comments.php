@@ -9,8 +9,6 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-// Get current user ID
-$user_ID = get_current_user_id();
 // Arguments
 $args = array(
     'user_id' => $user_ID,
