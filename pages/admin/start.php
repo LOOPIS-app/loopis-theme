@@ -38,10 +38,8 @@ if (!defined('ABSPATH')) {
     </p>
 </div>
 
-
-
 <!-- Locker -->
-<div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'pages/movement', $admin_url) ); ?>'">
+<div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'pages/locker', $admin_url) ); ?>'">
     <h5><i class="fas fa-walking"></i> Skåpet</h5>
     <hr>
     <p>
@@ -67,14 +65,18 @@ if (!defined('ABSPATH')) {
     </p>
 </div>
 
+<!-- Support -->
+<div class="wrapped link" style="min-width:250px; max-width: 500px;" onclick="location.href='<?php echo get_home_url( null, '/support' ); ?>'">
+    <h5>🛟 Support</h5>
+    <hr>
+    <p>
+        <?php include __DIR__ . '/panels/support.php'; ?>
+    </p>
+</div>
 
-<!-- Support Output -->
-<h3>🛟 Support</h3>
-<?php include __DIR__ . '/panels/support-output.php'; ?>
-
-<!-- Comments Output -->
+<!-- Comments-->
 <h3>🗨 Kommentarer</h3>
-<?php include __DIR__ . '/panels/comments-output.php'; ?>
+<?php include __DIR__ . '/panels/comments.php'; ?>
 
 <!-- Search Section -->
 <h3>🔍 Sök</h3>
@@ -88,6 +90,7 @@ if (!defined('ABSPATH')) {
 <h3>🛠 Mer</h3>
 <hr>
 <div class="span-list">
+    <span class="mega-link"><a href="<?php echo esc_url( add_query_arg('view', 'pages/settings-admin', $admin_url) ); ?>">⚙️ Inställningar</a></span>
     <span class="mega-link"><a href="<?php echo esc_url( add_query_arg('view', 'pages/inventory', $admin_url) ); ?>">📋 Inventering</a></span> 
     <span class="mega-link"><a href="<?php echo esc_url( add_query_arg('view', 'pages/collage', $admin_url) ); ?>">🖼 Kollage</a></span>
     <span class="mega-link"><a href="<?php echo esc_url( add_query_arg('view', 'pages/ledger', $admin_url) ); ?>">📕 Loggbok</a></span>
@@ -102,20 +105,12 @@ if (!defined('ABSPATH')) {
 <h5>😈 Webmaster</h5>
 <hr>
 <div class="span-list">
+    <span class="mega-link"><a href="<?php echo esc_url( add_query_arg('view', 'pages/settings-webmaster', $admin_url) ); ?>">⚙️ Inställningar</a></span>
     <span class="mega-link"><a href="<?php echo esc_url( add_query_arg('view', 'webmaster/test', $admin_url) ); ?>">💣 Testsida</a></span>
     <span class="mega-link"><a href="<?php echo esc_url( add_query_arg('view', 'pages/email-list', $admin_url) ); ?>">✉ Epost-adresser</a></span>
     <span class="mega-link"><a href="https://loopis.app/12845/?p=X">🎁 URL för post_id X</a></span>
     <span class="mega-link"><a href="https://loopis.app/12845/?author=X">👤 URL för user_id X</a></span>
     <span class="mega-link"><a href="<?php echo esc_url( admin_url() )?>">👩‍💻 Gå till WP-admin</a></span>
-</div>
-
-<!-- Settings -->
-<div class="wrapped link" onclick="location.href='<?php echo esc_url( add_query_arg('view', 'pages/settings', $admin_url) ); ?>'">
-    <h5>⚙ Inställningar</h5>
-    <hr>
-    <p>
-        <?php include __DIR__ . '/panels/settings.php'; ?>
-    </p>
 </div>
 
 </div>

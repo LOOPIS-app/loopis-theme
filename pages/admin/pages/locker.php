@@ -14,11 +14,12 @@ if (!defined('ABSPATH')) {
 
 <?php $admin_url = home_url('/admin/'); ?>
 
-<h1><i class="fas fa-walking"></i> Saker i rörelse</h1>
+<h1><i class="fas fa-walking"></i> Skåpet</h1>
 <hr>
 <p class="small">💡 Här ser du alla saker på väg att lämnas/hämtas.</p>
 
-<p>I början av varje månad: gör <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'pages/inventory', $admin_url) ); ?>">📋 Inventering</a></span> av saker i skåpet.
+<p>För att aktivera varning, gå till <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'pages/settings-admin', $admin_url) ); ?>">⚙️ Inställningar</a></span></p>
+<p>I början av varje månad: gör <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'pages/inventory', $admin_url) ); ?>">📋 Inventering</a></span></p>
 
 <?php
 // Extra functions

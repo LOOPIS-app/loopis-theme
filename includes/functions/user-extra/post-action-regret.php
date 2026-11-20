@@ -110,7 +110,7 @@ function action_regret(int $post_id) {
 	send_admin_notification_email('💔 Mottagaren har ångrat sig och... <br>❤ Du stod först i kön @' . $fetcher_name . ' ! <br>⌛ Du  bör hämta i skåpet inom 24 timmar. <br>🔓 Kod till skåpet: <b>' . $locker_code . '</b>', $post_id, 2, $fetcher); 
 	
 	// Leave comment by LOOPIS
-	add_admin_comment('💔 Mottagaren har ångrat sig men... <br>❤ ' . $fetcher_name . ' stod i kö och har nu paxat! ', $post_id, 2); 
+	add_admin_comment('<p class="book">💔 Mottagaren har ångrat sig men... <br>❤ ' . $fetcher_name . ' stod i kö och har nu paxat!</p>', $post_id, 2); 
 	} 
 		
 	}

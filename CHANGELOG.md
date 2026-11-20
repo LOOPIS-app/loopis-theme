@@ -1,5 +1,8 @@
 # 📋 Changelog for "LOOPIS Theme"
 
+## 1.09 (2026-11-16)
+- Image uploads are now processed by plugin "LOOPIS Content".
+
 ## 1.08 (2026-11-03)
 - Tag filter added
 - User mention plugin replaced

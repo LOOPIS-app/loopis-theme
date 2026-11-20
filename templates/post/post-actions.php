@@ -80,9 +80,13 @@ $locker_code = get_locker_code();
 			<p class="info">Tryck på knappen för att paxa.</p>
 		<?php endif;?>
 	<?php endif;?>
-	<?php if ( current_user_can('manager') || ( $current == $author && current_user_can('loopis_storage') ) ) :
-	include_once LOOPIS_THEME_DIR . '/templates/post/storage-booking.php';
-	endif; ?>
+
+	<?php if ( current_user_can('loopis_admin') ||  current_user_can('loopis_storage') ) : ?>
+		<div class="admin-block">
+		<?php include_once LOOPIS_THEME_DIR . '/templates/links/admin-label.php'; ?>
+		<?php include_once LOOPIS_THEME_DIR . '/templates/post/storage-booking.php'; ?>
+		</div>
+	<?php endif; ?>
 	
 <?php endif;?>
 
@@ -92,17 +96,18 @@ $locker_code = get_locker_code();
 
 	<p>📦 Denna annons ligger i lager. Kan bara paxas och hämtas på ett event.</p>
 
-	<?php if ( current_user_can('loopis_storage') || $current == $author ) :
-	include_once LOOPIS_THEME_DIR . '/templates/post/storage-booking.php';
-	endif; ?>
-	
-	<?php if ( current_user_can('administrator') || current_user_can('manager') ) : ?>
+	<?php if ( current_user_can('loopis_admin') ||  current_user_can('loopis_storage') ) : ?>
+		<div class="admin-block">
+		<?php include_once LOOPIS_THEME_DIR . '/templates/links/admin-label.php'; ?>
+		<?php include_once LOOPIS_THEME_DIR . '/templates/post/storage-booking.php'; ?>
 		<?php include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-action-storage.php'; ?>
+
 		<?php if(isset($_POST['publish_storage'])) { admin_action_publish_storage ($post_id); } ?>
 		<form method="post" action=""><button name="publish_storage" type="submit" class="small" onclick="return confirm('Publiera som ny annons?')">Publicera</button></form>
 		<p class="info">Vill du publicera annonsen? Tryck på knappen.</p>
+		</div>
 	<?php endif; ?>
-	
+
 <?php endif;?>
 
 

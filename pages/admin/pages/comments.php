@@ -30,10 +30,10 @@ $comments = $wpdb->get_results(
 $count = count($comments);
 ?>
 
-<h3>🗨 Senaste femtio</h3>
+<h3>👤 Senaste femtio</h3>
 <div class="columns">
     <div class="column1">↓ <?php echo $count; ?> kommentarer</div>
-    <div class="column2 small"><a href="<?php echo esc_url( add_query_arg('view', 'pages/comments-actions', $admin_url) ); ?>">→ Se händelser</a></div>
+    <div class="column2 small"><a href="<?php echo esc_url( add_query_arg('view', 'pages/actions', $admin_url) ); ?>">→ Se händelser</a></div>
 </div>
 <hr>
 
