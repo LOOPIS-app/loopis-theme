@@ -91,6 +91,8 @@ if (!defined('ABSPATH')) {
     <span class="mega-link"><a href="<?php echo esc_url( add_query_arg('view', 'pages/inventory', $admin_url) ); ?>">📋 Inventering</a></span> 
     <span class="mega-link"><a href="<?php echo esc_url( add_query_arg('view', 'pages/collage', $admin_url) ); ?>">🖼 Kollage</a></span>
     <span class="mega-link"><a href="<?php echo esc_url( add_query_arg('view', 'pages/ledger', $admin_url) ); ?>">📕 Loggbok</a></span>
+    <span class="mega-link"><a href="<?php echo esc_url( add_query_arg('view', 'pages/tips', $admin_url) ); ?>">💡 Tips</a></span>
+    <span class="mega-link"><a href="<?php echo esc_url( add_query_arg('view', 'pages/mail', $admin_url) ); ?>">💌 Mail</a></span>
     <span class="mega-link"><a href="<?php echo esc_url( add_query_arg('view', 'pages/access', $admin_url) ); ?>">🚧 Tillgång</a></span>
 </div>
 

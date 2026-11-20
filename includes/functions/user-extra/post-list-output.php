@@ -229,7 +229,35 @@ HTML;
         </form>
 HTML;
 
+    }elseif ($url_slug === 'mail_tips') {
+    $taxonomy = 'admin-tag';
+    $term = get_term_by('slug', 'mail_tips', $taxonomy);
+    $button_name = 'toggle_mail_tips' . $post_id;
+
+    if (!$term || is_wp_error($term)) {
+        return;
     }
+    if (isset($_POST[$button_name])) {
+        check_admin_referer('toggle_mail_tips_' . $post_id);
+
+        if (current_user_can('edit_post', $post_id)) {
+            if (has_term($term->term_id, $taxonomy, $post_id)) {
+                wp_remove_object_terms($post_id, $term->term_id, $taxonomy);
+            } else {
+                wp_set_object_terms($post_id, [$term->term_id], $taxonomy, true);
+            }
+        }
+    }
+    $has_mail_tips = has_term($term->term_id, $taxonomy, $post_id);
+    $button_label = $has_mail_tips ? 'Ta bort från mailutskicket?' : 'Lägg till i mailutskicket?';
+    $button_emoji = $has_mail_tips ? '❌' : '✅';
+    echo '<form method="post" class="arb" action="">';
+    wp_nonce_field('toggle_mail_tips_' . $post_id);
+    echo '<button name="' . esc_attr($button_name) . '" type="submit" class="notif-button small grey"'
+        . ' aria-label="' . esc_attr($button_label) . '"'
+        . ' title="' . esc_attr($button_label) . '">'. $button_emoji.'</button>';
+    echo '</form>';
+}
 }
 
 /** 
