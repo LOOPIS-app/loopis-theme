@@ -3,7 +3,7 @@
  * Functions for outputting lists of user posts.
  *
  * Included in:
- * pages/activity/posts-booked.php + posts-booked.php + posts-submitted.php
+ * pages/activity/posts-booked.php + posts-fetched.php + posts-submitted.php
  */
  
 if (!defined('ABSPATH')) {
@@ -65,6 +65,7 @@ function list_header_output($url_slug) {
 * Output instruction
 */	
 function list_instruction_output($url_slug, $count) {
+    global $user_ID; // Needed only for counting old posts that can be paused
     $url_slug = sanitize_text_field($url_slug);
 
     switch ($url_slug) {
@@ -101,13 +102,31 @@ function list_instruction_output($url_slug, $count) {
 
         case 'paused':
             echo '<p class="small">💡 Här är dina pausade annonser.</p>';
-            echo '<p>Pausade annonser visas inte på LOOPIS och kan inte paxas.</p>';
-            echo '<p>Tryck på <span class="label">🟢</span> för att aktivera en annons igen.</p>';
-            echo '<p>Tryck på <span class="label">❌</span> för att ta bort en annons som inte är aktuell längre.</p>';
-
-            if ($count > 2) {
-                if (isset($_POST['unpause_ads'])) { action_unpause_all(get_current_user_id()); }
-                echo '<form method="post" class="arb" action=""><button name="unpause_ads" type="submit" class="small" onclick="return confirm(\'Vill du aktivera alla annonser?\')">Aktivera alla</button></form><p class="info">Tryck på knappen för att aktivera alla dina pausade annonser.</p>';
+            echo '<p>Ska du resa bort? Här kan du tillfälligt pausa dina annonser som är <span class="label">🟢 Först till kvarn</span></p>';
+            echo '<p>Annonser som redan är paxade eller väntar på lottning kan inte pausas.</p>';
+            // Output for paused ads
+            if ($count > 0) {
+                echo '<p>Tryck på <span class="label">🟢</span> för att aktivera en annons igen.</p>';
+                echo '<p>Tryck på <span class="label">❌</span> för att ta bort en annons som inte är aktuell längre.</p>';
+                if ($count > 2) {
+                    if (isset($_POST['unpause_ads'])) { action_unpause_all(get_current_user_id()); }
+                    echo '<form method="post" class="arb" action=""><button name="unpause_ads" type="submit" class="small" onclick="return confirm(\'Vill du aktivera alla annonser?\')">Aktivera alla</button></form><p class="info">Tryck på knappen för att aktivera alla dina pausade annonser.</p>';
+                }
+            }
+            // Count old posts that can be paused
+            $args = array(
+                'author'     => $user_ID,
+                'post_type'  => 'post',
+                'cat'        => loopis_cats(['old']), 
+                'posts_per_page' => -1,
+                );
+            $the_query = new WP_Query($args);
+            $count_posts_old = $the_query->found_posts;
+            // Count for old posts
+            if ($count_posts_old > 0) {
+                if (isset($_POST['pause_ads'])) { action_pause_all($user_ID); }
+                echo '<form method="post" class="arb" action=""><button name="pause_ads" type="submit" class="yellow small" onclick="return confirm(\'Vill du pausa ' . $count_posts_old . ' annonser?\')">Pausa ' . $count_posts_old . ' annonser</button></form>';
+                echo '<p class="info">Tryck på knappen för att pausa ' . $count_posts_old . ' aktiva annonser.</p>';
             }
             break;
 

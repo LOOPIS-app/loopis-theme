@@ -17,14 +17,14 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
+// Get current user ID
+$user_ID = isset($_GET['id']) ? sanitize_text_field($_GET['id']) : wp_get_current_user()->ID;
+
 // Include post list output functions
 include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-list-output.php';
 
 // Include sql-pagination functionality
 include_once LOOPIS_THEME_DIR . '/templates/post-list/pagination-sql.php';
-
-// Get current user ID
-$user_ID = isset($_GET['id']) ? sanitize_text_field($_GET['id']) : wp_get_current_user()->ID;
 
 // Is current user watching their own list?
 if (intval($user_ID)===intval(wp_get_current_user()->ID)){
