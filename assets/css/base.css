@@ -61,7 +61,7 @@ a.no-link-styling:visited,
 a.no-link-styling:active { color: inherit !important; text-decoration: none !important; }
 .link:hover { background: #ebebeb; cursor: pointer; } /* Used when making divs clickable */
 .blue { color: #1e73be; }
-button.link-style { color: #1e73be; background: none !important; font: inherit; border: 0; padding: 0; }
+button.link-style {   appearance: none;   border: 0;   padding: 0;   background: none;   color: #06c;    font: inherit;   cursor: pointer;}
 button.link-style:hover { color: #180770!important; background: none !important; }
 
 /* Paragraph */
