@@ -101,18 +101,7 @@ function list_instruction_output($url_slug, $count) {
             break;
 
         case 'paused':
-            echo '<p class="small">💡 Här är dina pausade annonser.</p>';
-            echo '<p>Ska du resa bort? Här kan du tillfälligt pausa dina annonser som är <span class="label">🟢 Först till kvarn</span></p>';
-            echo '<p>Annonser som redan är paxade eller väntar på lottning kan inte pausas.</p>';
-            // Output for paused ads
-            if ($count > 0) {
-                echo '<p>Tryck på <span class="label">🟢</span> för att aktivera en annons igen.</p>';
-                echo '<p>Tryck på <span class="label">❌</span> för att ta bort en annons som inte är aktuell längre.</p>';
-                if ($count > 2) {
-                    if (isset($_POST['unpause_ads'])) { action_unpause_all(get_current_user_id()); }
-                    echo '<form method="post" class="arb" action=""><button name="unpause_ads" type="submit" class="small" onclick="return confirm(\'Vill du aktivera alla annonser?\')">Aktivera alla</button></form><p class="info">Tryck på knappen för att aktivera alla dina pausade annonser.</p>';
-                }
-            }
+            echo '<p class="small">💡 Här kan du tillfälligt pausa dina annonser.</p>';
             // Count old posts that can be paused
             $args = array(
                 'author'     => $user_ID,
@@ -122,11 +111,23 @@ function list_instruction_output($url_slug, $count) {
                 );
             $the_query = new WP_Query($args);
             $count_posts_old = $the_query->found_posts;
-            // Count for old posts
+            // Button for old posts
             if ($count_posts_old > 0) {
+                $amount_old = $count_posts_old > 1 ? 'annonser' : 'annons';
+                echo '<p>Du har ' . $count_posts_old . ' ' . $amount_old . ' som är <span class="label">🟢 Först till kvarn</span> och kan pausas.</p>';
                 if (isset($_POST['pause_ads'])) { action_pause_all($user_ID); }
-                echo '<form method="post" class="arb" action=""><button name="pause_ads" type="submit" class="yellow small" onclick="return confirm(\'Vill du pausa ' . $count_posts_old . ' annonser?\')">Pausa ' . $count_posts_old . ' annonser</button></form>';
-                echo '<p class="info">Tryck på knappen för att pausa ' . $count_posts_old . ' aktiva annonser.</p>';
+                echo '<form method="post" class="arb" action=""><button name="pause_ads" type="submit" class="yellow small" onclick="return confirm(\'Vill du pausa ' . $count_posts_old . ' ' . $amount_old . '?\')">Pausa ' . $count_posts_old . ' ' . $amount_old . '</button></form>';
+                echo '<p class="info">Tryck på knappen för att pausa ' . $count_posts_old . ' ' . $amount_old . '.</p>';
+            }
+            // Button for paused ads
+            if ($count > 0) {
+                $amount = $count > 1 ? 'annonser' : 'annons';
+                echo '<p>Du har ' . $count . ' ' . $amount . ' som är <span class="label">😎 Pausad</span> och kan aktiveras.</p>';            
+                if (isset($_POST['unpause_ads'])) { action_unpause_all(get_current_user_id()); }
+                echo '<form method="post" class="arb" action=""><button name="unpause_ads" type="submit" class="small" onclick="return confirm(\'Vill du aktivera ' . $count . ' ' . $amount . '?\')">Aktivera ' . $count . ' ' . $amount . '</button></form>';
+                echo '<p class="info">Tryck på knappen för att aktivera ' . $count . ' ' . $amount . '.</p>';
+                echo '<p>Tryck på <span class="label">🟢</span> för att aktivera en annons igen.</p>';
+                echo '<p>Tryck på <span class="label">❌</span> för att ta bort en annons som inte är aktuell längre.</p>';
             }
             break;
 
