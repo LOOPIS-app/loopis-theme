@@ -2,7 +2,7 @@
 /**
  * Posts tab.
  * 
- * Showing all posts for the current user.
+ * Summary of all posts submitted and booked by the current user.
  */
 
 if (!defined('ABSPATH')) {
@@ -11,9 +11,6 @@ if (!defined('ABSPATH')) {
 
 // Count function
 include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-list-counts.php';
-
-// Get current user iD
-$user_id = get_current_user_id();
 
 // Count all posts published by user
 $user_post_count = user_post_count($user_id);
@@ -31,9 +28,6 @@ $count_posts_disappeared = $user_post_count['count_posts_disappeared'];
 $count_others_claimed = $user_post_count['count_others_claimed'];
 $count_others_booked = $user_post_count['count_others_booked'];
 $count_others_fetched = $user_post_count['count_others_fetched'];
-
-// Set activity URL for user posts
-$activity_url = home_url('/activity/');
 ?>
 
 <!-- Output user posts summary -->

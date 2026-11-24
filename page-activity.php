@@ -13,6 +13,9 @@ get_header(); ?>
         // Dynamic content loader
         $content_dir = get_template_directory() . '/pages/activity/';
 
+        // Set reusable base URL
+        $activity_url = home_url('/activity/');
+
         // Get 'view' parameter from URL (default to 'start')
         $content_name = isset($_GET['view']) ? sanitize_file_name($_GET['view']) : 'start';
         

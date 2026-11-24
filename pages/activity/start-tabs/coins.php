@@ -8,9 +8,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-// Get current user iD
-$user_id = get_current_user_id();
-
 // Get profile economy
 $profile_economy = loopis_ledger_economy($user_id);
 $payments_membership = $profile_economy['payments_membership'];
