@@ -7,7 +7,7 @@
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
-
+$admin_url = home_url('/admin/');
 // Include post list output functions
 include_once LOOPIS_THEME_DIR . '/includes/functions/user-extra/post-list-output.php';
 
@@ -70,7 +70,9 @@ if (isset($_GET['empty_mail_tips'])) {
 <h1> 💡 Möjliga tips</h1>
 <hr>
 <p>Här kan du lägga till tips till mailutskicket!</p>
-
+    <p><span class="mega-link"><a href="<?php echo esc_url( add_query_arg('view', 'pages/mail', $admin_url) ); ?>">
+        Skicka mejlet med dina tips!
+    </a></span></p>
 <?php get_template_part('templates/forms/search-form-sql'); ?>
 <div class="columns">
     <div class="column1">↓<?php if ($count !== 1) { echo $offset." -";} ?><?php echo " ".($offset+$count); ?><?php echo " av " . $total . " totalt"; ?></div>

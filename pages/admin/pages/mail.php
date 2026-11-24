@@ -7,6 +7,8 @@
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
+$admin_url = home_url('/admin/');
+require_once LOOPIS_THEME_DIR . '/includes/functions/admin-extra/update-setting.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mail-test'])) {
     if (
@@ -41,38 +43,75 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mail-test'])) {
     wp_safe_redirect(add_query_arg('mail_sent', '1', wp_get_referer()));
     exit;
 }
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mail-save'])) {
+    if (
+        !current_user_can('manage_options') ||
+        !isset($_POST['send_mail_nonce']) ||
+        !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['send_mail_nonce'])), 'send_mail')
+    ) {
+        wp_die('You are not allowed to save this email.');
+    }
 
+    $message = sanitize_textarea_field(wp_unslash($_POST['message'] ?? ''));
+    $subject = sanitize_text_field(wp_unslash($_POST['subject'] ?? ''));
 
-$message = $_POST['message'] ?? "Full fart på LOOPIS! Kolla om det finns något du behöver.\n\n PS. Vill du delta i den stora klimatdemonstrationen i Stockholm på lördag? Mer info på LOOPIS.app \n\n ↓ Tips på nya annonser";
-$subject = $_POST['subject'] ?? "LOOPIS - Veckans tips!";
+    loopis_update_setting('mail_tips_subject',$subject);
+
+    loopis_update_setting('mail_tips_message',$message);
+  
+    // Redirect so refreshing the result page won't resubmit the form.
+    wp_safe_redirect(add_query_arg('mail_sent', '0', wp_get_referer()));
+    exit;
+}
+
+$unsubscribed_ids = get_option('unsubscribed_mail_ids', []);
+$unsubscribed_ids = is_array($unsubscribed_ids)
+    ? array_map('absint', $unsubscribed_ids)
+    : [];
+
+$query = new WP_User_Query([
+    'blog_id'     => get_current_blog_id(),
+    'exclude'     => $unsubscribed_ids,
+    'count_total' => true,
+    'fields'      => 'ID',
+]);
+
+$user_count = $query->get_total();
+
+$message = $_POST['message'] ?? loopis_get_setting('mail_tips_message');
+$subject = $_POST['subject'] ?? loopis_get_setting('mail_tips_subject');
 ?>
-   <h1>Mail</h1>
-    <p>Skriv, se och skicka ett tipsmail</p>
-
-    <form id="email-form" method="post">
+   <h1>💌 Skicka tipsmail</h1>
+   <hr>
+    <p class="small">💡Skriv, se och skicka ett tipsmail</p>
+    <p><span class="mega-link"><a href="<?php echo esc_url( add_query_arg('view', 'pages/tips', $admin_url) ); ?>">
+        Markera tipsannonser till mejlet!
+    </a></span></p>
+    <div class="loopis-form-wrapper">
+    <form id="email-form" class="loopis-form" method="post">
         <input type="hidden" name="mail_send_token"value="<?php echo esc_attr(wp_generate_uuid4()); ?>">
         <?php wp_nonce_field('send_mail', 'send_mail_nonce'); ?>
-        <h5>Mottagare</h5>
+        <label>Mottagare</label>
         <select id="recipients" name="recipients">
-            <option value="0">Test</option>
-            <option value="1">Användare</option>
+            <option value="0">Du</option>
+            <option value="1">Användare(<?php echo esc_textarea($user_count); ?> Personer)</option>
         </select>
 
-        <h5>Ämnesrad</h5>
-        <input id="subject" name="subject" value="<?php echo esc_textarea($subject); ?>" required maxlength="150">
-        <p class="hint"></p>
+        <label>Ämnesrad</label>
+        <input type="text" id="subject" name="subject" value="<?php echo esc_textarea($subject); ?>" required maxlength="150"> 
 
-        <h5>Medelande</h5>
+        <label>Medelande</label>
         <textarea id="message" name="message" style="height: 500px ; width: 400px ;" value="" required><?php echo esc_textarea($message); ?></textarea>
-        <p class="hint"></p>
 
         <div class="actions">
             <button type="button" id="preview-button">Förhandsvisa</button>
-            <button type="submit" id="mail-test" name="mail-test" value="1">Mail-test</button>
+            <button type="submit" class="blue" id="mail-test" name="mail-save" value="0">Spara</button>
+            <button type="submit" class="red" id="mail-test" name="mail-test" value="1">Skicka</button>
         </div>
 
         <p class="status" id="status" role="status" aria-live="polite"></p>
     </form>
+    </div>
 
     <section class="preview" id="preview" aria-labelledby="preview-heading" hidden>
         <h2 id="preview-heading">Mejl Förhandsvisning</h2>
@@ -155,4 +194,17 @@ $subject = $_POST['subject'] ?? "LOOPIS - Veckans tips!";
         document.querySelector("#preview-heading").focus();
     });
 
+document.getElementById('email-form').addEventListener('submit', function (event) {
+    const recipients = document.getElementById('recipients');
+    const button = event.submitter;
+    if (button?.value === "1") {
+        const message = recipients.value === '0'
+            ? 'Skicka till dig själv?'
+            : 'Skicka till <?php echo esc_js($user_count); ?> användare?';
+
+        if (!confirm(message)) {
+            event.preventDefault();
+        }
+    }
+});
   </script>

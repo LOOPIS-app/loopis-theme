@@ -17,13 +17,11 @@ get_header(); ?>
         $activity_url = home_url('/activity/');
 
         // Get 'view' parameter from URL (default to 'start')
-        $content_name = isset($_GET['view']) ? sanitize_file_name($_GET['view']) : 'start';
-        
-        // Additional sanitization - only allow alphanumeric, dash, underscore
-        $content_name = preg_replace('/[^a-zA-Z0-9_-]/', '', $content_name);
-        
-        // Prevent empty string after sanitization
-        if (empty($content_name)) {
+        $raw_view = $_GET['view'] ?? $_POST['view'] ?? 'start';
+        $content_name = sanitize_file_name( wp_unslash( $raw_view ) );
+        $content_name = preg_replace( '/[^a-zA-Z0-9_-]/', '', $content_name );
+
+        if ( $content_name === '' ) {
             $content_name = 'start';
         }
         

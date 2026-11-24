@@ -78,3 +78,24 @@ add_filter( 'the_author', function ( $display_name ) {
 
     return $display_name;
 } );
+add_action( 'admin_post_loopis_save_mail_settings', 'loopis_save_mail_settings' );
+
+function loopis_save_mail_settings() {
+    if ( ! is_user_logged_in() ) {
+        wp_die( 'You must be logged in.' );
+    }
+
+    check_admin_referer( 'loopis_mail_settings', 'loopis_mail_settings_nonce' );
+
+    $user_id = get_current_user_id();
+
+    if ( isset( $_POST['tips'] ) && 'yes' === sanitize_text_field( wp_unslash( $_POST['tips'] ) ) ) {
+        loopis_resubscribe_user( $user_id );
+    } else {
+        loopis_unsubscribe_user( $user_id );
+    }
+
+    // Return to the settings view on this site.
+    wp_safe_redirect( home_url( '/activity/?view=settings-subsite&saved=1' ) );
+    exit;
+}

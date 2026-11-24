@@ -121,6 +121,16 @@ get_header(); ?>
     $the_query = new WP_Query($args);
     $count_total = $the_query->found_posts;
     $count_old = $count_total - $count_new;
+    // Show unsubscribe confirmation after redirect.
+    $unsubscribe_notice = isset( $_GET['mail_unsubscribed'] )
+        ? sanitize_text_field( wp_unslash( $_GET['mail_unsubscribed'] ) )
+        : '';
+
+    if ( '1' === $unsubscribe_notice ) {
+        echo '<div class="loopis-message success" role="status">';
+        echo '<p>Du har tagits bort från maillistan.</p>';
+        echo '</div>';
+    }
     ?>
 
     <h1>🎁 Saker att få</h1>
