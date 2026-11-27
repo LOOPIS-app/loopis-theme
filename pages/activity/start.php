@@ -13,9 +13,6 @@ wp_enqueue_script('loopis-tabs', get_template_directory_uri() . '/assets/js/tabs
 
 <h1>👤 Min aktivitet</h1>
 
-<!-- VARIABLER -->
-<?php $user_id = get_current_user_id(); ?>
-
 <!-- Tab Navigation -->
 <div class="tab-nav">
   <nav class="tab-navbar">

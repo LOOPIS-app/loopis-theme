@@ -81,7 +81,7 @@ if (!defined('ABSPATH')) {
 <hr>
 <div class="span-list">
     <span class="mega-link"><a href="<?php echo esc_url( add_query_arg('view', 'pages/search-post', $admin_url) ); ?>">🎁 Sök annons</a></span>
-    <span class="mega-link"><a href="<?php echo esc_url( add_query_arg('view', 'pages/search-user', $admin_url) ); ?>">👤 Sök användare</a></span>
+    <span class="mega-link"><a href="<?php echo esc_url( add_query_arg('view', 'pages/search-member', $admin_url) ); ?>">👤 Sök användare</a></span>
 </div>
 
 <!-- More Section -->

@@ -17,7 +17,7 @@ if (current_user_can('loopis_admin') || current_user_can('manage_options')) : ?>
             // Set reusable base URL
             $admin_url = home_url('/admin/');
 
-            // Get 'view' parameter from URL (default to 'panels' if not set)
+            // Get 'view' parameter from URL (default to 'start' if not set)
             $content_name = isset($_GET['view']) ? sanitize_text_field($_GET['view']) : 'start';
             
             // Additional sanitization - only allow alphanumeric, dash, underscore, and forward slash

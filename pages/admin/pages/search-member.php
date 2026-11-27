@@ -110,7 +110,7 @@ $count = count($search_results);
     <?php elseif (!empty($search_results)) : ?>
         <?php foreach ($search_results as $user) : ?>
           
-          <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-card.php'; ?>
+          <?php include LOOPIS_THEME_HQ_DIR . '/includes/output/user-data/user-card.php'; ?>
 
         <?php endforeach; ?>
     <?php else : ?>
