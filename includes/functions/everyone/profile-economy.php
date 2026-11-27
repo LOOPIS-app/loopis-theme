@@ -4,7 +4,7 @@
  *
  * Included for everyone in functions.php
  * 
- * Deprecated and to be removed.
+ * TODO: Deprecated and can be removed.
  * 
  */
  
