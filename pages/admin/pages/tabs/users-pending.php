@@ -34,7 +34,7 @@ $count = count($pending_users);
     <?php if (!empty($pending_users)) : ?>
         <?php foreach ($pending_users as $user) : ?>
           
-          <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-card.php'; ?>
+          <?php include LOOPIS_THEME_HQ_DIR . '/includes/output/user-data/user-card.php'; ?>
 
         <?php endforeach; ?>
     <?php else : ?>
