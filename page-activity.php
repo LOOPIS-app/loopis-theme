@@ -10,6 +10,9 @@ get_header(); ?>
         <!-- MEMBER ACCESS -->
         <?php if ( current_user_can('member') || current_user_can('loopis_locker') ) {
 
+        // Get current user ID
+        $user_id = get_current_user_id();
+
         // Dynamic content loader
         $content_dir = get_template_directory() . '/pages/activity/';
 

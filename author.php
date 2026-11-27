@@ -4,7 +4,7 @@
  *
  * Displays author profile and stats + extra info for admin.
  * 
- * TODO: Keep author pages on sub sites but make them different on main site? Both can have them.
+ * TODO: Maybe make author pages on sub sites different from main site?
  */
 
 get_header(); ?>
@@ -24,9 +24,9 @@ $last_name = get_user_meta($user_id, 'last_name', true);
 ?>
 
 <?php if (in_array('manager', $user->roles)): ?>
-<h1><img src="<?php echo LOOPIS_THEME_URI; ?>/assets/img/admin.png" alt="Admin" class="symbol"> <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-names.php'; ?></h1>
+<h1><img src="<?php echo LOOPIS_THEME_URI; ?>/assets/img/admin.png" alt="Admin" class="symbol"> <?php include LOOPIS_THEME_HQ_DIR . '/includes/output/user-data/user-names.php'; ?></h1>
 <?php else: ?>
-<h1>👤 <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-names.php'; ?></h1>
+<h1>👤 <?php include LOOPIS_THEME_HQ_DIR . '/includes/output/user-data/user-names.php'; ?></h1>
 <?php endif; ?>
 <hr>
 
@@ -54,8 +54,8 @@ $joined_date = date('Y-m-d',strtotime($profile_economy['joined_date']));
 if ($count_submitted !== 0) { $given_percentage = round(($count_given / $count_submitted) * 100); } else { $given_percentage = 0; }
 ?>
 
-<p>Blev medlem <span class="big-label">🎉 <?php echo $joined_date; ?></span></p>
-<p>Bor i postorten <span class="big-label">🗺 <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-city.php'; ?></span></p>
+<p>Blev medlem <span class="big-label">🎉 <?php include LOOPIS_THEME_HQ_DIR . '/includes/output/user-data/user-joined-date.php'; ?></span></p>
+<p>Bor i postorten <span class="big-label">🗺 <?php include LOOPIS_THEME_HQ_DIR . '/includes/output/user-data/user-postarea.php'; ?></span></p>
 <p>Loopar i området <span class="big-label">📍 <?php include LOOPIS_THEME_HQ_DIR . '/includes/output/user-data/user-primary-blog.php'; ?></span> &nbsp;</p>
 <?php if (in_array('manager', $user->roles)): ?><p>Har rollen <span class="big-link"><a href="<?php echo esc_url( add_query_arg('view', 'admin', home_url('/area/')) ); ?>"><img src="<?php echo LOOPIS_THEME_URI; ?>/assets/img/admin.png" alt="Admin" class="symbol"> Admin</a></span></p>
 <?php endif; ?>
@@ -71,7 +71,7 @@ if ($count_submitted !== 0) { $given_percentage = round(($count_given / $count_s
 </div><!-- wrapped -->
 
 <!--ADMIN LOG-->
-<?php if (current_user_can('manage_options') || current_user_can('loopis_admin')) { include LOOPIS_THEME_DIR . '/includes/output/user-data/user-summary.php'; } ?>
+<?php if (current_user_can('manage_options') || current_user_can('loopis_admin')) { include LOOPIS_THEME_HQ_DIR . '/includes/output/user-data/admin-summary.php'; } ?>
 
 <?php endif; ?>
 

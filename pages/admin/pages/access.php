@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
 <hr>
 <p>💡 Roller och användare med tillgång till adminpanelen.</p>
 
-<h3>🤓 Local admin (manager)</h3>
+<h3>🤓 Admin (manager)</h3>
 <hr>
 <p>
 <?php
@@ -48,14 +48,14 @@ foreach ($users as $user) {
 ?>
 </p>
 
-<h3>👽 WP-Admin (administrator)</h3>
+<h3>😈 WP-Admin (administrator)</h3>
 <hr>
 <p>
 <?php
 $users = get_users(array('role' => 'administrator'));
 foreach ($users as $user) {
     $author_link = get_author_posts_url($user->ID);
-    echo '<span class="big-link"><a href="' . esc_url($author_link) . '">👽 ' . esc_html($user->display_name) . '</a></span> &nbsp;';
+    echo '<span class="big-link"><a href="' . esc_url($author_link) . '">😈 ' . esc_html($user->display_name) . '</a></span> &nbsp;';
 }
 ?>
 </p>

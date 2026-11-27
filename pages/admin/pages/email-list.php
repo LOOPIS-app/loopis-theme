@@ -15,7 +15,6 @@ $available_roles = array(
     'member_earlier' => 'member_earlier',
     'member_pending' => 'member_pending',
     'member_archived' => 'member_archived',
-    'member_support' => 'member_support',
 );
 
 // Get selected roles from GET or default to all

@@ -1,5 +1,8 @@
 # 📋 Changelog for "LOOPIS Theme"
 
+## 1.10 (2026-11-27)
+- All files for user data output moved to mainsite.
+
 ## 1.09 (2026-11-16)
 - Image uploads are now processed by plugin "LOOPIS Content".
 

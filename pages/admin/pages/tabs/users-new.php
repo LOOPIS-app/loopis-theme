@@ -46,7 +46,7 @@ $count = count($new_users);
     <?php if (!empty($new_users)) : ?>
         <?php foreach ($new_users as $user) : ?>
             
-            <?php include LOOPIS_THEME_DIR . '/includes/output/user-data/user-card.php'; ?>
+            <?php include LOOPIS_THEME_HQ_DIR . '/includes/output/user-data/user-card.php'; ?>
 
         <?php endforeach; ?>
     <?php else : ?>
